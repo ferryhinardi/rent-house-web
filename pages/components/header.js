@@ -73,7 +73,7 @@ const MenuLinks = ({ isOpen }) => {
         pt={[4, 4, 0, 0]}
       >
         <MenuItem to="/">Why Ryna</MenuItem>
-        <MenuItem to="/how">About Us</MenuItem>
+        <MenuItem to="/about">About Us</MenuItem>
         <MenuItem to="/faetures">Rental Homes</MenuItem>
         <MenuItem to="/pricing">Partnership</MenuItem>
         <MenuItem to="/signin">Sign In</MenuItem>
