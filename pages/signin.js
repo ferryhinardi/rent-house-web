@@ -19,6 +19,7 @@ import {
   Alert,
   AlertIcon,
 } from "@chakra-ui/react";
+import GoogleLogin from "react-google-login";
 
 const LoginForm = () => {
   return (
@@ -56,17 +57,20 @@ const LoginForm = () => {
   );
 };
 
-const LoginWithSocialMediaForm = ({ successLoginSetter, errorLoginSetter }) => {
+const LoginWithFacebook = ({ successLoginSetter, errorLoginSetter }) => {
   const handleResponse = async (data) => {
-    const res = await fetch("http://localhost:9001/provider/facebook", {
-      body: JSON.stringify({
-        provider_token: data.tokenDetail.accessToken,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_HOST + "/provider/facebook"}`,
+      {
+        body: JSON.stringify({
+          provider_token: data.tokenDetail.accessToken,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      }
+    );
 
     const result = await res.json();
 
@@ -81,28 +85,72 @@ const LoginWithSocialMediaForm = ({ successLoginSetter, errorLoginSetter }) => {
   };
 
   return (
-    <Box my={8} textAlign="left">
-      <FacebookProvider appId="335495221397970">
-        <Login scope="email" onCompleted={handleResponse} onError={handleError}>
-          {({ loading, handleClick, error, data }) => (
-            <Button
-              colorScheme="facebook"
-              leftIcon={<FaFacebook />}
-              width="full"
-              mt={4}
-              onClick={handleClick}
-            >
-              Facebook
-            </Button>
-          )}
-        </Login>
-      </FacebookProvider>
-      <Button leftIcon={<FcGoogle />} width="full" mt={4}>
-        Google
-      </Button>
-    </Box>
+    <FacebookProvider appId={`${process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}`}>
+      <Login scope="email" onCompleted={handleResponse} onError={handleError}>
+        {({ loading, handleClick, error, data }) => (
+          <Button
+            colorScheme="facebook"
+            leftIcon={<FaFacebook />}
+            width="full"
+            mt={4}
+            onClick={handleClick}
+          >
+            Facebook
+          </Button>
+        )}
+      </Login>
+    </FacebookProvider>
   );
 };
+
+function LoginWithGoogle({ successLoginSetter, errorLoginSetter }) {
+  const onSuccess = async (data) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_HOST + "/provider/google"}`,
+      {
+        body: JSON.stringify({
+          provider_token: data.tokenId,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      }
+    );
+
+    const result = await res.json();
+
+    typeof window !== "undefined" &&
+      localStorage.setItem("token", result.token);
+
+    successLoginSetter(true);
+  };
+
+  const onFailure = (error) => {
+    errorLoginSetter(JSON.stringify(error));
+  };
+
+  return (
+    <GoogleLogin
+      clientId={`${process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID}`}
+      render={(renderProps) => (
+        <Button
+          leftIcon={<FcGoogle />}
+          width="full"
+          mt={4}
+          onClick={renderProps.onClick}
+          disabled={renderProps.disabled}
+        >
+          Google
+        </Button>
+      )}
+      onSuccess={onSuccess}
+      onFailure={onFailure}
+      cookiePolicy={"single_host_origin"}
+      isSignedIn={false}
+    ></GoogleLogin>
+  );
+}
 
 export default function SignIn(props) {
   const [loggedIn, setLoggedIn] = React.useState(false);
@@ -155,7 +203,11 @@ export default function SignIn(props) {
           <Box px={4} textAlign="center" boxShadow="lg">
             <Box p={4}>
               <LoginForm />
-              <LoginWithSocialMediaForm
+              <LoginWithFacebook
+                successLoginSetter={setLoggedIn}
+                errorLoginSetter={setErrorLogin}
+              />
+              <LoginWithGoogle
                 successLoginSetter={setLoggedIn}
                 errorLoginSetter={setErrorLogin}
               />
