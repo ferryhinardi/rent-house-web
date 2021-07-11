@@ -2,47 +2,9 @@ import { Button, Flex, Heading, Box, Text } from "@chakra-ui/react";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import { Gallery, Process, CallToAction } from "./components/home";
+import {Perks} from "./components/perks"
 
 const lorem = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed d eiusmod tempor incididunt ut labore et dolore magna aliqua.`;
-
-const perks = [
-  {
-    id: 1,
-    imageSrc: "scenery.jpeg",
-    name: "Perks 1",
-    description: lorem,
-  },
-  {
-    id: 2,
-    imageSrc: "scenery.jpeg",
-    name: "Perks 2",
-    description: lorem,
-  },
-  {
-    id: 3,
-    imageSrc: "scenery.jpeg",
-    name: "Perks 3",
-    description: lorem,
-  },
-  {
-    id: 4,
-    imageSrc: "scenery.jpeg",
-    name: "Perks 4",
-    description: lorem,
-  },
-  {
-    id: 5,
-    imageSrc: "scenery.jpeg",
-    name: "Perks 5",
-    description: lorem,
-  },
-  {
-    id: 6,
-    imageSrc: "scenery.jpeg",
-    name: "Perks 6",
-    description: lorem,
-  },
-];
 
 const profiles = [
   {
@@ -86,6 +48,7 @@ const processes = [
   },
 ];
 
+
 export default function Home(props) {
   return (
     <Flex
@@ -97,8 +60,7 @@ export default function Home(props) {
     >
       <Header />
       <CallToAction />
-
-      <Gallery data={perks} />
+      <Perks />
 
       <Heading as="h3" size="md" mb="20px">
         Ryna Process
