@@ -1,8 +1,8 @@
 import { Button, Flex, Heading, Box, Text } from "@chakra-ui/react";
-import Header from "./components/header";
-import Footer from "./components/footer";
-import { Gallery, Process, CallToAction } from "./components/home";
-import {Perks} from "./components/perks"
+import Header from "../app/components/header";
+import Footer from "../app/components/footer";
+import { Gallery, Process, CallToAction } from "../app/components/home";
+import { Perks } from "../app/components/perks";
 
 const lorem = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed d eiusmod tempor incididunt ut labore et dolore magna aliqua.`;
 
@@ -47,7 +47,6 @@ const processes = [
     description: lorem,
   },
 ];
-
 
 export default function Home(props) {
   return (

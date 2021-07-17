@@ -1,6 +1,4 @@
 import React from "react";
-import Header from "./components/header";
-import Footer from "./components/footer";
 import {
   Box,
   Container,
@@ -13,6 +11,8 @@ import {
   useColorModeValue,
   Icon,
 } from "@chakra-ui/react";
+import Header from "../app/components/header";
+import Footer from "../app/components/footer";
 
 const aboutUsDescription = `Ryna is the next generation rental provider that built on the mission to empower women. Powered by technology, Ryna delivers a seamless rental experience and a sense of community/belonging designed to meet the ever changing lifestyle needs in major cities. `;
 
@@ -64,7 +64,7 @@ const AboutUsSection = () => {
                 bg: "primary.400",
                 zIndex: -1,
               }}
-            > 
+            >
               Hi! We Are Ryna,
             </Text>
             <br />
@@ -193,15 +193,11 @@ const StorySection = () => {
               gridColumnGap={{ md: 8 }}
               gridRowGap={{ md: 10 }}
             >
-              <Feature
-                title="Our Mission"
-              >
+              <Feature title="Our Mission">
                 We empower women to live their best lives.
               </Feature>
 
-              <Feature
-                title="Our Vision"
-              >
+              <Feature title="Our Vision">
                 Where everyone can find their tribe.
               </Feature>
             </Stack>

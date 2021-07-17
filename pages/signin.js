@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import Header from "./components/header";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import Footer from "./components/footer";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { FacebookProvider, Login } from "react-facebook";
@@ -20,6 +18,8 @@ import {
   AlertIcon,
 } from "@chakra-ui/react";
 import GoogleLogin from "react-google-login";
+import Header from "../app/components/header";
+import Footer from "../app/components/footer";
 
 const LoginForm = () => {
   return (

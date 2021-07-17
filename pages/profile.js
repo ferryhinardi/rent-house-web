@@ -3,17 +3,20 @@ import { Button, Flex, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 class User extends React.Component {
-    state = {user: null};
+  state = { user: null };
 
-    async componentDidMount() {  
-    var token = localStorage.getItem('token') ;
-    var bearer = `Bearer `+token
-    const response = await fetch("http://localhost:9001/current-user", {
-      headers: {
-        Authorization: bearer,
-      },
-      method: "GET",
-    });
+  async componentDidMount() {
+    var token = localStorage.getItem("token");
+    var bearer = `Bearer ` + token;
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_HOST + "/current-user"}`,
+      {
+        headers: {
+          Authorization: bearer,
+        },
+        method: "GET",
+      }
+    );
     const data = await response.json();
     this.setState({ user: data });
   }
@@ -36,20 +39,17 @@ class User extends React.Component {
   }
 }
 
-
-
 export default function Profile() {
-    const router = useRouter();
-    
-    function logoutHandler() {
-        localStorage.removeItem('token')
-        router.push('/')
-    }
-    return (
-        <Flex>
-        <User/>
-        <Button onClick={logoutHandler}>logout</Button>
-        </Flex>
-        
-    )
-};
+  const router = useRouter();
+
+  function logoutHandler() {
+    localStorage.removeItem("token");
+    router.push("/");
+  }
+  return (
+    <Flex>
+      <User />
+      <Button onClick={logoutHandler}>logout</Button>
+    </Flex>
+  );
+}
