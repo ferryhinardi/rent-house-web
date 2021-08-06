@@ -18,8 +18,8 @@ import {
   AlertIcon,
 } from "@chakra-ui/react";
 import GoogleLogin from "react-google-login";
-import Header from "../app/components/header";
-import Footer from "../app/components/footer";
+import Header from "../src/components/header.";
+import Footer from "../src/components/footer";
 
 const LoginForm = () => {
   return (

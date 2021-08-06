@@ -11,8 +11,8 @@ import {
   useColorModeValue,
   Icon,
 } from "@chakra-ui/react";
-import Header from "../app/components/header";
-import Footer from "../app/components/footer";
+import Header from "../src/components/header.";
+import Footer from "../src/components/footer";
 
 const aboutUsDescription = `Ryna is the next generation rental provider that built on the mission to empower women. Powered by technology, Ryna delivers a seamless rental experience and a sense of community/belonging designed to meet the ever changing lifestyle needs in major cities. `;
 
