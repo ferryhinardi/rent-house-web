@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "i18next": "^20.3.5",
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.2.2",
+    "react-i18next": "^11.11.4",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "^0.17.1",
     "react-query": "^3.19.2",

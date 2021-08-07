@@ -1,5 +1,6 @@
 import React from 'react';
 import FacebookLogin, { ReactFacebookLoginInfo, ReactFacebookFailureResponse } from 'react-facebook-login';
+import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 
 const responseFacebook = (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => {
@@ -29,6 +30,7 @@ const onFailure = (response: ReactFacebookFailureResponse) => {
 };
 
 function FacebookButton() {
+  const { t } = useTranslation();
   return (
     <FacebookLogin
       appId={`${process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}`}
@@ -46,7 +48,7 @@ function FacebookButton() {
       fields="name,email,picture"
       icon="fa-facebook"
       size="medium"
-      textButton="Facebook"
+      textButton={t('facebook')}
     />
   );
 }

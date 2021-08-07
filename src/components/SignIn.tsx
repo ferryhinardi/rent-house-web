@@ -1,14 +1,16 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 import Input from 'core/base/Input';
 import FacebookButton from 'components/FacebookButton';
 import GoogleButton from 'components/GoogleButton';
 
 function SignIn() {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
-      <Text style={styles.titleForm}>{'Sign In'}</Text>
+      <Text style={styles.titleForm}>{t('signIn')}</Text>
       <Input
         placeholder="Email Address"
         textContentType="emailAddress"
@@ -20,7 +22,7 @@ function SignIn() {
         containerStyle={styles.input}
       />
       <Pressable style={styles.submitButton}>
-        <Text style={styles.submitText}>{'Sign In'}</Text>
+        <Text style={styles.submitText}>{t('signIn')}</Text>
       </Pressable>
 
       <FacebookButton />

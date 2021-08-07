@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Pressable, Text, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useGoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { Token } from 'core';
 import GoogleLogo from 'assets/G__Logo.svg';
@@ -35,6 +36,7 @@ const onFailure = (error: any) => {
 };
 
 function GoogleButton() {
+  const { t } = useTranslation();
   const { signIn, loaded } = useGoogleLogin({
     clientId: `${process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID}`,
     onSuccess,
@@ -45,7 +47,7 @@ function GoogleButton() {
   return (
     <Pressable style={styles.button} onPress={signIn} disabled={!loaded}>
       <Image src={GoogleLogo} alt="Google"/>
-      <Text style={styles.text}>{'Google'}</Text>
+      <Text style={styles.text}>{t('google')}</Text>
     </Pressable>
   )
 }
