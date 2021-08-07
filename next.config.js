@@ -1,4 +1,6 @@
-module.exports = {
+const withTM = require('next-transpile-modules')(['react-native-vector-icons']);
+
+module.exports = withTM({
   webpack: (config) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
@@ -14,4 +16,4 @@ module.exports = {
     return config
   },
   reactStrictMode: true,
-}
+});

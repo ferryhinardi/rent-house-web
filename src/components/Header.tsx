@@ -1,23 +1,56 @@
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { View, Text, StyleSheet } from 'react-native';
+import { useSprings, animated, config } from 'react-spring';
+import { Token } from 'core';
 import logo from '../assets/logo.svg';
 
+const AnimatedView = animated(View);
+
 function Header() {
+  const router = useRouter();
+  const menuAnimations = useSprings(
+    menus.length,
+    // all animations
+    menus.map(() => ({
+      from: {
+        opacity: 0
+      },
+      to: {
+        opacity: 1
+      },
+      config: {
+        ...config.molasses,
+        duration: 1000,
+      }
+    }))
+   );
+   const onNavigateMenu = (href: string) => {
+    router.push(href);
+   };
+
   return (
     <View style={styles.container}>
       <Image src={logo} alt="logo" />
-      {menus.map(({ name, href }, i) => (
-        <Text
-          key={name}
-          accessibilityRole="link"
-          // @ts-ignore
-          href={href}
-          style={[styles.menu, i === 0 && styles.activeMenu]}
-        >
-          {name}
-        </Text>
-      ))}
+      {menuAnimations.map((animateStyle, idx) => {
+        const { name, href } = menus[idx];
+        return (
+          <AnimatedView
+            key={name}
+            // @ts-ignore
+            style={animateStyle}
+          >
+            <Text
+              accessibilityRole="link"
+              onPress={() => onNavigateMenu(href)}
+              style={[styles.menu, idx === 0 && styles.activeMenu]}
+            >
+              {name}
+            </Text>
+          </AnimatedView>
+        );
+      })}
     </View>
   );
 }
@@ -37,18 +70,18 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 42,
-    paddingTop: 48,
-    paddingBottom: 64,
+    paddingLeft: Token.spacing.xxl,
+    paddingTop: Token.spacing.xxxl,
+    paddingBottom: Token.spacing.xxxxxl,
   },
   menu: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    paddingVertical: Token.spacing.xs,
+    paddingHorizontal: Token.spacing.m,
   },
   activeMenu: {
     borderBottomWidth: 1,
-    borderBottomColor: '#D69E2E',
-    color: '#D69E2E',
+    borderBottomColor: Token.colors.blue,
+    color: Token.colors.blue,
   },
 });
 

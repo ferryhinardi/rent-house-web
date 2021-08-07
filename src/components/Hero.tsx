@@ -2,14 +2,14 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Image from 'next/image';
 import hero from '../assets/hero.svg';
-import SignUp from './SignUp';
+import Questionaire from './Questionaire';
 
 function Hero() {
   return (
     <View style={styles.container}>
       <Image src={hero} alt="hero-image" />
       <View style={styles.containerSignUpForm}>
-        <SignUp />
+        <Questionaire />
       </View>
     </View>
   );

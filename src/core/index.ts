@@ -1,3 +1,3 @@
-import * as Token from './Token';
+import * as Token from './base/Token';
 
-export default { Token };
+export { Token };

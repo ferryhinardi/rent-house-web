@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
 
-function SignUp() {
+function Questionaire() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{'Start Here'}</Text>
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUp;
+export default Questionaire;
