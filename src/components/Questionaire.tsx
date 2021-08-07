@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import { Token } from 'core';
 
 function Questionaire() {
   return (
@@ -19,41 +20,41 @@ function Questionaire() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Token.colors.white,
     borderTopLeftRadius: 60,
     borderBottomRightRadius: 60,
-    borderWidth: 2,
-    borderColor: '#D69E2E',
-    padding: 60,
+    borderWidth: Token.border.width.bold,
+    borderColor: Token.colors.gold,
+    padding: Token.spacing.xxxxxl,
     alignSelf: 'flex-start'
   },
   title: {
-    fontSize: 36,
+    fontSize: Token.fontSize.huge,
     lineHeight: 36,
     fontWeight: "400",
   },
   subtitle: {
-    fontSize: 24,
+    fontSize: Token.fontSize.big,
     lineHeight: 28,
-    marginVertical: 12,
+    marginVertical: Token.spacing.s,
   },
   textInput: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    marginTop: 24,
-    borderWidth: 1,
-    borderColor: '#1A365D',
+    paddingHorizontal: Token.spacing.m,
+    paddingVertical: Token.spacing.s,
+    marginTop: Token.spacing.l,
+    borderWidth: Token.border.width.thick,
+    borderColor: Token.colors.blue,
   },
   submitButton: {
-    marginTop: 36,
-    paddingVertical: 16,
-    borderTopLeftRadius: 8,
-    borderBottomRightRadius: 8,
-    backgroundColor: '#1A365D',
+    marginTop: Token.spacing.xl,
+    paddingVertical: Token.spacing.m,
+    borderTopLeftRadius: Token.spacing.xs,
+    borderBottomRightRadius: Token.spacing.xs,
+    backgroundColor: Token.colors.blue,
     alignItems: 'center',
   },
   submitText: {
-    color: '#FFFFFF',
+    color: Token.colors.white,
   },
 });
 
