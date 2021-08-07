@@ -3,15 +3,38 @@ import FacebookLogin, { ReactFacebookLoginInfo, ReactFacebookFailureResponse } f
 import { Token } from 'core';
 
 const responseFacebook = (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => {
-  console.log(response);
+  const { accessToken } = response as ReactFacebookLoginInfo;
+  fetch(
+    `${process.env.NEXT_PUBLIC_API_HOST + "/provider/facebook"}`,
+    {
+      body: JSON.stringify({
+        provider_token: accessToken,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    }
+  ).then((res) => {
+    res
+      .json()
+      .then(({ token }) => {
+        typeof window !== "undefined" &&
+          localStorage.setItem("token", token);
+      })
+  });
+};
+const onFailure = (response: ReactFacebookFailureResponse) => {
+  console.error(JSON.stringify(response));
 };
 
 function FacebookButton() {
   return (
     <FacebookLogin
-      appId="xxx"
+      appId={`${process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}`}
       autoLoad
       callback={responseFacebook}
+      onFailure={onFailure}
       containerStyle={{
         marginTop: Token.spacing.m
       }}
