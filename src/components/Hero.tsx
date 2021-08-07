@@ -7,7 +7,7 @@ import SignUp from './SignUp';
 function Hero() {
   return (
     <View style={styles.container}>
-      <Image src={hero} />
+      <Image src={hero} alt="hero-image" />
       <View style={styles.containerSignUpForm}>
         <SignUp />
       </View>

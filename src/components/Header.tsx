@@ -6,9 +6,10 @@ import logo from '../assets/logo.svg';
 function Header() {
   return (
     <View style={styles.container}>
-      <Image src={logo} />
+      <Image src={logo} alt="logo" />
       {menus.map(({ name, href }, i) => (
         <Text
+          key={name}
           accessibilityRole="link"
           // @ts-ignore
           href={href}
