@@ -35,6 +35,7 @@ function Header() {
       <Image src={logo} alt="logo" />
       {menuAnimations.map((animateStyle, idx) => {
         const { name, href } = menus[idx];
+        const isActiveMenu = href.replace('/', '') === router.pathname.split('/')[1];
         return (
           <AnimatedView
             key={name}
@@ -44,7 +45,7 @@ function Header() {
             <Text
               accessibilityRole="link"
               onPress={() => onNavigateMenu(href)}
-              style={[styles.menu, idx === 0 && styles.activeMenu]}
+              style={[styles.menu, isActiveMenu && styles.activeMenu]}
             >
               {name}
             </Text>
@@ -57,12 +58,12 @@ function Header() {
 
 const menus = [
   { name: 'Home', href: '/' },
-  { name: 'Events', href: '/' },
-  { name: 'About Us', href: '/' },
-  { name: 'Why Ryna', href: '/' },
-  { name: 'Rental Homes', href: '/' },
-  { name: 'Partner With Us', href: '/' },
-  { name: 'Blog', href: '/' },
+  { name: 'Events', href: '/events' },
+  { name: 'About Us', href: '/aboutus' },
+  { name: 'Why Ryna', href: '/company-profile' },
+  { name: 'Rental Homes', href: '/rental-homes' },
+  { name: 'Partner With Us', href: '/partner-us' },
+  { name: 'Blog', href: '/blog' },
   { name: 'Sign In', href: '/signin' },
 ];
 
@@ -80,8 +81,8 @@ const styles = StyleSheet.create({
   },
   activeMenu: {
     borderBottomWidth: 1,
-    borderBottomColor: Token.colors.blue,
-    color: Token.colors.blue,
+    borderBottomColor: Token.colors.gold,
+    color: Token.colors.gold,
   },
 });
 
