@@ -1,18 +1,20 @@
 import React from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 
 function Questionaire() {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{'Start Here'}</Text>
-      <Text style={styles.subtitle}>{'Where do you want to move?'}</Text>
-      <TextInput placeholder="name 1" style={styles.textInput} />
-      <TextInput placeholder="name 2" style={styles.textInput} />
-      <TextInput placeholder="name 3" style={styles.textInput} />
-      <TextInput placeholder="name 4" style={styles.textInput} />
+      <Text style={styles.title}>{t('questionTitle')}</Text>
+      <Text style={styles.subtitle}>{t('questionSubtitle')}</Text>
+      <TextInput placeholder={t('placeholderQuestion1')} style={styles.textInput} />
+      <TextInput placeholder={t('placeholderQuestion2')} style={styles.textInput} />
+      <TextInput placeholder={t('placeholderQuestion3')} style={styles.textInput} />
+      <TextInput placeholder={t('placeholderQuestion4')} style={styles.textInput} />
       <Pressable style={styles.submitButton}>
-        <Text style={styles.submitText}>{'Find My Home'}</Text>
+        <Text style={styles.submitText}>{t('submitQuestionButton')}</Text>
       </Pressable>
     </View>
   );

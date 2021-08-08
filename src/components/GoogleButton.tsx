@@ -3,32 +3,21 @@ import Image from 'next/image';
 import { Pressable, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useGoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
-import { Token } from 'core';
+import { Token, fetcher } from 'core';
 import GoogleLogo from 'assets/G__Logo.svg';
 
 const onSuccess = (data: GoogleLoginResponse | GoogleLoginResponseOffline) => {
   const { tokenId } = data as GoogleLoginResponse;
 
-  fetch(
-    `${process.env.NEXT_PUBLIC_API_HOST + '/provider/google'}`,
-    {
-      body: JSON.stringify({
-        provider_token: tokenId,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
+  fetcher<{ token: string }>({
+    method: 'POST',
+    url: '/provider/google',
+    data: {
+      provider_token: tokenId,
     }
-  ).then((res) => {
-    res
-      .json()
-      .then(({ token }) => {
-        typeof window !== "undefined" &&
-          localStorage.setItem("token", token);
-      });
-  })
-
+  }).then(({ token }) => {
+    typeof window !== "undefined" && localStorage.setItem("token", token);
+  });
 };
 
 const onFailure = (error: any) => {
