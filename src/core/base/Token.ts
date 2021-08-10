@@ -7,6 +7,7 @@ export const colors = {
   grey: '#CDD0D1',
   gold: '#D69E2E',
   blue: '#1A365D',
+  pink: '#FFF7F5',
   google: '#E2E8F0',
   fb: '#385898',
 };
