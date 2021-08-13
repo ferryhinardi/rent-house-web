@@ -17,6 +17,9 @@ const en = {
   placeholderQuestion3: 'Question 3',
   placeholderQuestion4: 'Question 4',
   submitQuestionButton: 'Find My Home',
+  titlePerks: 'Ryna Perks',
+  subtitlePerks: `Join our community of women doin' the damn thing!`,
+  moreButtonPerks: 'Find My Home',
 };
 
 export default en;
