@@ -4,12 +4,13 @@ import { Pressable, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useGoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { Token, fetcher } from 'core';
+import { Response } from 'types';
 import GoogleLogo from 'assets/G__Logo.svg';
 
 const onSuccess = (data: GoogleLoginResponse | GoogleLoginResponseOffline) => {
   const { tokenId } = data as GoogleLoginResponse;
 
-  fetcher<{ token: string }>({
+  fetcher<Response>({
     method: 'POST',
     url: '/provider/google',
     data: {

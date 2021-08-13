@@ -1,12 +1,13 @@
 import React from 'react';
 import FacebookLogin, { ReactFacebookLoginInfo, ReactFacebookFailureResponse } from 'react-facebook-login';
 import { useTranslation } from 'react-i18next';
-import { Token, fetcher} from 'core';
+import { Token, fetcher } from 'core';
+import { Response } from 'types';
 
 const responseFacebook = (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => {
   const { accessToken } = response as ReactFacebookLoginInfo;
 
-  fetcher<{ token: string }>({
+  fetcher<Response>({
     method: 'POST',
     url: '/provider/facebook',
     data: {
