@@ -60,7 +60,6 @@ function Input(props: Props) {
     editable = true,
     ...textInputProps
   } = props;
-
   const EnforcedIconLeft = iconLeft ? enforceIconSizingLeft(iconLeft) : null;
   const EnforcedIconRight = iconRight ? enforceIconSizingRight(iconRight) : null;
 
@@ -176,10 +175,10 @@ export function useBackdropStyle(
     width: variant === 'minimal' ? backdropWidthMapMinimal : backdropWidthMapFormal,
     height: variant === 'minimal' ? backdropHeightMapMinimal : backdropHeightMapFormal,
     [borderColorKey]: {
-      // normal: color.lightSecondary,
+      normal: colors.grey,
       // hovered: color.darkSecondary,
       // focused: color.tintPrimary,
-      // error: color.uiRedPrimary,
+      error: colors.red,
       // disabled: color.lightNeutral,
     },
     [borderWidthKey]: variant === 'minimal' ? backdropBorderWidthMapMinimal : backdropBorderWidthMapFormal,
