@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import { View, TextInput, Pressable, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
+import { Text } from 'core/base';
 
 function Questionaire() {
   const { t } = useTranslation();

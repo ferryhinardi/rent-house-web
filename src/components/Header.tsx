@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { View, Text, StyleSheet } from 'react-native';
 import { useSprings, animated, config } from 'react-spring';
 import { Token } from 'core';
+import { menus } from 'core/constants';
 import logo from '../assets/logo.svg';
 
 const AnimatedView = animated(View);
@@ -55,17 +56,6 @@ function Header() {
     </View>
   );
 }
-
-const menus = [
-  { name: 'Home', href: '/' },
-  { name: 'Events', href: '/events' },
-  { name: 'About Us', href: '/aboutus' },
-  { name: 'Why Ryna', href: '/company-profile' },
-  { name: 'Rental Homes', href: '/rental-homes' },
-  { name: 'Partner With Us', href: '/partner-us' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Sign In', href: '/signin' },
-];
 
 const styles = StyleSheet.create({
   container: {
