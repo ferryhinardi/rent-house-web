@@ -2,6 +2,7 @@ import { TextStyle } from 'react-native';
 
 export const colors = {
   white: '#FFFFFF',
+  black: '#000000',
   red: '#F4555A',
   dark: '#03121A',
   grey: '#CDD0D1',
@@ -32,6 +33,7 @@ export const border = {
   },
   radius: {
     default: 6,
+    extra: 64,
     rounded: '50%',
   },
 };

@@ -37,7 +37,7 @@ function GoogleButton() {
   });
   return (
     <Pressable style={styles.button} onPress={signIn} disabled={!loaded}>
-      <Image src={GoogleLogo} alt="Google"/>
+      <Image src={GoogleLogo} alt="Google" width={20} height={20} />
       <Text style={styles.text}>{t('google')}</Text>
     </Pressable>
   )
@@ -45,13 +45,14 @@ function GoogleButton() {
 
 const styles = StyleSheet.create({
   button: {
+    width: '100%',
     marginTop: Token.spacing.m,
+    paddingLeft: Token.spacing.l,
     paddingVertical: Token.spacing.m,
-    borderTopLeftRadius: Token.spacing.xs,
-    borderBottomRightRadius: Token.spacing.xs,
-    backgroundColor: Token.colors.google,
+    borderRadius: Token.border.radius.extra,
+    backgroundColor: Token.colors.white,
+    boxShadow: '7px 9px 44px rgba(0, 0, 0, 0.08)',
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
   },
   text: {
