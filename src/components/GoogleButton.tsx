@@ -1,9 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
-import { Pressable, Text, StyleSheet } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useGoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { Token, fetcher } from 'core';
+import { Text } from 'core/base';
 import { Response } from 'types';
 import GoogleLogo from 'assets/G__Logo.svg';
 

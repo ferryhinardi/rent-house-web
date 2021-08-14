@@ -20,6 +20,13 @@ const en = {
   titlePerks: 'Ryna Perks',
   subtitlePerks: `Join our community of women doin' the damn thing!`,
   moreButtonPerks: 'Find My Home',
+  footerTitle: 'Create a life you love',
+  footerMenuTitle: 'Menus',
+  footerContactUsTitle: 'Contact Us',
+  contactUsEmail: 'hello@theryna.com',
+  contactUsTelp: 'Tel: +1 437-900-1839',
+  footerFollowUsTitle: 'Follow Us',
+  copyRightCaption: 'Copyright @ 2020 Ryna. All right reserved.',
 };
 
 export default en;

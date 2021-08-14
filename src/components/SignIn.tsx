@@ -1,12 +1,15 @@
 import React from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Pressable, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import { useForm, Controller } from 'react-hook-form';
 import { Token, fetcher } from 'core';
-import Input from 'core/base/Input';
-import LoadingIndicator from 'core/base/LoadingIndicator';
-import ErrorMessage from 'core/base/ErrorMessage';
+import {
+  Input,
+  Text,
+  LoadingIndicator,
+  ErrorMessage,
+} from 'core/base';
 import FacebookButton from 'components/FacebookButton';
 import GoogleButton from 'components/GoogleButton';
 import { Response, ErrorHandling } from 'types';
