@@ -1,9 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { View, StyleSheet, Pressable } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import Icon from 'react-native-vector-icons/FontAwesome';
+// @ts-ignore
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token } from 'core';
 import { Text } from 'core/base';
 import { menus } from 'core/constants';
@@ -53,18 +54,38 @@ function Footer() {
 function FollowUsList() {
   return (
     <View style={styles.followUsContainer}>
-      <Pressable style={styles.followUsWrapper}>
+      <Text
+        accessibilityRole="link"
+        // @ts-ignore
+        href={''}
+        style={styles.followUsWrapper}
+      >
         <Icon name="facebook-f" size={30} color={Token.colors.white} />
-      </Pressable>
-      <Pressable style={styles.followUsWrapper}>
+      </Text>
+      <Text
+        accessibilityRole="link"
+        // @ts-ignore
+        href={''}
+        style={styles.followUsWrapper}
+      >
         <Icon name="twitter" size={30} color={Token.colors.white} />
-      </Pressable>
-      <Pressable style={styles.followUsWrapper}>
-        <Icon name="instagram-square" size={30} color={Token.colors.white} />
-      </Pressable>
-      <Pressable style={styles.followUsWrapper}>
-        <Icon name="linkedin-in" size={30} color={Token.colors.white} />
-      </Pressable>
+      </Text>
+      <Text
+        accessibilityRole="link"
+        // @ts-ignore
+        href={''}
+        style={styles.followUsWrapper}
+      >
+        <Icon name="instagram" size={30} color={Token.colors.white} />
+      </Text>
+      <Text
+        accessibilityRole="link"
+        // @ts-ignore
+        href={''}
+        style={styles.followUsWrapper}
+      >
+        <Icon name="linkedin" size={30} color={Token.colors.white} />
+      </Text>
     </View>
   );
 }

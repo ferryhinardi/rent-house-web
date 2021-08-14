@@ -1,29 +1,35 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import HeadNextJs from 'next/head';
 import { useTranslation } from 'react-i18next';
 
+// Generate required css
+// @ts-ignore
+import iconFont from 'react-native-vector-icons/Fonts/FontAwesome.ttf';
 
-// // Generate required css
-// import iconFont from 'react-native-vector-icons/Fonts/FontAwesome.ttf';
-// const iconFontStyles = `@font-face {
-//   src: url(${iconFont});
-//   font-family: FontAwesome;
-// }`;
-
-// // Create stylesheet
-// const style = document.createElement('style');
-// style.type = 'text/css';
-// if (style.styleSheet) {
-//   style.styleSheet.cssText = iconFontStyles;
-// } else {
-//   style.appendChild(document.createTextNode(iconFontStyles));
-// }
-
-// // Inject stylesheet
-// document.head.appendChild(style);
+const iconFontStyles = `@font-face {
+  src: url(${iconFont});
+  font-family: FontAwesome;
+}`;
 
 function Head() {
   const { t } = useTranslation();
+
+  useLayoutEffect(() => {
+    // Create stylesheet
+    const style = document.createElement('style');
+    style.type = 'text/css';
+    // @ts-ignore
+    if (style.styleSheet) {
+      // @ts-ignore
+      style.styleSheet.cssText = iconFontStyles;
+    } else {
+      style.appendChild(document.createTextNode(iconFontStyles));
+    }
+
+    // Inject stylesheet
+    document.head.appendChild(style);
+  });
+
   return (
     <HeadNextJs>
       <title key="title">{t('metaTitle')}</title>
