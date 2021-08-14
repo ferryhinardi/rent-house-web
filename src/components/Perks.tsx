@@ -25,6 +25,14 @@ function Perks() {
           <View>
             <Text style={styles.headerTitle}>{t('titlePerks')}</Text>
             <Text style={styles.headerSubtitle}>{t('subtitlePerks')}</Text>
+            <button
+              type="button"
+              onClick={() => {
+                fetch('/api/handler');
+              }}
+            >
+              Test Sentry Integration
+            </button>
           </View>
           <Pressable style={styles.moreButton}>
             <Text>{t('moreButtonPerks')}</Text>
