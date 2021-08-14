@@ -1,4 +1,5 @@
-import '../styles/globals.css'
+import '../styles/globals.css';
+import '../sentry.client.config';
 import { QueryClientProvider, QueryClient, QueryCache } from 'react-query';
 import type { AppProps } from 'next/app'
 import createLocalization from 'utils/createLocalization';
