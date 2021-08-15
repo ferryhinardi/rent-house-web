@@ -14,22 +14,20 @@ import {
   Modal,
 } from 'core/base';
 import { FacebookButton, GoogleButton } from 'components';
-import { Response, ErrorHandling } from 'types';
+import { Login, ErrorHandling } from 'types';
 import loginCoverImg from 'assets/login-cover.svg';
 
 type Payload = { email: string, password: string };
 
 function SignInForm() {
   const { t } = useTranslation();
-  const { isLoading, isError, error, mutate } = useMutation<Response, ErrorHandling, Payload>(
-    async (payload) => {
-      const res = await fetcher<Response>({
+  const { isLoading, isError, error, mutate } = useMutation<Login, ErrorHandling, Payload>(
+    async (payload) =>
+      fetcher<Login>({
         method: 'POST',
         url: '/login',
         data: payload,
-      });
-      return res;
-    },
+      }),
     {
       onSuccess: ({ token }) => {
         typeof window !== "undefined" && localStorage.setItem("token", token);

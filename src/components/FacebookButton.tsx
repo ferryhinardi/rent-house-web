@@ -8,7 +8,8 @@ import { ReactFacebookLoginInfo, ReactFacebookFailureResponse, ReactFacebookLogi
 import { useTranslation } from 'react-i18next';
 import { Token, fetcher } from 'core';
 import { Text } from 'core/base';
-import { Response } from 'types';
+import { login } from 'utils/auth';
+import { Login } from 'types';
 
 type RenderProps = ReactFacebookLoginState & {
   onClick: () => void;
@@ -18,15 +19,13 @@ type RenderProps = ReactFacebookLoginState & {
 const responseFacebook = (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => {
   const { accessToken } = response as ReactFacebookLoginInfo;
 
-  fetcher<Response>({
+  fetcher<Login>({
     method: 'POST',
     url: '/provider/facebook',
     data: {
       provider_token: accessToken,
     }
-  }).then(({ token }) => {
-    typeof window !== "undefined" && localStorage.setItem("token", token);
-  });
+  }).then(login);
 };
 const onFailure = (response: ReactFacebookFailureResponse) => {
   console.error(JSON.stringify(response));

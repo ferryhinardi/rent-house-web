@@ -6,6 +6,17 @@ export type ResponseItem<T> = {
   page: number;
 };
 
+export type User = {
+  email: string;
+  email_verified: boolean;
+  id: number;
+  last_login_at: string;
+  name: string;
+  provider_type: number;
+  provider_user_id: string;
+  role_id: number;
+};
+
 export type Perk = {
   id: number;
   title: string;
@@ -13,6 +24,6 @@ export type Perk = {
   image: string;
 };
 
-export type Response = { token: string };
+export type Login = { token: string };
 export type ErrorHandling = { message: string };
 
