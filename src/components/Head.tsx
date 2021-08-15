@@ -4,12 +4,15 @@ import { useTranslation } from 'react-i18next';
 
 // Generate required css
 // @ts-ignore
-import iconFont from 'react-native-vector-icons/Fonts/FontAwesome.ttf';
+import FA from 'react-native-vector-icons/Fonts/FontAwesome.ttf';
 
-const iconFontStyles = `@font-face {
-  src: url(${iconFont});
+const iconFontStyles = `
+@font-face {
+  src: url(${FA});
   font-family: FontAwesome;
-}`;
+}
+`;
+React.useLayoutEffect = React.useEffect;
 
 function Head() {
   const { t } = useTranslation();

@@ -6,5 +6,9 @@ export const menus = [
   { name: 'Rental Homes', href: '/rental-homes' },
   { name: 'Partner With Us', href: '/partner-us' },
   { name: 'Blog', href: '/blog' },
-  { name: 'Sign In', href: '/signin' },
+];
+export const languageOptions = [
+  { value: 'en', label: 'English' },
+  { value: 'ca', label: 'Canada' },
+  { value: 'id', label: 'Indonesia' },
 ];

@@ -4,7 +4,7 @@ import { View, Pressable, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { fetcher, Token } from 'core';
-import { ContainerDesktop, Card, Text } from 'core/base';
+import { ContainerDesktop, Card, Text, Button } from 'core/base';
 import { Perk, ResponseItem } from 'types';
 
 const BASE_IMAGE_URL = process.env.NEXT_PUBLIC_API_HOST;
@@ -34,9 +34,10 @@ function Perks() {
               Test Sentry Integration
             </button>
           </View>
-          <Pressable style={styles.moreButton}>
-            <Text>{t('moreButtonPerks')}</Text>
-          </Pressable>
+          <Button
+            variant="secondary"
+            text={t('moreButtonPerks')}
+          />
         </View>
         {
           isLoading
@@ -89,13 +90,6 @@ const styles = StyleSheet.create({
   headerSubtitle: {
     ...Token.typography.Baseline,
     fontSize: Token.fontSize.medium,
-  },
-  moreButton: {
-    paddingHorizontal: Token.spacing.l,
-    paddingVertical: Token.spacing.m,
-    borderRadius: Token.border.radius.default,
-    backgroundColor: Token.colors.gold,
-    alignItems: 'center',
   },
   cardStyle: {
     marginVertical: Token.spacing.m,

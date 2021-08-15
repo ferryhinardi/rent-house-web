@@ -5,6 +5,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useSprings, animated, config } from 'react-spring';
 import { Token } from 'core';
 import { menus } from 'core/constants';
+import LanguageSelection from './LanguageSelection';
+import { SignInButton } from './SignIn';
 import logo from '../assets/logo.svg';
 
 const AnimatedView = animated(View);
@@ -33,26 +35,30 @@ function Header() {
 
   return (
     <View style={styles.container}>
-      <Image src={logo} alt="logo" />
-      {menuAnimations.map((animateStyle, idx) => {
-        const { name, href } = menus[idx];
-        const isActiveMenu = href.replace('/', '') === router.pathname.split('/')[1];
-        return (
-          <AnimatedView
-            key={name}
-            // @ts-ignore
-            style={animateStyle}
-          >
-            <Text
-              accessibilityRole="link"
-              onPress={() => onNavigateMenu(href)}
-              style={[styles.menu, isActiveMenu && styles.activeMenu]}
+      <View style={styles.menuWrapper}>
+        <Image src={logo} alt="logo" />
+        {menuAnimations.map((animateStyle, idx) => {
+          const { name, href } = menus[idx];
+          const isActiveMenu = href.replace('/', '') === router.pathname.split('/')[1];
+          return (
+            <AnimatedView
+              key={name}
+              // @ts-ignore
+              style={animateStyle}
             >
-              {name}
-            </Text>
-          </AnimatedView>
-        );
-      })}
+              <Text
+                accessibilityRole="link"
+                onPress={() => onNavigateMenu(href)}
+                style={[styles.menu, isActiveMenu && styles.activeMenu]}
+              >
+                {name}
+              </Text>
+            </AnimatedView>
+          );
+        })}
+      </View>
+      <LanguageSelection />
+      <SignInButton />
     </View>
   );
 }
@@ -61,9 +67,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: Token.spacing.xxl,
+    justifyContent: 'space-between',
+    paddingHorizontal: Token.spacing.xxl,
     paddingTop: Token.spacing.xxxl,
     paddingBottom: Token.spacing.xxxxxl,
+  },
+  menuWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   menu: {
     paddingVertical: Token.spacing.xs,

@@ -93,6 +93,7 @@ function FollowUsList() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Token.colors.blue,
+    paddingVertical: Token.spacing.m,
   },
   footer: {
     flex: 1,
