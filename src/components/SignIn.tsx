@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import { useForm, Controller } from 'react-hook-form';
 import { Token, fetcher } from 'core';
+import { login } from 'utils/auth';
 import {
   Input,
   Text,
@@ -29,9 +30,7 @@ function SignInForm() {
         data: payload,
       }),
     {
-      onSuccess: ({ token }) => {
-        typeof window !== "undefined" && localStorage.setItem("token", token);
-      },
+      onSuccess: login,
     }
   );
   const { control, handleSubmit } = useForm();
