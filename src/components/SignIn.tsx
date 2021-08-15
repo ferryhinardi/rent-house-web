@@ -51,6 +51,51 @@ function SignInForm() {
         <FacebookButton />
         <Text style={styles.separator}>{t('separator')}</Text>
         <Controller
+          name="fullName"
+          control={control}
+          rules={{
+            required: t('fullName.required') as string,
+          }}
+          render={({ field, fieldState }) => (
+            <>
+              <Input
+                {...field}
+                placeholder={t('fullName')}
+                textContentType="name"
+                error={Boolean(fieldState.error)}
+                errorMessageId={fieldState.error?.message}
+                containerStyle={styles.input}
+              />
+              {Boolean(fieldState.error) && (
+                <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
+              )}
+            </>
+          )}
+        />
+        <Controller
+          name="phoneNumber"
+          control={control}
+          rules={{
+            required: t('phoneNumber.required') as string,
+          }}
+          render={({ field, fieldState }) => (
+            <>
+              <Input
+                {...field}
+                keyboardType="numeric"
+                placeholder={t('phoneNumber')}
+                textContentType="telephoneNumber"
+                error={Boolean(fieldState.error)}
+                errorMessageId={fieldState.error?.message}
+                containerStyle={styles.input}
+              />
+              {Boolean(fieldState.error) && (
+                <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
+              )}
+            </>
+          )}
+        />
+        <Controller
           name="email"
           control={control}
           rules={{
@@ -154,6 +199,7 @@ const styles = StyleSheet.create({
   input: {
     marginBottom: Token.spacing.m,
     width: '100%',
+    borderRadius: Token.border.radius.extra,
   },
   submitButton: {
     marginTop: Token.spacing.m,

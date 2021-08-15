@@ -175,11 +175,11 @@ export function useBackdropStyle(
     width: variant === 'minimal' ? backdropWidthMapMinimal : backdropWidthMapFormal,
     height: variant === 'minimal' ? backdropHeightMapMinimal : backdropHeightMapFormal,
     [borderColorKey]: {
-      normal: colors.grey,
-      // hovered: color.darkSecondary,
-      // focused: color.tintPrimary,
+      normal: colors.blue,
+      hovered: colors.gold,
+      focused: colors.fb,
       error: colors.red,
-      // disabled: color.lightNeutral,
+      disabled: colors.grey,
     },
     [borderWidthKey]: variant === 'minimal' ? backdropBorderWidthMapMinimal : backdropBorderWidthMapFormal,
   };
@@ -222,7 +222,7 @@ export function useBackdropStyle(
       // @ts-ignore
       willChange: `${style.willChange}, background-color`,
       backgroundColor: valueState === 'disabled' ? colors.white : colors.white,
-      borderRadius: variant === 'minimal' ? 0 : border.radius.default,
+      borderRadius: variant === 'minimal' ? 0 : border.radius.extra,
     },
   };
 }
@@ -239,7 +239,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   boxFormal: {
-    padding: spacing.xs,
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.m,
   },
   boxMinimal: {
     paddingVertical: spacing.xs,
