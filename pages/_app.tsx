@@ -8,6 +8,7 @@ import '../sentry.client.config';
 
 createLocalization();
 
+// https://react-query.tanstack.com/guides/ssr
 const queryCache = new QueryCache();
 const queryClientOptions = {
   queryCache,
