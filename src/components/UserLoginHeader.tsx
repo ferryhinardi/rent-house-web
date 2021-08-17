@@ -38,12 +38,12 @@ function UserLoginHeader(props: Props) {
         width='stretchToChild'
         content={
           <Pressable style={{ alignItems: 'center' }} onPress={onLogout}>
-            <Text style={{ color: Token.colors.white }}>{t('logout')}</Text>
+            <Text ink='light'>{t('logout')}</Text>
           </Pressable>
         }
       >
         <Pressable ref={profileMenuRef} style={styles.button} onPress={() => setIsVisible(prev => !prev)}>
-          <Text style={styles.username}>{props.name}</Text>
+          <Text ink='primary'>{props.name}</Text>
         </Pressable>
       </Tooltip>
     </View>
@@ -56,9 +56,6 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: Token.spacing.m,
-  },
-  username: {
-    color: Token.colors.blue,
   },
 });
 

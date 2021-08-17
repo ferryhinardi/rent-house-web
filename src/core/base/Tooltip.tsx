@@ -109,7 +109,7 @@ function TooltipContent(props: { show: boolean; baseWidth: number } & TooltipCon
       <View style={[styles.arrow, arrowStyle, { borderColor: variantColor }]} />
       <Card style={[styles.tooltipCard, cardOffsetStyle, { backgroundColor: variantColor }]}>
         {isReactText(content) && (
-          <Text style={[styles.tooltipText, { color: Token.colors.white }]}>
+          <Text ink="light" style={styles.tooltipText}>
             {content}
           </Text>
         )}

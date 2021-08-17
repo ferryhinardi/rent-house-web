@@ -19,7 +19,7 @@ function Questionaire(props: Props) {
       <TextInput placeholder={t('placeholderQuestion3')} style={styles.textInput} />
       <TextInput placeholder={t('placeholderQuestion4')} style={styles.textInput} />
       <Pressable style={styles.submitButton} onPress={props.onSubmit}>
-        <Text style={styles.submitText}>{t('submitQuestionButton')}</Text>
+        <Text ink='light'>{t('submitQuestionButton')}</Text>
       </Pressable>
     </View>
   );
@@ -59,9 +59,6 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: Token.spacing.xs,
     backgroundColor: Token.colors.blue,
     alignItems: 'center',
-  },
-  submitText: {
-    color: Token.colors.white,
   },
 });
 

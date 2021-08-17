@@ -25,7 +25,7 @@ function HeroBannerTemplate({ imageSrc, DescriptionComponent, footerNode }: Prop
       <View style={styles.heroDescription}>
         {DescriptionComponent}
       </View>
-      <Text style={[styles.heroText, styles.footerText]}>{footerNode}</Text>
+      <Text ink="light" style={styles.footerText}>{footerNode}</Text>
     </View>
   );
 }
@@ -46,10 +46,7 @@ const styles = StyleSheet.create({
   heroDescription: {
     paddingLeft: Token.spacing.xl,
     alignItems: 'flex-start',
-    width: 520,
-  },
-  heroText: {
-    color: Token.colors.white,
+    width: 600,
   },
   footerText: {
     marginLeft: Token.spacing.xl,

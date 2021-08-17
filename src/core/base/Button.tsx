@@ -9,13 +9,13 @@ type Props = React.ComponentProps<typeof Pressable> & {
 };
 
 function Button({ text, variant = 'primary', style, ...restProps }: Props) {
-  let buttonStyle = {}, textStyle = {};
+  let buttonStyle = {}, textInk: React.ComponentProps<typeof Text>['ink'];
 
   switch (variant) {
   case 'primary':
   default:
     buttonStyle = { backgroundColor: colors.blue };
-    textStyle = { color: colors.white };
+    textInk = 'light';
     break;
   case 'secondary':
     buttonStyle = { backgroundColor: colors.gold };
@@ -24,7 +24,7 @@ function Button({ text, variant = 'primary', style, ...restProps }: Props) {
 
   return (
     <Pressable {...restProps} style={StyleSheet.flatten([styles.container, style, buttonStyle])}>
-      <Text style={textStyle}>{text}</Text>
+      <Text ink={textInk}>{text}</Text>
     </Pressable>
   );
 }

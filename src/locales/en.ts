@@ -1,6 +1,8 @@
 const en = {
   metaTitle: 'Ryna Web',
   metaDescription: 'Rent hause with partner',
+  bannerTitle: 'Homes to Empower Women',
+  bannerSubtitle: 'Young, working hard, and want those killer city views? We’ve got properties – unique to your needs.',
   emailAddress: 'Email Address',
   'email.required': 'This field is required',
   'email.pattern': 'Entered value does not match email format',

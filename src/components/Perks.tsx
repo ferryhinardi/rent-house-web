@@ -58,7 +58,7 @@ function Perks() {
                 /> */
               }
               <View style={styles.containerInfoPerk}>
-                <Text style={styles.titlePerk}>{item.title}</Text>
+                <Text variant='large'>{item.title}</Text>
                 <Text>{item.description}</Text>
               </View>
             </Card>
@@ -101,9 +101,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titlePerk: {
-    ...Token.typography.Baseline,
-    fontWeight: 'bold',
-    fontSize: Token.fontSize.large,
     marginBottom: Token.spacing.m,
   },
 });

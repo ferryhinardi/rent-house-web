@@ -1,18 +1,30 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 import { Text } from 'core/base';
 import hero from 'assets/hero-1.svg';
 import HeroBannerTemplate from './HeroBannerTemplate';
+import HeroTimeline from './HeroTimeline';
 
 function HeroBannerChooseDate() {
+  const { t } = useTranslation();
   return (
     <HeroBannerTemplate
       imageSrc={hero}
       DescriptionComponent={
         <>
-          <Text variant="banner-title" style={styles.heroText}>{'Homes to Empower Women'}</Text>
-          <Text variant="banner-subtitle" style={[styles.heroText, styles.heroSubtitle]}>{'Young, working hard, and want those killer city views? We’ve got properties – unique to your needs.'}</Text>
+          <HeroTimeline
+            states={[
+              { name: 'City', value: 'toronto' },
+              { name: 'Move Date' },
+              { name: 'Budget' },
+            ]}
+          />
+          <Text variant="banner-title" ink="light">{t('bannerTitle')}</Text>
+          <Text variant="banner-subtitle" ink="light" style={styles.heroSubtitle}>
+            {t('bannerSubtitle')}
+          </Text>
         </>
       }
       footerNode={'Liberty Village, Toronto'}
