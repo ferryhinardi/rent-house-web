@@ -4,13 +4,19 @@ import { fontSize, typography } from './Token';
 
 interface Props extends TextProps {
   children: React.ReactNode;
-  variant?: 'title-1' | 'title-2' | 'title-3' | 'baseline';
+  variant?: 'banner-title' | 'banner-subtitle' | 'title-1' | 'title-2' | 'title-3' | 'baseline';
 }
 
 function Text({ children, variant = 'baseline', style, ...restProps }: Props) {
   let variantStyle = {};
 
   switch (variant) {
+  case 'banner-title':
+    variantStyle = StyleSheet.flatten([style, styles.bannerTitle]);
+    break;
+  case 'banner-subtitle':
+    variantStyle = StyleSheet.flatten([style, styles.bannerSubtitle]);
+    break;
   case 'title-1':
     variantStyle = StyleSheet.flatten([style, styles.title1]);
     break;
@@ -32,6 +38,14 @@ function Text({ children, variant = 'baseline', style, ...restProps }: Props) {
 }
 
 const styles = StyleSheet.create({
+  bannerTitle: {
+    fontSize: fontSize.super,
+    fontWeight: '700',
+  },
+  bannerSubtitle: {
+    fontSize: fontSize.large,
+    fontWeight: '400',
+  },
   title1: {
     fontSize: fontSize.huge,
     fontWeight: 'bold',

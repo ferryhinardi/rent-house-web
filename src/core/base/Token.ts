@@ -47,6 +47,7 @@ export const animation = {
 };
 
 export const fontSize = {
+  super: 60,
   gigantic: 48,
   huge: 32,
   big: 24,

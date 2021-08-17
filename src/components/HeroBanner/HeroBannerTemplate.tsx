@@ -1,0 +1,59 @@
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import Image, { ImageLoaderProps } from 'next/image';
+import { Token } from 'core';
+import { Text } from 'core/base';
+
+type Props = {
+  imageSrc: ImageLoaderProps['src'],
+  DescriptionComponent: React.ReactNode;
+  footerNode: React.ReactNode;
+};
+
+function HeroBannerTemplate({ imageSrc, DescriptionComponent, footerNode }: Props) {
+  return (
+    <View style={styles.heroImageWrapper}>
+      <View style={styles.imageWrapper}>
+        <Image
+          src={imageSrc}
+          loading="eager"
+          layout="fill"
+          objectFit="cover"
+          alt="hero-image"
+        />
+      </View>
+      <View style={styles.heroDescription}>
+        {DescriptionComponent}
+      </View>
+      <Text style={[styles.heroText, styles.footerText]}>{footerNode}</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  heroImageWrapper: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'space-around',
+  },
+  imageWrapper: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
+    zIndex: -1,
+  },
+  heroDescription: {
+    paddingLeft: Token.spacing.xl,
+    alignItems: 'flex-start',
+    width: 520,
+  },
+  heroText: {
+    color: Token.colors.white,
+  },
+  footerText: {
+    marginLeft: Token.spacing.xl,
+  },
+});
+
+export default HeroBannerTemplate;
