@@ -16,7 +16,7 @@ type RenderProps = ReactFacebookLoginState & {
   isDisabled: boolean;
 };
 
-const responseFacebook = (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => {
+const responseFacebook = (callback: () => void) => (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => {
   const { accessToken } = response as ReactFacebookLoginInfo;
 
   fetcher<Login>({
@@ -25,18 +25,24 @@ const responseFacebook = (response: ReactFacebookLoginInfo | ReactFacebookFailur
     data: {
       provider_token: accessToken,
     }
-  }).then(login);
+  })
+  .then(login)
+  .then(callback);
 };
 const onFailure = (response: ReactFacebookFailureResponse) => {
   console.error(JSON.stringify(response));
 };
 
-function FacebookButton() {
+type Props = {
+  onSuccessLogin: () => void;
+};
+
+function FacebookButton(props: Props) {
   const { t } = useTranslation();
   return (
     <FacebookLogin
       appId={`${process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}`}
-      callback={responseFacebook}
+      callback={responseFacebook(props.onSuccessLogin)}
       onFailure={onFailure}
       containerStyle={{
         width: '100%',

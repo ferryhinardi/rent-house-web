@@ -9,7 +9,7 @@ import { login } from 'utils/auth';
 import { Login } from 'types';
 import GoogleLogo from 'assets/G__Logo.svg';
 
-const onSuccess = (data: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+const onSuccess = (callback: () => void) => (data: GoogleLoginResponse | GoogleLoginResponseOffline) => {
   const { tokenId } = data as GoogleLoginResponse;
 
   fetcher<Login>({
@@ -18,18 +18,24 @@ const onSuccess = (data: GoogleLoginResponse | GoogleLoginResponseOffline) => {
     data: {
       provider_token: tokenId,
     }
-  }).then(login);
+  })
+  .then(login)
+  .then(callback);
 };
 
 const onFailure = (error: unknown) => {
   console.error(JSON.stringify(error));
 };
 
-function GoogleButton() {
+type Props = {
+  onSuccessLogin: () => void;
+};
+
+function GoogleButton(props: Props) {
   const { t } = useTranslation();
   const { signIn, loaded } = useGoogleLogin({
     clientId: `${process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID}`,
-    onSuccess,
+    onSuccess: onSuccess(props.onSuccessLogin),
     onFailure,
     cookiePolicy: 'single_host_origin',
     isSignedIn: false,
