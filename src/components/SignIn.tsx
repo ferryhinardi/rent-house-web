@@ -113,7 +113,7 @@ function SignInForm() {
         {isLoading ? (
           <LoadingIndicator color={Token.colors.white} />
         ) : (
-          <Text style={styles.submitText}>{t('submitSignInForm')}</Text>
+          <Text variant='large' ink='light'>{t('submitSignInForm')}</Text>
         )}
       </Pressable>
     </View>
@@ -165,10 +165,6 @@ const styles = StyleSheet.create({
     paddingVertical: Token.spacing.m,
     backgroundColor: Token.colors.blue,
     alignItems: 'center',
-  },
-  submitText: {
-    color: Token.colors.white,
-    fontSize: Token.fontSize.large,
   },
 });
 

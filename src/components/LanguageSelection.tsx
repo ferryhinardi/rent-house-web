@@ -13,6 +13,7 @@ const customStyles: Styles<OptionTypeBase, false> = {
     borderWidth: 0,
     borderColor: 'unset',
     boxShadow: 'none',
+    zIndex: 1,
   }),
   menu: (styles) => ({ ...styles, zIndex: 1 }),
 };

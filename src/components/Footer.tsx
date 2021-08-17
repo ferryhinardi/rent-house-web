@@ -21,32 +21,33 @@ function Footer() {
       <View style={styles.footer}>
         <View style={styles.sectionLogo}>
           <Image src={logo} layout="fixed" alt="logo" />
-          <Text style={styles.content}>{t('footerTitle')}</Text>
+          <Text ink='light'>{t('footerTitle')}</Text>
         </View>
         <View style={styles.sectionMenu}>
-          <Text style={[styles.title, styles.listTitle]}>{t('footerMenuTitle')}</Text>
+          <Text ink='light' variant='title-3' style={styles.listTitle}>{t('footerMenuTitle')}</Text>
           {menus.map(menu => (
             <Text
               key={menu.name}
+              ink='light'
               accessibilityRole="link"
               onPress={() => onNavigateMenu(menu.href)}
-              style={[styles.list, styles.content]}
+              style={styles.list}
             >
               {menu.name}
             </Text>
           ))}
         </View>
         <View style={styles.sectionContactUs}>
-          <Text style={[styles.title, styles.listTitle]}>{t('footerContactUsTitle')}</Text>
-          <Text style={[styles.list, styles.content]}>{t('contactUsEmail')}</Text>
-          <Text style={[styles.list, styles.content]}>{t('contactUsTelp')}</Text>
+          <Text ink='light' variant='title-3' style={styles.listTitle}>{t('footerContactUsTitle')}</Text>
+          <Text ink='light' style={styles.list}>{t('contactUsEmail')}</Text>
+          <Text ink='light' style={styles.list}>{t('contactUsTelp')}</Text>
         </View>
         <View style={styles.sectionFollowUs}>
-          <Text style={styles.title}>{t('footerFollowUsTitle')}</Text>
+          <Text ink='light' variant='title-3'>{t('footerFollowUsTitle')}</Text>
           <FollowUsList />
         </View>
       </View>
-      <Text style={[styles.copyRight, styles.content]}>{t('copyRightCaption')}</Text>
+      <Text ink='light' style={styles.copyRight}>{t('copyRightCaption')}</Text>
     </View>
   );
 }
@@ -98,14 +99,6 @@ const styles = StyleSheet.create({
   footer: {
     flex: 1,
     flexDirection: 'row',
-  },
-  title: {
-    ...Token.typography.Baseline,
-    fontWeight: 'bold',
-    color: Token.colors.white,
-  },
-  content: {
-    color: Token.colors.white,
   },
   listTitle: {
     marginBottom: Token.spacing.xs,

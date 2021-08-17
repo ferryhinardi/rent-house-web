@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
   },
   modalOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: 'rgba(28, 43, 79, 0.5)',
+    backdropFilter: 'blur(24px)',
   },
   modalContent: {
     alignItems: 'center',

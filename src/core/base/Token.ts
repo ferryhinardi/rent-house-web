@@ -47,10 +47,12 @@ export const animation = {
 };
 
 export const fontSize = {
+  super: 60,
   gigantic: 48,
   huge: 32,
   big: 24,
   large: 20,
+  jumbo: 18,
   medium: 16,
   small: 14,
   tiny: 12,

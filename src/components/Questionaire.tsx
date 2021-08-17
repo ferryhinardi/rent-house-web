@@ -4,7 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 import { Text } from 'core/base';
 
-function Questionaire() {
+type Props = {
+  onSubmit?: () => void;
+};
+
+function Questionaire(props: Props) {
   const { t } = useTranslation();
   return (
     <View style={styles.container}>
@@ -14,8 +18,8 @@ function Questionaire() {
       <TextInput placeholder={t('placeholderQuestion2')} style={styles.textInput} />
       <TextInput placeholder={t('placeholderQuestion3')} style={styles.textInput} />
       <TextInput placeholder={t('placeholderQuestion4')} style={styles.textInput} />
-      <Pressable style={styles.submitButton}>
-        <Text style={styles.submitText}>{t('submitQuestionButton')}</Text>
+      <Pressable style={styles.submitButton} onPress={props.onSubmit}>
+        <Text ink='light'>{t('submitQuestionButton')}</Text>
       </Pressable>
     </View>
   );
@@ -55,9 +59,6 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: Token.spacing.xs,
     backgroundColor: Token.colors.blue,
     alignItems: 'center',
-  },
-  submitText: {
-    color: Token.colors.white,
   },
 });
 
