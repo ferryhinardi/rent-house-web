@@ -32,7 +32,6 @@ async function login(
     }
     res.status(200).json(response);
   } catch (err) {
-    console.log({ err });
     throw new Error(JSON.stringify(err));
   }
 }
