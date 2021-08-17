@@ -1,20 +1,21 @@
 import React from 'react';
-import Image from 'next/image';
-import { View, Pressable, StyleSheet } from 'react-native';
+// import Image from 'next/image';
+import { View, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { fetcher, Token } from 'core';
 import { ContainerDesktop, Card, Text, Button } from 'core/base';
+import { QUERY_KEYS } from 'core/constants';
 import { Perk, ResponseItem } from 'types';
 
-const BASE_IMAGE_URL = process.env.NEXT_PUBLIC_API_HOST;
+// const BASE_IMAGE_URL = process.env.NEXT_PUBLIC_API_HOST;
 
 function Perks() {
   const { t } = useTranslation();
-  const { data, isLoading } = useQuery<ResponseItem<Perk>>('perks', async () => {
+  const { data, isLoading } = useQuery<ResponseItem<Perk>>(QUERY_KEYS.PERKS, async () => {
     const res = await fetcher<ResponseItem<Perk>>({
       method: 'GET',
-      url: '/perks/all',
+      url: '/perks',
     });
     return res;
   });

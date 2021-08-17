@@ -12,3 +12,7 @@ export const languageOptions = [
   { value: 'ca', label: 'Canada' },
   { value: 'id', label: 'Indonesia' },
 ];
+export const QUERY_KEYS = {
+  CURRENT_USER: 'CURRENT_USER',
+  PERKS: 'PERKS',
+};

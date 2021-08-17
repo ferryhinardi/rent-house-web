@@ -2,17 +2,25 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { View, Text, StyleSheet } from 'react-native';
+import { useQuery } from 'react-query';
 import { useSprings, animated, config } from 'react-spring';
-import { Token } from 'core';
-import { menus } from 'core/constants';
+import { fetcher, Token } from 'core';
+import { menus, QUERY_KEYS } from 'core/constants';
 import LanguageSelection from './LanguageSelection';
 import { SignInButton } from './SignIn';
+import UserLoginHeader from './UserLoginHeader';
 import logo from '../assets/logo.svg';
+import { User } from 'types';
 
 const AnimatedView = animated(View);
 
 function Header() {
   const router = useRouter();
+  const { data, isLoading } = useQuery<User>(QUERY_KEYS.CURRENT_USER, () =>
+    fetcher<User>({
+      method: 'POST',
+      url: '/user/current-user',
+    }));
   const menuAnimations = useSprings(
     menus.length,
     // all animations
@@ -58,7 +66,7 @@ function Header() {
         })}
       </View>
       <LanguageSelection />
-      <SignInButton />
+      {!isLoading && data?.name ? <UserLoginHeader {...data} /> : <SignInButton />}
     </View>
   );
 }

@@ -5,24 +5,23 @@ import { useTranslation } from 'react-i18next';
 import { useGoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { Token, fetcher } from 'core';
 import { Text } from 'core/base';
-import { Response } from 'types';
+import { login } from 'utils/auth';
+import { Login } from 'types';
 import GoogleLogo from 'assets/G__Logo.svg';
 
 const onSuccess = (data: GoogleLoginResponse | GoogleLoginResponseOffline) => {
   const { tokenId } = data as GoogleLoginResponse;
 
-  fetcher<Response>({
+  fetcher<Login>({
     method: 'POST',
-    url: '/provider/google',
+    url: '/login/google',
     data: {
       provider_token: tokenId,
     }
-  }).then(({ token }) => {
-    typeof window !== "undefined" && localStorage.setItem("token", token);
-  });
+  }).then(login);
 };
 
-const onFailure = (error: any) => {
+const onFailure = (error: unknown) => {
   console.error(JSON.stringify(error));
 };
 
