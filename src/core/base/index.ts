@@ -6,3 +6,5 @@ export { default as Text } from './Text';
 export { default as Modal } from './Modal';
 export { default as LoadingIndicator } from './LoadingIndicator';
 export { default as ErrorMessage } from './ErrorMessage';
+export { Hoverable, Pressable } from './Pressable';
+export { default as Tooltip } from './Tooltip';

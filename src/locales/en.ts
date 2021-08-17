@@ -35,6 +35,7 @@ const en = {
   contactUsTelp: 'Tel: +1 437-900-1839',
   footerFollowUsTitle: 'Follow Us',
   copyRightCaption: 'Copyright @ 2020 Ryna. All right reserved.',
+  logout: 'Sign Out',
 };
 
 export default en;
