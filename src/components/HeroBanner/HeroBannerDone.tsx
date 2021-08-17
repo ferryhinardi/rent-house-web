@@ -16,9 +16,9 @@ function HeroBannerDone() {
         <>
           <HeroTimeline
             states={[
-              { name: 'City', value: 'toronto' },
-              { name: 'Move Date', value: '01/09/2021' },
-              { name: 'Budget', value: '01/09/2021' },
+              { name: t('timelineCity'), value: 'toronto' },
+              { name: t('timelineMoveDate'), value: '01/09/2021' },
+              { name: t('timelineBudget'), value: '01/09/2021' },
             ]}
           />
           <Text variant="banner-title" ink="light">{t('bannerTitle')}</Text>
