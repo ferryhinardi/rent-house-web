@@ -17,7 +17,9 @@ function Hero() {
   const herosSprings = useSprings(
     heros.length,
     heros.map((item, index) =>
-      index === heroImageIdx ? ({ opacity: 1, width: item.width, height: item.height }) : ({ opacity: 0, width: 0, height: 0 })
+      index === heroImageIdx
+        ? ({ opacity: 1, width: item.width, height: item.height, position: 'relative' })
+        : ({ opacity: 0, position: 'absolute' })
     )
   );
   const animateStyleQuestionaire = useSpring({

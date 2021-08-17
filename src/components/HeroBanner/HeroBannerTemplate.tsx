@@ -43,6 +43,11 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     zIndex: -1,
   },
+  placeholder: {
+    backgroundColor: Token.colors.grey,
+    width: '100%',
+    height: '100%',
+  },
   heroDescription: {
     paddingLeft: Token.spacing.xl,
     alignItems: 'flex-start',
