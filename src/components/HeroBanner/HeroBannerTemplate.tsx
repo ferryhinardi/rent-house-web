@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Image, { ImageLoaderProps } from 'next/image';
+// @ts-ignore
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token } from 'core';
 import { Text } from 'core/base';
 
@@ -25,7 +27,12 @@ function HeroBannerTemplate({ imageSrc, DescriptionComponent, footerNode }: Prop
       <View style={styles.heroDescription}>
         {DescriptionComponent}
       </View>
-      <Text ink="light" style={styles.footerText}>{footerNode}</Text>
+      <View style={styles.footer}>
+        <Icon name="map-marker" size={24} color={Token.colors.white} />
+        <Text ink="light" style={styles.footerText}>
+          {footerNode}
+        </Text>
+      </View>
     </View>
   );
 }
@@ -53,8 +60,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     width: 600,
   },
-  footerText: {
+  footer: {
     marginLeft: Token.spacing.xl,
+    flexDirection: 'row',
+  },
+  footerText: {
+    marginLeft: Token.spacing.s,
   },
 });
 
