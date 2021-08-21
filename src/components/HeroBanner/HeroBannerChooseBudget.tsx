@@ -6,23 +6,29 @@ import { Text } from 'core/base';
 import hero from 'assets/hero-2.svg';
 import HeroBannerTemplate from './HeroBannerTemplate';
 import HeroTimeline from './HeroTimeline';
+import { HeroStates } from '../HeroBanner';
 
-function HeroBannerChooseBudget() {
+type Props = {
+  states: HeroStates;
+  onChange?: (index: number) => void;
+};
+
+function HeroBannerChooseBudget({ states, onChange }: Props) {
   const { t } = useTranslation();
   return (
     <HeroBannerTemplate
       imageSrc={hero}
       DescriptionComponent={
         <>
-          <HeroTimeline
-            states={[
-              { name: t('timelineCity'), value: 'toronto' },
-              { name: t('timelineMoveDate'), value: '01/09/2021' },
-              { name: t('timelineBudget') },
-            ]}
-          />
-          <Text variant="banner-title" ink="light">{t('bannerTitle')}</Text>
-          <Text variant="banner-subtitle" ink="light" style={styles.heroSubtitle}>
+          <HeroTimeline states={states} onChange={onChange} />
+          <Text variant="banner-title" ink="light">
+            {t('bannerTitle')}
+          </Text>
+          <Text
+            variant="banner-subtitle"
+            ink="light"
+            style={styles.heroSubtitle}
+          >
             {t('bannerSubtitle')}
           </Text>
         </>

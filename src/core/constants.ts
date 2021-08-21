@@ -13,6 +13,7 @@ export const languageOptions = [
   { value: 'id', label: 'Indonesia' },
 ];
 export const QUERY_KEYS = {
+  QUESTION: 'QUESTION',
   CURRENT_USER: 'CURRENT_USER',
   PERKS: 'PERKS',
 };

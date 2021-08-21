@@ -5,12 +5,9 @@ import fetcher from 'core/fetcher/fetchServer';
 import { withCookies } from '../utils';
 import '../../../sentry.server.config';
 
-type Data = {}
+type Data = {};
 
-async function user(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
+async function user(req: NextApiRequest, res: NextApiResponse<Data>) {
   const response = await fetcher<User>(req, res, {
     url: '/current-user',
   });
