@@ -5,13 +5,9 @@ import fetcher from 'core/fetcher/fetchServer';
 import { withCookies } from '../utils';
 import '../../../sentry.server.config';
 
-type Data = {}
+type Data = {};
 
-async function question(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  console.log('query', req.query);
+async function question(req: NextApiRequest, res: NextApiResponse<Data>) {
   const response = await fetcher<ResponseItem<Question>>(req, res, {
     method: 'GET',
     url: '/question/all',
