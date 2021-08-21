@@ -10,25 +10,37 @@ import { useStable, useClickOutside } from 'core/hooks';
 const AnimatedView = animated(View);
 const calendarInputRef = React.createRef<TextInput | HTMLElement>();
 
-function Calendar() {
-  const formatter = useStable(() => new Intl.DateTimeFormat('default', { year: 'numeric', month: 'numeric', day: 'numeric' }));
+type Props = React.ComponentProps<typeof Input>;
+
+function Calendar(props: Props) {
+  const formatter = useStable(
+    () =>
+      new Intl.DateTimeFormat('default', {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+      })
+  );
   const [isVisibile, setIsVisible] = React.useState(false);
   const [value, onChange] = React.useState(new Date());
   const calendarAnimateStyle = useSpring({ opacity: isVisibile ? 1 : 0 });
   const onPress = () => {
-    setIsVisible(prev => !prev);
-  }
+    setIsVisible((prev) => !prev);
+  };
   const onHide = () => {
     setIsVisible(false);
   };
 
-  useClickOutside(calendarInputRef as React.MutableRefObject<HTMLElement>, onHide);
+  useClickOutside(
+    calendarInputRef as React.MutableRefObject<HTMLElement>,
+    onHide
+  );
 
   return (
     <div>
       <Input
+        {...props}
         ref={calendarInputRef as React.MutableRefObject<TextInput>}
-        placeholder="Choose Date"
         value={formatter.format(value)}
         editable={false}
         textInputStyle={styles.input}
@@ -40,10 +52,7 @@ function Calendar() {
           // @ts-ignore
           style={calendarAnimateStyle}
         >
-          <ReactCalendar
-            onChange={onChange}
-            value={value}
-          />
+          <ReactCalendar onChange={onChange} value={value} />
         </AnimatedView>
       </View>
     </div>

@@ -28,8 +28,8 @@ export type Question = {
   add_ons: AddOnsChoices | AddOnsRangeNumber;
 };
 
-type AddOnsChoices = { choices: string[] };
-type AddOnsRangeNumber = { range_min: number, range_max: number };
+export type AddOnsChoices = { choices: string[] };
+export type AddOnsRangeNumber = { range_min: number, range_max: number };
 
 export type Perk = {
   id: number;

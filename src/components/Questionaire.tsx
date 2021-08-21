@@ -3,31 +3,75 @@ import { View, Pressable, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 import { Text, Input, LoadingIndicator } from 'core/base';
-import { Question } from 'types';
+import { Question, AddOnsChoices } from 'types';
 import Calendar from './Calendar';
 import Slider from './Slider';
+import Container, {
+  SliderConsumer,
+  MinRange,
+  MaxRange,
+} from './Slider/Container';
 
 type Props = {
-  loading: boolean,
+  loading: boolean;
   question?: Question;
   onSubmit?: () => void;
 };
 
 function Questionaire(props: Props) {
   const { t } = useTranslation();
-  console.log('question', props.question);
   let QuestionContent;
 
-  switch(props.question?.type) {
-  case 'date':
-    QuestionContent = <Calendar />;
-    break;
-  case 'range_number':
-    QuestionContent = <Slider value={[0, 100]} />;
-    break;
-  case 'choices':
-    QuestionContent = <Input editable={false} containerStyle={styles.textInput} />;
-    break;
+  switch (props.question?.type) {
+    case 'date':
+      QuestionContent = <Calendar placeholder={t('placeholderCalendar')} />;
+      break;
+    case 'range_number':
+      QuestionContent = (
+        <Container>
+          <SliderConsumer>
+            {({ min = 0, max = 0 }) => (
+              <Slider
+                trackColor={'rgba(28,43,79,0.3)'} // Token.colors.blue with opacity
+                trackHighlightColor={Token.colors.blue}
+                value={[min, max]}
+                step={50}
+                minimumValue={MinRange}
+                maximumValue={MaxRange}
+                trackStyle={{ height: 8, borderRadius: 50 }}
+                onValueChange={(value: number | number[]) =>
+                  console.log('onValueChange', value)
+                }
+                onSlidingStart={(value: number | number[]) =>
+                  console.log('onSlidingStart', value)
+                }
+                onSlidingComplete={(value: number | number[]) =>
+                  console.log('onSlidingComplete', value)
+                }
+              />
+            )}
+          </SliderConsumer>
+        </Container>
+      );
+      break;
+    case 'choices':
+      QuestionContent = (props.question.add_ons as AddOnsChoices).choices.map(
+        (choice) => (
+          <Input
+            key={choice}
+            editable={false}
+            containerStyle={styles.containerTextInput}
+            textInputStyle={styles.textInput}
+            value={choice}
+            iconRight={
+              <Text variant="tiny" ink="caption">
+                {'Available'}
+              </Text>
+            }
+          />
+        )
+      );
+      break;
   }
 
   return (
@@ -36,13 +80,17 @@ function Questionaire(props: Props) {
         <LoadingIndicator />
       ) : (
         <>
-          <Text variant="huge" style={styles.title}>{props.question?.title}</Text>
-          <Text variant="big" style={styles.subtitle}>{props.question?.question_text}</Text>
+          <Text variant="huge" style={styles.title}>
+            {props.question?.title}
+          </Text>
+          <Text variant="big" style={styles.subtitle}>
+            {props.question?.question_text}
+          </Text>
 
           {QuestionContent}
 
           <Pressable style={styles.submitButton} onPress={props.onSubmit}>
-            <Text ink='light'>{t('submitQuestionButton')}</Text>
+            <Text ink="light">{t('submitQuestionButton')}</Text>
           </Pressable>
         </>
       )}
@@ -60,7 +108,7 @@ const styles = StyleSheet.create({
     borderColor: Token.colors.gold,
     paddingVertical: Token.spacing.xxxxxl,
     paddingHorizontal: Token.spacing.xl,
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
   },
   title: {
     lineHeight: 36,
@@ -69,10 +117,14 @@ const styles = StyleSheet.create({
     lineHeight: 28,
     marginVertical: Token.spacing.s,
   },
-  textInput: {
-    paddingHorizontal: Token.spacing.m,
-    paddingVertical: Token.spacing.s,
+  containerTextInput: {
+    paddingHorizontal: Token.spacing.l,
+    paddingVertical: Token.spacing.m,
     marginTop: Token.spacing.l,
+  },
+  textInput: {
+    // @ts-ignore
+    cursor: 'pointer',
   },
   submitButton: {
     marginTop: Token.spacing.xl,

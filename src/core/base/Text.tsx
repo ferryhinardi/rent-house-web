@@ -17,76 +17,94 @@ interface Props extends TextProps {
     | 'baseline'
     | 'small'
     | 'tiny';
-  ink?: 'normal' | 'primary' | 'secondary' | 'dark' | 'light' | 'alert';
+  ink?:
+    | 'normal'
+    | 'primary'
+    | 'secondary'
+    | 'caption'
+    | 'dark'
+    | 'light'
+    | 'alert';
 }
 
-function Text({ children, variant = 'baseline', ink = 'normal', style, ...restProps }: Props) {
+function Text({
+  children,
+  variant = 'baseline',
+  ink = 'normal',
+  style,
+  ...restProps
+}: Props) {
   let variantStyle = {};
 
   switch (variant) {
-  case 'banner-title':
-    variantStyle = StyleSheet.flatten([style, styles.bannerTitle]);
-    break;
-  case 'banner-subtitle':
-    variantStyle = StyleSheet.flatten([style, styles.bannerSubtitle]);
-    break;
-  case 'title-1':
-    variantStyle = StyleSheet.flatten([style, styles.title1]);
-    break;
-  case 'title-2':
-    variantStyle = StyleSheet.flatten([style, styles.title2]);
-    break;
-  case 'title-3':
-    variantStyle = StyleSheet.flatten([style, styles.title3]);
-    break;
-  case 'huge':
-    variantStyle = StyleSheet.flatten([style, styles.huge]);
-    break;
-  case 'big':
-    variantStyle = StyleSheet.flatten([style, styles.big]);
-    break;
-  case 'large':
-    variantStyle = StyleSheet.flatten([style, styles.large]);
-    break;
-  case 'medium-large':
-    variantStyle = StyleSheet.flatten([style, styles.mediumLarge]);
-    break;
-  case 'small':
-    variantStyle = StyleSheet.flatten([style, styles.small]);
-    break;
-  case 'tiny':
-    variantStyle = StyleSheet.flatten([style, styles.tiny]);
-    break;
-  case 'baseline':
-  default:
-    variantStyle = StyleSheet.flatten([style, styles.baseline]);
-    break;
+    case 'banner-title':
+      variantStyle = StyleSheet.flatten([style, styles.bannerTitle]);
+      break;
+    case 'banner-subtitle':
+      variantStyle = StyleSheet.flatten([style, styles.bannerSubtitle]);
+      break;
+    case 'title-1':
+      variantStyle = StyleSheet.flatten([style, styles.title1]);
+      break;
+    case 'title-2':
+      variantStyle = StyleSheet.flatten([style, styles.title2]);
+      break;
+    case 'title-3':
+      variantStyle = StyleSheet.flatten([style, styles.title3]);
+      break;
+    case 'huge':
+      variantStyle = StyleSheet.flatten([style, styles.huge]);
+      break;
+    case 'big':
+      variantStyle = StyleSheet.flatten([style, styles.big]);
+      break;
+    case 'large':
+      variantStyle = StyleSheet.flatten([style, styles.large]);
+      break;
+    case 'medium-large':
+      variantStyle = StyleSheet.flatten([style, styles.mediumLarge]);
+      break;
+    case 'small':
+      variantStyle = StyleSheet.flatten([style, styles.small]);
+      break;
+    case 'tiny':
+      variantStyle = StyleSheet.flatten([style, styles.tiny]);
+      break;
+    case 'baseline':
+    default:
+      variantStyle = StyleSheet.flatten([style, styles.baseline]);
+      break;
   }
 
   switch (ink) {
-  case 'dark':
-    variantStyle = StyleSheet.flatten([variantStyle, styles.dark]);
-    break;
-  case 'light':
-    variantStyle = StyleSheet.flatten([variantStyle, styles.light]);
-    break;
-  case 'alert':
-    variantStyle = StyleSheet.flatten([variantStyle, styles.alert]);
-    break;
-  case 'primary':
-    variantStyle = StyleSheet.flatten([variantStyle, styles.primary]);
-    break;
-  case 'secondary':
-    variantStyle = StyleSheet.flatten([variantStyle, styles.secondary]);
-    break;
-  case 'normal':
-  default:
-    variantStyle = StyleSheet.flatten([variantStyle, styles.normal]);
-    break;
+    case 'dark':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.dark]);
+      break;
+    case 'light':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.light]);
+      break;
+    case 'alert':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.alert]);
+      break;
+    case 'primary':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.primary]);
+      break;
+    case 'secondary':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.secondary]);
+      break;
+    case 'caption':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.caption]);
+      break;
+    case 'normal':
+    default:
+      variantStyle = StyleSheet.flatten([variantStyle, styles.normal]);
+      break;
   }
 
   return (
-    <RNText {...restProps} style={variantStyle}>{children}</RNText>
+    <RNText {...restProps} style={variantStyle}>
+      {children}
+    </RNText>
   );
 }
 
@@ -155,6 +173,9 @@ const styles = StyleSheet.create({
   },
   secondary: {
     color: colors.gold,
+  },
+  caption: {
+    color: colors.lightGrey,
   },
 });
 

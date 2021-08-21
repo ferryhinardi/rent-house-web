@@ -17,6 +17,7 @@ const en = {
   phoneNumber: 'Phone Number',
   'phoneNumber.required': 'This field is required',
   separator: 'Or',
+  placeholderCalendar: 'Select a date',
   titleSignInForm: 'Your Home Recommendation',
   subtitleSignInForm: 'Please sign up first and enjoy your home recommendation.',
   submitSignInForm: 'Sign In',
