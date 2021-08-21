@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
+import { useTranslation } from 'react-i18next';
 import { useSpring, useSprings, animated, config } from 'react-spring';
 import { fetcher } from 'core';
 import { QUERY_KEYS } from 'core/constants';
@@ -9,20 +10,26 @@ import {
   HeroBannerInitial,
   HeroBannerChooseDate,
   HeroBannerChooseBudget,
-  HeroBannerDone
+  HeroBannerDone,
 } from './HeroBanner';
 import Questionaire from './Questionaire';
 
 const AnimatedView = animated(View);
-const heros = [HeroBannerInitial, HeroBannerChooseDate, HeroBannerChooseBudget, HeroBannerDone];
+const heros = [
+  HeroBannerInitial,
+  HeroBannerChooseDate,
+  HeroBannerChooseBudget,
+  HeroBannerDone,
+];
 
 function Hero() {
+  const { t } = useTranslation();
   const [stateIndex, setStateIndex] = useState(0);
   const { data, isLoading } = useQuery(QUERY_KEYS.QUESTION, async () => {
     const res = await fetcher<ResponseItem<Question>>({
       method: 'GET',
       url: '/question/question',
-      params: { section: 'landing_page' }
+      params: { section: 'landing_page' },
     });
     return res;
   });
@@ -30,19 +37,28 @@ function Hero() {
     heros.length,
     heros.map((item, index) =>
       index === stateIndex
-        ? ({ opacity: 1, width: item.width, height: item.height, position: 'relative' })
-        : ({ opacity: 0, position: 'absolute' })
+        ? {
+            opacity: 1,
+            width: item.width,
+            height: item.height,
+            position: 'relative',
+          }
+        : { opacity: 0, position: 'absolute' }
     )
   );
   const animateStyleQuestionaire = useSpring({
-    from: { opacity: 0, transform: "translate3d(-25%, 0px, 0px)" },
-    to: { opacity: 1, transform: "translate3d(0%, 0px, 0px)" },
+    from: { opacity: 0, transform: 'translate3d(-25%, 0px, 0px)' },
+    to: { opacity: 1, transform: 'translate3d(0%, 0px, 0px)' },
     config: config.molasses,
   });
   const onSubmit = () => {
-    if (stateIndex + 1 < heros.length)
-      setStateIndex(prev => prev + 1);
+    if (stateIndex + 1 < heros.length) setStateIndex((prev) => prev + 1);
   };
+  const dummyState = [
+    { name: t('timelineCity'), value: 'toronto' },
+    { name: t('timelineMoveDate'), value: '01/09/2021' },
+    { name: t('timelineBudget'), value: '01/09/2021' },
+  ];
 
   return (
     <View style={styles.container}>
@@ -54,9 +70,9 @@ function Hero() {
             // @ts-ignore
             style={animateStyle}
           >
-            <HeroDescription />
+            <HeroDescription states={dummyState} />
           </AnimatedView>
-        )
+        );
       })}
       <AnimatedView
         // @ts-ignore
