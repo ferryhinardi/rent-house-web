@@ -3,7 +3,7 @@ import { QueryClient } from 'react-query';
  import { dehydrate } from 'react-query/hydration';
 import {
   Head,
-  Header,
+  HeaderMenu,
   Hero,
   Perks,
   Footer,
@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <div>
       <Head />
-      <Header />
+      <HeaderMenu />
       <Hero />
       <Perks />
       <Footer />

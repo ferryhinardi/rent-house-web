@@ -1,5 +1,6 @@
 export { default as Head } from './Head';
-export { default as Header } from './Header';
+export { default as HeaderMenu } from './Header';
+export { default as HeaderNavigation } from './HeaderNavigation';
 export { default as Footer } from './Footer';
 export { default as Hero } from './Hero';
 export { default as Questionaire } from './Questionaire';

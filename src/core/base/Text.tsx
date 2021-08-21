@@ -7,6 +7,7 @@ interface Props extends TextProps {
   variant?:
     | 'banner-title'
     | 'banner-subtitle'
+    | 'header-navigate'
     | 'title-1'
     | 'title-2'
     | 'title-3'
@@ -27,6 +28,9 @@ function Text({ children, variant = 'baseline', ink = 'normal', style, ...restPr
     break;
   case 'banner-subtitle':
     variantStyle = StyleSheet.flatten([style, styles.bannerSubtitle]);
+    break;
+  case 'header-navigate':
+    variantStyle = StyleSheet.flatten([style, styles.headerNavigate]);
     break;
   case 'title-1':
     variantStyle = StyleSheet.flatten([style, styles.title1]);
@@ -91,17 +95,22 @@ const styles = StyleSheet.create({
     fontSize: fontSize.large,
     fontWeight: '400',
   },
+  headerNavigate: {
+    fontSize: fontSize.bigger,
+    lineHeight: 42,
+    fontWeight: '700',
+  },
   title1: {
     fontSize: fontSize.huge,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
   title2: {
     fontSize: fontSize.large,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
   title3: {
     fontSize: fontSize.medium,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
   large: {
     fontSize: fontSize.large,
