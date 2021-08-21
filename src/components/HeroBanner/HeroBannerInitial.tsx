@@ -9,6 +9,7 @@ import { HeroStates } from '../HeroBanner';
 
 type Props = {
   states: HeroStates;
+  onChange?: (index: number) => void;
 };
 
 function HeroBannerInitial(_: Props) {

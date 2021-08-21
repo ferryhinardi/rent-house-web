@@ -54,6 +54,10 @@ function Hero() {
     to: { opacity: 1, transform: 'translate3d(0%, 0px, 0px)' },
     config: config.molasses,
   });
+  const onChangeTimelineBanner = (index: number) => {
+    // Index + 1 because there is banner without hero timeline component in initial banner
+    setStateIndex(index + 1);
+  };
   const onSubmit = () => {
     if (stateIndex + 1 < heros.length) {
       setStateIndex((prev) => prev + 1);
@@ -78,7 +82,10 @@ function Hero() {
             // @ts-ignore
             style={animateStyle}
           >
-            <HeroDescription states={dummyState} />
+            <HeroDescription
+              states={dummyState}
+              onChange={onChangeTimelineBanner}
+            />
           </AnimatedView>
         );
       })}

@@ -10,16 +10,17 @@ import { HeroStates } from '../HeroBanner';
 
 type Props = {
   states: HeroStates;
+  onChange?: (index: number) => void;
 };
 
-function HeroBannerChooseBudget({ states }: Props) {
+function HeroBannerChooseBudget({ states, onChange }: Props) {
   const { t } = useTranslation();
   return (
     <HeroBannerTemplate
       imageSrc={hero}
       DescriptionComponent={
         <>
-          <HeroTimeline states={states} />
+          <HeroTimeline states={states} onChange={onChange} />
           <Text variant="banner-title" ink="light">
             {t('bannerTitle')}
           </Text>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, Pressable, FlatList, StyleSheet } from 'react-native';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token } from 'core';
@@ -12,27 +12,49 @@ type State = {
 
 type Props = {
   states: State[];
+  onChange?: (index: number) => void;
 };
 
-function HeroTimeline({ states }: Props) {
+function HeroTimeline({ states, onChange }: Props) {
   return (
     <View style={styles.container}>
       <FlatList
         keyExtractor={(_, idx) => `${idx}`}
         horizontal
         data={states}
-        renderItem={({ item }) => (
-          <View style={styles.state}>
-            {item.value
-              ? <Icon name="check-circle" size={32} color={Token.colors.white} />
-              : <Icon name="circle-thin" size={32} color={Token.colors.white} />
-            }
-            <View style={styles.stateInfo}>
-              <Text variant="medium-large" ink="light" style={styles.stateName}>{item.name}</Text>
-              {item.value && <Text variant="tiny" ink="light">{item.value}</Text>}
-            </View>
-          </View>
-        )}
+        renderItem={({ item, index }) => {
+          const PressWrapper = item.value ? Pressable : View;
+          return (
+            <PressWrapper
+              style={styles.state}
+              onPress={() => onChange?.(index)}
+            >
+              {item.value ? (
+                <Icon
+                  name="check-circle"
+                  size={32}
+                  color={Token.colors.white}
+                />
+              ) : (
+                <Icon name="circle-thin" size={32} color={Token.colors.white} />
+              )}
+              <View style={styles.stateInfo}>
+                <Text
+                  variant="medium-large"
+                  ink="light"
+                  style={styles.stateName}
+                >
+                  {item.name}
+                </Text>
+                {item.value && (
+                  <Text variant="tiny" ink="light">
+                    {item.value}
+                  </Text>
+                )}
+              </View>
+            </PressWrapper>
+          );
+        }}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
     </View>
