@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { useSpring, useSprings, animated, config } from 'react-spring';
 import { fetcher } from 'core';
+import { Modal } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { ResponseItem, Question } from 'types';
 import {
@@ -13,6 +14,7 @@ import {
   HeroBannerDone,
 } from './HeroBanner';
 import Questionaire from './Questionaire';
+import SignUpForm from './SignUp';
 
 const AnimatedView = animated(View);
 const heros = [
@@ -24,6 +26,7 @@ const heros = [
 
 function Hero() {
   const { t } = useTranslation();
+  const [isVisible, setIsVisible] = useState(false);
   const [stateIndex, setStateIndex] = useState(0);
   const { data, isLoading } = useQuery(QUERY_KEYS.QUESTION, async () => {
     const res = await fetcher<ResponseItem<Question>>({
@@ -52,7 +55,12 @@ function Hero() {
     config: config.molasses,
   });
   const onSubmit = () => {
-    if (stateIndex + 1 < heros.length) setStateIndex((prev) => prev + 1);
+    if (stateIndex + 1 < heros.length) {
+      setStateIndex((prev) => prev + 1);
+    } else {
+      // Do register
+      setIsVisible(true);
+    }
   };
   const dummyState = [
     { name: t('timelineCity'), value: 'toronto' },
@@ -86,6 +94,16 @@ function Hero() {
           />
         </View>
       </AnimatedView>
+      {stateIndex === heros.length - 1 && (
+        <Modal
+          animationType="fade"
+          visible={isVisible}
+          onRequestClose={() => setIsVisible(false)}
+          noPadding
+        >
+          <SignUpForm />
+        </Modal>
+      )}
     </View>
   );
 }
