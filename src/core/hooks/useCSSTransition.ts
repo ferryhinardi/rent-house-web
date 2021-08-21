@@ -26,6 +26,8 @@ export function useCSSTransition<Behavior extends string>(
   };
 }
 
+export default useCSSTransition;
+
 function generateStyle(
   styleBehaviorMap: { [key in keyof ViewStyle]: any },
   currentBehavior: any,

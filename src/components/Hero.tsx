@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useQuery } from 'react-query';
 import { useSpring, useSprings, animated, config } from 'react-spring';
+import { fetcher } from 'core';
+import { QUERY_KEYS } from 'core/constants';
+import { ResponseItem, Question } from 'types';
 import {
   HeroBannerInitial,
   HeroBannerChooseDate,
@@ -13,11 +17,19 @@ const AnimatedView = animated(View);
 const heros = [HeroBannerInitial, HeroBannerChooseDate, HeroBannerChooseBudget, HeroBannerDone];
 
 function Hero() {
-  const [heroImageIdx, setHeroImageIdx] = useState(0);
+  const [stateIndex, setStateIndex] = useState(0);
+  const { data, isLoading } = useQuery(QUERY_KEYS.QUESTION, async () => {
+    const res = await fetcher<ResponseItem<Question>>({
+      method: 'GET',
+      url: '/question/question',
+      params: { section: 'landing_page' }
+    });
+    return res;
+  });
   const herosSprings = useSprings(
     heros.length,
     heros.map((item, index) =>
-      index === heroImageIdx
+      index === stateIndex
         ? ({ opacity: 1, width: item.width, height: item.height, position: 'relative' })
         : ({ opacity: 0, position: 'absolute' })
     )
@@ -28,8 +40,8 @@ function Hero() {
     config: config.molasses,
   });
   const onSubmit = () => {
-    if (heroImageIdx + 1 < heros.length)
-      setHeroImageIdx(prev => prev + 1);
+    if (stateIndex + 1 < heros.length)
+      setStateIndex(prev => prev + 1);
   };
 
   return (
@@ -48,10 +60,14 @@ function Hero() {
       })}
       <AnimatedView
         // @ts-ignore
-        style={animateStyleQuestionaire}
+        style={{ ...animateStyleQuestionaire, flex: 0.6 }}
       >
         <View style={styles.containerSignUpForm}>
-          <Questionaire onSubmit={onSubmit} />
+          <Questionaire
+            loading={isLoading}
+            question={data?.data?.[stateIndex]}
+            onSubmit={onSubmit}
+          />
         </View>
       </AnimatedView>
     </View>

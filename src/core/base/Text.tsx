@@ -10,6 +10,8 @@ interface Props extends TextProps {
     | 'title-1'
     | 'title-2'
     | 'title-3'
+    | 'huge'
+    | 'big'
     | 'large'
     | 'medium-large'
     | 'baseline'
@@ -36,6 +38,12 @@ function Text({ children, variant = 'baseline', ink = 'normal', style, ...restPr
     break;
   case 'title-3':
     variantStyle = StyleSheet.flatten([style, styles.title3]);
+    break;
+  case 'huge':
+    variantStyle = StyleSheet.flatten([style, styles.huge]);
+    break;
+  case 'big':
+    variantStyle = StyleSheet.flatten([style, styles.big]);
     break;
   case 'large':
     variantStyle = StyleSheet.flatten([style, styles.large]);
@@ -102,6 +110,14 @@ const styles = StyleSheet.create({
   title3: {
     fontSize: fontSize.medium,
     fontWeight: 'bold',
+  },
+  huge: {
+    fontSize: fontSize.huge,
+    fontWeight: '400',
+  },
+  big: {
+    fontSize: fontSize.big,
+    fontWeight: '400',
   },
   large: {
     fontSize: fontSize.large,
