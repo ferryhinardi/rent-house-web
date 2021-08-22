@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
-import { Card, Pressable, Text } from 'core/base';
+import { Pressable, Text } from 'core/base';
 import { Token } from 'core';
 
 type Props = {
@@ -16,7 +16,7 @@ type Props = {
 function SideBar({ menus, onPress, style }: Props) {
   const [activeMenu, setActiveMenu] = useState(0);
   return (
-    <Card style={[styles.container, style as ViewStyle]}>
+    <View style={[styles.container, style as ViewStyle]}>
       {menus.map((menu, idx) => (
         <Pressable
           key={menu.name}
@@ -33,7 +33,7 @@ function SideBar({ menus, onPress, style }: Props) {
           {menu.IconRight}
         </Pressable>
       ))}
-    </Card>
+    </View>
   );
 }
 

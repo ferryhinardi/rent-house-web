@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Element } from 'react-scroll';
 import { useTranslation } from 'react-i18next';
-import { Card, Text, Badge } from 'core/base';
+import { Text, Badge } from 'core/base';
 import { Token } from 'core';
 
 const settings = ['profile', 'preference', 'application'];
@@ -45,7 +45,7 @@ type SettingCardProps = {
 function SettingCard({ title, subtitle, href }: SettingCardProps) {
   const { t } = useTranslation();
   return (
-    <Card style={styles.card}>
+    <View style={styles.card}>
       <Text variant="title-2" style={styles.cardTitle}>
         {title}
       </Text>
@@ -59,7 +59,7 @@ function SettingCard({ title, subtitle, href }: SettingCardProps) {
       >
         {t('completeNow')}
       </Text>
-    </Card>
+    </View>
   );
 }
 
