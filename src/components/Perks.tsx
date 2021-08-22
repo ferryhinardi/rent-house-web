@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +8,7 @@ import { QUERY_KEYS } from 'core/constants';
 import { Perk, ResponseItem } from 'types';
 
 const BASE_IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_HOST;
+const perkWidths = ['45%', '45%', '30%', '30%', '30%', '100%'];
 
 function Perks() {
   const { t } = useTranslation();
@@ -43,30 +43,32 @@ function Perks() {
         {isLoading ? (
           <Text>{'Loading...'}</Text>
         ) : (
-          data?.data.map((item) => (
-            <Card
-              key={item.id}
-              orientation="portrait"
-              style={styles.cardStyle}
-              imageProps={{
-                src: `${BASE_IMAGE_URL}/${item.image}`,
-                blurDataURL: `${BASE_IMAGE_URL}/${item.image}`,
-                placeholder: 'blur',
-                loading: 'lazy',
-                width: '100%',
-                height: 180,
-                alt: 'perk image',
-                onError: () => console.error('error render image'),
-              }}
-            >
-              <Card.Body>
-                <Card.Title variant="large">{item.title}</Card.Title>
-                <Text style={{ marginTop: Token.spacing.m }}>
-                  {item.description}
-                </Text>
-              </Card.Body>
-            </Card>
-          ))
+          <View style={styles.containerPerks}>
+            {data?.data.map((item, index) => (
+              <Card
+                key={item.id}
+                orientation="portrait"
+                style={[styles.cardStyle, { flexBasis: perkWidths[index] }]}
+                imageProps={{
+                  src: `${BASE_IMAGE_URL}/${item.image}`,
+                  blurDataURL: `${BASE_IMAGE_URL}/${item.image}`,
+                  placeholder: 'blur',
+                  loading: 'lazy',
+                  width: '100%',
+                  height: 180,
+                  alt: 'perk image',
+                  onError: () => console.error('error render image'),
+                }}
+              >
+                <Card.Body>
+                  <Card.Title variant="large">{item.title}</Card.Title>
+                  <Text style={{ marginTop: Token.spacing.m }}>
+                    {item.description}
+                  </Text>
+                </Card.Body>
+              </Card>
+            ))}
+          </View>
         )}
       </ContainerDesktop>
     </View>
@@ -79,6 +81,12 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingVertical: Token.spacing.xxl,
+  },
+  containerPerks: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Token.spacing.m,
+    justifyContent: 'space-between',
   },
   header: {
     flexDirection: 'row',
@@ -97,7 +105,8 @@ const styles = StyleSheet.create({
     fontSize: Token.fontSize.medium,
   },
   cardStyle: {
-    marginVertical: Token.spacing.m,
+    flexGrow: 1,
+    flexShrink: 1,
   },
 });
 
