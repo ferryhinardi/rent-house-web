@@ -7,12 +7,16 @@ import { Token } from 'core';
 import { Text } from 'core/base';
 
 type Props = {
-  imageSrc: ImageLoaderProps['src'],
+  imageSrc: ImageLoaderProps['src'];
   DescriptionComponent: React.ReactNode;
   footerNode: React.ReactNode;
 };
 
-function HeroBannerTemplate({ imageSrc, DescriptionComponent, footerNode }: Props) {
+function HeroBannerTemplate({
+  imageSrc,
+  DescriptionComponent,
+  footerNode,
+}: Props) {
   return (
     <View style={styles.heroImageWrapper}>
       <View style={styles.imageWrapper}>
@@ -24,9 +28,7 @@ function HeroBannerTemplate({ imageSrc, DescriptionComponent, footerNode }: Prop
           alt="hero-image"
         />
       </View>
-      <View style={styles.heroDescription}>
-        {DescriptionComponent}
-      </View>
+      <View style={styles.heroDescription}>{DescriptionComponent}</View>
       <View style={styles.footer}>
         <Icon name="map-marker" size={24} color={Token.colors.white} />
         <Text ink="light" style={styles.footerText}>
