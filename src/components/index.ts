@@ -14,3 +14,4 @@ export { default as AccountBasicProfile } from './Account/BasicProfile';
 export { default as AccountSettings } from './Account/Settings';
 export { default as AccountRecommendation } from './Account/Recommendation';
 export { default as AccountLinkedAccounts } from './Account/LinkedAccounts';
+export { default as PreferenceBanner } from './Account/Banner';

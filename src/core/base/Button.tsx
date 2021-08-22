@@ -7,7 +7,7 @@ import Text from './Text';
 type Props = React.ComponentProps<typeof Pressable> & {
   loading?: boolean;
   text: string;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'empty';
 };
 
 function Button({
@@ -28,6 +28,13 @@ function Button({
       break;
     case 'secondary':
       buttonStyle = { backgroundColor: colors.gold };
+      break;
+    case 'empty':
+      buttonStyle = {
+        backgroundColor: colors.white,
+        borderColor: '#D0D0D0',
+        borderWidth: 3,
+      };
       break;
   }
 

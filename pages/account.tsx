@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { FormProvider, useForm } from 'react-hook-form';
+import { scroller } from 'react-scroll';
 import htmr from 'htmr';
 import {
   Head,
@@ -11,6 +13,7 @@ import {
   AccountSettings,
   AccountRecommendation,
   AccountLinkedAccounts,
+  PreferenceBanner,
   Footer,
 } from 'components';
 import { Token } from 'core';
@@ -18,6 +21,16 @@ import { Text } from 'core/base';
 
 function Account() {
   const { t } = useTranslation();
+  const forms = useForm();
+
+  const onPressMenu = (menuId: string) => {
+    scroller.scrollTo(menuId, {
+      duration: 500,
+      delay: 100,
+      smooth: true,
+    });
+  };
+
   return (
     <div>
       <Head />
@@ -29,23 +42,28 @@ function Account() {
         <View style={styles.contentWrapper}>
           <SideBar
             menus={[
-              t('basicProfile'),
-              t('accountSettings'),
-              t('recommendation'),
-              t('linkedAccounts'),
+              { name: 'basic-profile', label: t('basicProfile') },
+              { name: 'account-settings', label: t('accountSettings') },
+              { name: 'recommendation', label: t('recommendation') },
+              { name: 'linked-accounts', label: t('linkedAccounts') },
             ]}
+            onPress={onPressMenu}
+            style={{ flex: 0.2 }}
           />
-          <View style={styles.content}>
-            <AccountBasicProfile />
-            <View style={styles.separator} />
-            <AccountSettings />
-            <View style={styles.separator} />
-            <AccountRecommendation />
-            <View style={styles.separator} />
-            <AccountLinkedAccounts />
-          </View>
+          <FormProvider {...forms}>
+            <View style={styles.content}>
+              <AccountBasicProfile />
+              <View style={styles.separator} />
+              <AccountSettings />
+              <View style={styles.separator} />
+              <AccountRecommendation />
+              <View style={styles.separator} />
+              <AccountLinkedAccounts />
+            </View>
+          </FormProvider>
         </View>
       </View>
+      <PreferenceBanner />
       <Footer />
     </div>
   );
@@ -69,6 +87,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   content: {
+    flex: 0.8,
     marginLeft: Token.spacing.xxl,
     marginBottom: Token.spacing.xxxxxl,
   },

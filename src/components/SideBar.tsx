@@ -1,25 +1,33 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ViewStyle } from 'react-native';
 import { Card, Pressable, Text } from 'core/base';
 import { Token } from 'core';
 
 type Props = {
-  menus: Array<string>;
+  menus: Array<{
+    name: string;
+    label: string;
+  }>;
+  onPress?: (menuId: string) => void;
+  style?: React.CSSProperties;
 };
 
-function SideBar({ menus }: Props) {
+function SideBar({ menus, onPress, style }: Props) {
   const [activeMenu, setActiveMenu] = useState(0);
   return (
-    <Card style={styles.container}>
+    <Card style={[styles.container, style as ViewStyle]}>
       {menus.map((menu, idx) => (
         <Pressable
-          key={menu}
-          onPress={() => setActiveMenu(idx)}
+          key={menu.name}
+          onPress={() => {
+            setActiveMenu(idx);
+            onPress?.(menu.name);
+          }}
           style={styles.menuWrapper}
         >
           <Text variant="sidebar-menu" ink="primary" style={styles.menu}>
             {activeMenu === idx && <View style={styles.activeMenu} />}
-            {menu}
+            {menu.label}
           </Text>
         </Pressable>
       ))}
