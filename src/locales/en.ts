@@ -2,7 +2,8 @@ const en = {
   metaTitle: 'Ryna Web',
   metaDescription: 'Rent hause with partner',
   bannerTitle: 'Homes to Empower Women',
-  bannerSubtitle: 'Young, working hard, and want those killer city views? We’ve got properties – unique to your needs.',
+  bannerSubtitle:
+    'Young, working hard, and want those killer city views? We’ve got properties – unique to your needs.',
   timelineCity: 'City',
   timelineMoveDate: 'Move Date',
   timelineBudget: 'Budget',
@@ -16,10 +17,13 @@ const en = {
   'fullName.required': 'This field is required',
   phoneNumber: 'Phone Number',
   'phoneNumber.required': 'This field is required',
+  jobTitle: 'Job',
+  biodata: 'Your Bio',
   separator: 'Or',
   placeholderCalendar: 'Select a date',
   titleSignInForm: 'Your Home Recommendation',
-  subtitleSignInForm: 'Please sign up first and enjoy your home recommendation.',
+  subtitleSignInForm:
+    'Please sign up first and enjoy your home recommendation.',
   submitSignInForm: 'Sign In',
   submitSignUpForm: 'View My Recommendation',
   signIn: 'Sign In',
@@ -36,6 +40,42 @@ const en = {
   contactUsTelp: 'Tel: +1 437-900-1839',
   footerFollowUsTitle: 'Follow Us',
   copyRightCaption: 'Copyright @ 2020 Ryna. All right reserved.',
+  accountDescription:
+    'Do you want to view your Profile instead of Account? Go to <a href="/account/profile" style="text-decoration:underline">My Profile</a>',
+  basicProfile: 'Basic Profile',
+  accountSettings: 'Account Settings',
+  recommendation: 'Recommendation',
+  linkedAccounts: 'Linked Accounts',
+  welcomeMessage: 'Hi, {{name}}!',
+  welcomeDescription:
+    'We link your profile and help you to populate your profile.',
+  reuploadButton: 'Change Photo Profile',
+  accountSettingsTitle: 'Accounts Settings',
+  accountSettingsDescription:
+    'We link your profile and help you to populate your profile.',
+  profileDescription:
+    'We link your profile and help you to populate your profile.',
+  preferenceDescription:
+    'We link your profile and help you to populate your profile.',
+  applicationDescription:
+    'We link your profile and help you to populate your profile.',
+  completeNow: 'Complete Now',
+  recommendationTitle: 'Home Recommendation',
+  recommendationDescription:
+    'Your recommendation will be showed up here once you completed your profile and account settings.',
+  linkedAccountsTitle: 'Linked Accounts',
+  linkedAccountsDescription:
+    'We link your profile and help you to populate your profile.',
+  instagramConnect: 'Connect to Instagram',
+  spotifyConnect: 'Connect to Spotify',
+  googleConnect: 'Connect to Google Account',
+  unConnected: 'Connect Acount',
+  connected: 'Connected',
+  homepage: 'Home',
+  account: 'Account',
+  profile: 'Personal Info',
+  preference: 'My Prefences',
+  application: 'My Applications',
   logout: 'Sign Out',
 };
 

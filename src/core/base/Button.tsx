@@ -1,30 +1,53 @@
 import React from 'react';
 import { StyleSheet, Pressable } from 'react-native';
+import { LoadingIndicator } from 'core/base';
 import { spacing, colors, border } from './Token';
 import Text from './Text';
 
 type Props = React.ComponentProps<typeof Pressable> & {
+  loading?: boolean;
   text: string;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'empty';
 };
 
-function Button({ text, variant = 'primary', style, ...restProps }: Props) {
-  let buttonStyle = {}, textInk: React.ComponentProps<typeof Text>['ink'];
+function Button({
+  text,
+  variant = 'primary',
+  style,
+  loading = false,
+  ...restProps
+}: Props) {
+  let buttonStyle = {},
+    textInk: React.ComponentProps<typeof Text>['ink'];
 
   switch (variant) {
-  case 'primary':
-  default:
-    buttonStyle = { backgroundColor: colors.blue };
-    textInk = 'light';
-    break;
-  case 'secondary':
-    buttonStyle = { backgroundColor: colors.gold };
-    break;
+    case 'primary':
+    default:
+      buttonStyle = { backgroundColor: colors.blue };
+      textInk = 'light';
+      break;
+    case 'secondary':
+      buttonStyle = { backgroundColor: colors.gold };
+      break;
+    case 'empty':
+      buttonStyle = {
+        backgroundColor: colors.white,
+        borderColor: '#D0D0D0',
+        borderWidth: 3,
+      };
+      break;
   }
 
   return (
-    <Pressable {...restProps} style={StyleSheet.flatten([styles.container, style, buttonStyle])}>
-      <Text ink={textInk}>{text}</Text>
+    <Pressable
+      {...restProps}
+      style={StyleSheet.flatten([styles.container, style, buttonStyle])}
+    >
+      {loading ? (
+        <LoadingIndicator color={colors.white} />
+      ) : (
+        <Text ink={textInk}>{text}</Text>
+      )}
     </Pressable>
   );
 }
@@ -35,6 +58,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: border.radius.extra,
     paddingVertical: spacing.m,
+    paddingHorizontal: spacing.xxm,
   },
 });
 

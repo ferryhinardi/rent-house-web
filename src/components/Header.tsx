@@ -20,26 +20,27 @@ function Header() {
     fetcher<User>({
       method: 'POST',
       url: '/user/current-user',
-    }));
+    })
+  );
   const menuAnimations = useSprings(
     menus.length,
     // all animations
     menus.map(() => ({
       from: {
-        opacity: 0
+        opacity: 0,
       },
       to: {
-        opacity: 1
+        opacity: 1,
       },
       config: {
         ...config.molasses,
         duration: 1000,
-      }
+      },
     }))
-   );
-   const onNavigateMenu = (href: string) => {
+  );
+  const onNavigateMenu = (href: string) => {
     router.push(href);
-   };
+  };
 
   return (
     <View style={styles.container}>
@@ -47,7 +48,8 @@ function Header() {
         <Image src={logo} alt="logo" />
         {menuAnimations.map((animateStyle, idx) => {
           const { name, href } = menus[idx];
-          const isActiveMenu = href.replace('/', '') === router.pathname.split('/')[1];
+          const isActiveMenu =
+            href.replace('/', '') === router.pathname.split('/')[1];
           return (
             <AnimatedView
               key={name}
@@ -66,7 +68,11 @@ function Header() {
         })}
       </View>
       <LanguageSelection />
-      {!isLoading && data?.name ? <UserLoginHeader {...data} /> : <SignInButton />}
+      {!isLoading && data?.name ? (
+        <UserLoginHeader {...data} />
+      ) : (
+        <SignInButton />
+      )}
     </View>
   );
 }

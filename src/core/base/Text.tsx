@@ -7,6 +7,8 @@ interface Props extends TextProps {
   variant?:
     | 'banner-title'
     | 'banner-subtitle'
+    | 'header-title'
+    | 'sidebar-menu'
     | 'title-1'
     | 'title-2'
     | 'title-3'
@@ -42,6 +44,12 @@ function Text({
       break;
     case 'banner-subtitle':
       variantStyle = StyleSheet.flatten([style, styles.bannerSubtitle]);
+      break;
+    case 'header-title':
+      variantStyle = StyleSheet.flatten([style, styles.headerTitle]);
+      break;
+    case 'sidebar-menu':
+      variantStyle = StyleSheet.flatten([style, styles.sidebarMenu]);
       break;
     case 'title-1':
       variantStyle = StyleSheet.flatten([style, styles.title1]);
@@ -117,17 +125,27 @@ const styles = StyleSheet.create({
     fontSize: fontSize.large,
     fontWeight: '400',
   },
+  headerTitle: {
+    fontSize: fontSize.bigger,
+    lineHeight: 42,
+    fontWeight: '700',
+  },
+  sidebarMenu: {
+    fontSize: fontSize.medium,
+    lineHeight: 20,
+    fontWeight: '600',
+  },
   title1: {
     fontSize: fontSize.huge,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
   title2: {
     fontSize: fontSize.large,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
   title3: {
     fontSize: fontSize.medium,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
   huge: {
     fontSize: fontSize.huge,
@@ -169,7 +187,7 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   primary: {
-    color: colors.blue,
+    color: colors.rynaBlue,
   },
   secondary: {
     color: colors.gold,

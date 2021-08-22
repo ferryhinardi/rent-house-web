@@ -3,7 +3,7 @@ import { TextStyle } from 'react-native';
 export const colors = {
   white: '#FFFFFF',
   black: '#000000',
-  red: '#F4555A',
+  red: '#F75B60',
   dark: '#03121A',
   lightGrey: '#636363',
   grey: '#CDD0D1',
@@ -12,6 +12,10 @@ export const colors = {
   pink: '#FFF7F5',
   google: '#E2E8F0',
   fb: '#385898',
+  rynaBlack: '#202020',
+  rynaBlue: '#1C2B4F',
+  rynaGray: '#F2F2F2',
+  rynaYellow: '#F5C010',
 };
 export const spacing = {
   xxs: 4,
@@ -21,6 +25,7 @@ export const spacing = {
   ml: 20,
   l: 24,
   xl: 32,
+  xxm: 36,
   xxl: 40,
   xxxl: 48,
   xxxxl: 56,
@@ -51,6 +56,7 @@ export const fontSize = {
   super: 60,
   gigantic: 48,
   huge: 32,
+  bigger: 28,
   big: 24,
   large: 20,
   jumbo: 18,
@@ -75,4 +81,4 @@ export const typography = {
     lineHeight: 24,
     ...textWeightRegularStyle,
   },
-}
+};

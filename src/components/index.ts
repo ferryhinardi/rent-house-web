@@ -1,5 +1,6 @@
 export { default as Head } from './Head';
-export { default as Header } from './Header';
+export { default as HeaderMenu } from './Header';
+export { default as HeaderNavigation } from './HeaderNavigation';
 export { default as Footer } from './Footer';
 export { default as Hero } from './Hero';
 export { default as Questionaire } from './Questionaire';
@@ -8,3 +9,9 @@ export { default as UserLoginHeader } from './UserLoginHeader';
 export { default as FacebookButton } from './FacebookButton';
 export { default as GoogleButton } from './GoogleButton';
 export { default as Perks } from './Perks';
+export { default as SideBar } from './SideBar';
+export { default as AccountBasicProfile } from './Account/BasicProfile';
+export { default as AccountSettings } from './Account/Settings';
+export { default as AccountRecommendation } from './Account/Recommendation';
+export { default as AccountLinkedAccounts } from './Account/LinkedAccounts';
+export { default as PreferenceBanner } from './Account/Banner';

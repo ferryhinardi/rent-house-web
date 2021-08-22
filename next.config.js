@@ -27,6 +27,9 @@ module.exports = withSentryConfig(
     // https://www.digitalocean.com/community/questions/next-js-static-site-requires-html-extension-in-url-for-dynamic-routes
     trailingSlash: true,
     reactStrictMode: true,
+    images: {
+      domains: ['theryna.sgp1.digitaloceanspaces.com'],
+    },
     webpack: (config) => {
       config.resolve.alias = {
         ...(config.resolve.alias || {}),
