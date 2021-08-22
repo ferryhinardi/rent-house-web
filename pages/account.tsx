@@ -45,14 +45,24 @@ function Account() {
         <View style={styles.contentWrapper}>
           <SideBar
             menus={[
-              { name: 'basic-profile', label: t('basicProfile') },
+              {
+                name: 'basic-profile',
+                label: t('basicProfile'),
+                IconRight: (
+                  <Icon
+                    name="check-circle"
+                    size={20}
+                    color={Token.colors.rynaBlue}
+                  />
+                ),
+              },
               {
                 name: 'account-settings',
                 label: t('accountSettings'),
                 IconRight: (
                   <Icon
                     name="exclamation-triangle"
-                    size={16}
+                    size={20}
                     color={Token.colors.red}
                   />
                 ),
@@ -63,7 +73,7 @@ function Account() {
                 IconRight: (
                   <Icon
                     name="exclamation-triangle"
-                    size={16}
+                    size={20}
                     color={Token.colors.red}
                   />
                 ),
@@ -74,7 +84,7 @@ function Account() {
                 IconRight: (
                   <Icon
                     name="exclamation-triangle"
-                    size={16}
+                    size={20}
                     color={Token.colors.red}
                   />
                 ),
