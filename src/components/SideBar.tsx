@@ -7,6 +7,7 @@ type Props = {
   menus: Array<{
     name: string;
     label: string;
+    IconRight?: React.ReactNode;
   }>;
   onPress?: (menuId: string) => void;
   style?: React.CSSProperties;
@@ -29,6 +30,7 @@ function SideBar({ menus, onPress, style }: Props) {
             {activeMenu === idx && <View style={styles.activeMenu} />}
             {menu.label}
           </Text>
+          {menu.IconRight}
         </Pressable>
       ))}
     </Card>
@@ -53,9 +55,13 @@ const styles = StyleSheet.create({
     backgroundColor: Token.colors.rynaYellow,
     marginRight: Token.spacing.xs,
   },
-  menuWrapper: {},
-  menu: {
+  menuWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: Token.spacing.l,
+  },
+  menu: {
     fontWeight: '600',
   },
 });

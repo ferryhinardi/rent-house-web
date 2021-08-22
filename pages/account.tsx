@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+// @ts-ignore
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { FormProvider, useForm } from 'react-hook-form';
 import { scroller } from 'react-scroll';
 import htmr from 'htmr';
@@ -44,9 +46,39 @@ function Account() {
           <SideBar
             menus={[
               { name: 'basic-profile', label: t('basicProfile') },
-              { name: 'account-settings', label: t('accountSettings') },
-              { name: 'recommendation', label: t('recommendation') },
-              { name: 'linked-accounts', label: t('linkedAccounts') },
+              {
+                name: 'account-settings',
+                label: t('accountSettings'),
+                IconRight: (
+                  <Icon
+                    name="exclamation-triangle"
+                    size={16}
+                    color={Token.colors.red}
+                  />
+                ),
+              },
+              {
+                name: 'recommendation',
+                label: t('recommendation'),
+                IconRight: (
+                  <Icon
+                    name="exclamation-triangle"
+                    size={16}
+                    color={Token.colors.red}
+                  />
+                ),
+              },
+              {
+                name: 'linked-accounts',
+                label: t('linkedAccounts'),
+                IconRight: (
+                  <Icon
+                    name="exclamation-triangle"
+                    size={16}
+                    color={Token.colors.red}
+                  />
+                ),
+              },
             ]}
             onPress={onPressMenu}
             style={{ flex: 0.2 }}
