@@ -9,3 +9,8 @@ export { default as UserLoginHeader } from './UserLoginHeader';
 export { default as FacebookButton } from './FacebookButton';
 export { default as GoogleButton } from './GoogleButton';
 export { default as Perks } from './Perks';
+export { default as SideBar } from './SideBar';
+export { default as AccountBasicProfile } from './Account/BasicProfile';
+export { default as AccountSettings } from './Account/Settings';
+export { default as AccountRecommendation } from './Account/Recommendation';
+export { default as AccountLinkedAccounts } from './Account/LinkedAccounts';

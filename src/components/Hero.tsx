@@ -5,12 +5,17 @@ import {
   HeroBannerInitial,
   HeroBannerChooseDate,
   HeroBannerChooseBudget,
-  HeroBannerDone
+  HeroBannerDone,
 } from './HeroBanner';
 import Questionaire from './Questionaire';
 
 const AnimatedView = animated(View);
-const heros = [HeroBannerInitial, HeroBannerChooseDate, HeroBannerChooseBudget, HeroBannerDone];
+const heros = [
+  HeroBannerInitial,
+  HeroBannerChooseDate,
+  HeroBannerChooseBudget,
+  HeroBannerDone,
+];
 
 function Hero() {
   const [heroImageIdx, setHeroImageIdx] = useState(0);
@@ -18,18 +23,22 @@ function Hero() {
     heros.length,
     heros.map((item, index) =>
       index === heroImageIdx
-        ? ({ opacity: 1, width: item.width, height: item.height, position: 'relative' })
-        : ({ opacity: 0, position: 'absolute' })
+        ? {
+            opacity: 1,
+            width: item.width,
+            height: item.height,
+            position: 'relative',
+          }
+        : { opacity: 0, position: 'absolute' }
     )
   );
   const animateStyleQuestionaire = useSpring({
-    from: { opacity: 0, transform: "translate3d(-25%, 0px, 0px)" },
-    to: { opacity: 1, transform: "translate3d(0%, 0px, 0px)" },
+    from: { opacity: 0, transform: 'translate3d(-25%, 0px, 0px)' },
+    to: { opacity: 1, transform: 'translate3d(0%, 0px, 0px)' },
     config: config.molasses,
   });
   const onSubmit = () => {
-    if (heroImageIdx + 1 < heros.length)
-      setHeroImageIdx(prev => prev + 1);
+    if (heroImageIdx + 1 < heros.length) setHeroImageIdx((prev) => prev + 1);
   };
 
   return (
@@ -44,7 +53,7 @@ function Hero() {
           >
             <HeroDescription />
           </AnimatedView>
-        )
+        );
       })}
       <AnimatedView
         // @ts-ignore

@@ -11,6 +11,9 @@ export const colors = {
   pink: '#FFF7F5',
   google: '#E2E8F0',
   fb: '#385898',
+  rynaBlue: '#1C2B4F',
+  rynaGray: '#F2F2F2',
+  rynaYellow: '#F5C010',
 };
 export const spacing = {
   xxs: 4,
@@ -76,4 +79,4 @@ export const typography = {
     lineHeight: 24,
     ...textWeightRegularStyle,
   },
-}
+};

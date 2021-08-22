@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import Router from 'next/router';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token } from 'core';
@@ -22,12 +23,12 @@ export default function HeaderNavigation({
       <Breadcrumb />
       <View style={styles.header}>
         {withBack ? (
-          <Pressable>
+          <Pressable onPress={() => Router.back()}>
             <Icon name="arrow-left" size={24} />
           </Pressable>
         ) : null}
         <View>
-          <Text variant="header-navigate" style={styles.title}>
+          <Text variant="header-title" style={styles.title}>
             {title}
           </Text>
           {subtitle ? (

@@ -1,40 +1,45 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { Token } from 'core';
 import { Text } from 'core/base';
 
 function Breadcrumbs() {
+  const { t } = useTranslation();
+  const { asPath } = useRouter();
+  const listPath = asPath.split('/').filter((path) => path !== '');
+
   return (
     <View style={styles.container}>
       <nav aria-label="Breadcrumb">
         <ol>
           <li>
-            <Link href="/">
-              <Text accessibilityRole="link" ink="secondary" variant="tiny">
-                {'homepage'}
+            <Link href="/" passHref>
+              <Text accessibilityRole="link" ink="primary" variant="tiny">
+                {t('homepage')}
               </Text>
             </Link>
           </li>
-          <li>
-            <Link href="">
-              <Text accessibilityRole="link" ink="secondary" variant="tiny">
-                {'account'}
-              </Text>
-            </Link>
-          </li>
-          <li>
-            <Link href="">
-              <Text
-                accessibilityRole="link"
-                ink={'primary'}
-                variant="tiny"
-                style={styles.active}
-              >
-                {'profile'}
-              </Text>
-            </Link>
-          </li>
+          {listPath.map((path, idx) => {
+            const isActiveMenu = idx === listPath.length - 1;
+            const hrefPath = listPath.slice(0, idx + 1);
+            return (
+              <li key={path}>
+                <Link href={isActiveMenu ? '' : `/${hrefPath}`} passHref>
+                  <Text
+                    accessibilityRole="link"
+                    ink={isActiveMenu ? 'normal' : 'primary'}
+                    variant="tiny"
+                    style={[isActiveMenu ? styles.active : {}]}
+                  >
+                    {t(`${path}`)}
+                  </Text>
+                </Link>
+              </li>
+            );
+          })}
         </ol>
         <style jsx>{`
           ol {

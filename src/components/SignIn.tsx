@@ -1,29 +1,26 @@
-import React from 'react';
-import Router from 'next/router';
-import Image from 'next/image';
-import { View, Pressable, StyleSheet } from 'react-native';
-import { useTranslation } from 'react-i18next';
-import { useMutation } from 'react-query';
-import { useForm, Controller } from 'react-hook-form';
-import { Token, fetcher } from 'core';
-import { login } from 'utils/auth';
-import {
-  Input,
-  Text,
-  Button,
-  LoadingIndicator,
-  ErrorMessage,
-  Modal,
-} from 'core/base';
-import { FacebookButton, GoogleButton } from 'components';
-import { Login, ErrorHandling } from 'types';
-import loginCoverImg from 'assets/login-cover.svg';
+import React from 'react'
+import Router from 'next/router'
+import Image from 'next/image'
+import { View, StyleSheet } from 'react-native'
+import { useTranslation } from 'react-i18next'
+import { useMutation } from 'react-query'
+import { useForm, Controller } from 'react-hook-form'
+import { Token, fetcher } from 'core'
+import { login } from 'utils/auth'
+import { Input, Text, Button, ErrorMessage, Modal } from 'core/base'
+import { FacebookButton, GoogleButton } from 'components'
+import { Login, ErrorHandling } from 'types'
+import loginCoverImg from 'assets/login-cover.svg'
 
-type Payload = { email: string, password: string };
+type Payload = { email: string; password: string }
 
 function SignInForm() {
-  const { t } = useTranslation();
-  const { isLoading, isError, error, mutate } = useMutation<Login, ErrorHandling, Payload>(
+  const { t } = useTranslation()
+  const { isLoading, isError, error, mutate } = useMutation<
+    Login,
+    ErrorHandling,
+    Payload
+  >(
     async (payload) =>
       fetcher<Login>({
         method: 'POST',
@@ -32,25 +29,29 @@ function SignInForm() {
       }),
     {
       onSuccess: (response: Login) => {
-        login(response);
-        onSuccessLogin();
+        login(response)
+        onSuccessLogin()
       },
     }
-  );
-  const { control, handleSubmit } = useForm();
+  )
+  const { control, handleSubmit } = useForm()
   const onSuccessLogin = () => {
-    Router.reload();
-  };
+    Router.reload()
+  }
   const onSubmit = (data: Payload) => {
-    mutate(data);
-  };
+    mutate(data)
+  }
 
   return (
     <View style={styles.container}>
       <Image src={loginCoverImg} alt="login-cover" layout="responsive" />
       <View style={styles.formContainer}>
-        <Text variant="title-1" style={styles.title}>{t('titleSignInForm')}</Text>
-        <Text variant="baseline" style={styles.title}>{t('subtitleSignInForm')}</Text>
+        <Text variant="title-1" style={styles.title}>
+          {t('titleSignInForm')}
+        </Text>
+        <Text variant="baseline" style={styles.title}>
+          {t('subtitleSignInForm')}
+        </Text>
         <GoogleButton onSuccessLogin={onSuccessLogin} />
         <FacebookButton onSuccessLogin={onSuccessLogin} />
         <Text style={styles.separator}>{t('separator')}</Text>
@@ -61,8 +62,8 @@ function SignInForm() {
             required: t('email.required') as string,
             pattern: {
               value: /\S+@\S+\.\S+/,
-              message: t('email.pattern')
-            }
+              message: t('email.pattern'),
+            },
           }}
           render={({ field, fieldState }) => (
             <>
@@ -75,7 +76,10 @@ function SignInForm() {
                 containerStyle={styles.input}
               />
               {Boolean(fieldState.error) && (
-                <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
+                <ErrorMessage
+                  text={fieldState.error?.message!}
+                  errorMessageId={fieldState.error?.message}
+                />
               )}
             </>
           )}
@@ -87,8 +91,8 @@ function SignInForm() {
             required: t('password.required') as string,
             minLength: {
               value: 5,
-              message: t('password.minLength', { length: 5 })
-            }
+              message: t('password.minLength', { length: 5 }),
+            },
           }}
           render={({ field, fieldState }) => (
             <>
@@ -102,30 +106,33 @@ function SignInForm() {
                 containerStyle={styles.input}
               />
               {Boolean(fieldState.error) && (
-                <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
+                <ErrorMessage
+                  text={fieldState.error?.message!}
+                  errorMessageId={fieldState.error?.message}
+                />
               )}
             </>
           )}
         />
         {isError && <ErrorMessage text={error?.message as string} />}
       </View>
-      <Pressable style={styles.submitButton} onPress={handleSubmit(onSubmit)}>
-        {isLoading ? (
-          <LoadingIndicator color={Token.colors.white} />
-        ) : (
-          <Text variant='large' ink='light'>{t('submitSignInForm')}</Text>
-        )}
-      </Pressable>
+      <Button
+        loading={isLoading}
+        text={t('submitSignInForm')}
+        style={styles.submitButton}
+        onPress={handleSubmit(onSubmit)}
+      />
     </View>
-  );
+  )
 }
 
 export function SignInButton() {
-  const [isVisible, onVisible] = React.useState(false);
-  const { t } = useTranslation();
+  const [isVisible, onVisible] = React.useState(false)
+  const { t } = useTranslation()
   return (
     <>
       <Button
+        variant="secondary"
         text={t('signIn')}
         onPress={() => onVisible(true)}
       />
@@ -139,7 +146,7 @@ export function SignInButton() {
         <SignInForm />
       </Modal>
     </>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -163,9 +170,9 @@ const styles = StyleSheet.create({
   submitButton: {
     marginTop: Token.spacing.m,
     paddingVertical: Token.spacing.m,
-    backgroundColor: Token.colors.blue,
+    borderRadius: 0,
     alignItems: 'center',
   },
-});
+})
 
-export default SignInButton;
+export default SignInButton
