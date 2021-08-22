@@ -17,6 +17,20 @@ export type User = {
   role_id: number;
 };
 
+export type Question = {
+  id: number;
+  title: string;
+  question_text: string;
+  weight: number;
+  group_name: string;
+  section: 'landing_page' | 'user_preferences';
+  type: 'choices' | 'date' | 'text' | 'range_number';
+  add_ons: AddOnsChoices | AddOnsRangeNumber;
+};
+
+export type AddOnsChoices = { choices: string[] };
+export type AddOnsRangeNumber = { range_min: number, range_max: number };
+
 export type Perk = {
   id: number;
   title: string;

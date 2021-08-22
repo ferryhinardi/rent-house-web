@@ -9,7 +9,7 @@ import {
   Footer,
 } from 'components';
 import { fetchServer } from 'core';
-import { User } from 'types';
+import { ResponseItem, Question, User } from 'types';
 import { QUERY_KEYS } from 'core/constants';
 
 export default function Home() {
@@ -30,9 +30,14 @@ export async function getServerSideProps(context: NextPageContext) {
     fetchServer<User>(
       context.req as NextApiRequest,
       context.res as NextApiResponse,
-      {
-        url: '/current-user'
-      }
+      { url: '/current-user' }
+    )
+  );
+  await queryClient.prefetchQuery(QUERY_KEYS.QUESTION, () =>
+    fetchServer<ResponseItem<Question>>(
+      context.req as NextApiRequest,
+      context.res as NextApiResponse,
+      { url: '/question/question', params: { section: 'landing_page' } }
     )
   );
   return {

@@ -12,12 +12,21 @@ interface Props extends TextProps {
     | 'title-1'
     | 'title-2'
     | 'title-3'
+    | 'huge'
+    | 'big'
     | 'large'
     | 'medium-large'
     | 'baseline'
     | 'small'
     | 'tiny';
-  ink?: 'normal' | 'primary' | 'secondary' | 'dark' | 'light' | 'alert';
+  ink?:
+    | 'normal'
+    | 'primary'
+    | 'secondary'
+    | 'caption'
+    | 'dark'
+    | 'light'
+    | 'alert';
 }
 
 function Text({
@@ -50,6 +59,12 @@ function Text({
       break;
     case 'title-3':
       variantStyle = StyleSheet.flatten([style, styles.title3]);
+      break;
+    case 'huge':
+      variantStyle = StyleSheet.flatten([style, styles.huge]);
+      break;
+    case 'big':
+      variantStyle = StyleSheet.flatten([style, styles.big]);
       break;
     case 'large':
       variantStyle = StyleSheet.flatten([style, styles.large]);
@@ -84,6 +99,9 @@ function Text({
       break;
     case 'secondary':
       variantStyle = StyleSheet.flatten([variantStyle, styles.secondary]);
+      break;
+    case 'caption':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.caption]);
       break;
     case 'normal':
     default:
@@ -129,6 +147,14 @@ const styles = StyleSheet.create({
     fontSize: fontSize.medium,
     fontWeight: '700',
   },
+  huge: {
+    fontSize: fontSize.huge,
+    fontWeight: '400',
+  },
+  big: {
+    fontSize: fontSize.big,
+    fontWeight: '400',
+  },
   large: {
     fontSize: fontSize.large,
     fontWeight: '400',
@@ -165,6 +191,9 @@ const styles = StyleSheet.create({
   },
   secondary: {
     color: colors.gold,
+  },
+  caption: {
+    color: colors.lightGrey,
   },
 });
 

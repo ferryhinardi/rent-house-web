@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 import { Text, Pressable, Tooltip } from 'core/base';
-import useOutsideClick from 'core/hooks/useClickOutside';
+import { useClickOutside } from 'core/hooks';
 import { User } from 'types';
 import { logout } from 'utils/auth';
 
@@ -25,7 +25,7 @@ function UserLoginHeader(props: Props) {
     router.push('/account');
   };
 
-  useOutsideClick(profileMenuRef, () => setIsVisible(false));
+  useClickOutside(profileMenuRef, () => setIsVisible(false));
 
   return (
     <View style={styles.container}>
