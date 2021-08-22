@@ -28,6 +28,7 @@ function Account() {
       duration: 500,
       delay: 100,
       smooth: true,
+      offset: -50,
     });
   };
 

@@ -53,6 +53,13 @@ const en = {
   accountSettingsTitle: 'Accounts Settings',
   accountSettingsDescription:
     'We link your profile and help you to populate your profile.',
+  profileDescription:
+    'We link your profile and help you to populate your profile.',
+  preferenceDescription:
+    'We link your profile and help you to populate your profile.',
+  applicationDescription:
+    'We link your profile and help you to populate your profile.',
+  completeNow: 'Complete Now',
   recommendationTitle: 'Home Recommendation',
   recommendationDescription:
     'Your recommendation will be showed up here once you completed your profile and account settings.',
@@ -67,6 +74,8 @@ const en = {
   homepage: 'Home',
   account: 'Account',
   profile: 'Personal Info',
+  preference: 'My Prefences',
+  application: 'My Applications',
   logout: 'Sign Out',
 };
 

@@ -12,6 +12,7 @@ export const colors = {
   pink: '#FFF7F5',
   google: '#E2E8F0',
   fb: '#385898',
+  rynaBlack: '#202020',
   rynaBlue: '#1C2B4F',
   rynaGray: '#F2F2F2',
   rynaYellow: '#F5C010',
