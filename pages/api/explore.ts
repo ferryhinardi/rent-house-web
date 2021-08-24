@@ -1,14 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { withSentry } from '@sentry/nextjs';
 import fetcher from 'core/fetcher/fetchServer';
-import { ResponseItem, Perk } from 'types';
+import { ResponseItem, Explore } from 'types';
 import '../../sentry.server.config';
 
 type Data = {};
 
-async function perks(req: NextApiRequest, res: NextApiResponse<Data>) {
+async function explores(req: NextApiRequest, res: NextApiResponse<Data>) {
   try {
-    const response = await fetcher<ResponseItem<Perk>>(req, res, {
+    const response = await fetcher<ResponseItem<Explore>>(req, res, {
       method: 'GET',
       url: '/hause',
     });
@@ -18,4 +18,4 @@ async function perks(req: NextApiRequest, res: NextApiResponse<Data>) {
   }
 }
 
-export default withSentry(perks);
+export default withSentry(explores);
