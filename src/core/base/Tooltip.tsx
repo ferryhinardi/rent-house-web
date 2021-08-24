@@ -5,7 +5,6 @@ import { StyleSheet, View, ViewStyle } from 'react-native';
 import useLayout from '../hooks/useLayout';
 import { useHoverable } from '../hooks/useHoverable';
 
-import Card from './Card';
 import Text from './Text';
 import * as Token from './Token';
 
@@ -79,18 +78,40 @@ export default function Tooltip(props: Props) {
   const shouldShowContent = isControlled ? show === true : isHovered;
 
   return (
-    <View style={containerStyle} ref={parentRef as React.MutableRefObject<View>} {...hoverEventBindings} {...baseLayoutBindings}>
+    <View
+      style={containerStyle}
+      ref={parentRef as React.MutableRefObject<View>}
+      {...hoverEventBindings}
+      {...baseLayoutBindings}
+    >
       {children}
-      <TooltipContent show={shouldShowContent} {...tooltipContentProps} baseWidth={baseLayout.width} />
+      <TooltipContent
+        show={shouldShowContent}
+        {...tooltipContentProps}
+        baseWidth={baseLayout.width}
+      />
     </View>
   );
 }
 
-function TooltipContent(props: { show: boolean; baseWidth: number } & TooltipContentProps) {
-  const { content, variant = 'normal', position = 'top', contentZIndex, width = 'auto', offset, show, baseWidth, testID } = props;
+function TooltipContent(
+  props: { show: boolean; baseWidth: number } & TooltipContentProps
+) {
+  const {
+    content,
+    variant = 'normal',
+    position = 'top',
+    contentZIndex,
+    width = 'auto',
+    offset,
+    show,
+    baseWidth,
+    testID,
+  } = props;
   const contentWidth = width === 'stretchToChild' ? baseWidth : width;
   const variantColor = getVariantColor(variant);
-  const [wrapperStyle, arrowStyle, cardOffsetStyle] = getPositionVariantStyle(position);
+  const [wrapperStyle, arrowStyle, cardOffsetStyle] =
+    getPositionVariantStyle(position);
 
   return (
     <View
@@ -103,18 +124,24 @@ function TooltipContent(props: { show: boolean; baseWidth: number } & TooltipCon
         },
         calculateOffset(position, offset, show),
         wrapperStyle,
-        getAbsoluteStyle(position, contentZIndex)
+        getAbsoluteStyle(position, contentZIndex),
       ]}
     >
       <View style={[styles.arrow, arrowStyle, { borderColor: variantColor }]} />
-      <Card style={[styles.tooltipCard, cardOffsetStyle, { backgroundColor: variantColor }]}>
+      <View
+        style={[
+          styles.tooltipCard,
+          cardOffsetStyle,
+          { backgroundColor: variantColor },
+        ]}
+      >
         {isReactText(content) && (
           <Text ink="light" style={styles.tooltipText}>
             {content}
           </Text>
         )}
         {!isReactText(content) && content}
-      </Card>
+      </View>
     </View>
   );
 }
@@ -134,7 +161,11 @@ function isReactText(content: React.ReactNode): content is React.ReactText {
 // Determine the transformation styling should be used in
 // animating the tooltip when shown or hidden (slide value).
 // takes the position variant, the offset (distance from an edge).
-function calculateOffset(position: Position, offset: Props['offset'], show: boolean) {
+function calculateOffset(
+  position: Position,
+  offset: Props['offset'],
+  show: boolean
+) {
   const translate = { x: 0, y: 0 };
   const visibilityOffset = show ? 0 : Token.spacing.m;
   const defaultDistance = Token.spacing.xxs + visibilityOffset;
@@ -158,7 +189,10 @@ function calculateOffset(position: Position, offset: Props['offset'], show: bool
   const { x = 0, y = 0 } = offset || {};
 
   return {
-    transform: [{ translateX: translate.x + x }, { translateY: translate.y - y }],
+    transform: [
+      { translateX: translate.x + x },
+      { translateY: translate.y - y },
+    ],
   };
 }
 
@@ -203,7 +237,11 @@ function getPositionVariantStyle(position: Position): ViewStyle[] {
     case 'right':
       return [styles.wrapperRight, styles.arrowRight, styles.cardOffsetRight];
     case 'bottom':
-      return [styles.wrapperBottom, styles.arrowBottom, styles.cardOffsetBottom];
+      return [
+        styles.wrapperBottom,
+        styles.arrowBottom,
+        styles.cardOffsetBottom,
+      ];
     case 'left':
     default:
       return [styles.wrapperLeft, styles.arrowLeft, styles.cardOffsetLeft];

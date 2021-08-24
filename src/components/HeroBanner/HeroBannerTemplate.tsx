@@ -1,19 +1,19 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Image, { ImageLoaderProps } from 'next/image';
+import Image, { ImageProps } from 'next/image';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token } from 'core';
 import { Text } from 'core/base';
 
 type Props = {
-  imageSrc: ImageLoaderProps['src'];
+  imageProps: ImageProps;
   DescriptionComponent: React.ReactNode;
   footerNode: React.ReactNode;
 };
 
 function HeroBannerTemplate({
-  imageSrc,
+  imageProps,
   DescriptionComponent,
   footerNode,
 }: Props) {
@@ -21,9 +21,8 @@ function HeroBannerTemplate({
     <View style={styles.heroImageWrapper}>
       <View style={styles.imageWrapper}>
         <Image
-          src={imageSrc}
+          {...imageProps}
           loading="eager"
-          layout="fill"
           objectFit="cover"
           alt="hero-image"
         />

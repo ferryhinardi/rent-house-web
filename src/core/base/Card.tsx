@@ -51,7 +51,7 @@ function Card({
 }
 
 function CardTitle(props: React.ComponentProps<typeof Text>) {
-  return <Text {...props} variant="header-title" />;
+  return <Text {...props} variant="header-3" />;
 }
 
 function CardBody(

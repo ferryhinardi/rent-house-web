@@ -11,12 +11,12 @@ export default function Recommendation() {
     <Element name="recommendation">
       <View>
         <View style={styles.titleWrapper}>
-          <Text variant="header-title" ink="primary" style={styles.title}>
+          <Text variant="header-3" ink="primary" style={styles.title}>
             {t('recommendationTitle')}
           </Text>
           <Badge text="Need Action" variant="alert" />
         </View>
-        <Text variant="medium-large" style={styles.description}>
+        <Text variant="caption" style={styles.description}>
           {t('recommendationDescription')}
         </Text>
       </View>

@@ -27,7 +27,9 @@ function Button({
       textInk = 'light';
       break;
     case 'secondary':
-      buttonStyle = { backgroundColor: colors.gold };
+      buttonStyle = {
+        backgroundColor: 'rgba(245, 192, 16, 0.4)', // colors.lightGold with opacity 0.4
+      };
       break;
     case 'empty':
       buttonStyle = {

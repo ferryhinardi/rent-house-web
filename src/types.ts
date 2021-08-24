@@ -29,7 +29,7 @@ export type Question = {
 };
 
 export type AddOnsChoices = { choices: string[] };
-export type AddOnsRangeNumber = { range_min: number, range_max: number };
+export type AddOnsRangeNumber = { range_min: number; range_max: number };
 
 export type Perk = {
   id: number;
@@ -38,6 +38,7 @@ export type Perk = {
   image: string;
 };
 
+export type Explore = {};
+
 export type Login = { token: string };
 export type ErrorHandling = { message: string };
-

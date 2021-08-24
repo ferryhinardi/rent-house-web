@@ -27,8 +27,10 @@ function Perks() {
       <ContainerDesktop style={styles.container}>
         <View style={styles.header}>
           <View>
-            <Text style={styles.headerTitle}>{t('titlePerks')}</Text>
-            <Text style={styles.headerSubtitle}>{t('subtitlePerks')}</Text>
+            <Text variant="header-2" style={styles.headerTitle}>
+              {t('titlePerks')}
+            </Text>
+            <Text>{t('subtitlePerks')}</Text>
             <button
               type="button"
               onClick={() => {
@@ -95,14 +97,7 @@ const styles = StyleSheet.create({
     paddingVertical: Token.spacing.m,
   },
   headerTitle: {
-    ...Token.typography.Baseline,
-    fontWeight: 'bold',
-    fontSize: Token.fontSize.huge,
     marginBottom: Token.spacing.xs,
-  },
-  headerSubtitle: {
-    ...Token.typography.Baseline,
-    fontSize: Token.fontSize.medium,
   },
   cardStyle: {
     flexGrow: 1,

@@ -1,11 +1,17 @@
 import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
 import { QueryClient } from 'react-query';
- import { dehydrate } from 'react-query/hydration';
+import { dehydrate } from 'react-query/hydration';
 import {
   Head,
   HeaderMenu,
   Hero,
+  PartnersSection,
+  ExploreHomesSection,
+  VideoSection,
   Perks,
+  EasyProcessSection,
+  TestimonialSection,
+  PreferenceBanner,
   Footer,
 } from 'components';
 import { fetchServer } from 'core';
@@ -18,14 +24,20 @@ export default function Home() {
       <Head />
       <HeaderMenu />
       <Hero />
+      <PartnersSection />
+      <ExploreHomesSection />
+      <VideoSection />
       <Perks />
+      <EasyProcessSection />
+      <TestimonialSection />
+      <PreferenceBanner />
       <Footer />
     </div>
-  )
+  );
 }
 
 export async function getServerSideProps(context: NextPageContext) {
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient();
   await queryClient.prefetchQuery(QUERY_KEYS.CURRENT_USER, () =>
     fetchServer<User>(
       context.req as NextApiRequest,
@@ -43,6 +55,6 @@ export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
-    }
+    },
   };
 }
