@@ -28,11 +28,11 @@ export default function HeaderNavigation({
           </Pressable>
         ) : null}
         <View>
-          <Text variant="header-title" style={styles.title}>
+          <Text variant="header-3" style={styles.title}>
             {title}
           </Text>
           {subtitle ? (
-            <Text variant="medium-large" style={styles.subtitle}>
+            <Text variant="caption" style={styles.subtitle}>
               {subtitle}
             </Text>
           ) : null}

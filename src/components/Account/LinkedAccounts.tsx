@@ -13,12 +13,12 @@ export default function LinkedAccounts() {
     <Element name="linked-accounts">
       <>
         <View style={styles.titleWrapper}>
-          <Text variant="header-title" ink="primary" style={styles.title}>
+          <Text variant="header-3" ink="primary" style={styles.title}>
             {t('linkedAccountsTitle')}
           </Text>
           <Badge text="Need Action" variant="alert" />
         </View>
-        <Text variant="medium-large" style={styles.description}>
+        <Text variant="caption" style={styles.description}>
           {t('linkedAccountsDescription')}
         </Text>
         {linkedAccounts.map((account) => (

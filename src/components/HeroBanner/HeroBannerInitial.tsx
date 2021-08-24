@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 import { Text, Button } from 'core/base';
 import hero from 'assets/hero-0.svg';
+import { imageDataBase64 } from 'assets/hero-0';
 import HeroBannerTemplate from './HeroBannerTemplate';
 import { HeroStates } from '../HeroBanner';
 
@@ -16,7 +17,13 @@ function HeroBannerInitial(_: Props) {
   const { t } = useTranslation();
   return (
     <HeroBannerTemplate
-      imageSrc={hero}
+      imageProps={{
+        src: hero,
+        blurDataURL: imageDataBase64,
+        placeholder: 'blur',
+        width: hero.width,
+        height: hero.height,
+      }}
       DescriptionComponent={
         <>
           <Text variant="banner-title" ink="light">

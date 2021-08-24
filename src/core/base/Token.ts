@@ -8,6 +8,7 @@ export const colors = {
   lightGrey: '#636363',
   grey: '#CDD0D1',
   gold: '#D69E2E',
+  lightGold: '#F5C010',
   blue: '#1A365D',
   pink: '#FFF7F5',
   google: '#E2E8F0',
@@ -55,6 +56,7 @@ export const animation = {
 export const fontSize = {
   super: 60,
   gigantic: 48,
+  xlarge: 36,
   huge: 32,
   bigger: 28,
   big: 24,

@@ -7,15 +7,16 @@ interface Props extends TextProps {
   variant?:
     | 'banner-title'
     | 'banner-subtitle'
-    | 'header-title'
     | 'sidebar-menu'
+    | 'header-2'
+    | 'header-3'
     | 'title-1'
     | 'title-2'
     | 'title-3'
     | 'huge'
     | 'big'
     | 'large'
-    | 'medium-large'
+    | 'caption'
     | 'baseline'
     | 'small'
     | 'tiny';
@@ -45,11 +46,14 @@ function Text({
     case 'banner-subtitle':
       variantStyle = StyleSheet.flatten([style, styles.bannerSubtitle]);
       break;
-    case 'header-title':
-      variantStyle = StyleSheet.flatten([style, styles.headerTitle]);
-      break;
     case 'sidebar-menu':
       variantStyle = StyleSheet.flatten([style, styles.sidebarMenu]);
+      break;
+    case 'header-2':
+      variantStyle = StyleSheet.flatten([style, styles.header2]);
+      break;
+    case 'header-3':
+      variantStyle = StyleSheet.flatten([style, styles.header3]);
       break;
     case 'title-1':
       variantStyle = StyleSheet.flatten([style, styles.title1]);
@@ -69,8 +73,8 @@ function Text({
     case 'large':
       variantStyle = StyleSheet.flatten([style, styles.large]);
       break;
-    case 'medium-large':
-      variantStyle = StyleSheet.flatten([style, styles.mediumLarge]);
+    case 'caption':
+      variantStyle = StyleSheet.flatten([style, styles.caption]);
       break;
     case 'small':
       variantStyle = StyleSheet.flatten([style, styles.small]);
@@ -101,7 +105,7 @@ function Text({
       variantStyle = StyleSheet.flatten([variantStyle, styles.secondary]);
       break;
     case 'caption':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.caption]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.captionInk]);
       break;
     case 'normal':
     default:
@@ -125,15 +129,20 @@ const styles = StyleSheet.create({
     fontSize: fontSize.large,
     fontWeight: '400',
   },
-  headerTitle: {
-    fontSize: fontSize.bigger,
-    lineHeight: 42,
-    fontWeight: '700',
-  },
   sidebarMenu: {
     fontSize: fontSize.medium,
     lineHeight: 20,
     fontWeight: '600',
+  },
+  header2: {
+    fontSize: fontSize.xlarge,
+    lineHeight: 48,
+    fontWeight: '700',
+  },
+  header3: {
+    fontSize: fontSize.bigger,
+    lineHeight: 42,
+    fontWeight: '700',
   },
   title1: {
     fontSize: fontSize.huge,
@@ -159,7 +168,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.large,
     fontWeight: '400',
   },
-  mediumLarge: {
+  caption: {
     fontSize: fontSize.jumbo,
     fontWeight: '400',
   },
@@ -192,7 +201,7 @@ const styles = StyleSheet.create({
   secondary: {
     color: colors.gold,
   },
-  caption: {
+  captionInk: {
     color: colors.lightGrey,
   },
 });

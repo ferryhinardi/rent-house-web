@@ -14,10 +14,10 @@ export default function BasicProfile() {
   return (
     <Element name="basic-profile">
       <View style={styles.container}>
-        <Text variant="header-title" ink="primary">
+        <Text variant="header-3" ink="primary">
           {t('welcomeMessage', { name: 'username' })}
         </Text>
-        <Text variant="medium-large">{t('welcomeDescription')}</Text>
+        <Text variant="caption">{t('welcomeDescription')}</Text>
         <View style={styles.form}>
           <View>
             <View style={{ borderRadius: Token.border.radius.default }}>

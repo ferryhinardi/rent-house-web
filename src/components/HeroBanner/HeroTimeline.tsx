@@ -39,11 +39,7 @@ function HeroTimeline({ states, onChange }: Props) {
                 <Icon name="circle-thin" size={32} color={Token.colors.white} />
               )}
               <View style={styles.stateInfo}>
-                <Text
-                  variant="medium-large"
-                  ink="light"
-                  style={styles.stateName}
-                >
+                <Text variant="caption" ink="light" style={styles.stateName}>
                   {item.name}
                 </Text>
                 {item.value && (
