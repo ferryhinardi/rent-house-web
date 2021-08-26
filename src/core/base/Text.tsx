@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   dark: {
-    color: colors.dark,
+    color: colors.rynaBlack,
   },
   light: {
     color: colors.white,

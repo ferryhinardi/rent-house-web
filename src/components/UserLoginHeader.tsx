@@ -9,6 +9,7 @@ import { Text, Pressable, Tooltip } from 'core/base';
 import { useClickOutside } from 'core/hooks';
 import { User } from 'types';
 import { logout } from 'utils/auth';
+import { routePaths } from 'routePaths';
 
 type Props = User;
 
@@ -22,7 +23,7 @@ function UserLoginHeader(props: Props) {
     Router.reload();
   };
   const onNavigateToAccount = () => {
-    router.push('/account');
+    router.push(routePaths.account);
   };
 
   useClickOutside(profileMenuRef, () => setIsVisible(false));

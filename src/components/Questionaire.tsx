@@ -2,9 +2,8 @@ import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
-import { Text, Input, LoadingIndicator } from 'core/base';
+import { Text, Input, CalendarInput, LoadingIndicator } from 'core/base';
 import { Question, AddOnsChoices } from 'types';
-import Calendar from './Calendar';
 import Slider from './Slider';
 import Container, {
   SliderConsumer,
@@ -24,7 +23,9 @@ function Questionaire(props: Props) {
 
   switch (props.question?.type) {
     case 'date':
-      QuestionContent = <Calendar placeholder={t('placeholderCalendar')} />;
+      QuestionContent = (
+        <CalendarInput placeholder={t('placeholderCalendar')} />
+      );
       break;
     case 'range_number':
       QuestionContent = (

@@ -1,19 +1,23 @@
 import React from 'react';
-import { StyleSheet, Pressable } from 'react-native';
+import { StyleSheet, View, Pressable } from 'react-native';
 import { LoadingIndicator } from 'core/base';
+// @ts-ignore
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { spacing, colors, border } from './Token';
 import Text from './Text';
 
 type Props = React.ComponentProps<typeof Pressable> & {
+  IconStart?: string | React.ReactElement;
   loading?: boolean;
   text: string;
-  variant?: 'primary' | 'secondary' | 'empty';
+  variant?: 'primary' | 'secondary' | 'empty' | 'outline';
 };
 
 function Button({
   text,
   variant = 'primary',
   style,
+  IconStart,
   loading = false,
   ...restProps
 }: Props) {
@@ -38,6 +42,12 @@ function Button({
         borderWidth: 3,
       };
       break;
+    case 'outline':
+      buttonStyle = {
+        backgroundColor: 'transparent',
+        borderColor: 'transparent',
+      };
+      break;
   }
 
   return (
@@ -45,6 +55,13 @@ function Button({
       {...restProps}
       style={StyleSheet.flatten([styles.container, style, buttonStyle])}
     >
+      {typeof IconStart === 'string' ? (
+        <View style={styles.wrapperIcon}>
+          <Icon name={IconStart} size={16} />
+        </View>
+      ) : (
+        <View style={styles.wrapperIcon}>{IconStart}</View>
+      )}
       {loading ? (
         <LoadingIndicator color={colors.white} />
       ) : (
@@ -57,11 +74,14 @@ function Button({
 const styles = StyleSheet.create({
   container: {
     minWidth: 150,
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: border.radius.extra,
     paddingVertical: spacing.m,
     paddingHorizontal: spacing.xxm,
   },
+  wrapperIcon: { marginRight: spacing.xs },
 });
 
 export default Button;

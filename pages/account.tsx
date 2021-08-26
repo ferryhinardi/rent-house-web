@@ -21,7 +21,7 @@ import {
 import { Token } from 'core';
 import { Text } from 'core/base';
 
-function Account() {
+export default function Account() {
   const { t } = useTranslation();
   const forms = useForm();
 
@@ -135,5 +135,3 @@ const styles = StyleSheet.create({
     marginBottom: Token.spacing.xxxxxl,
   },
 });
-
-export default Account;

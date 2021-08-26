@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
-import { useSpring, useSprings, animated, config } from 'react-spring';
+import { useSprings, animated } from 'react-spring';
 import { fetcher } from 'core';
 import { Modal } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
@@ -45,15 +45,11 @@ function Hero() {
             width: item.width,
             height: item.height,
             position: 'relative',
+            zIndex: 1,
           }
         : { opacity: 0, position: 'absolute' }
     )
   );
-  const animateStyleQuestionaire = useSpring({
-    from: { opacity: 0, transform: 'translate3d(-25%, 0px, 0px)' },
-    to: { opacity: 1, transform: 'translate3d(0%, 0px, 0px)' },
-    config: config.molasses,
-  });
   const onChangeTimelineBanner = (index: number) => {
     // Index + 1 because there is banner without hero timeline component in initial banner
     setStateIndex(index + 1);
@@ -86,21 +82,16 @@ function Hero() {
               states={dummyState}
               onChange={onChangeTimelineBanner}
             />
+            <View style={styles.containerSignUpForm}>
+              <Questionaire
+                loading={isLoading}
+                question={data?.data?.[stateIndex]}
+                onSubmit={onSubmit}
+              />
+            </View>
           </AnimatedView>
         );
       })}
-      <AnimatedView
-        // @ts-ignore
-        style={{ ...animateStyleQuestionaire, flex: 0.6 }}
-      >
-        <View style={styles.containerSignUpForm}>
-          <Questionaire
-            loading={isLoading}
-            question={data?.data?.[stateIndex]}
-            onSubmit={onSubmit}
-          />
-        </View>
-      </AnimatedView>
       {stateIndex === heros.length - 1 && (
         <Modal
           animationType="fade"
@@ -122,7 +113,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   containerSignUpForm: {
-    marginLeft: -200,
+    position: 'absolute',
+    width: '50%',
+    top: '25%',
+    left: '75%',
   },
 });
 

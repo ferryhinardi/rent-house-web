@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import { useSpring, animated } from 'react-spring';
-import ReactCalendar from 'react-calendar';
+import ReactCalendar, { OnChangeDateCallback } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Token } from 'core';
 import { Input } from 'core/base';
@@ -17,18 +17,27 @@ function Calendar(props: Props) {
     () =>
       new Intl.DateTimeFormat('default', {
         year: 'numeric',
-        month: 'numeric',
+        month: 'long',
         day: 'numeric',
       })
   );
   const [isVisibile, setIsVisible] = React.useState(false);
-  const [value, onChange] = React.useState(new Date());
-  const calendarAnimateStyle = useSpring({ opacity: isVisibile ? 1 : 0 });
+  const [isConstruct, setIsContruct] = React.useState(false);
+  const [value, setValue] = React.useState(new Date());
+  const calendarAnimateStyle = useSpring({
+    opacity: isVisibile ? 1 : 0,
+    onRest: () => (!isVisibile ? setIsContruct(false) : {}),
+  });
   const onPress = () => {
+    setIsContruct(true);
     setIsVisible((prev) => !prev);
   };
   const onHide = () => {
     setIsVisible(false);
+  };
+  const onChange: OnChangeDateCallback = (value: Date) => {
+    setValue(value);
+    onHide();
   };
 
   useClickOutside(
@@ -47,14 +56,16 @@ function Calendar(props: Props) {
         onFocus={onPress}
         onBlur={onHide}
       />
-      <View style={styles.containerCalendar}>
-        <AnimatedView
-          // @ts-ignore
-          style={calendarAnimateStyle}
-        >
-          <ReactCalendar onChange={onChange} value={value} />
-        </AnimatedView>
-      </View>
+      {isConstruct && (
+        <View style={styles.containerCalendar}>
+          <AnimatedView
+            // @ts-ignore
+            style={calendarAnimateStyle}
+          >
+            <ReactCalendar onChange={onChange} value={value} />
+          </AnimatedView>
+        </View>
+      )}
     </div>
   );
 }
@@ -66,7 +77,6 @@ const styles = StyleSheet.create({
   },
   containerCalendar: {
     position: 'absolute',
-    zIndex: 1,
     marginTop: Token.spacing.xs,
     margin: 'auto 0px',
   },
