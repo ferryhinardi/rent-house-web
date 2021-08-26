@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
 import { Element } from 'react-scroll';
 import { useTranslation } from 'react-i18next';
@@ -44,6 +45,7 @@ type SettingCardProps = {
 
 function SettingCard({ title, subtitle, href }: SettingCardProps) {
   const { t } = useTranslation();
+  const router = useRouter();
   return (
     <View style={styles.card}>
       <Text variant="title-2" style={styles.cardTitle}>
@@ -54,7 +56,7 @@ function SettingCard({ title, subtitle, href }: SettingCardProps) {
         ink="primary"
         accessibilityRole="link"
         // @ts-ignore
-        href={`/account/${href}`}
+        onPress={() => router.push(`/account/${href}`)}
         style={styles.cardCompleted}
       >
         {t('completeNow')}

@@ -15,20 +15,22 @@ function Footer() {
   const router = useRouter();
   const onNavigateMenu = (href: string) => {
     router.push(href);
-   };
+  };
   return (
     <View style={styles.container}>
       <View style={styles.footer}>
         <View style={styles.sectionLogo}>
           <Image src={logo} layout="fixed" alt="logo" />
-          <Text ink='light'>{t('footerTitle')}</Text>
+          <Text ink="light">{t('footerTitle')}</Text>
         </View>
         <View style={styles.sectionMenu}>
-          <Text ink='light' variant='title-3' style={styles.listTitle}>{t('footerMenuTitle')}</Text>
-          {menus.map(menu => (
+          <Text ink="light" variant="title-3" style={styles.listTitle}>
+            {t('footerMenuTitle')}
+          </Text>
+          {menus.map((menu) => (
             <Text
               key={menu.name}
-              ink='light'
+              ink="light"
               accessibilityRole="link"
               onPress={() => onNavigateMenu(menu.href)}
               style={styles.list}
@@ -38,16 +40,26 @@ function Footer() {
           ))}
         </View>
         <View style={styles.sectionContactUs}>
-          <Text ink='light' variant='title-3' style={styles.listTitle}>{t('footerContactUsTitle')}</Text>
-          <Text ink='light' style={styles.list}>{t('contactUsEmail')}</Text>
-          <Text ink='light' style={styles.list}>{t('contactUsTelp')}</Text>
+          <Text ink="light" variant="title-3" style={styles.listTitle}>
+            {t('footerContactUsTitle')}
+          </Text>
+          <Text ink="light" style={styles.list}>
+            {t('contactUsEmail')}
+          </Text>
+          <Text ink="light" style={styles.list}>
+            {t('contactUsTelp')}
+          </Text>
         </View>
         <View style={styles.sectionFollowUs}>
-          <Text ink='light' variant='title-3'>{t('footerFollowUsTitle')}</Text>
+          <Text ink="light" variant="title-3">
+            {t('footerFollowUsTitle')}
+          </Text>
           <FollowUsList />
         </View>
       </View>
-      <Text ink='light' style={styles.copyRight}>{t('copyRightCaption')}</Text>
+      <Text ink="light" style={styles.copyRight}>
+        {t('copyRightCaption')}
+      </Text>
     </View>
   );
 }
@@ -94,7 +106,7 @@ function FollowUsList() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Token.colors.blue,
-    paddingVertical: Token.spacing.m,
+    padding: Token.spacing.xxxxl,
   },
   footer: {
     flex: 1,
@@ -110,13 +122,13 @@ const styles = StyleSheet.create({
     flex: 0.5,
   },
   sectionMenu: {
-    flex: 0.15
+    flex: 0.15,
   },
   sectionContactUs: {
-    flex: 0.15
+    flex: 0.15,
   },
   sectionFollowUs: {
-    flex: 0.20
+    flex: 0.2,
   },
   followUsContainer: {
     flexDirection: 'row',

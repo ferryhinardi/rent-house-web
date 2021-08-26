@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { View, Text, StyleSheet } from 'react-native';
+import NProgress from 'nprogress';
+import NextNprogress from 'nextjs-progressbar';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useSprings, animated, config } from 'react-spring';
 import { fetcher, Token } from 'core';
 import { menus, QUERY_KEYS } from 'core/constants';
+import { User } from 'types';
+import logo from 'assets/logo.svg';
+import { routePaths } from 'routePaths';
 import LanguageSelection from './LanguageSelection';
 import { SignInButton } from './SignIn';
 import UserLoginHeader from './UserLoginHeader';
-import logo from '../assets/logo.svg';
-import { User } from 'types';
 
 const AnimatedView = animated(View);
 
@@ -42,38 +45,69 @@ function Header() {
     router.push(href);
   };
 
+  useEffect(() => {
+    const handleStart = (url: string) => {
+      console.log(`Loading: ${url}`);
+      NProgress.start();
+    };
+    const handleStop = () => {
+      NProgress.done();
+    };
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleStop);
+    router.events.on('routeChangeError', handleStop);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleStop);
+      router.events.off('routeChangeError', handleStop);
+    };
+  }, [router]);
+
   return (
-    <View style={styles.container}>
-      <View style={styles.menuWrapper}>
-        <Image src={logo} alt="logo" />
-        {menuAnimations.map((animateStyle, idx) => {
-          const { name, href } = menus[idx];
-          const isActiveMenu =
-            href.replace('/', '') === router.pathname.split('/')[1];
-          return (
-            <AnimatedView
-              key={name}
-              // @ts-ignore
-              style={animateStyle}
-            >
-              <Text
-                accessibilityRole="link"
-                onPress={() => onNavigateMenu(href)}
-                style={[styles.menu, isActiveMenu && styles.activeMenu]}
+    <>
+      <View style={styles.container}>
+        <View style={styles.menuWrapper}>
+          <Pressable onPress={() => router.push(routePaths.home)}>
+            <Image src={logo} alt="logo" />
+          </Pressable>
+          {menuAnimations.map((animateStyle, idx) => {
+            const { name, href } = menus[idx];
+            const isActiveMenu =
+              href.replace('/', '') === router.pathname.split('/')[1];
+            return (
+              <AnimatedView
+                key={name}
+                // @ts-ignore
+                style={animateStyle}
               >
-                {name}
-              </Text>
-            </AnimatedView>
-          );
-        })}
+                <Text
+                  accessibilityRole="link"
+                  onPress={() => onNavigateMenu(href)}
+                  style={[styles.menu, isActiveMenu && styles.activeMenu]}
+                >
+                  {name}
+                </Text>
+              </AnimatedView>
+            );
+          })}
+        </View>
+        <LanguageSelection />
+        {!isLoading && data?.name ? (
+          <UserLoginHeader {...data} />
+        ) : (
+          <SignInButton />
+        )}
       </View>
-      <LanguageSelection />
-      {!isLoading && data?.name ? (
-        <UserLoginHeader {...data} />
-      ) : (
-        <SignInButton />
-      )}
-    </View>
+      <NextNprogress
+        color="#29D"
+        startPosition={0.3}
+        stopDelayMs={200}
+        height={3}
+        showOnShallow
+      />
+    </>
   );
 }
 
@@ -85,6 +119,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Token.spacing.xxl,
     paddingTop: Token.spacing.xxxl,
     paddingBottom: Token.spacing.xxxxxl,
+    zIndex: 1,
   },
   menuWrapper: {
     flexDirection: 'row',
