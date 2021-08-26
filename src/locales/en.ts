@@ -116,6 +116,7 @@ const en = {
   profile: 'Personal Info',
   preference: 'My Prefences',
   application: 'My Applications',
+  uploadPlaceholder: 'Upload File (in PDF, jpeg/png)',
   logout: 'Sign Out',
 };
 

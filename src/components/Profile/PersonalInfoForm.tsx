@@ -3,7 +3,14 @@ import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { Token } from 'core';
-import { Text, Button, Input, ErrorMessage } from 'core/base';
+import {
+  Text,
+  Input,
+  CalendarInput,
+  SelectInput,
+  FileInput,
+  ErrorMessage,
+} from 'core/base';
 
 export default function PersonalInfoForm() {
   const { t } = useTranslation();
@@ -45,14 +52,14 @@ export default function PersonalInfoForm() {
           required: t('gender.required') as string,
         }}
         render={({ field, fieldState }) => (
-          <View style={styles.formGroup}>
+          <View style={[styles.formGroup, { zIndex: 1 }]}>
             <Text variant="tiny" style={styles.label}>
               {t('gender')}
             </Text>
-            <Input
+            <SelectInput
               {...field}
+              variant="primary"
               placeholder={t('gender')}
-              textContentType="name"
               error={Boolean(fieldState.error)}
               errorMessageId={fieldState.error?.message}
             />
@@ -72,14 +79,13 @@ export default function PersonalInfoForm() {
           required: t('dob.required') as string,
         }}
         render={({ field, fieldState }) => (
-          <View style={styles.formGroup}>
+          <View style={[styles.formGroup, { zIndex: 1 }]}>
             <Text variant="tiny" style={styles.label}>
               {t('dob')}
             </Text>
-            <Input
+            <CalendarInput
               {...field}
               placeholder={t('dob')}
-              textContentType="name"
               error={Boolean(fieldState.error)}
               errorMessageId={fieldState.error?.message}
             />
@@ -105,8 +111,9 @@ export default function PersonalInfoForm() {
             </Text>
             <Input
               {...field}
+              keyboardType="numeric"
+              textContentType="telephoneNumber"
               placeholder={t('phoneNumber')}
-              textContentType="name"
               error={Boolean(fieldState.error)}
               errorMessageId={fieldState.error?.message}
             />
@@ -133,7 +140,7 @@ export default function PersonalInfoForm() {
             <Input
               {...field}
               placeholder={t('annualIncome')}
-              textContentType="name"
+              keyboardType="numeric"
               error={Boolean(fieldState.error)}
               errorMessageId={fieldState.error?.message}
             />
@@ -160,7 +167,6 @@ export default function PersonalInfoForm() {
             <Input
               {...field}
               placeholder={t('creditScore')}
-              textContentType="name"
               error={Boolean(fieldState.error)}
               errorMessageId={fieldState.error?.message}
             />
@@ -184,10 +190,9 @@ export default function PersonalInfoForm() {
             <Text variant="tiny" style={styles.label}>
               {t('govermentId')}
             </Text>
-            <Input
+            <FileInput
               {...field}
               placeholder={t('govermentId')}
-              textContentType="name"
               error={Boolean(fieldState.error)}
               errorMessageId={fieldState.error?.message}
             />
@@ -214,7 +219,6 @@ export default function PersonalInfoForm() {
             <Input
               {...field}
               placeholder={t('otherDocument')}
-              textContentType="name"
               error={Boolean(fieldState.error)}
               errorMessageId={fieldState.error?.message}
             />
@@ -243,7 +247,7 @@ export default function PersonalInfoForm() {
               variant="text-area"
               multiline
               placeholder={t('address')}
-              textContentType="name"
+              textContentType="addressState"
               error={Boolean(fieldState.error)}
               errorMessageId={fieldState.error?.message}
               containerStyle={styles.textArea}

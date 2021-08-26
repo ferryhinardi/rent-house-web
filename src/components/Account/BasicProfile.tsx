@@ -69,7 +69,7 @@ export default function BasicProfile() {
                   <Input
                     {...field}
                     placeholder={t('jobTitle')}
-                    textContentType="name"
+                    textContentType="jobTitle"
                     error={Boolean(fieldState.error)}
                     errorMessageId={fieldState.error?.message}
                     containerStyle={styles.input}
@@ -161,7 +161,7 @@ export default function BasicProfile() {
                     variant="text-area"
                     multiline
                     placeholder={t('biodata')}
-                    textContentType="name"
+                    textContentType="none"
                     error={Boolean(fieldState.error)}
                     errorMessageId={fieldState.error?.message}
                     containerStyle={styles.textArea}

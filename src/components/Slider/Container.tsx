@@ -19,7 +19,7 @@ export const SliderConsumer = SliderContext.Consumer;
 function ContainerSlider({ children }: Props) {
   const [min, setMin] = React.useState<number>(MinRange);
   const [max, setMax] = React.useState<number>(MaxRange);
-  console.log('container', { min, max });
+
   return (
     <SliderContext.Provider value={{ min, max }}>
       <View style={styles.container}>
