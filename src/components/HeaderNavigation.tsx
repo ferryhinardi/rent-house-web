@@ -27,17 +27,15 @@ export default function HeaderNavigation({
             <Icon name="arrow-left" size={24} />
           </Pressable>
         ) : null}
-        <View>
-          <Text variant="header-3" style={styles.title}>
-            {title}
-          </Text>
-          {subtitle ? (
-            <Text variant="caption" style={styles.subtitle}>
-              {subtitle}
-            </Text>
-          ) : null}
-        </View>
+        <Text variant="header-3" style={styles.title}>
+          {title}
+        </Text>
       </View>
+      {subtitle ? (
+        <Text variant="caption" style={styles.subtitle}>
+          {subtitle}
+        </Text>
+      ) : null}
     </View>
   );
 }
@@ -51,7 +49,6 @@ const styles = StyleSheet.create({
     marginLeft: Token.spacing.m,
   },
   subtitle: {
-    marginLeft: Token.spacing.m,
-    marginTop: Token.spacing.xs,
+    marginTop: Token.spacing.m,
   },
 });

@@ -10,6 +10,7 @@ import { useClickOutside } from 'core/hooks';
 import { User } from 'types';
 import { logout } from 'utils/auth';
 import { routePaths } from 'routePaths';
+import Notification from './Notification';
 
 type Props = User;
 
@@ -30,16 +31,13 @@ function UserLoginHeader(props: Props) {
 
   return (
     <View style={styles.container}>
-      <Pressable style={styles.button}>
-        <Icon name="bell" size={24} color={Token.colors.blue} />
-      </Pressable>
+      <Notification />
       <Pressable style={styles.button} onPress={onNavigateToAccount}>
         <Icon name="user" size={24} color={Token.colors.blue} />
       </Pressable>
       <Tooltip
         show={isVisibile}
         position="bottom"
-        contentZIndex={100000000}
         width="stretchToChild"
         content={
           <Pressable style={{ alignItems: 'center' }} onPress={onLogout}>

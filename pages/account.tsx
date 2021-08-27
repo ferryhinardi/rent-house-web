@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { FormProvider, useForm } from 'react-hook-form';
 import { scroller } from 'react-scroll';
-import htmr from 'htmr';
 import {
   Head,
   HeaderMenu,
@@ -19,7 +18,6 @@ import {
   Footer,
 } from 'components';
 import { Token } from 'core';
-import { Text } from 'core/base';
 
 export default function Account() {
   const { t } = useTranslation();
@@ -40,7 +38,6 @@ export default function Account() {
       <HeaderMenu />
       <View style={styles.container}>
         <HeaderNavigation title={t('account')} />
-        <Text style={styles.description}>{htmr(t('accountDescription'))}</Text>
         <View style={styles.separator} />
         <View style={styles.contentWrapper}>
           <SideBar
@@ -115,9 +112,6 @@ export default function Account() {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: Token.spacing.xxxxl,
-  },
-  description: {
-    marginTop: Token.spacing.xxl,
   },
   separator: {
     marginVertical: Token.spacing.xxl,
