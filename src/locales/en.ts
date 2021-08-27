@@ -57,8 +57,6 @@ const en = {
   contactUsTelp: 'Tel: +1 437-900-1839',
   footerFollowUsTitle: 'Follow Us',
   copyRightCaption: 'Copyright @ 2020 Ryna. All right reserved.',
-  accountDescription:
-    'Do you want to view your Profile instead of Account? Go to <a href="/account/profile" style="text-decoration:underline">My Profile</a>',
   basicProfile: 'Basic Profile',
   accountSettings: 'Account Settings',
   recommendation: 'Recommendation',
@@ -116,6 +114,9 @@ const en = {
   profile: 'Personal Info',
   preference: 'My Prefences',
   application: 'My Applications',
+  emptyApplicationPlaceholder:
+    '<i>No applications yet. Please completed the your account settings to start a new rent request.</i>',
+  emptyNotification: 'Empty Notification',
   uploadPlaceholder: 'Upload File (in PDF, jpeg/png)',
   logout: 'Sign Out',
 };

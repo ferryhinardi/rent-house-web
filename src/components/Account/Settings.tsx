@@ -5,6 +5,7 @@ import { Element } from 'react-scroll';
 import { useTranslation } from 'react-i18next';
 import { Text, Badge } from 'core/base';
 import { Token } from 'core';
+import { routePaths } from 'routePaths';
 
 const settings = ['profile', 'preference', 'application'];
 
@@ -56,7 +57,7 @@ function SettingCard({ title, subtitle, href }: SettingCardProps) {
         ink="primary"
         accessibilityRole="link"
         // @ts-ignore
-        onPress={() => router.push(`/account/${href}`)}
+        onPress={() => router.push(`${routePaths.account}/${href}`)}
         style={styles.cardCompleted}
       >
         {t('completeNow')}
