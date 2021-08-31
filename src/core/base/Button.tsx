@@ -9,8 +9,10 @@ import Text from './Text';
 type Props = React.ComponentProps<typeof Pressable> & {
   IconStart?: string | React.ReactElement;
   loading?: boolean;
-  text: string;
+  text?: string;
   variant?: 'primary' | 'secondary' | 'empty' | 'outline';
+  disabled?: boolean;
+  borderColor?: string;
 };
 
 function Button({
@@ -19,6 +21,8 @@ function Button({
   style,
   IconStart,
   loading = false,
+  disabled,
+  borderColor,
   ...restProps
 }: Props) {
   let buttonStyle = {},
@@ -37,15 +41,16 @@ function Button({
       break;
     case 'empty':
       buttonStyle = {
-        backgroundColor: colors.white,
-        borderColor: '#D0D0D0',
-        borderWidth: 3,
+        backgroundColor: 'transparent',
+        borderColor: 'transparent',
       };
       break;
     case 'outline':
       buttonStyle = {
-        backgroundColor: 'transparent',
-        borderColor: 'transparent',
+        backgroundColor: colors.white,
+        borderColor: borderColor || '#D0D0D0',
+        borderWidth: 3,
+        opacity: disabled ? 0.4 : 1,
       };
       break;
   }
@@ -53,6 +58,7 @@ function Button({
   return (
     <Pressable
       {...restProps}
+      disabled={disabled}
       style={StyleSheet.flatten([styles.container, style, buttonStyle])}
     >
       {typeof IconStart === 'string' ? (
@@ -81,7 +87,7 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.m,
     paddingHorizontal: spacing.xxm,
   },
-  wrapperIcon: { marginRight: spacing.xs },
+  wrapperIcon: { marginHorizontal: spacing.xs },
 });
 
 export default Button;

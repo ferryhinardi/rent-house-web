@@ -139,7 +139,7 @@ export default function EmergencyContact() {
             )}
           />
           <Button
-            variant="outline"
+            variant="empty"
             IconStart="trash"
             text={t('deleteContact')}
             onPress={() => onDeleteContact(index)}

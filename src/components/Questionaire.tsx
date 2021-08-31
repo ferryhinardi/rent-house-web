@@ -14,7 +14,6 @@ import Container, {
 type Props = {
   loading: boolean;
   question?: Question;
-  onSubmit?: () => void;
 };
 
 function Questionaire(props: Props) {
@@ -33,7 +32,7 @@ function Questionaire(props: Props) {
           <SliderConsumer>
             {({ min = 0, max = 0 }) => (
               <Slider
-                trackColor={'rgba(28,43,79,0.3)'} // Token.colors.blue with opacity
+                trackColor={'rgba(28,43,79,0.3)'} // Token.colors.rynaBlue with opacity
                 trackHighlightColor={Token.colors.blue}
                 value={[min, max]}
                 step={50}
@@ -64,11 +63,7 @@ function Questionaire(props: Props) {
             containerStyle={styles.containerTextInput}
             textInputStyle={styles.textInput}
             value={choice}
-            iconRight={
-              <Text variant="tiny" ink="caption">
-                {'Available'}
-              </Text>
-            }
+            onFocus={() => console.log('choose', choice)}
           />
         )
       );
@@ -76,25 +71,42 @@ function Questionaire(props: Props) {
   }
 
   return (
-    <View style={styles.container}>
+    <>
       {props.loading ? (
         <LoadingIndicator />
       ) : (
         <>
-          <Text variant="huge" style={styles.title}>
-            {props.question?.title}
-          </Text>
+          {props.question?.title && (
+            <Text variant="huge" style={styles.title}>
+              {props.question?.title}
+            </Text>
+          )}
           <Text variant="big" style={styles.subtitle}>
             {props.question?.question_text}
           </Text>
 
           {QuestionContent}
-
-          <Pressable style={styles.submitButton} onPress={props.onSubmit}>
-            <Text ink="light">{t('submitQuestionButton')}</Text>
-          </Pressable>
         </>
       )}
+    </>
+  );
+}
+
+type QuestionaireCardProps = {
+  children: React.ReactNode;
+  onSubmit?: () => void;
+};
+export function QuestionaireCard({
+  children,
+  onSubmit,
+}: QuestionaireCardProps) {
+  const { t } = useTranslation();
+  return (
+    <View style={styles.container}>
+      {children}
+      <Pressable style={styles.submitButton} onPress={onSubmit}>
+        <Text ink="light">{t('submitQuestionButton')}</Text>
+      </Pressable>
     </View>
   );
 }

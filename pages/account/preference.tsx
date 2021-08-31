@@ -8,6 +8,7 @@ import {
   HeaderMenu,
   HeaderNavigation,
   SideBar,
+  PreferenceContent,
   Footer,
 } from 'components';
 import { Token } from 'core';
@@ -64,8 +65,9 @@ export default function Preference() {
                 ),
               },
             ]}
-            style={{ flex: 0.2 }}
+            style={{ flex: 0.4, width: '100%' }}
           />
+          <PreferenceContent />
         </View>
       </View>
       <Footer />

@@ -13,7 +13,7 @@ import {
   HeroBannerChooseBudget,
   HeroBannerDone,
 } from './HeroBanner';
-import Questionaire from './Questionaire';
+import Questionaire, { QuestionaireCard } from './Questionaire';
 import SignUpForm from './SignUp';
 
 const AnimatedView = animated(View);
@@ -83,11 +83,12 @@ function Hero() {
               onChange={onChangeTimelineBanner}
             />
             <View style={styles.containerSignUpForm}>
-              <Questionaire
-                loading={isLoading}
-                question={data?.data?.[stateIndex]}
-                onSubmit={onSubmit}
-              />
+              <QuestionaireCard onSubmit={onSubmit}>
+                <Questionaire
+                  loading={isLoading}
+                  question={data?.data?.[stateIndex]}
+                />
+              </QuestionaireCard>
             </View>
           </AnimatedView>
         );
