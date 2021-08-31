@@ -30,7 +30,7 @@ export default function LinkedAccounts() {
               </Text>
             </View>
             {account.status === 'connected' ? (
-              <Button variant="empty" text={t('connected')} />
+              <Button variant="outline" text={t('connected')} />
             ) : (
               <Button variant="secondary" text={t('unConnected')} />
             )}

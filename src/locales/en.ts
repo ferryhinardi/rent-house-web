@@ -118,6 +118,7 @@ const en = {
     '<i>No applications yet. Please completed the your account settings to start a new rent request.</i>',
   emptyNotification: 'Empty Notification',
   uploadPlaceholder: 'Upload File (in PDF, jpeg/png)',
+  completeness: 'Completeness',
   logout: 'Sign Out',
 };
 

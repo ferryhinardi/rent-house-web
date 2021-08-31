@@ -19,7 +19,7 @@ export type User = {
 
 export type Question = {
   id: number;
-  title: string;
+  title?: string;
   question_text: string;
   weight: number;
   group_name: string;
