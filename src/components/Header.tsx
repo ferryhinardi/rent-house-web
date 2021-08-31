@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import NProgress from 'nprogress';
-import NextNprogress from 'nextjs-progressbar';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useSprings, animated, config } from 'react-spring';
@@ -45,26 +43,6 @@ function Header() {
     router.push(href);
   };
 
-  useEffect(() => {
-    const handleStart = (url: string) => {
-      console.log(`Loading: ${url}`);
-      NProgress.start();
-    };
-    const handleStop = () => {
-      NProgress.done();
-    };
-
-    router.events.on('routeChangeStart', handleStart);
-    router.events.on('routeChangeComplete', handleStop);
-    router.events.on('routeChangeError', handleStop);
-
-    return () => {
-      router.events.off('routeChangeStart', handleStart);
-      router.events.off('routeChangeComplete', handleStop);
-      router.events.off('routeChangeError', handleStop);
-    };
-  }, [router]);
-
   return (
     <>
       <View style={styles.container}>
@@ -100,13 +78,6 @@ function Header() {
           <SignInButton />
         )}
       </View>
-      <NextNprogress
-        color="#29D"
-        startPosition={0.3}
-        stopDelayMs={200}
-        height={3}
-        showOnShallow
-      />
     </>
   );
 }
