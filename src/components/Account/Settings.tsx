@@ -77,13 +77,16 @@ const styles = StyleSheet.create({
     marginTop: Token.spacing.xs,
   },
   cardContainer: {
-    flex: 1,
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
+    gap: Token.spacing.xxl,
     marginTop: Token.spacing.xxl,
   },
   card: {
-    flex: 0.3,
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '30%',
     padding: Token.spacing.l,
     shadowColor: Token.colors.black,
     shadowOpacity: 0.08,
@@ -92,9 +95,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   cardTitle: {
-    paddingVertical: Token.spacing.m,
+    marginVertical: Token.spacing.m,
   },
   cardCompleted: {
-    paddingVertical: Token.spacing.m,
+    marginVertical: Token.spacing.m,
   },
 });

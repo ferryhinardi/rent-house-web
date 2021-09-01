@@ -9,7 +9,7 @@ import Questionaire from '../Questionaire';
 export default function PreferenceContent() {
   const { t } = useTranslation();
   return (
-    <View style={styles.questionWrapper}>
+    <View>
       <Questionaire
         loading={false}
         question={{
@@ -56,9 +56,6 @@ export default function PreferenceContent() {
 }
 
 const styles = StyleSheet.create({
-  questionWrapper: {
-    paddingHorizontal: Token.spacing.xxl,
-  },
   footer: {
     flexDirection: 'row',
     alignItems: 'center',

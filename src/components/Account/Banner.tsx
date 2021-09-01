@@ -19,7 +19,6 @@ export default function Banner() {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
     height: PreferenceBanner.height,
   },
 });

@@ -27,6 +27,8 @@ export default function Recommendation() {
 const styles = StyleSheet.create({
   titleWrapper: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
   },
   title: {
     marginRight: Token.spacing.s,
