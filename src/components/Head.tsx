@@ -37,9 +37,17 @@ function Head() {
     <HeadNextJs>
       <title key="title">{t('metaTitle')}</title>
       <meta key="og:title" content={t('metaTitle')} property="og:title" />
-      <meta key="description" content={t('metaDescription')} name="description" />
-      <meta key="og:description" content={t('metaDescription')} property="og:description" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta
+        key="description"
+        content={t('metaDescription')}
+        name="description"
+      />
+      <meta
+        key="og:description"
+        content={t('metaDescription')}
+        property="og:description"
+      />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="icon" href="/favicon.ico" />
     </HeadNextJs>
   );
