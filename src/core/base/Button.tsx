@@ -61,12 +61,14 @@ function Button({
       disabled={disabled}
       style={StyleSheet.flatten([styles.container, style, buttonStyle])}
     >
-      {typeof IconStart === 'string' ? (
+      {IconStart && (
         <View style={styles.wrapperIcon}>
-          <Icon name={IconStart} size={16} />
+          {typeof IconStart === 'string' ? (
+            <Icon name={IconStart} size={16} />
+          ) : (
+            IconStart
+          )}
         </View>
-      ) : (
-        <View style={styles.wrapperIcon}>{IconStart}</View>
       )}
       {loading ? (
         <LoadingIndicator color={colors.white} />

@@ -4,7 +4,7 @@ import { Text } from 'core/base';
 import { Token } from 'core';
 
 type Props = {
-  variant?: 'info' | 'alert';
+  variant?: 'info' | 'alert' | 'neutral';
   text: string;
 };
 
@@ -16,8 +16,13 @@ export default function Badge({ text, variant = 'info' }: Props) {
       borderColor = Token.colors.red;
       inkVariant = 'alert';
       break;
+    case 'neutral':
+      borderColor = Token.colors.darkGrey;
+      inkVariant = 'neutral';
+      break;
     case 'info':
-      borderColor = Token.colors.rynaBlue;
+      borderColor = Token.colors.black;
+      break;
     default:
       break;
   }
@@ -33,6 +38,7 @@ export default function Badge({ text, variant = 'info' }: Props) {
 
 const styles = StyleSheet.create({
   container: {
+    alignSelf: 'flex-start',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: Token.border.radius.extra,

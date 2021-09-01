@@ -88,7 +88,7 @@ export default function Account() {
               },
             ]}
             onPress={onPressMenu}
-            style={{ flex: 0.2 }}
+            style={{ flex: 0.2, width: '20%' }}
           />
           <FormProvider {...forms}>
             <View style={styles.content}>
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     flex: 1,
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'flex-start',
   },

@@ -44,47 +44,46 @@ function Header() {
   };
 
   return (
-    <>
-      <View style={styles.container}>
-        <View style={styles.menuWrapper}>
-          <Pressable onPress={() => router.push(routePaths.home)}>
-            <Image src={logo} alt="logo" />
-          </Pressable>
-          {menuAnimations.map((animateStyle, idx) => {
-            const { name, href } = menus[idx];
-            const isActiveMenu =
-              href.replace('/', '') === router.pathname.split('/')[1];
-            return (
-              <AnimatedView
-                key={name}
-                // @ts-ignore
-                style={animateStyle}
+    <View style={styles.container}>
+      <View style={styles.menuWrapper}>
+        <Pressable onPress={() => router.push(routePaths.home)}>
+          <Image src={logo} alt="logo" />
+        </Pressable>
+        {menuAnimations.map((animateStyle, idx) => {
+          const { name, href } = menus[idx];
+          const isActiveMenu =
+            href.replace('/', '') === router.pathname.split('/')[1];
+          return (
+            <AnimatedView
+              key={name}
+              // @ts-ignore
+              style={{ ...animateStyle }}
+            >
+              <Text
+                accessibilityRole="link"
+                onPress={() => onNavigateMenu(href)}
+                style={[styles.menu, isActiveMenu && styles.activeMenu]}
               >
-                <Text
-                  accessibilityRole="link"
-                  onPress={() => onNavigateMenu(href)}
-                  style={[styles.menu, isActiveMenu && styles.activeMenu]}
-                >
-                  {name}
-                </Text>
-              </AnimatedView>
-            );
-          })}
-        </View>
-        <LanguageSelection />
-        {!isLoading && data?.name ? (
-          <UserLoginHeader {...data} />
-        ) : (
-          <SignInButton />
-        )}
+                {name}
+              </Text>
+            </AnimatedView>
+          );
+        })}
       </View>
-    </>
+      <LanguageSelection />
+      {!isLoading && data?.name ? (
+        <UserLoginHeader {...data} />
+      ) : (
+        <SignInButton />
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: Token.spacing.xxl,
@@ -94,6 +93,7 @@ const styles = StyleSheet.create({
   },
   menuWrapper: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
   },
   menu: {

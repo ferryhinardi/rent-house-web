@@ -19,7 +19,6 @@ export default function VideoSection() {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
     height: VideoSectionImage.height,
   },
 });

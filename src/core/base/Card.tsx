@@ -14,12 +14,7 @@ const CardContext = React.createContext<{
   orientation?: 'landscape' | 'portrait';
 }>({});
 
-function Card({
-  style,
-  imageProps,
-  orientation = 'landscape',
-  ...restProps
-}: Props) {
+function Card({ style, imageProps, orientation, ...restProps }: Props) {
   return (
     <CardContext.Provider value={{ orientation }}>
       <View

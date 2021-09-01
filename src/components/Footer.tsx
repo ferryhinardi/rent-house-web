@@ -109,8 +109,11 @@ const styles = StyleSheet.create({
     padding: Token.spacing.xxxxl,
   },
   footer: {
-    flex: 1,
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '100%',
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   listTitle: {
     marginBottom: Token.spacing.xs,
@@ -119,16 +122,24 @@ const styles = StyleSheet.create({
     paddingTop: Token.spacing.m,
   },
   sectionLogo: {
-    flex: 0.5,
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '50%',
   },
   sectionMenu: {
-    flex: 0.15,
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '15%',
   },
   sectionContactUs: {
-    flex: 0.15,
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '15%',
   },
   sectionFollowUs: {
-    flex: 0.2,
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '20%',
   },
   followUsContainer: {
     flexDirection: 'row',
