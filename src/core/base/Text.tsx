@@ -10,6 +10,7 @@ interface Props extends TextProps {
     | 'sidebar-menu'
     | 'header-2'
     | 'header-3'
+    | 'header-4'
     | 'title-1'
     | 'title-2'
     | 'title-3'
@@ -25,6 +26,7 @@ interface Props extends TextProps {
     | 'primary'
     | 'secondary'
     | 'caption'
+    | 'neutral'
     | 'dark'
     | 'light'
     | 'alert';
@@ -54,6 +56,9 @@ function Text({
       break;
     case 'header-3':
       variantStyle = StyleSheet.flatten([style, styles.header3]);
+      break;
+    case 'header-4':
+      variantStyle = StyleSheet.flatten([style, styles.header4]);
       break;
     case 'title-1':
       variantStyle = StyleSheet.flatten([style, styles.title1]);
@@ -107,6 +112,9 @@ function Text({
     case 'caption':
       variantStyle = StyleSheet.flatten([variantStyle, styles.captionInk]);
       break;
+    case 'neutral':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.neutral]);
+      break;
     case 'normal':
     default:
       variantStyle = StyleSheet.flatten([variantStyle, styles.normal]);
@@ -141,6 +149,11 @@ const styles = StyleSheet.create({
   },
   header3: {
     fontSize: fontSize.bigger,
+    lineHeight: 42,
+    fontWeight: '700',
+  },
+  header4: {
+    fontSize: fontSize.big,
     lineHeight: 42,
     fontWeight: '700',
   },
@@ -200,6 +213,9 @@ const styles = StyleSheet.create({
   },
   secondary: {
     color: colors.gold,
+  },
+  neutral: {
+    color: colors.darkGrey,
   },
   captionInk: {
     color: colors.lightGrey,
