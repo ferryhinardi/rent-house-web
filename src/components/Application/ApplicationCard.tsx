@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Pressable, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Card, Badge, Text } from 'core/base';
 import { Token } from 'core';
 
@@ -9,18 +9,16 @@ type Props = {
 
 export default function ApplicationCard({ onPress }: Props) {
   return (
-    <Card style={styles.cardContainer}>
-      <Pressable onPress={onPress}>
-        <Card.Body>
-          <Badge text="Deposit Incompleted" variant="alert" />
-          <Text ink="dark" variant="header-4" style={styles.title}>
-            {'Ryna x Minto Apartement'}
-          </Text>
-          <Text>{'Toronto'}</Text>
-          <Text style={styles.amount}>{'$1500'}</Text>
-          <Text>{'Moving Date: 21 Aug 2021'}</Text>
-        </Card.Body>
-      </Pressable>
+    <Card style={styles.cardContainer} onPress={onPress}>
+      <Card.Body>
+        <Badge text="Deposit Incompleted" variant="alert" />
+        <Text ink="dark" variant="header-4" style={styles.title}>
+          {'Ryna x Minto Apartement'}
+        </Text>
+        <Text>{'Toronto'}</Text>
+        <Text style={styles.amount}>{'$1500'}</Text>
+        <Text>{'Moving Date: 21 Aug 2021'}</Text>
+      </Card.Body>
     </Card>
   );
 }

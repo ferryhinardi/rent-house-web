@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import {
@@ -12,10 +13,19 @@ import {
 import { Token } from 'core';
 import { Text } from 'core/base';
 import htmr from 'htmr';
+import { routePaths } from '../../src/routePaths';
 
 export default function Application() {
+  const router = useRouter();
   const { t } = useTranslation();
   const data = [1];
+  const onNavigateApplicationDetail = () => {
+    router.push({
+      pathname: routePaths.applicationDetail,
+      query: { applicationId: 'application.id' },
+    });
+  };
+
   return (
     <div>
       <Head />
@@ -34,8 +44,8 @@ export default function Application() {
           </>
         ) : (
           <ApplicationContainer>
-            <ApplicationCard />
-            <ApplicationCard />
+            <ApplicationCard onPress={onNavigateApplicationDetail} />
+            <ApplicationCard onPress={onNavigateApplicationDetail} />
             <ApplicationCard />
             <ApplicationCard />
             <ApplicationCard />

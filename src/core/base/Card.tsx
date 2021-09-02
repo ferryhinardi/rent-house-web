@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Image, { ImageProps } from 'next/image';
-import { View, StyleSheet, ViewProps } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, ViewProps } from 'react-native';
 import { colors, border, spacing } from './Token';
 import Text from './Text';
 
@@ -8,16 +8,20 @@ interface Props extends ViewProps {
   orientation?: 'landscape' | 'portrait';
   imageProps?: ImageProps;
   children: any;
+  onPress?: () => void;
 }
 
 const CardContext = React.createContext<{
   orientation?: 'landscape' | 'portrait';
 }>({});
 
-function Card({ style, imageProps, orientation, ...restProps }: Props) {
+function Card({ style, imageProps, orientation, onPress, children }: Props) {
+  const Wrapper = !!onPress ? TouchableOpacity : View;
   return (
     <CardContext.Provider value={{ orientation }}>
-      <View
+      {/* @ts-ignore */}
+      <Wrapper
+        activeOpacity={0.8}
         style={[
           styles.container,
           style,
@@ -25,6 +29,7 @@ function Card({ style, imageProps, orientation, ...restProps }: Props) {
             ? { flexDirection: 'row' }
             : { flexDirection: 'column' },
         ]}
+        onPress={onPress}
       >
         {imageProps && (
           <Image
@@ -34,8 +39,8 @@ function Card({ style, imageProps, orientation, ...restProps }: Props) {
             alt="image card"
           />
         )}
-        <View {...restProps} />
-      </View>
+        {children}
+      </Wrapper>
       <style jsx global>{`
         .banner-card {
           border-top-right-radius: 50px;
