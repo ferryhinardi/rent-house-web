@@ -88,7 +88,7 @@ export default function Account() {
               },
             ]}
             onPress={onPressMenu}
-            style={{ flex: 0.2, width: '20%' }}
+            style={styles.sidebar}
           />
           <FormProvider {...forms}>
             <View style={styles.content}>
@@ -119,14 +119,20 @@ const styles = StyleSheet.create({
     borderBottomColor: Token.colors.rynaGray,
   },
   contentWrapper: {
-    flex: 1,
-    width: '100%',
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Token.spacing.xxl,
     alignItems: 'flex-start',
   },
+  sidebar: {
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '18%',
+  },
   content: {
-    flex: 0.8,
-    marginLeft: Token.spacing.xxl,
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '78%',
     marginBottom: Token.spacing.xxxxxl,
   },
 });

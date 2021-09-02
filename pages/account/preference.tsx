@@ -65,9 +65,11 @@ export default function Preference() {
                 ),
               },
             ]}
-            style={{ flex: 0.4, width: '100%' }}
+            style={styles.sidebar}
           />
-          <PreferenceContent />
+          <View style={styles.content}>
+            <PreferenceContent />
+          </View>
         </View>
       </View>
       <Footer />
@@ -80,9 +82,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: Token.spacing.xxxxl,
   },
   contentWrapper: {
-    flex: 1,
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Token.spacing.xxl,
     alignItems: 'flex-start',
     marginVertical: Token.spacing.xxl,
+  },
+  sidebar: {
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '28%',
+  },
+  content: {
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '68%',
   },
 });

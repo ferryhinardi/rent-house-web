@@ -142,6 +142,7 @@ export default function EmergencyContact() {
             variant="empty"
             IconStart="trash"
             text={t('deleteContact')}
+            style={styles.deleteContact}
             onPress={() => onDeleteContact(index)}
           />
         </View>
@@ -158,7 +159,6 @@ export default function EmergencyContact() {
 
 const styles = StyleSheet.create({
   formContact: {
-    flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: Token.spacing.xxl,
@@ -170,7 +170,15 @@ const styles = StyleSheet.create({
     paddingBottom: Token.spacing.xxm,
   },
   formGroup: {
-    width: '48%',
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '48%',
+  },
+  deleteContact: {
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '100%',
+    justifyContent: 'flex-start',
   },
   label: {
     marginBottom: Token.spacing.xs,
