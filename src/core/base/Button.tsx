@@ -11,6 +11,7 @@ type Props = React.ComponentProps<typeof Pressable> & {
   loading?: boolean;
   text?: string;
   variant?: 'primary' | 'secondary' | 'empty' | 'outline';
+  elevation?: boolean;
   disabled?: boolean;
   borderColor?: string;
 };
@@ -21,6 +22,7 @@ function Button({
   style,
   IconStart,
   loading = false,
+  elevation,
   disabled,
   borderColor,
   ...restProps
@@ -44,6 +46,7 @@ function Button({
         backgroundColor: 'transparent',
         borderColor: 'transparent',
       };
+      textInk = 'dark';
       break;
     case 'outline':
       buttonStyle = {
@@ -59,7 +62,12 @@ function Button({
     <Pressable
       {...restProps}
       disabled={disabled}
-      style={StyleSheet.flatten([styles.container, style, buttonStyle])}
+      style={StyleSheet.flatten([
+        styles.container,
+        elevation && styles.elevation,
+        style,
+        buttonStyle,
+      ])}
     >
       {IconStart && (
         <View style={styles.wrapperIcon}>
@@ -88,6 +96,11 @@ const styles = StyleSheet.create({
     borderRadius: border.radius.extra,
     paddingVertical: spacing.m,
     paddingHorizontal: spacing.xxm,
+  },
+  elevation: {
+    shadowOffset: { width: 7, height: 9 },
+    shadowRadius: 44,
+    shadowColor: 'rgba(0, 0, 0, 0.08)',
   },
   wrapperIcon: { marginHorizontal: spacing.xs },
 });

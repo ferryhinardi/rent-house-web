@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import htmr from 'htmr';
 import { Token } from 'core';
-import { Text, Badge, Button } from 'core/base';
+import { Text, Badge, Button, Modal } from 'core/base';
+import DepositModalContent from './DepositModalContent';
 
 export default function DepositSection() {
   const { t } = useTranslation();
@@ -27,6 +28,7 @@ export default function DepositSection() {
 
 function DepositCard() {
   const { t } = useTranslation();
+  const [isVisible, onVisible] = React.useState(false);
   return (
     <View style={styles.depositCardContainer}>
       <View style={styles.depositCardWrapper}>
@@ -38,7 +40,25 @@ function DepositCard() {
           </Text>
         </View>
       </View>
-      <Button variant="secondary" text={t('paydepositButton')} />
+      <Button
+        variant="secondary"
+        text={t('paydepositButton')}
+        onPress={() => onVisible(true)}
+      />
+      <Modal
+        animationType="fade"
+        visible={isVisible}
+        onRequestClose={() => onVisible(false)}
+        noPadding
+      >
+        <Button
+          IconStart="times"
+          variant="empty"
+          style={styles.close}
+          onPress={() => onVisible(false)}
+        />
+        <DepositModalContent />
+      </Modal>
     </View>
   );
 }
@@ -73,4 +93,5 @@ const styles = StyleSheet.create({
   depositPlaceholder: {
     marginTop: Token.spacing.s,
   },
+  close: { minWidth: 0, position: 'absolute', right: 0, zIndex: 1 },
 });

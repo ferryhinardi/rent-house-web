@@ -126,6 +126,9 @@ const en = {
   paydeposit: 'Pay Deposit',
   placeholderPayDeposit: '<i>*[placeholder why we need this doc]</i>',
   paydepositButton: 'Pay Deposit',
+  modalDepositSubtitle: 'for Ryna x Minto Apartement',
+  payWithCredit: 'Pay With Credit Card',
+  payWithBank: 'Pay With Bank Transfer',
   logout: 'Sign Out',
 };
 
