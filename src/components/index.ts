@@ -26,4 +26,6 @@ export {
   default as ApplicationCard,
   ApplicationContainer,
 } from './Application/ApplicationCard';
+export { default as ApplicationDetailContent } from './Application/ApplicationDetailContent';
+export { default as DepositSection } from './Application/DepositSection';
 export { default as PreferenceBanner } from './Account/Banner';

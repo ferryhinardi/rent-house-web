@@ -7,7 +7,7 @@ import Text from './Text';
 interface Props extends ViewProps {
   orientation?: 'landscape' | 'portrait';
   imageProps?: ImageProps;
-  children: any;
+  children?: React.ReactNode;
   onPress?: () => void;
 }
 

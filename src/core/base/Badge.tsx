@@ -38,7 +38,7 @@ export default function Badge({ text, variant = 'info' }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: Token.border.radius.extra,
