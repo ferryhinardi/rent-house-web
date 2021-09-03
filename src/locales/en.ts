@@ -129,6 +129,13 @@ const en = {
   modalDepositSubtitle: 'for Ryna x Minto Apartement',
   payWithCredit: 'Pay With Credit Card',
   payWithBank: 'Pay With Bank Transfer',
+  nameOfCreditCard: 'Name on Card',
+  numberOfCreditCard: 'Card Number',
+  expiredOfCreditCard: 'Expiration Date',
+  vccOfCreditCard: 'CVV',
+  submitPay: 'Pay Now',
+  cancelPay: 'Cancel',
+  processingPayment: 'Processig Your Payment...',
   logout: 'Sign Out',
 };
 
