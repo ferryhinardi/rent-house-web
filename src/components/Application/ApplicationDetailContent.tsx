@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Card, Text } from 'core/base';
+import { Card, Text, Button } from 'core/base';
 import { Token } from 'core';
 import avatar from 'assets/avatar-sample.svg';
+import Swiper from '../Swiper';
 
 export default function ApplicationDetailContent() {
   return (
@@ -22,13 +23,66 @@ export default function ApplicationDetailContent() {
         </View>
       </View>
 
-      <Card
-        imageProps={{
-          src: avatar,
-          layout: 'fixed',
+      <Swiper
+        innerContainerStyle={{ width: avatar.width, height: avatar.height }}
+        minDistanceForAction={0.1}
+        controlsProps={{
+          dotsTouchable: true,
+          prevPos: 'left',
+          nextPos: 'right',
+          // eslint-disable-next-line
+          NextComponent: ({ onPress }) => (
+            <Button
+              IconStart="chevron-right"
+              onPress={onPress}
+              variant="outline"
+              elevation
+              borderColor={Token.colors.white}
+              style={{
+                minWidth: 0,
+                width: 16,
+                height: 16,
+                paddingHorizontal: Token.spacing.m,
+              }}
+            />
+          ),
+          // eslint-disable-next-line
+          PrevComponent: ({ onPress }) => (
+            <Button
+              IconStart="chevron-left"
+              onPress={onPress}
+              variant="outline"
+              elevation
+              borderColor={Token.colors.white}
+              style={{
+                minWidth: 0,
+                width: 16,
+                height: 16,
+                paddingHorizontal: Token.spacing.m,
+              }}
+            />
+          ),
         }}
-        style={{ alignItems: 'flex-end' }}
-      />
+      >
+        <Card
+          imageProps={{
+            src: avatar,
+            layout: 'fixed',
+          }}
+        />
+        <Card
+          imageProps={{
+            src: avatar,
+            layout: 'fixed',
+          }}
+        />
+        <Card
+          imageProps={{
+            src: avatar,
+            layout: 'fixed',
+          }}
+        />
+      </Swiper>
     </View>
   );
 }
