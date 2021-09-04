@@ -119,6 +119,13 @@ const en = {
   emptyNotification: 'Empty Notification',
   uploadPlaceholder: 'Upload File (in PDF, jpeg/png)',
   completeness: 'Completeness',
+  depositSectionTitle: 'One Time Deposit',
+  depositSectionDescription:
+    'This deposit will be accounted to your first rent when you decided to rent with us.',
+  depositIncomplete: 'Deposit Incompleted',
+  paydeposit: 'Pay Deposit',
+  placeholderPayDeposit: '<i>*[placeholder why we need this doc]</i>',
+  paydepositButton: 'Pay Deposit',
   logout: 'Sign Out',
 };
 
