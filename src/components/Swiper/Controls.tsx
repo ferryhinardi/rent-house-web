@@ -24,8 +24,8 @@ type CellPosition =
   | 'bottom-right';
 
 type Props = Partial<{
-  cellsStyle: { [key: CellPosition | string]: ViewStyle };
-  cellsContent: { [key: CellPosition | string]: React.ReactNode };
+  cellsStyle: { [key: string]: ViewStyle };
+  cellsContent: { [key: string]: React.ReactNode };
 
   dotsPos: CellPosition;
   prevPos: CellPosition;
@@ -48,13 +48,13 @@ type Props = Partial<{
   PrevComponent: React.FC<{
     type: 'prev';
     text: string;
-    style: ViewStyle;
+    textStyle: TextStyle;
     onPress: () => void;
   }>;
   NextComponent: React.FC<{
     type: 'next';
     text: string;
-    style: ViewStyle;
+    textStyle: TextStyle;
     onPress: () => void;
   }>;
 
@@ -295,7 +295,7 @@ const renderPrev = ({
   prevTitle,
   firstPrevElement,
   prevTitleStyle,
-  PrevComponent,
+  PrevComponent = (props) => <Button {...props} variant="empty" />,
 }: Props) => {
   if (isFirst) {
     return renderNode(Text, firstPrevElement);
@@ -304,10 +304,9 @@ const renderPrev = ({
     // @ts-ignore
     <PrevComponent
       type="prev"
-      variant="empty"
-      text={prevTitle}
-      style={prevTitleStyle}
-      onPress={goToPrev}
+      text={prevTitle as string}
+      textStyle={prevTitleStyle as TextStyle}
+      onPress={goToPrev as () => void}
     />
   );
 };
@@ -318,7 +317,7 @@ const renderNext = ({
   lastNextElement,
   nextTitleStyle,
   // @ts-ignore
-  NextComponent,
+  NextComponent = (props) => <Button {...props} variant="empty" />,
 }: Props) => {
   if (isLast) {
     return renderNode(Text, lastNextElement);
@@ -327,10 +326,9 @@ const renderNext = ({
     // @ts-ignore
     <NextComponent
       type="next"
-      variant="empty"
-      text={nextTitle}
-      style={nextTitleStyle}
-      onPress={goToNext}
+      text={nextTitle as string}
+      textStyle={nextTitleStyle as TextStyle}
+      onPress={goToNext as () => void}
     />
   );
 };

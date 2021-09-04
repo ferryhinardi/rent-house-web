@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Pressable } from 'react-native';
+import { StyleSheet, View, Pressable, TextStyle } from 'react-native';
 import { LoadingIndicator } from 'core/base';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -13,6 +13,7 @@ type Props = React.ComponentProps<typeof Pressable> & {
   variant?: 'primary' | 'secondary' | 'empty' | 'outline';
   elevation?: boolean;
   disabled?: boolean;
+  textStyle?: TextStyle;
   borderColor?: string;
 };
 
@@ -25,6 +26,7 @@ function Button({
   elevation,
   disabled,
   borderColor,
+  textStyle,
   ...restProps
 }: Props) {
   let buttonStyle = {},
@@ -81,7 +83,9 @@ function Button({
       {loading ? (
         <LoadingIndicator color={colors.white} />
       ) : (
-        <Text ink={textInk}>{text}</Text>
+        <Text style={textStyle} ink={textInk}>
+          {text}
+        </Text>
       )}
     </Pressable>
   );
