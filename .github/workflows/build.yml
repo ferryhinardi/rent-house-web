@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: actions/install
-      - run: yarn
+        run: yarn
       - name: actions/build
-      - run: yarn build
+        run: yarn build
       - name: actions/typecheck
-      - run: yarn tsc
+        run: yarn tsc
