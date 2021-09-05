@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderTopRightRadius: border.radius.extra,
     filter: 'drop-shadow(8px 16px 94px rgba(0, 0, 0, 0.04))',
+    shadowOffset: { width: 20, height: 14 },
+    shadowRadius: 84,
+    shadowColor: 'rgba(0, 0, 0, 0.08)',
   },
 });
 

@@ -136,6 +136,7 @@ const en = {
   submitPay: 'Pay Now',
   cancelPay: 'Cancel',
   processingPayment: 'Processig Your Payment...',
+  homeRecommendationViewButton: 'View Detail',
   logout: 'Sign Out',
 };
 

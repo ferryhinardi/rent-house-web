@@ -11,7 +11,7 @@ export default function ApplicationCard({ onPress }: Props) {
   return (
     <Card style={styles.cardContainer} onPress={onPress}>
       <Card.Body>
-        <Badge text="Deposit Incompleted" variant="alert" />
+        <Badge text="Deposit Incompleted" variant="alert" align="flex-start" />
         <Text ink="dark" variant="header-4" style={styles.title}>
           {'Ryna x Minto Apartement'}
         </Text>

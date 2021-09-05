@@ -5,10 +5,15 @@ import { Token } from 'core';
 
 type Props = {
   variant?: 'info' | 'alert' | 'neutral';
+  align?: 'center' | 'flex-start' | 'flex-end';
   text: string;
 };
 
-export default function Badge({ text, variant = 'info' }: Props) {
+export default function Badge({
+  text,
+  align: alignSelf = 'center',
+  variant = 'info',
+}: Props) {
   let borderColor, inkVariant: React.ComponentProps<typeof Text>['ink'];
 
   switch (variant) {
@@ -28,7 +33,7 @@ export default function Badge({ text, variant = 'info' }: Props) {
   }
 
   return (
-    <View style={[styles.container, { borderColor }]}>
+    <View style={[styles.container, { borderColor, alignSelf }]}>
       <Text variant="tiny" ink={inkVariant}>
         {text}
       </Text>
