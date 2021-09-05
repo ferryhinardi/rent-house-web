@@ -13,7 +13,7 @@ import { Token } from 'core';
 
 export default function ApplicationDetail() {
   const { query } = useRouter();
-  console.log('applicationId', query.applicationId);
+
   return (
     <div>
       <Head />

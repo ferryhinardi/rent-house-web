@@ -29,3 +29,4 @@ export {
 export { default as ApplicationDetailContent } from './Application/ApplicationDetailContent';
 export { default as DepositSection } from './Application/DepositSection';
 export { default as PreferenceBanner } from './Account/Banner';
+export { default as HomeRecommendation } from './Recommendation/HomeRecommendation';

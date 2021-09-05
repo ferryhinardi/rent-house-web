@@ -4,6 +4,7 @@ import { Element } from 'react-scroll';
 import { useTranslation } from 'react-i18next';
 import { Text, Badge } from 'core/base';
 import { Token } from 'core';
+import { HomeRecommendation } from 'components';
 
 export default function Recommendation() {
   const { t } = useTranslation();
@@ -20,6 +21,8 @@ export default function Recommendation() {
           {t('recommendationDescription')}
         </Text>
       </View>
+
+      <HomeRecommendation />
     </Element>
   );
 }
