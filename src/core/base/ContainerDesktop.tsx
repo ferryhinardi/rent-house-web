@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ViewProps } from 'react-native';
+import { Token } from 'core';
 
 type Props = {
   children: React.ReactNode;
@@ -7,7 +8,7 @@ type Props = {
 };
 
 const styles = StyleSheet.create({
-  container: { width: 1024, margin: 'auto', zIndex: -1 },
+  container: { paddingHorizontal: Token.spacing.xxxxl },
 });
 
 function ContainerDesktop({ children, style }: Props) {

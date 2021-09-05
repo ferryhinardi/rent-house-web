@@ -137,6 +137,11 @@ const en = {
   cancelPay: 'Cancel',
   processingPayment: 'Processig Your Payment...',
   homeRecommendationViewButton: 'View Detail',
+  viewRecommendationButton: 'View Home Recommendation',
+  ourRecommendationSectionTitle: 'View Our Recommendation',
+  ourRecommendationSectionDescription:
+    'From a room for a night to a loft for as long as you like, there’s a Ryna for every occasion.',
+  showRecommendation: 'Showing 2 recommendations.',
   logout: 'Sign Out',
 };
 

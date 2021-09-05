@@ -11,7 +11,7 @@ import {
   Footer,
 } from 'components';
 import { Token } from 'core';
-import { Text } from 'core/base';
+import { Text, ContainerDesktop } from 'core/base';
 import htmr from 'htmr';
 import { routePaths } from '../../src/routePaths';
 
@@ -30,7 +30,7 @@ export default function Application() {
     <div>
       <Head />
       <HeaderMenu />
-      <View style={styles.container}>
+      <ContainerDesktop>
         <HeaderNavigation
           title={t('application')}
           subtitle={t('applicationDescription')}
@@ -51,16 +51,13 @@ export default function Application() {
             <ApplicationCard />
           </ApplicationContainer>
         )}
-      </View>
+      </ContainerDesktop>
       <Footer />
     </div>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: Token.spacing.xxxxl,
-  },
   separator: {
     marginVertical: Token.spacing.xxl,
     borderBottomWidth: 4,

@@ -18,6 +18,7 @@ import {
   Footer,
 } from 'components';
 import { Token } from 'core';
+import { ContainerDesktop } from 'core/base';
 
 export default function Account() {
   const { t } = useTranslation();
@@ -36,7 +37,7 @@ export default function Account() {
     <div>
       <Head />
       <HeaderMenu />
-      <View style={styles.container}>
+      <ContainerDesktop>
         <HeaderNavigation title={t('account')} />
         <View style={styles.separator} />
         <View style={styles.contentWrapper}>
@@ -102,7 +103,7 @@ export default function Account() {
             </View>
           </FormProvider>
         </View>
-      </View>
+      </ContainerDesktop>
       <PreferenceBanner />
       <Footer />
     </div>
@@ -110,9 +111,6 @@ export default function Account() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: Token.spacing.xxxxl,
-  },
   separator: {
     marginVertical: Token.spacing.xxl,
     borderBottomWidth: 4,
