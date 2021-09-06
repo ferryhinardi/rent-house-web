@@ -13,7 +13,8 @@ jobs:
     steps:
       - name: actions/typecheck
         run: |
-          cd ryna-web/ryna-web
+          ls
           yarn
+          cd ryna-web/ryna-web
           yarn build
           yarn tsc
