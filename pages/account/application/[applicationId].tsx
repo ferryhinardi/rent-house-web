@@ -10,6 +10,7 @@ import {
   Footer,
 } from 'components';
 import { Token } from 'core';
+import { ContainerDesktop } from 'core/base';
 
 export default function ApplicationDetail() {
   const { query } = useRouter();
@@ -18,21 +19,18 @@ export default function ApplicationDetail() {
     <div>
       <Head />
       <HeaderMenu />
-      <View style={styles.container}>
+      <ContainerDesktop>
         <HeaderNavigation title={query.applicationId as string} />
         <ApplicationDetailContent />
         <View style={styles.separator} />
         <DepositSection />
-      </View>
+      </ContainerDesktop>
       <Footer />
     </div>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: Token.spacing.xxxxl,
-  },
   separator: {
     marginVertical: Token.spacing.xxl,
     borderBottomWidth: 4,

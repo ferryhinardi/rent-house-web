@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { fetcher, Token } from 'core';
+import { Token } from 'core';
 import { ContainerDesktop, Text, Button } from 'core/base';
 
 export default function Testimonial() {

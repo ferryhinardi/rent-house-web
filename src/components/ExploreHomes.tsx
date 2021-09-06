@@ -18,19 +18,17 @@ export default function ExploreHomes() {
   //   }
   // );
   return (
-    <View>
-      <ContainerDesktop style={styles.container}>
-        <View style={styles.header}>
-          <View>
-            <Text variant="header-2" style={styles.headerTitle}>
-              {t('titleExploreHomes')}
-            </Text>
-            <Text>{t('subtitleExploreHomes')}</Text>
-          </View>
-          <Button variant="secondary" text={t('moreButtonExploreHomes')} />
+    <ContainerDesktop style={styles.container}>
+      <View style={styles.header}>
+        <View>
+          <Text variant="header-2" style={styles.headerTitle}>
+            {t('titleExploreHomes')}
+          </Text>
+          <Text>{t('subtitleExploreHomes')}</Text>
         </View>
-      </ContainerDesktop>
-    </View>
+        <Button variant="secondary" text={t('moreButtonExploreHomes')} />
+      </View>
+    </ContainerDesktop>
   );
 }
 

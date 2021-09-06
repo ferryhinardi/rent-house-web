@@ -10,6 +10,7 @@ import {
   Footer,
 } from 'components';
 import { Token } from 'core';
+import { ContainerDesktop } from 'core/base';
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -17,21 +18,18 @@ export default function Profile() {
     <div>
       <Head />
       <HeaderMenu />
-      <View style={styles.container}>
+      <ContainerDesktop>
         <HeaderNavigation title={t('profile')} />
         <PersonalInfoForm />
         <View style={styles.separator} />
         <EmergencyContact />
-      </View>
+      </ContainerDesktop>
       <Footer />
     </div>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: Token.spacing.xxxxl,
-  },
   separator: {
     marginVertical: Token.spacing.xxl,
     borderBottomWidth: 4,

@@ -12,7 +12,7 @@ import {
   Footer,
 } from 'components';
 import { Token } from 'core';
-import { Text } from 'core/base';
+import { Text, ContainerDesktop } from 'core/base';
 
 export default function Preference() {
   const { t } = useTranslation();
@@ -20,7 +20,7 @@ export default function Preference() {
     <div>
       <Head />
       <HeaderMenu />
-      <View style={styles.container}>
+      <ContainerDesktop>
         <HeaderNavigation title={t('preference')} />
         <View style={styles.contentWrapper}>
           <SideBar
@@ -71,16 +71,13 @@ export default function Preference() {
             <PreferenceContent />
           </View>
         </View>
-      </View>
+      </ContainerDesktop>
       <Footer />
     </div>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: Token.spacing.xxxxl,
-  },
   contentWrapper: {
     flexDirection: 'row',
     flexWrap: 'wrap',
