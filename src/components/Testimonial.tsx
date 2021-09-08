@@ -61,7 +61,7 @@ export default function Testimonial() {
             }}
           >
             <Card.Body style={{width:400}}>
-              <Card.Title>{item.user.name+' | '+item.user.occupation}</Card.Title>
+              <Card.Title>{item.user.name+' | '+item.user.job}</Card.Title>
               <Text style={{ marginTop: Token.spacing.m}}>
                 {item.testimony_text}
               </Text>

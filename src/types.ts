@@ -57,7 +57,7 @@ export type Testimony = {
   user: {
     id: number;
     name: string;
-    occupation: string;
+    job: string;
     profile_picture: string;
   }
 }
