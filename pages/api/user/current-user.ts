@@ -9,7 +9,7 @@ type Data = {};
 
 async function user(req: NextApiRequest, res: NextApiResponse<Data>) {
   const response = await fetcher<User>(req, res, {
-    url: '/current-user',
+    url: '/current-user/',
   });
   res.status(200).json(response);
 }

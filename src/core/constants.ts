@@ -19,4 +19,5 @@ export const QUERY_KEYS = {
   CURRENT_USER: 'CURRENT_USER',
   PERKS: 'PERKS',
   EXPLORER: 'EXPLORER',
+  HOUSE: 'HOUSE',
 };

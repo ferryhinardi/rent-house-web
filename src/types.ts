@@ -28,6 +28,19 @@ export type Question = {
   add_ons: AddOnsChoices | AddOnsRangeNumber;
 };
 
+export type House = {
+  id: number;
+  partner_id: number;
+  name: string;
+  address: string;
+  city: string;
+  description: string;
+  amenitites: string[];
+  minimum_term_length: string;
+  lead_media: string;
+  galleries: string[];
+};
+
 export type AddOnsChoices = { choices: string[] };
 export type AddOnsRangeNumber = { range_min: number; range_max: number };
 
