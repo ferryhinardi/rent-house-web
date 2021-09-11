@@ -4,9 +4,11 @@ import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Text, Button, ContainerDesktop } from 'core/base';
 import { Token } from 'core';
+import ScheduleTourForm from './ScheduleTourForm';
 
 export default function HomeRecommendationHeaderSection() {
   const { t } = useTranslation();
+  const [state] = React.useState();
   return (
     <ContainerDesktop style={styles.container}>
       <View style={styles.homeInfoContainer}>
@@ -17,7 +19,15 @@ export default function HomeRecommendationHeaderSection() {
           variant="caption"
           style={styles.homeInfoDescription}
         >{`Young, working hard, and want those killer city views? We’ve got properties – unique to your needs.`}</Text>
-        <Button variant="secondary" text={t('viewRecommendationButton')} />
+        {state === 'SCHEDULE_TOUR' ? (
+          <ScheduleTourForm />
+        ) : (
+          <Button
+            variant="secondary"
+            text={t('viewRecommendationButton')}
+            style={styles.button}
+          />
+        )}
       </View>
 
       <View style={styles.imageCollections}>
@@ -51,7 +61,9 @@ const styles = StyleSheet.create({
   },
   homeInfoDescription: {
     marginTop: Token.spacing.l,
-    marginBottom: Token.spacing.xxl,
+  },
+  button: {
+    marginTop: Token.spacing.xxl,
   },
   imageCollections: {
     flexGrow: 1,

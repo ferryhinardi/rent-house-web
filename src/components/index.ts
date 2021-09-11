@@ -32,3 +32,4 @@ export { default as PreferenceBanner } from './Account/Banner';
 export { default as HomeRecommendationColletion } from './Recommendation/HomeRecommendationColletion';
 export { default as HomeRecommendationHeaderSection } from './Recommendation/HomeRecommendationHeaderSection';
 export { default as HomeOurRecommendationSection } from './Recommendation/HomeOurRecommendationSection';
+export { default as ExploreHomes } from './Recommendation/ExploreHomes';

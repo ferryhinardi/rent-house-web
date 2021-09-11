@@ -4,6 +4,7 @@ import {
   HeaderMenu,
   HomeRecommendationHeaderSection,
   HomeOurRecommendationSection,
+  ExploreHomes,
   PreferenceBanner,
   Footer,
 } from 'components';
@@ -15,6 +16,7 @@ export default function HomeRecommendation() {
       <HeaderMenu />
       <HomeRecommendationHeaderSection />
       <HomeOurRecommendationSection />
+      <ExploreHomes />
       <PreferenceBanner />
       <Footer />
     </>
