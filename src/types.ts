@@ -28,8 +28,11 @@ export type Question = {
   add_ons: AddOns;
 };
 
-export type AddOns = { choices: string[], range_number_min: number; range_number_max: number};
-
+export type AddOns = {
+  choices?: string[];
+  range_number_min?: number;
+  range_number_max?: number;
+};
 
 export type House = {
   id: number;
@@ -44,15 +47,15 @@ export type House = {
   galleries: string[];
 };
 
-export type UserAnswers= {
+export type UserAnswers = {
   question_id: number;
   value: string;
 }[];
 
 export type AnswerState = {
-    questionID: number,
-    questionTitle: String,
-    answer: String,
+  questionID: number;
+  questionTitle: String;
+  answer: String;
 };
 
 export type Perk = {
@@ -70,8 +73,8 @@ export type Testimony = {
     name: string;
     job: string;
     profile_picture: string;
-  }
-}
+  };
+};
 
 export type Explore = {};
 

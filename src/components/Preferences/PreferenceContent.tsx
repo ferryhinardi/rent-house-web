@@ -15,7 +15,7 @@ export default function PreferenceContent() {
         question={{
           id: 1,
           question_text: `Where do you want to move?`,
-          type: 'choices',
+          type: 'CHOICES',
           section: 'user_preferences',
           group_name: '',
           weight: 25,
