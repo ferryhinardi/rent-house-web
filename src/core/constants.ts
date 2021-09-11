@@ -19,9 +19,6 @@ export const QUERY_KEYS = {
   CURRENT_USER: 'CURRENT_USER',
   PERKS: 'PERKS',
   EXPLORER: 'EXPLORER',
-<<<<<<< HEAD
   HOUSE: 'HOUSE',
-=======
   TESTIMONY: 'TESTIMONY',
->>>>>>> 0a11520... feature: integrate testimonies
 };
