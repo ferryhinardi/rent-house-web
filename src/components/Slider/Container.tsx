@@ -25,8 +25,8 @@ function ContainerSlider({ children }: Props) {
       <View style={styles.container}>
         <Input
           placeholder="min"
+          value={String(min)}
           containerStyle={styles.input}
-          keyboardType="numeric"
           onChangeText={(text) => setMin(Number(text))}
         />
         <View style={styles.children}>{children}</View>
@@ -34,6 +34,7 @@ function ContainerSlider({ children }: Props) {
           placeholder="max"
           containerStyle={styles.input}
           keyboardType="numeric"
+          value={String(max)}
           onChangeText={(text) => setMax(Number(text))}
         />
       </View>

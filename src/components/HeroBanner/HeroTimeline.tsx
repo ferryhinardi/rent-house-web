@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     marginBottom: Token.spacing.xxs,
   },
   separator: {
-    width: 56,
+    width: 30,
     alignSelf: 'center',
     marginHorizontal: Token.spacing.l,
     borderBottomWidth: Token.border.width.bold,

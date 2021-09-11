@@ -49,7 +49,7 @@ export async function getServerSideProps(context: NextPageContext) {
     fetchServer<ResponseItem<Question>>(
       context.req as NextApiRequest,
       context.res as NextApiResponse,
-      { url: '/question/question', params: { section: 'landing_page' } }
+      { url: '/question/all', params: { section: 'landing_page' } }
     )
   );
   return {

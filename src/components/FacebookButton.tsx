@@ -21,7 +21,7 @@ const responseFacebook = (callback: () => void) => (response: ReactFacebookLogin
 
   fetcher<Login>({
     method: 'POST',
-    url: '/provider/facebook',
+    url: '/login/facebook',
     data: {
       provider_token: accessToken,
     }

@@ -10,7 +10,11 @@ import { useStable, useClickOutside } from 'core/hooks';
 const AnimatedView = animated(View);
 const calendarInputRef = React.createRef<TextInput | HTMLElement>();
 
-type Props = React.ComponentProps<typeof Input>;
+type Props = React.ComponentProps<typeof Input> & {
+  onSelectedDateCallback?: OnSelectedDateCallback;
+};
+
+export type OnSelectedDateCallback = (value: string) => void;
 
 function Calendar(props: Props) {
   const formatter = useStable(
@@ -37,6 +41,7 @@ function Calendar(props: Props) {
   };
   const onChange: OnChangeDateCallback = (value: Date) => {
     setValue(value);
+    props.onSelectedDateCallback?.(formatter.format(value));
     onHide();
   };
 

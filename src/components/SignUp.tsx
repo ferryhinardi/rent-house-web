@@ -9,8 +9,9 @@ import { Token, fetcher } from 'core';
 import { login } from 'utils/auth';
 import { Input, Text, LoadingIndicator, ErrorMessage } from 'core/base';
 import { FacebookButton, GoogleButton } from 'components';
-import { Login, ErrorHandling } from 'types';
+import { Login, ErrorHandling, UserAnswers } from 'types';
 import loginCoverImg from 'assets/login-cover.svg';
+import { HeroState } from './Hero';
 
 type Payload = {
   name: string;
@@ -19,7 +20,11 @@ type Payload = {
   password: string;
 };
 
-function SignUpForm() {
+type Props = {
+  landingPageAnswers?: HeroState[];
+};
+
+function SignUpForm(props: Props) {
   const { t } = useTranslation();
   const { isLoading, isError, error, mutate } = useMutation<
     Login,
@@ -39,9 +44,43 @@ function SignUpForm() {
       },
     }
   );
+
+  const { mutate: mutateAnswer } = useMutation<
+    Login,
+    ErrorHandling,
+    UserAnswers
+  >(
+    async (payload) =>
+      fetcher<Login>({
+        method: 'POST',
+        url: '/answers',
+        data: payload,
+      }),
+    {
+      onSuccess: (response: Login) => {
+        Router.reload();
+      },
+      onError: () => {
+        Router.reload();
+      },
+    }
+  );
+
   const { control, handleSubmit } = useForm();
   const onSuccessLogin = () => {
-    Router.reload();
+    if (props.landingPageAnswers && props.landingPageAnswers?.length > 0) {
+      var answers: UserAnswers = [];
+      props.landingPageAnswers.map((item) => {
+        answers.push({
+          question_id: item.questionID as number,
+          value: item.value as string,
+        });
+      });
+
+      mutateAnswer(answers);
+    } else {
+      Router.reload();
+    }
   };
   const onSubmit = (data: Payload) => {
     mutate(data);

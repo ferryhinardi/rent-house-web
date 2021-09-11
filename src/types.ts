@@ -24,9 +24,12 @@ export type Question = {
   weight: number;
   group_name: string;
   section: 'landing_page' | 'user_preferences';
-  type: 'choices' | 'date' | 'text' | 'range_number';
-  add_ons: AddOnsChoices | AddOnsRangeNumber;
+  type: 'CHOICES' | 'DATE' | 'TEXT' | 'RANGE_NUMBER';
+  add_ons: AddOns;
 };
+
+export type AddOns = { choices: string[], range_number_min: number; range_number_max: number};
+
 
 export type House = {
   id: number;
@@ -41,8 +44,16 @@ export type House = {
   galleries: string[];
 };
 
-export type AddOnsChoices = { choices: string[] };
-export type AddOnsRangeNumber = { range_min: number; range_max: number };
+export type UserAnswers= {
+  question_id: number;
+  value: string;
+}[];
+
+export type AnswerState = {
+    questionID: number,
+    questionTitle: String,
+    answer: String,
+};
 
 export type Perk = {
   id: number;

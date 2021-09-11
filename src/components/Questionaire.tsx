@@ -3,70 +3,129 @@ import { View, Pressable, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 import { Text, Input, CalendarInput, LoadingIndicator } from 'core/base';
-import { Question, AddOnsChoices } from 'types';
+import { Question } from 'types';
 import Slider from './Slider';
 import Container, {
   SliderConsumer,
   MinRange,
   MaxRange,
 } from './Slider/Container';
+import { UseFieldArrayReturn, useForm, useController } from 'react-hook-form';
+import { OnSelectedDateCallback } from 'core/base/Calendar';
 
 type Props = {
   loading: boolean;
   question?: Question;
+  methods: UseFieldArrayReturn<FormData>;
+  index: number;
 };
+
+const choicesSelectableTime = [
+  'as soon as possible',
+  '1 month later',
+  '2 months later',
+];
 
 function Questionaire(props: Props) {
   const { t } = useTranslation();
   let QuestionContent;
 
+  const minV =
+    props.question == undefined
+      ? MinRange
+      : props.question.add_ons.range_number_min;
+  const maxV =
+    props.question == undefined
+      ? MaxRange
+      : props.question.add_ons.range_number_max;
+
   switch (props.question?.type) {
-    case 'date':
+    case 'DATE':
+      const onSelectedDateCallback: OnSelectedDateCallback = (
+        value: string
+      ) => {
+        props.methods.update(props.index, {
+          name: props.question?.title,
+          value: value,
+          questionID: props.question?.id,
+        });
+      };
       QuestionContent = (
-        <CalendarInput placeholder={t('placeholderCalendar')} />
+        <div>
+          {choicesSelectableTime.map((choice) => (
+            <Input
+              key={choice}
+              editable={false}
+              containerStyle={styles.containerTextInput}
+              textInputStyle={styles.textInput}
+              value={choice}
+              onFocus={() => {
+                props.methods.update(props.index, {
+                  name: props.question?.title,
+                  value: choice,
+                  questionID: props.question?.id,
+                });
+              }}
+            />
+          ))}
+          <br />
+          <CalendarInput
+            onSelectedDateCallback={onSelectedDateCallback}
+            placeholder={t('placeholderCalendar')}
+          />
+        </div>
       );
       break;
-    case 'range_number':
+    case 'RANGE_NUMBER':
       QuestionContent = (
         <Container>
           <SliderConsumer>
-            {({ min = 0, max = 0 }) => (
+            {({ min = minV, max = maxV }) => (
               <Slider
                 trackColor={'rgba(28,43,79,0.3)'} // Token.colors.rynaBlue with opacity
                 trackHighlightColor={Token.colors.blue}
                 value={[min, max]}
                 step={50}
-                minimumValue={MinRange}
-                maximumValue={MaxRange}
+                minimumValue={minV}
+                maximumValue={maxV}
                 trackStyle={{ height: 8, borderRadius: 50 }}
-                onValueChange={(value: number | number[]) =>
-                  console.log('onValueChange', value)
-                }
+                onValueChange={(value: number | number[]) => {
+                  console.log('onValueChange', value);
+                }}
                 onSlidingStart={(value: number | number[]) =>
                   console.log('onSlidingStart', value)
                 }
-                onSlidingComplete={(value: number | number[]) =>
-                  console.log('onSlidingComplete', value)
-                }
+                onSlidingComplete={(value: number | number[]) => {
+                  const answer = value as number[];
+                  props.methods.update(props.index, {
+                    name: props.question?.title,
+                    value: '$' + answer[0] + '-' + '$' + answer[1],
+                    questionID: props.question?.id,
+                  });
+                }}
               />
             )}
           </SliderConsumer>
         </Container>
       );
       break;
-    case 'choices':
-      QuestionContent = (props.question.add_ons as AddOnsChoices).choices.map(
-        (choice) => (
-          <Input
-            key={choice}
-            editable={false}
-            containerStyle={styles.containerTextInput}
-            textInputStyle={styles.textInput}
-            value={choice}
-            onFocus={() => console.log('choose', choice)}
-          />
-        )
-      );
+    case 'CHOICES':
+      QuestionContent = props.question.add_ons.choices.map((choice) => (
+        <Input
+          key={choice}
+          editable={false}
+          containerStyle={styles.containerTextInput}
+          textInputStyle={styles.textInput}
+          value={choice}
+          onFocus={() => {
+            props.methods.update(props.index, {
+              name: props.question?.title,
+              value: choice,
+              questionID: props.question?.id,
+            });
+          }}
+        />
+      ));
       break;
   }
 
@@ -96,6 +155,7 @@ type QuestionaireCardProps = {
   children: React.ReactNode;
   onSubmit?: () => void;
 };
+
 export function QuestionaireCard({
   children,
   onSubmit,

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
-import { useTranslation } from 'react-i18next';
 import { useSprings, animated } from 'react-spring';
 import { fetcher } from 'core';
 import { Modal } from 'core/base';
@@ -15,6 +14,17 @@ import {
 } from './HeroBanner';
 import Questionaire, { QuestionaireCard } from './Questionaire';
 import SignUpForm from './SignUp';
+import { useForm, useFieldArray } from 'react-hook-form';
+
+export type HeroState = {
+  name: string;
+  value?: string;
+  questionID?: number;
+};
+
+export type FormData = {
+  states: HeroState[];
+};
 
 const AnimatedView = animated(View);
 const heros = [
@@ -25,13 +35,17 @@ const heros = [
 ];
 
 function Hero() {
-  const { t } = useTranslation();
+  const { control, watch } = useForm<FormData>();
+  const fieldsArrayMethods = useFieldArray<FormData, 'states'>({
+    control,
+    name: 'states',
+  });
   const [isVisible, setIsVisible] = useState(false);
   const [stateIndex, setStateIndex] = useState(0);
   const { data, isLoading } = useQuery(QUERY_KEYS.QUESTION, async () => {
     const res = await fetcher<ResponseItem<Question>>({
       method: 'GET',
-      url: '/question/question',
+      url: '/question/all',
       params: { section: 'landing_page' },
     });
     return res;
@@ -54,6 +68,7 @@ function Hero() {
     // Index + 1 because there is banner without hero timeline component in initial banner
     setStateIndex(index + 1);
   };
+
   const onSubmit = () => {
     if (stateIndex + 1 < heros.length) {
       setStateIndex((prev) => prev + 1);
@@ -62,11 +77,6 @@ function Hero() {
       setIsVisible(true);
     }
   };
-  const dummyState = [
-    { name: t('timelineCity'), value: 'toronto' },
-    { name: t('timelineMoveDate'), value: '01/09/2021' },
-    { name: t('timelineBudget'), value: '01/09/2021' },
-  ];
 
   return (
     <View style={styles.container}>
@@ -78,17 +88,21 @@ function Hero() {
             // @ts-ignore
             style={animateStyle}
           >
-            <HeroDescription
-              states={dummyState}
-              onChange={onChangeTimelineBanner}
-            />
-            <View style={styles.containerSignUpForm}>
-              <QuestionaireCard onSubmit={onSubmit}>
-                <Questionaire
-                  loading={isLoading}
-                  question={data?.data?.[stateIndex]}
-                />
-              </QuestionaireCard>
+            <View style={styles.wrapper}>
+              <HeroDescription
+                states={watch('states')}
+                onChange={onChangeTimelineBanner}
+              />
+              <View style={styles.containerSignUpForm}>
+                <QuestionaireCard onSubmit={onSubmit}>
+                  <Questionaire
+                    loading={isLoading}
+                    question={data?.data?.[stateIndex]}
+                    methods={fieldsArrayMethods}
+                    index={stateIndex}
+                  />
+                </QuestionaireCard>
+              </View>
             </View>
           </AnimatedView>
         );
@@ -100,7 +114,7 @@ function Hero() {
           onRequestClose={() => setIsVisible(false)}
           noPadding
         >
-          <SignUpForm />
+          <SignUpForm landingPageAnswers={fieldsArrayMethods.fields} />
         </Modal>
       )}
     </View>
@@ -109,15 +123,18 @@ function Hero() {
 
 const styles = StyleSheet.create({
   container: {
-    zIndex: 0,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  wrapper: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },
   containerSignUpForm: {
-    position: 'absolute',
+    marginLeft: '-25%',
     width: '50%',
-    top: '25%',
-    left: '75%',
   },
 });
 
