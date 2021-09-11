@@ -10,14 +10,14 @@ import Container, {
   MinRange,
   MaxRange,
 } from './Slider/Container';
-import { UseFieldArrayReturn, useForm, useController } from 'react-hook-form';
+import { UseFieldArrayReturn } from 'react-hook-form';
 import { OnSelectedDateCallback } from 'core/base/Calendar';
 
 type Props = {
   loading: boolean;
   question?: Question;
-  methods: UseFieldArrayReturn<FormData>;
-  index: number;
+  methods?: UseFieldArrayReturn<FormData>;
+  index?: number;
 };
 
 const choicesSelectableTime = [
@@ -26,28 +26,24 @@ const choicesSelectableTime = [
   '2 months later',
 ];
 
-function Questionaire(props: Props) {
+function Questionaire({ loading, question, methods, index = 0 }: Props) {
   const { t } = useTranslation();
   let QuestionContent;
 
   const minV =
-    props.question == undefined
-      ? MinRange
-      : props.question.add_ons.range_number_min;
+    question == undefined ? MinRange : question.add_ons.range_number_min;
   const maxV =
-    props.question == undefined
-      ? MaxRange
-      : props.question.add_ons.range_number_max;
+    question == undefined ? MaxRange : question.add_ons.range_number_max;
 
-  switch (props.question?.type) {
+  switch (question?.type) {
     case 'DATE':
       const onSelectedDateCallback: OnSelectedDateCallback = (
         value: string
       ) => {
-        props.methods.update(props.index, {
-          name: props.question?.title,
+        methods?.update(index, {
+          name: question?.title,
           value: value,
-          questionID: props.question?.id,
+          questionID: question?.id,
         });
       };
       QuestionContent = (
@@ -60,10 +56,10 @@ function Questionaire(props: Props) {
               textInputStyle={styles.textInput}
               value={choice}
               onFocus={() => {
-                props.methods.update(props.index, {
-                  name: props.question?.title,
+                methods?.update(index, {
+                  name: question?.title,
                   value: choice,
-                  questionID: props.question?.id,
+                  questionID: question?.id,
                 });
               }}
             />
@@ -84,7 +80,7 @@ function Questionaire(props: Props) {
               <Slider
                 trackColor={'rgba(28,43,79,0.3)'} // Token.colors.rynaBlue with opacity
                 trackHighlightColor={Token.colors.blue}
-                value={[min, max]}
+                value={[min!, max!]}
                 step={50}
                 minimumValue={minV}
                 maximumValue={maxV}
@@ -97,10 +93,10 @@ function Questionaire(props: Props) {
                 }
                 onSlidingComplete={(value: number | number[]) => {
                   const answer = value as number[];
-                  props.methods.update(props.index, {
-                    name: props.question?.title,
+                  methods?.update(index, {
+                    name: question?.title,
                     value: '$' + answer[0] + '-' + '$' + answer[1],
-                    questionID: props.question?.id,
+                    questionID: question?.id,
                   });
                 }}
               />
@@ -110,7 +106,7 @@ function Questionaire(props: Props) {
       );
       break;
     case 'CHOICES':
-      QuestionContent = props.question.add_ons.choices.map((choice) => (
+      QuestionContent = question.add_ons.choices?.map((choice) => (
         <Input
           key={choice}
           editable={false}
@@ -118,10 +114,10 @@ function Questionaire(props: Props) {
           textInputStyle={styles.textInput}
           value={choice}
           onFocus={() => {
-            props.methods.update(props.index, {
-              name: props.question?.title,
+            methods?.update(index, {
+              name: question?.title,
               value: choice,
-              questionID: props.question?.id,
+              questionID: question?.id,
             });
           }}
         />
@@ -131,17 +127,17 @@ function Questionaire(props: Props) {
 
   return (
     <>
-      {props.loading ? (
+      {loading ? (
         <LoadingIndicator />
       ) : (
         <>
-          {props.question?.title && (
+          {question?.title && (
             <Text variant="huge" style={styles.title}>
-              {props.question?.title}
+              {question?.title}
             </Text>
           )}
           <Text variant="big" style={styles.subtitle}>
-            {props.question?.question_text}
+            {question?.question_text}
           </Text>
 
           {QuestionContent}
