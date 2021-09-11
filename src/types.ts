@@ -51,6 +51,17 @@ export type Perk = {
   image: string;
 };
 
+export type Testimony = {
+  id: number;
+  testimony_text: string;
+  user: {
+    id: number;
+    name: string;
+    job: string;
+    profile_picture: string;
+  }
+}
+
 export type Explore = {};
 
 export type Login = { token: string };

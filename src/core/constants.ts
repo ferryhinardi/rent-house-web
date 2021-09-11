@@ -20,4 +20,5 @@ export const QUERY_KEYS = {
   PERKS: 'PERKS',
   EXPLORER: 'EXPLORER',
   HOUSE: 'HOUSE',
+  TESTIMONY: 'TESTIMONY',
 };
