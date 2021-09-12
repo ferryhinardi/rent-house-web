@@ -4,8 +4,13 @@ import { Pressable, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 // @ts-ignore
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import { ReactFacebookLoginInfo, ReactFacebookFailureResponse, ReactFacebookLoginState } from 'react-facebook-login';
+import {
+  ReactFacebookLoginInfo,
+  ReactFacebookFailureResponse,
+  ReactFacebookLoginState,
+} from 'react-facebook-login';
 import { useTranslation } from 'react-i18next';
+import config from 'config';
 import { Token, fetcher } from 'core';
 import { Text } from 'core/base';
 import { login } from 'utils/auth';
@@ -16,19 +21,21 @@ type RenderProps = ReactFacebookLoginState & {
   isDisabled: boolean;
 };
 
-const responseFacebook = (callback: () => void) => (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => {
-  const { accessToken } = response as ReactFacebookLoginInfo;
+const responseFacebook =
+  (callback: () => void) =>
+  (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => {
+    const { accessToken } = response as ReactFacebookLoginInfo;
 
-  fetcher<Login>({
-    method: 'POST',
-    url: '/login/facebook',
-    data: {
-      provider_token: accessToken,
-    }
-  })
-  .then(login)
-  .then(callback);
-};
+    fetcher<Login>({
+      method: 'POST',
+      url: '/login/facebook',
+      data: {
+        provider_token: accessToken,
+      },
+    })
+      .then(login)
+      .then(callback);
+  };
 const onFailure = (response: ReactFacebookFailureResponse) => {
   console.error(JSON.stringify(response));
 };
@@ -41,12 +48,12 @@ function FacebookButton(props: Props) {
   const { t } = useTranslation();
   return (
     <FacebookLogin
-      appId={`${process.env.NEXT_PUBLIC_FACEBOOK_APP_ID}`}
+      appId={`${config.fbAppId}`}
       callback={responseFacebook(props.onSuccessLogin)}
       onFailure={onFailure}
       containerStyle={{
         width: '100%',
-        marginTop: Token.spacing.m
+        marginTop: Token.spacing.m,
       }}
       buttonStyle={{
         width: '100%',
@@ -60,7 +67,11 @@ function FacebookButton(props: Props) {
       size="medium"
       render={({ onClick, isDisabled, isProcessing }: RenderProps) => {
         return (
-          <Pressable style={styles.button} onPress={onClick} disabled={isDisabled || isProcessing}>
+          <Pressable
+            style={styles.button}
+            onPress={onClick}
+            disabled={isDisabled || isProcessing}
+          >
             <Icon name="facebook-f" size={20} color={Token.colors.fb} />
             <Text style={styles.text}>{t('facebook')}</Text>
           </Pressable>

@@ -1,15 +1,15 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import config from 'config';
 
-const baseURL = process.env.NEXT_PUBLIC_APP_HOST;
-const instance = axios.create({ baseURL });
+const instance = axios.create({ baseURL: config.apiHost });
 
 async function fetcherClient<T>({ url: urlArg, ...opts }: AxiosRequestConfig) {
   const url = ['/api', urlArg].join('');
-  const response = await instance({
+  const response = (await instance({
     responseType: 'json',
     url,
     ...opts,
-  }) as AxiosResponse<T>;
+  })) as AxiosResponse<T>;
   return response.data;
 }
 

@@ -138,10 +138,20 @@ const en = {
   processingPayment: 'Processig Your Payment...',
   homeRecommendationViewButton: 'View Detail',
   viewRecommendationButton: 'View Home Recommendation',
+  scheduleTourButton: 'Schedule a Tour',
   ourRecommendationSectionTitle: 'View Our Recommendation',
   ourRecommendationSectionDescription:
     'From a room for a night to a loft for as long as you like, there’s a Ryna for every occasion.',
   showRecommendation: 'Showing 2 recommendations.',
+  movingDateLabel: 'Moving Date',
+  rentWithUsLabel: 'Rent with Us',
+  startYourApplication: 'Start Your Application',
+  floorPlanTitle: 'Floor Plan',
+  floorPlanDescription:
+    'From a room for a night to a loft for as long as you like, there’s a Ryna for every occasion.',
+  mapLocationTitle: 'Location',
+  mapLocationDescription:
+    'From a room for a night to a loft for as long as you like, there’s a Ryna for every occasion.',
   logout: 'Sign Out',
 };
 

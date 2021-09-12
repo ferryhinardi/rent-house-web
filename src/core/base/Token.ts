@@ -41,7 +41,7 @@ export const border = {
     bold: 2,
   },
   radius: {
-    default: 6,
+    default: 8,
     extra: 64,
     rounded: '50%',
   },

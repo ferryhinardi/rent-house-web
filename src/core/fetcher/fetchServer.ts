@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import config from 'config';
 import curlirize from 'utils/axiosCurl';
 
-const baseURL = process.env.NEXT_PUBLIC_API_HOST;
-const instance = axios.create({ baseURL });
+const instance = axios.create({ baseURL: config.apiHost });
 curlirize(instance);
 
 async function fetcherServer<T>(
@@ -22,11 +22,11 @@ async function fetcherServer<T>(
   // Message: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sni.cloudflaressl.com, DNS:ondigitalocean.app, DNS:*.ondigitalocean.app
   delete headers.host;
 
-  const response = await instance({
+  const response = (await instance({
     ...options,
     responseType: 'json',
     headers,
-  }) as AxiosResponse<T>;
+  })) as AxiosResponse<T>;
   return response.data;
 }
 
