@@ -31,5 +31,6 @@ export { default as DepositSection } from './Application/DepositSection';
 export { default as PreferenceBanner } from './Account/Banner';
 export { default as HomeRecommendationColletion } from './Recommendation/HomeRecommendationColletion';
 export { default as HomeRecommendationHeaderSection } from './Recommendation/HomeRecommendationHeaderSection';
-export { default as HomeOurRecommendationSection } from './Recommendation/HomeOurRecommendationSection';
-export { default as ExploreHomes } from './Recommendation/ExploreHomes';
+export { default as PrivateAmenities } from './Recommendation/PrivateAmenities';
+export { default as FloorPlan } from './Recommendation/FloorPlan';
+export { default as MapLocation } from './Recommendation/MapLocation';

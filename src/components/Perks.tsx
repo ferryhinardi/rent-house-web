@@ -2,12 +2,11 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
+import config from 'config';
 import { fetcher, Token } from 'core';
 import { Card, Text, Button } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { Perk, ResponseItem } from 'types';
-
-const BASE_IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_HOST;
 
 function Perks() {
   const { t } = useTranslation();
@@ -50,8 +49,8 @@ function Perks() {
               orientation="portrait"
               style={styles.cardStyle}
               imageProps={{
-                src: `${BASE_IMAGE_URL}/${item.image}`,
-                blurDataURL: `${BASE_IMAGE_URL}/${item.image}`,
+                src: `${config.imageHost}/${item.image}`,
+                blurDataURL: `${config.imageHost}/${item.image}`,
                 placeholder: 'blur',
                 loading: 'lazy',
                 width: '100%',

@@ -3,12 +3,10 @@ import { useQuery } from 'react-query';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Token, fetcher } from 'core';
+import config from 'config';
 import { ResponseItem, House } from 'types';
-import { Text, Button, ContainerDesktop } from 'core/base';
-import Image from 'next/image';
+import { Card, Text, Button, ContainerDesktop } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
-
-const BASE_IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_HOST;
 
 export default function ExploreHomes() {
   const { t } = useTranslation();
@@ -40,14 +38,18 @@ export default function ExploreHomes() {
         <View style={styles.containerHouses}>
           {data?.data.map((item) => (
             <View key={item.id} style={styles.cardStyle}>
-              <Image
-                src={(BASE_IMAGE_URL + '/' + item.lead_media) as any}
-                blurDataURL={(BASE_IMAGE_URL + '/' + item.lead_media) as any}
-                alt={item.name}
-                width="100%"
-                objectFit="cover"
-                height={350}
-                className="house-card"
+              <Card
+                orientation="portrait"
+                imageProps={{
+                  src: `${config.imageHost}/${item.lead_media}`,
+                  blurDataURL: `${config.imageHost}/${item.lead_media}`,
+                  placeholder: 'blur',
+                  loading: 'lazy',
+                  width: '100%',
+                  height: 350,
+                  alt: 'perk image',
+                  onError: () => console.error('error render image'),
+                }}
               />
               <Text variant="header-4" style={styles.cardTitle}>
                 {item.name}
@@ -87,8 +89,6 @@ const styles = StyleSheet.create({
     marginTop: Token.spacing.xxl,
   },
   cardTitle: {
-    marginLeft: 'auto',
-    marginRight: 'auto',
     marginBottom: Token.spacing.s,
     marginTop: Token.spacing.xs,
     alignItems: 'center',

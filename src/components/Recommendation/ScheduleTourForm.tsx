@@ -13,6 +13,7 @@ export default function ScheduleTourForm() {
         <InputBorder label="Availability" value="Ready" />
       </View>
       <Button variant="secondary" text={t('scheduleTourButton')} />
+      <Button text={t('startYourApplication')} style={styles.button} />
     </View>
   );
 }
@@ -40,5 +41,8 @@ const styles = StyleSheet.create({
     borderColor: Token.colors.rynaBlue,
     borderWidth: Token.border.width.thin,
     alignItems: 'flex-start',
+  },
+  button: {
+    marginTop: Token.spacing.xxl,
   },
 });
