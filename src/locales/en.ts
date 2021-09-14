@@ -102,6 +102,10 @@ const en = {
   'otherDocument.required': 'This field is required',
   address: 'Address',
   'address.required': 'This field is required',
+  occupation: 'Occupation',
+  'occupation.required': 'This field is required',
+  movingDate: 'Moving Date',
+  'movingDate.required': 'This field is required',
   emergencyContact: 'Emergency Contact',
   emergencyName: 'Name',
   emergencyRelationship: 'Relationship',
@@ -152,6 +156,18 @@ const en = {
   mapLocationTitle: 'Location',
   mapLocationDescription:
     'From a room for a night to a loft for as long as you like, there’s a Ryna for every occasion.',
+  'home-recommendation': 'Home Recommendation',
+  homeDetailTitle: 'Apply to {{homeName}}',
+  homeDetailSubtitle:
+    'We link your profile and help you to populate your profile.',
+  edit: 'Edit',
+  continueApply: 'Continue to Apply',
+  applyNow: 'Apply Now',
+  confirmApplyTitle: 'Thank You for Applying',
+  confirmApplySubtitle: 'to Kingset Apartement',
+  confirmApplyContent:
+    'Thank you for applying! You’re now in waiting confirmation status.',
+  confirmApplyActionLabel: 'Back to My Applications',
   logout: 'Sign Out',
 };
 

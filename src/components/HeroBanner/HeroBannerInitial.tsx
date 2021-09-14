@@ -6,14 +6,8 @@ import { Text, Button } from 'core/base';
 import hero from 'assets/hero-0.svg';
 import { imageDataBase64 } from 'assets/hero-0';
 import HeroBannerTemplate from './HeroBannerTemplate';
-import { HeroStates } from '../HeroBanner';
 
-type Props = {
-  states: HeroStates;
-  onChange?: (index: number) => void;
-};
-
-function HeroBannerInitial(_: Props) {
+function HeroBannerInitial() {
   const { t } = useTranslation();
   return (
     <HeroBannerTemplate

@@ -34,3 +34,4 @@ export { default as HomeRecommendationHeaderSection } from './Recommendation/Hom
 export { default as PrivateAmenities } from './Recommendation/PrivateAmenities';
 export { default as FloorPlan } from './Recommendation/FloorPlan';
 export { default as MapLocation } from './Recommendation/MapLocation';
+export { default as HomeDetailContent } from './HomeDetail/Content';
