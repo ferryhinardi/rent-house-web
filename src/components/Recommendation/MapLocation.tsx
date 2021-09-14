@@ -5,9 +5,7 @@ import { Text, ContainerDesktop } from 'core/base';
 import { Token } from 'core';
 import MapWrapper from './MapWrapper';
 
-type Props = {};
-
-function MapLocation(props: Props) {
+function MapLocation() {
   const { t } = useTranslation();
 
   return (

@@ -57,7 +57,7 @@ function SignUpForm(props: Props) {
         data: payload,
       }),
     {
-      onSuccess: (response: Login) => {
+      onSuccess: () => {
         Router.reload();
       },
       onError: () => {

@@ -1,11 +1,21 @@
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { Button, Text } from 'core/base';
 import { Token } from 'core';
+import { routePaths } from 'routePaths';
 
 export default function ScheduleTourForm() {
   const { t } = useTranslation();
+  const router = useRouter();
+  const onNavigateHomeDetail = () => {
+    router.push({
+      pathname: routePaths.homeDetail,
+      query: { homeId: 'home.id' },
+    });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
@@ -13,7 +23,11 @@ export default function ScheduleTourForm() {
         <InputBorder label="Availability" value="Ready" />
       </View>
       <Button variant="secondary" text={t('scheduleTourButton')} />
-      <Button text={t('startYourApplication')} style={styles.button} />
+      <Button
+        text={t('startYourApplication')}
+        style={styles.button}
+        onPress={onNavigateHomeDetail}
+      />
     </View>
   );
 }
