@@ -1,5 +1,6 @@
 const config = {
   apiHost: process.env.NEXT_PUBLIC_API_HOST,
+  appHost: process.env.NEXT_PUBLIC_APP_HOST,
   googleAPIKey:
     process.env.NEXT_PUBLIC_GOOGLE_API_KEY ||
     'AIzaSyAzmQVVWpZ2iMdVO9_5awTVAECu8vz6pi0',

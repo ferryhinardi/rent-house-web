@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import config from 'config';
 
-const instance = axios.create({ baseURL: config.apiHost });
+const instance = axios.create({ baseURL: config.appHost });
 
 async function fetcherClient<T>({ url: urlArg, ...opts }: AxiosRequestConfig) {
   const url = ['/api', urlArg].join('');
