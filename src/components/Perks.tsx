@@ -6,6 +6,7 @@ import config from 'config';
 import { fetcher, Token } from 'core';
 import { Card, Text, Button } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
+import { PerksPlaceholder } from 'components/Placeholder';
 import { Perk, ResponseItem } from 'types';
 
 function Perks() {
@@ -28,19 +29,11 @@ function Perks() {
             {t('titlePerks')}
           </Text>
           <Text>{t('subtitlePerks')}</Text>
-          <button
-            type="button"
-            onClick={() => {
-              fetch('/api/handler');
-            }}
-          >
-            Test Sentry Integration
-          </button>
         </View>
         <Button variant="secondary" text={t('moreButtonPerks')} />
       </View>
       {isLoading ? (
-        <Text>{'Loading...'}</Text>
+        <PerksPlaceholder />
       ) : (
         <View style={styles.containerPerks}>
           {data?.data.map((item) => (

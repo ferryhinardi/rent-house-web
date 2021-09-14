@@ -4,6 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 import { Text, Button } from 'core/base';
+// import { EasyProcessPlaceholder } from 'components/Placeholder';
 const processes = [
   { key: 'process1', icon: require('assets/pen-outline.svg') },
   { key: 'process2', icon: require('assets/calendar-outline.svg') },
@@ -12,6 +13,8 @@ const processes = [
 
 export default function EasyProcess() {
   const { t } = useTranslation();
+
+  // return <EasyProcessPlaceholder />;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
