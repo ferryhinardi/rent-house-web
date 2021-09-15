@@ -7,6 +7,7 @@ import config from 'config';
 import { ResponseItem, House } from 'types';
 import { Card, Text, Button, ContainerDesktop } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
+import { ExploreHomePlaceholder } from 'components/Placeholder';
 
 export default function ExploreHomes() {
   const { t } = useTranslation();
@@ -33,7 +34,7 @@ export default function ExploreHomes() {
         <Button variant="secondary" text={t('moreButtonExploreHomes')} />
       </View>
       {isLoading ? (
-        <Text>{'Loading...'}</Text>
+        <ExploreHomePlaceholder />
       ) : (
         <View style={styles.containerHouses}>
           {data?.data.map((item) => (

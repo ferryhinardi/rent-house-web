@@ -5,7 +5,7 @@
 
 const { withSentryConfig } = require('@sentry/nextjs');
 const path = require('path');
-const withTM = require('next-transpile-modules')(['react-native-vector-icons']);
+const withTM = require('next-transpile-modules')(['react-native-vector-icons', 'rn-placeholder']); // https://github.com/vercel/next.js/issues/12481#issuecomment-623703081
 
 const SentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
