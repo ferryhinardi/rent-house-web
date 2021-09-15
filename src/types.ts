@@ -76,7 +76,5 @@ export type Testimony = {
   };
 };
 
-export type Explore = {};
-
 export type Login = { token: string };
 export type ErrorHandling = { message: string };

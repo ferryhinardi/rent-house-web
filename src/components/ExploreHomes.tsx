@@ -16,7 +16,7 @@ export default function ExploreHomes() {
     async () => {
       const res = await fetcher<ResponseItem<House>>({
         method: 'GET',
-        url: '/house?size=4',
+        url: '/house',
       });
       return res;
     }
