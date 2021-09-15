@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useSprings, animated } from 'react-spring';
+import { Element } from 'react-scroll';
 import { fetcher } from 'core';
 import { Modal } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
@@ -79,45 +80,47 @@ function Hero() {
   };
 
   return (
-    <View style={styles.container}>
-      {herosSprings.map((animateStyle, idx) => {
-        const HeroDescription = heros[idx];
-        return (
-          <AnimatedView
-            key={`${idx}`}
-            // @ts-ignore
-            style={animateStyle}
-          >
-            <View style={styles.wrapper}>
-              <HeroDescription
-                states={watch('states')}
-                onChange={onChangeTimelineBanner}
-              />
-              <View style={styles.containerSignUpForm}>
-                <QuestionaireCard onSubmit={onSubmit}>
-                  <Questionaire
-                    loading={isLoading}
-                    question={data?.data?.[stateIndex]}
-                    methods={fieldsArrayMethods}
-                    index={stateIndex}
-                  />
-                </QuestionaireCard>
+    <Element name="find-my-home">
+      <View style={styles.container}>
+        {herosSprings.map((animateStyle, idx) => {
+          const HeroDescription = heros[idx];
+          return (
+            <AnimatedView
+              key={`${idx}`}
+              // @ts-ignore
+              style={animateStyle}
+            >
+              <View style={styles.wrapper}>
+                <HeroDescription
+                  states={watch('states')}
+                  onChange={onChangeTimelineBanner}
+                />
+                <View style={styles.containerSignUpForm}>
+                  <QuestionaireCard onSubmit={onSubmit}>
+                    <Questionaire
+                      loading={isLoading}
+                      question={data?.data?.[stateIndex]}
+                      methods={fieldsArrayMethods}
+                      index={stateIndex}
+                    />
+                  </QuestionaireCard>
+                </View>
               </View>
-            </View>
-          </AnimatedView>
-        );
-      })}
-      {stateIndex === heros.length - 1 && (
-        <Modal
-          animationType="fade"
-          visible={isVisible}
-          onRequestClose={() => setIsVisible(false)}
-          noPadding
-        >
-          <SignUpForm landingPageAnswers={fieldsArrayMethods.fields} />
-        </Modal>
-      )}
-    </View>
+            </AnimatedView>
+          );
+        })}
+        {stateIndex === heros.length - 1 && (
+          <Modal
+            animationType="fade"
+            visible={isVisible}
+            onRequestClose={() => setIsVisible(false)}
+            noPadding
+          >
+            <SignUpForm landingPageAnswers={fieldsArrayMethods.fields} />
+          </Modal>
+        )}
+      </View>
+    </Element>
   );
 }
 

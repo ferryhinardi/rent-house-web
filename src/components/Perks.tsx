@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
+import { scroller } from 'react-scroll';
 import config from 'config';
 import { fetcher, Token } from 'core';
 import { Card, Text, Button } from 'core/base';
@@ -21,6 +22,14 @@ function Perks() {
       return res;
     }
   );
+  const onNavigateToTopSection = () => {
+    scroller.scrollTo('find-my-home', {
+      duration: 500,
+      delay: 100,
+      smooth: true,
+      offset: -50,
+    });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -30,7 +39,11 @@ function Perks() {
           </Text>
           <Text>{t('subtitlePerks')}</Text>
         </View>
-        <Button variant="secondary" text={t('moreButtonPerks')} />
+        <Button
+          variant="secondary"
+          text={t('moreButtonPerks')}
+          onPress={onNavigateToTopSection}
+        />
       </View>
       {isLoading ? (
         <PerksPlaceholder />
