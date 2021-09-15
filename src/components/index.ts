@@ -1,6 +1,7 @@
 export { default as Head } from './Head';
 export { default as HeaderMenu } from './Header';
 export { default as HeaderNavigation } from './HeaderNavigation';
+export { default as Breadcrumb } from './Breadcrumb';
 export { default as Footer } from './Footer';
 export { default as Hero } from './Hero';
 export { default as PartnersSection } from './Partners';
@@ -35,3 +36,4 @@ export { default as PrivateAmenities } from './Recommendation/PrivateAmenities';
 export { default as FloorPlan } from './Recommendation/FloorPlan';
 export { default as MapLocation } from './Recommendation/MapLocation';
 export { default as HomeDetailContent } from './HomeDetail/Content';
+export { default as HomeDetailAgreement } from './HomeDetail/Agreement';
