@@ -11,11 +11,99 @@ import {
   PreferenceContent,
   Footer,
 } from 'components';
-import { Token } from 'core';
-import { Text, ContainerDesktop } from 'core/base';
+import { fetcher, Token } from 'core';
+import { ContainerDesktop, Text } from 'core/base';
+import { useQuery } from 'react-query';
+import { QUERY_KEYS } from 'core/constants';
+import { Question, ResponseItem } from 'types';
+import answers from '../api/answers';
+import { useFieldArray, useForm } from 'react-hook-form';
+
+export type QuestionState = {
+  name: string;
+  value?: string;
+  questionID?: number;
+};
+
+export type PreferenceQuestionState = {
+  states: QuestionState[];
+};
 
 export default function Preference() {
   const { t } = useTranslation();
+
+  const [stateIndex, setStateIndex] = React.useState(0);
+
+  const { data, isLoading } = useQuery(
+    QUERY_KEYS.QUESTION_USER_PREFERENCES,
+    async () => {
+      const res = await fetcher<ResponseItem<Question>>({
+        method: 'GET',
+        url: '/question?section=user_preferences',
+      });
+      return res;
+    }
+  );
+
+  let qMap = new Map<string, Question[]>();
+  data?.data.map((e) => {
+    if (qMap.has(e.category)) {
+      var newMap = qMap.get(e.category) as Question[];
+      newMap?.push(e);
+      qMap.set(e.category, newMap);
+    } else {
+      var newMap = new Array<Question>();
+      newMap.push(e);
+      qMap.set(e.category, newMap);
+    }
+  });
+
+  const questions = data?.data as Question[];
+
+  const { control, watch } = useForm<PreferenceQuestionState>();
+  const fieldsArrayMethods = useFieldArray<PreferenceQuestionState, 'states'>({
+    control,
+    name: 'states',
+  });
+
+  let sideBarMenu = new Array<{
+    name: string;
+    label: string;
+    IconRight?: React.ReactNode;
+  }>();
+
+  qMap.forEach((value: Question[], key: string) => {
+    var result = fieldsArrayMethods.fields.filter(function (o1) {
+      return value.some(function (o2) {
+        return o1.questionID === o2.id;
+      });
+    });
+
+    sideBarMenu.push({
+      name: key,
+      label: key,
+      IconRight:
+        result.length === value.length ? (
+          <Icon name="check-circle" size={20} color={Token.colors.rynaBlue} />
+        ) : (
+          <Text variant="sidebar-menu" ink="primary">
+            {result.length + `/` + value.length}
+          </Text>
+        ),
+    });
+  });
+
+  const onChangeActiveSidebar = (name: string) => {
+    var questionGroup = qMap.get(name);
+    if (questionGroup === undefined) {
+      return;
+    }
+
+    setStateIndex(questions.indexOf(questionGroup[0]));
+  };
+
+  if (isLoading) return <p>loading...</p>;
+
   return (
     <div>
       <Head />
@@ -24,51 +112,17 @@ export default function Preference() {
         <HeaderNavigation title={t('preference')} />
         <View style={styles.contentWrapper}>
           <SideBar
-            menus={[
-              {
-                name: 'premilinary-questions',
-                label: 'Premilinary Questions',
-                IconRight: (
-                  <Icon
-                    name="check-circle"
-                    size={20}
-                    color={Token.colors.rynaBlue}
-                  />
-                ),
-              },
-              {
-                name: 'roommate',
-                label: 'Roommate',
-                IconRight: (
-                  <Text variant="sidebar-menu" ink="primary">{`0/2`}</Text>
-                ),
-              },
-              {
-                name: 'about-you',
-                label: 'A bit about you',
-                IconRight: (
-                  <Text variant="sidebar-menu" ink="primary">{`0/1`}</Text>
-                ),
-              },
-              {
-                name: 'moving-reason',
-                label: 'Moving Reason',
-                IconRight: (
-                  <Text variant="sidebar-menu" ink="primary">{`0/1`}</Text>
-                ),
-              },
-              {
-                name: 'amenities',
-                label: 'Amenities',
-                IconRight: (
-                  <Text variant="sidebar-menu" ink="primary">{`0/3`}</Text>
-                ),
-              },
-            ]}
+            menus={sideBarMenu}
             style={styles.sidebar}
+            onPress={onChangeActiveSidebar}
           />
           <View style={styles.content}>
-            <PreferenceContent />
+            <PreferenceContent
+              stateIndex={stateIndex}
+              stateIndexSetter={setStateIndex}
+              questions={questions}
+              methods={fieldsArrayMethods}
+            />
           </View>
         </View>
       </ContainerDesktop>
@@ -84,6 +138,11 @@ const styles = StyleSheet.create({
     gap: Token.spacing.xxl,
     alignItems: 'flex-start',
     marginVertical: Token.spacing.xxl,
+  },
+  wrapper: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   sidebar: {
     flexGrow: 1,

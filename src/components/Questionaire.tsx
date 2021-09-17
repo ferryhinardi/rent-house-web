@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Pressable, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { UseFieldArrayReturn } from 'react-hook-form';
 import { Token } from 'core';
@@ -18,6 +18,8 @@ import Container, {
   MaxRange,
 } from 'components/Slider/Container';
 import { Question } from 'types';
+import { FormData } from 'components/SectionLandingPage/Hero';
+import { colors } from 'core/base/Token';
 
 type Props = {
   loading: boolean;
@@ -116,7 +118,11 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
         <Input
           key={choice}
           editable={false}
-          containerStyle={styles.containerTextInput}
+          containerStyle={
+            methods?.fields[index]?.value === choice
+              ? styles.asasd
+              : styles.containerTextInput
+          }
           textInputStyle={styles.textInput}
           value={choice}
           onFocus={() => {
@@ -197,6 +203,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: Token.spacing.l,
     paddingVertical: Token.spacing.m,
     marginTop: Token.spacing.l,
+  },
+  asasd: {
+    paddingHorizontal: Token.spacing.l,
+    paddingVertical: Token.spacing.m,
+    marginTop: Token.spacing.l,
+    borderWidth: 1,
+    borderRadius: 64,
+    borderColor: colors.blue,
   },
   textInput: {
     // @ts-ignore

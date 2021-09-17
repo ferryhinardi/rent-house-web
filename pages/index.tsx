@@ -48,7 +48,7 @@ export async function getServerSideProps(context: NextPageContext) {
       { url: '/current-user' }
     )
   );
-  await queryClient.prefetchQuery(QUERY_KEYS.QUESTION, () =>
+  await queryClient.prefetchQuery(QUERY_KEYS.QUESTION_LANDING_PAGE, () =>
     fetchServer<ResponseItem<Question>>(
       context.req as NextApiRequest,
       context.res as NextApiResponse,
@@ -69,6 +69,7 @@ export async function getServerSideProps(context: NextPageContext) {
       { url: '/testimony' }
     )
   );
+
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
