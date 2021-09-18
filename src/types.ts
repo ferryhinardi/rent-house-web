@@ -22,7 +22,7 @@ export type Question = {
   title?: string;
   question_text: string;
   weight: number;
-  group_name: string;
+  category: string;
   section: 'landing_page' | 'user_preferences';
   type: 'CHOICES' | 'DATE' | 'TEXT' | 'RANGE_NUMBER';
   add_ons: AddOns;
@@ -51,6 +51,11 @@ export type UserAnswers = {
   question_id: number;
   value: string;
 }[];
+
+export type Answer = {
+  question_id: number;
+  value: string;
+}
 
 export type AnswerState = {
   questionID: number;

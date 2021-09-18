@@ -43,14 +43,16 @@ function Hero() {
   });
   const [isVisible, setIsVisible] = useState(false);
   const [stateIndex, setStateIndex] = useState(0);
-  const { data, isLoading } = useQuery(QUERY_KEYS.QUESTION, async () => {
-    const res = await fetcher<ResponseItem<Question>>({
-      method: 'GET',
-      url: '/question/all',
-      params: { section: 'landing_page' },
-    });
-    return res;
-  });
+  const { data, isLoading } = useQuery<ResponseItem<Question>>(
+    QUERY_KEYS.QUESTION_LANDING_PAGE,
+    async () => {
+      const res = await fetcher<ResponseItem<Question>>({
+        method: 'GET',
+        url: '/question?section=landing_page',
+      });
+      return res;
+    }
+  );
   const herosSprings = useSprings(
     heros.length,
     heros.map((item, index) =>
