@@ -10,6 +10,8 @@ import { QUERY_KEYS } from 'core/constants';
 import { PerksPlaceholder } from 'components/Placeholder';
 import { Perk, ResponseItem } from 'types';
 
+const cardWidth = ['48%', '48%', '30%', '30%', '30%'];
+
 function Perks() {
   const { t } = useTranslation();
   const { data, isLoading } = useQuery<ResponseItem<Perk>>(
@@ -49,11 +51,11 @@ function Perks() {
         <PerksPlaceholder />
       ) : (
         <View style={styles.containerPerks}>
-          {data?.data.map((item) => (
+          {data?.data.map((item, index) => (
             <Card
               key={item.id}
               orientation="portrait"
-              style={styles.cardStyle}
+              style={[styles.cardStyle, { flexBasis: cardWidth[index] }]}
               imageProps={{
                 src: `${config.imageHost}/${item.image}`,
                 blurDataURL: `${config.imageHost}/${item.image}`,
@@ -82,12 +84,12 @@ function Perks() {
 const styles = StyleSheet.create({
   container: {
     padding: Token.spacing.xxxxl,
-    backgroundColor: Token.colors.pink,
+    backgroundColor: Token.colors.lightGrey,
   },
   containerPerks: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: Token.spacing.m,
+    gap: Token.spacing.xxxl,
     justifyContent: 'space-between',
     marginTop: Token.spacing.xxl,
   },

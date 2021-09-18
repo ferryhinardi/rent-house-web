@@ -76,5 +76,13 @@ export type Testimony = {
   };
 };
 
+export type Process = {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  step_order: number;
+};
+
 export type Login = { token: string };
 export type ErrorHandling = { message: string };

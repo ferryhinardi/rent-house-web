@@ -4,6 +4,7 @@ const en = {
   bannerTitle: 'Homes to Empower Women',
   bannerSubtitle:
     'Young, working hard, and want those killer city views? We’ve got properties – unique to your needs.',
+  supportingMediaTitle: 'See who’s talking about us',
   timelineCity: 'City',
   timelineMoveDate: 'Move Date',
   timelineBudget: 'Budget',
@@ -39,14 +40,6 @@ const en = {
   titleEasyProcess: 'Easy Process with Ryna',
   subtitleEasyProcess: `Join our community of women doin' the damn thing!`,
   moreButtonEasyProcess: 'Copy Placeholder',
-  process1Title: 'Sign up',
-  process1Description:
-    'Submit an application online and we’ll match you with the roommates and home you’re most compatible with.',
-  process2Title: 'Home Tour',
-  process2Description:
-    'A Ryna representative will reach out to you for a quick chat and arrange viewings.',
-  process3Title: 'Move and enjoy!',
-  process3Description: 'Move in and enjoy your new #Rynalife',
   titleTestimonial: 'Ryna Women',
   subtitleTestimonial: `From a room for a night to a loft for as long as you like.`,
   moreButtonTestimonial: 'Copy Placeholder',

@@ -5,7 +5,7 @@ import Router from 'next/router';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token } from 'core';
 import { Text, Pressable } from 'core/base';
-import Breadcrumb from './Breadcrumb';
+import Breadcrumb from 'components/Breadcrumb';
 
 type Props = {
   withBack?: boolean;

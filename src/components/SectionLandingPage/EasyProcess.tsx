@@ -2,19 +2,28 @@ import React from 'react';
 import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Token } from 'core';
+import { useQuery } from 'react-query';
+import config from 'config';
+import { Token, fetcher } from 'core';
+import { QUERY_KEYS } from 'core/constants';
 import { Text, Button } from 'core/base';
-// import { EasyProcessPlaceholder } from 'components/Placeholder';
-const processes = [
-  { key: 'process1', icon: require('assets/pen-outline.svg') },
-  { key: 'process2', icon: require('assets/calendar-outline.svg') },
-  { key: 'process3', icon: require('assets/hause-outline.svg') },
-];
+import { EasyProcessPlaceholder } from 'components/Placeholder';
+import { Process, ResponseItem } from 'types';
 
 export default function EasyProcess() {
   const { t } = useTranslation();
+  const { data, isLoading } = useQuery<ResponseItem<Process>>(
+    QUERY_KEYS.PROCESS,
+    async () => {
+      const res = await fetcher<ResponseItem<Process>>({
+        method: 'GET',
+        url: '/process',
+      });
+      return res;
+    }
+  );
+  console.log('data, isLoading', data, isLoading);
 
-  // return <EasyProcessPlaceholder />;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -26,21 +35,33 @@ export default function EasyProcess() {
         </View>
         <Button variant="secondary" text={t('moreButtonEasyProcess')} />
       </View>
-      <View style={styles.containerProcess}>
-        {processes.map((process) => (
-          <View key={process.key} style={styles.processWrapper}>
-            <View style={styles.headerProcess}>
-              <Image src={process.icon} alt={process.key} />
-              <Text variant="header-3" style={styles.headerText}>
-                {t(`${process.key}Title`)}
+      {isLoading ? (
+        <EasyProcessPlaceholder />
+      ) : (
+        <View style={styles.containerProcess}>
+          {data?.data.map((process) => (
+            <View key={process.id} style={styles.processWrapper}>
+              <View style={styles.headerProcess}>
+                <Image
+                  src={`${config.imageHost}/${process.image}`}
+                  blurDataURL={`${config.imageHost}/${process.image}`}
+                  placeholder="blur"
+                  loading="lazy"
+                  width="100%"
+                  height={34}
+                  alt={process.title}
+                />
+                <Text variant="header-3" style={styles.headerText}>
+                  {process.title}
+                </Text>
+              </View>
+              <Text style={styles.processDescription}>
+                {process.description}
               </Text>
             </View>
-            <Text style={styles.processDescription}>
-              {t(`${process.key}Description`)}
-            </Text>
-          </View>
-        ))}
-      </View>
+          ))}
+        </View>
+      )}
     </View>
   );
 }

@@ -11,7 +11,7 @@ import { Input, Text, LoadingIndicator, ErrorMessage } from 'core/base';
 import { FacebookButton, GoogleButton } from 'components';
 import { Login, ErrorHandling, UserAnswers } from 'types';
 import loginCoverImg from 'assets/login-cover.svg';
-import { HeroState } from './Hero';
+import { HeroState } from 'components/SectionLandingPage/Hero';
 
 type Payload = {
   name: string;

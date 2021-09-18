@@ -12,9 +12,9 @@ import {
   HeroBannerChooseDate,
   HeroBannerChooseBudget,
   HeroBannerDone,
-} from './HeroBanner';
-import Questionaire, { QuestionaireCard } from './Questionaire';
-import SignUpForm from './SignUp';
+} from 'components/HeroBanner';
+import Questionaire, { QuestionaireCard } from 'components/Questionaire';
+import SignUpForm from 'components/SignUp';
 import { useForm, useFieldArray } from 'react-hook-form';
 
 export type HeroState = {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import NProgress, { NProgressOptions } from 'nprogress';
 import { useRouter } from 'next/router';
