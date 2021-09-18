@@ -5,11 +5,11 @@ import { fetcher, Token } from 'core';
 import { Button, Text } from 'core/base';
 import ProgressBar from '../Progress/Bar';
 import Questionaire from '../Questionaire';
-import { Answer, ErrorHandling, Login, Question, UserAnswers } from 'types';
+import { Answer, ErrorHandling, Login, Question } from 'types';
 import { useSprings, animated } from 'react-spring';
-import { useFieldArray, UseFieldArrayReturn, useForm } from 'react-hook-form';
+import { UseFieldArrayReturn } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { PreferenceQuestionState } from '../../../pages/account/preference';
 
 type Props = {
@@ -103,7 +103,7 @@ export default function PreferenceContent(props: Props) {
     });
 
     setProgressIndex(Number((answered / props.questions.length).toFixed(1)));
-  }, [props.methods?.fields]);
+  }, [props.methods?.fields, props.questions.length]);
 
   return (
     <View>

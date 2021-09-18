@@ -16,7 +16,6 @@ import { ContainerDesktop, Text } from 'core/base';
 import { useQuery } from 'react-query';
 import { QUERY_KEYS } from 'core/constants';
 import { Question, ResponseItem } from 'types';
-import answers from '../api/answers';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 export type QuestionState = {
@@ -60,7 +59,7 @@ export default function Preference() {
 
   const questions = data?.data as Question[];
 
-  const { control, watch } = useForm<PreferenceQuestionState>();
+  const { control } = useForm<PreferenceQuestionState>();
   const fieldsArrayMethods = useFieldArray<PreferenceQuestionState, 'states'>({
     control,
     name: 'states',
