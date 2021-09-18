@@ -22,7 +22,6 @@ export default function EasyProcess() {
       return res;
     }
   );
-  console.log('data, isLoading', data, isLoading);
 
   return (
     <View style={styles.container}>
