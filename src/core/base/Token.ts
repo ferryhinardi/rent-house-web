@@ -73,7 +73,7 @@ export const fontSize = {
 // Text Typography
 
 const textWeightRegularStyle: TextStyle = {
-  fontFamily: 'System',
+  fontFamily: 'Playfair Display',
   fontWeight: '400',
 };
 

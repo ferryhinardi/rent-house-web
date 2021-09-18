@@ -130,58 +130,71 @@ function Text({
 
 const styles = StyleSheet.create({
   bannerTitle: {
+    ...typography.Baseline,
     fontSize: fontSize.super,
     fontWeight: '700',
   },
   bannerSubtitle: {
+    ...typography.Baseline,
     fontSize: fontSize.large,
     fontWeight: '400',
   },
   sidebarMenu: {
+    ...typography.Baseline,
     fontSize: fontSize.medium,
     lineHeight: 20,
     fontWeight: '600',
   },
   header2: {
+    ...typography.Baseline,
     fontSize: fontSize.xlarge,
     lineHeight: 48,
     fontWeight: '700',
   },
   header3: {
+    ...typography.Baseline,
     fontSize: fontSize.bigger,
     lineHeight: 42,
     fontWeight: '700',
   },
   header4: {
+    ...typography.Baseline,
     fontSize: fontSize.big,
     lineHeight: 42,
     fontWeight: '700',
   },
   title1: {
+    ...typography.Baseline,
     fontSize: fontSize.huge,
     fontWeight: '700',
   },
   title2: {
+    ...typography.Baseline,
     fontSize: fontSize.large,
     fontWeight: '700',
   },
   title3: {
+    ...typography.Baseline,
     fontSize: fontSize.medium,
     fontWeight: '700',
   },
   huge: {
+    ...typography.Baseline,
     fontSize: fontSize.huge,
     fontWeight: '400',
   },
   big: {
+    ...typography.Baseline,
     fontSize: fontSize.big,
     fontWeight: '400',
   },
   large: {
+    ...typography.Baseline,
     fontSize: fontSize.large,
     fontWeight: '400',
   },
   caption: {
+    ...typography.Baseline,
     fontSize: fontSize.jumbo,
     fontWeight: '400',
   },
@@ -189,10 +202,12 @@ const styles = StyleSheet.create({
     ...typography.Baseline,
   },
   small: {
+    ...typography.Baseline,
     fontSize: fontSize.small,
     fontWeight: '400',
   },
   tiny: {
+    ...typography.Baseline,
     fontSize: fontSize.tiny,
     fontWeight: '400',
   },

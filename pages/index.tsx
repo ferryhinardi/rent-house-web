@@ -11,6 +11,7 @@ import {
   Perks,
   EasyProcessSection,
   TestimonialSection,
+  SupportingMediaSection,
   PreferenceBanner,
   Footer,
 } from 'components';
@@ -30,6 +31,7 @@ export default function Home() {
       <Perks />
       <EasyProcessSection />
       <TestimonialSection />
+      <SupportingMediaSection />
       <PreferenceBanner />
       <Footer />
     </div>
