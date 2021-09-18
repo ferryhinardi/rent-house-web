@@ -36,13 +36,6 @@ const heros = [
 ];
 
 function Hero() {
-  const { control, watch } = useForm<FormData>();
-  const fieldsArrayMethods = useFieldArray<FormData, 'states'>({
-    control,
-    name: 'states',
-  });
-  const [isVisible, setIsVisible] = useState(false);
-  const [stateIndex, setStateIndex] = useState(0);
   const { data, isLoading } = useQuery<ResponseItem<Question>>(
     QUERY_KEYS.QUESTION_LANDING_PAGE,
     async () => {
@@ -53,8 +46,24 @@ function Hero() {
       return res;
     }
   );
+  const totalData = data?.count || heros.length;
+  const defaultValues = {
+    states: Array(totalData)
+      .fill(totalData)
+      .map((_, idx) => ({
+        name: data?.data?.[idx]?.title,
+        questionID: data?.data?.[idx]?.id,
+      })),
+  };
+  const { control, watch } = useForm<FormData>({ defaultValues });
+  const fieldsArrayMethods = useFieldArray<FormData, 'states'>({
+    control,
+    name: 'states',
+  });
+  const [isVisible, setIsVisible] = useState(false);
+  const [stateIndex, setStateIndex] = useState(0);
   const herosSprings = useSprings(
-    heros.length,
+    totalData,
     heros.map((item, index) =>
       index === stateIndex
         ? {
@@ -71,9 +80,8 @@ function Hero() {
     // Index + 1 because there is banner without hero timeline component in initial banner
     setStateIndex(index + 1);
   };
-
   const onSubmit = () => {
-    if (stateIndex + 1 < heros.length) {
+    if (stateIndex < totalData - 1) {
       setStateIndex((prev) => prev + 1);
     } else {
       // Do register
@@ -111,7 +119,7 @@ function Hero() {
             </AnimatedView>
           );
         })}
-        {stateIndex === heros.length - 1 && (
+        {stateIndex === totalData - 1 && (
           <Modal
             animationType="fade"
             visible={isVisible}
