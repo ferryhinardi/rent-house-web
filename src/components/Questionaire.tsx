@@ -1,17 +1,23 @@
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { UseFieldArrayReturn } from 'react-hook-form';
 import { Token } from 'core';
-import { Text, Input, CalendarInput, LoadingIndicator } from 'core/base';
-import { Question } from 'types';
-import Slider from './Slider';
+import {
+  Text,
+  Button,
+  Input,
+  CalendarInput,
+  LoadingIndicator,
+} from 'core/base';
+import { OnSelectedDateCallback } from 'core/base/Calendar';
+import Slider from 'components/Slider';
 import Container, {
   SliderConsumer,
   MinRange,
   MaxRange,
-} from './Slider/Container';
-import { UseFieldArrayReturn } from 'react-hook-form';
-import { OnSelectedDateCallback } from 'core/base/Calendar';
+} from 'components/Slider/Container';
+import { Question } from 'types';
 
 type Props = {
   loading: boolean;
@@ -132,11 +138,11 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
       ) : (
         <>
           {question?.title && (
-            <Text variant="huge" style={styles.title}>
+            <Text variant="header-2" ink="primary" style={styles.title}>
               {question?.title}
             </Text>
           )}
-          <Text variant="big" style={styles.subtitle}>
+          <Text variant="caption" style={styles.subtitle}>
             {question?.question_text}
           </Text>
 
@@ -160,9 +166,12 @@ export function QuestionaireCard({
   return (
     <View style={styles.container}>
       {children}
-      <Pressable style={styles.submitButton} onPress={onSubmit}>
-        <Text ink="light">{t('submitQuestionButton')}</Text>
-      </Pressable>
+
+      <Button
+        style={styles.submitButton}
+        text={t('submitQuestionButton')}
+        onPress={onSubmit}
+      />
     </View>
   );
 }
@@ -171,20 +180,18 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     backgroundColor: Token.colors.white,
-    borderTopLeftRadius: 60,
-    borderBottomRightRadius: 60,
-    borderWidth: Token.border.width.bold,
-    borderColor: Token.colors.gold,
-    paddingVertical: Token.spacing.xxxxxl,
-    paddingHorizontal: Token.spacing.xl,
+    borderRadius: Token.border.radius.default,
+    shadowOffset: { width: 8, height: 16 },
+    shadowRadius: 94,
+    shadowColor: 'rgba(0, 0, 0, 0.08)',
+    padding: Token.spacing.l,
     alignSelf: 'flex-start',
   },
   title: {
-    lineHeight: 36,
+    marginBottom: Token.spacing.ml,
   },
   subtitle: {
-    lineHeight: 28,
-    marginVertical: Token.spacing.s,
+    marginBottom: Token.spacing.xl,
   },
   containerTextInput: {
     paddingHorizontal: Token.spacing.l,
@@ -198,8 +205,6 @@ const styles = StyleSheet.create({
   submitButton: {
     marginTop: Token.spacing.xl,
     paddingVertical: Token.spacing.m,
-    borderTopLeftRadius: Token.spacing.xs,
-    borderBottomRightRadius: Token.spacing.xs,
     backgroundColor: Token.colors.blue,
     alignItems: 'center',
   },

@@ -26,11 +26,7 @@ function HeroBannerChooseDate({ states, onChange }: Props) {
           <Text variant="banner-title" ink="light">
             {t('bannerTitle')}
           </Text>
-          <Text
-            variant="banner-subtitle"
-            ink="light"
-            style={styles.heroSubtitle}
-          >
+          <Text variant="caption" ink="light" style={styles.heroSubtitle}>
             {t('bannerSubtitle')}
           </Text>
         </>

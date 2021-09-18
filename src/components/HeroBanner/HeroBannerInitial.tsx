@@ -23,11 +23,7 @@ function HeroBannerInitial() {
           <Text variant="banner-title" ink="light">
             {t('bannerTitle')}
           </Text>
-          <Text
-            variant="banner-subtitle"
-            ink="light"
-            style={styles.heroSubtitle}
-          >
+          <Text variant="caption" ink="light" style={styles.heroSubtitle}>
             {t('bannerSubtitle')}
           </Text>
           <Button variant="secondary" text="Learn More" />
