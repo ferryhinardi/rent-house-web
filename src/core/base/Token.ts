@@ -9,7 +9,6 @@ export const colors = {
   darkGrey: '#D3D4DD',
   lightGrey: '#FBFBFB',
   gold: '#D69E2E',
-  lightGold: '#F5C010',
   blue: '#1A365D',
   pink: '#FFF7F5',
   google: '#E2E8F0',

@@ -133,6 +133,7 @@ const styles = StyleSheet.create({
     ...typography.Baseline,
     fontSize: fontSize.super,
     fontWeight: '700',
+    lineHeight: 80,
   },
   bannerSubtitle: {
     ...typography.Baseline,
@@ -197,6 +198,7 @@ const styles = StyleSheet.create({
     ...typography.Baseline,
     fontSize: fontSize.jumbo,
     fontWeight: '400',
+    lineHeight: 32,
   },
   baseline: {
     ...typography.Baseline,
