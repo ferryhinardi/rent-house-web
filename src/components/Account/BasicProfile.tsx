@@ -5,20 +5,66 @@ import { useTranslation } from 'react-i18next';
 import { useFormContext, useController } from 'react-hook-form';
 import { Element } from 'react-scroll';
 import { Text, Button, Input, ErrorMessage } from 'core/base';
-import { Token } from 'core';
+import { fetcher, Token } from 'core';
+import { User, ErrorHandling } from 'types';
 import avatar from 'assets/avatar-sample.svg';
+import { useQuery, useMutation } from 'react-query';
+import { QUERY_KEYS } from 'core/constants';
 
 export default function BasicProfile() {
   const { t } = useTranslation();
-  const { control } = useFormContext();
-  const { field: fullNameField, fieldState: fullNameFieldState } =
-    useController({
-      name: 'name',
-      control,
-      rules: {
-        required: t('fullName.required') as string,
-      },
+  const { control, setValue, handleSubmit } = useFormContext();
+  const { data } = useQuery(QUERY_KEYS.CURRENT_USER, async () => {
+    const res = await fetcher<User>({
+      method: 'GET',
+      url: '/user/current-user/',
     });
+    return res;
+  });
+  React.useEffect(() => {
+    if (data) {
+      setValue('name', data.name);
+      setValue('phone', data.phone);
+      setValue('email', data.email);
+      setValue('address', data.address);
+      setValue('bio', data.bio);
+      setValue('job', data.job);
+      setValue('gender', data.gender);
+      setValue('annual_income', 123);
+      setValue('credit_score', data.credit_score);
+      setValue('currency_code', data.currency_code);
+    }
+  }, [data, setValue]);
+
+  const { isLoading, isError, error, mutate } = useMutation<
+    User,
+    ErrorHandling,
+    User
+  >(
+    async (payload) =>
+      fetcher<User>({
+        url: `/user/update?id=${data?.id}`,
+        data: payload,
+      }),
+    {
+      onSuccess: (response: User) => {
+        console.log(response);
+      },
+    }
+  );
+
+  const onSubmit = (formData: User) => {
+    mutate(formData);
+  };
+
+  console.log(data);
+  const { field: nameField, fieldState: nameFieldState } = useController({
+    name: 'name',
+    control,
+    rules: {
+      required: t('name.required') as string,
+    },
+  });
   const { field: jobField, fieldState: jobFieldState } = useController({
     name: 'job',
     control,
@@ -34,18 +80,6 @@ export default function BasicProfile() {
       },
     },
   });
-  const { field: passwordField, fieldState: passwordFieldState } =
-    useController({
-      name: 'password',
-      control,
-      rules: {
-        required: t('password.required') as string,
-        minLength: {
-          value: 5,
-          message: t('password.minLength', { length: 5 }),
-        },
-      },
-    });
   const { field: bioField, fieldState: bioFieldState } = useController({
     name: 'bio',
     control,
@@ -74,17 +108,17 @@ export default function BasicProfile() {
                 {t('fullName')}
               </Text>
               <Input
-                {...fullNameField}
-                placeholder={t('fullName')}
+                {...nameField}
+                placeholder={t('name')}
                 textContentType="name"
-                error={Boolean(fullNameFieldState.error)}
-                errorMessageId={fullNameFieldState.error?.message}
+                error={Boolean(nameFieldState.error)}
+                errorMessageId={nameFieldState.error?.message}
                 containerStyle={styles.input}
               />
-              {Boolean(fullNameFieldState.error) && (
+              {Boolean(nameFieldState.error) && (
                 <ErrorMessage
-                  text={fullNameFieldState.error?.message!}
-                  errorMessageId={fullNameFieldState.error?.message}
+                  text={nameFieldState.error?.message!}
+                  errorMessageId={nameFieldState.error?.message}
                 />
               )}
             </View>
@@ -115,6 +149,7 @@ export default function BasicProfile() {
                 {...emailField}
                 placeholder={t('emailAddress')}
                 textContentType="emailAddress"
+                disabled={true} // should not be able to update email from this form
                 error={Boolean(emailFieldState.error)}
                 errorMessageId={emailFieldState.error?.message}
                 containerStyle={styles.input}
@@ -123,26 +158,6 @@ export default function BasicProfile() {
                 <ErrorMessage
                   text={emailFieldState.error?.message!}
                   errorMessageId={emailFieldState.error?.message}
-                />
-              )}
-            </View>
-            <View style={styles.formGroup}>
-              <Text variant="tiny" style={styles.label}>
-                {t('password')}
-              </Text>
-              <Input
-                {...passwordField}
-                placeholder={t('password')}
-                textContentType="password"
-                secureTextEntry
-                error={Boolean(passwordFieldState.error)}
-                errorMessageId={passwordFieldState.error?.message}
-                containerStyle={styles.input}
-              />
-              {Boolean(passwordFieldState.error) && (
-                <ErrorMessage
-                  text={passwordFieldState.error?.message!}
-                  errorMessageId={passwordFieldState.error?.message}
                 />
               )}
             </View>
@@ -166,7 +181,14 @@ export default function BasicProfile() {
                   errorMessageId={bioFieldState.error?.message}
                 />
               )}
+              <Button
+                loading={isLoading}
+                text={t('saveForm')}
+                style={styles.submitButton}
+                onPress={handleSubmit(onSubmit)}
+              />
             </View>
+            {isError && <ErrorMessage text={error?.message as string} />}
           </View>
         </View>
       </View>
@@ -206,5 +228,11 @@ const styles = StyleSheet.create({
     borderRadius: Token.border.radius.default,
     minHeight: 170,
     alignItems: 'flex-start',
+  },
+  submitButton: {
+    marginTop: Token.spacing.m,
+    paddingVertical: Token.spacing.m,
+    borderRadius: 0,
+    alignItems: 'center',
   },
 });

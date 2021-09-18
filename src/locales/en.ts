@@ -27,6 +27,7 @@ const en = {
     'Please sign up first and enjoy your home recommendation.',
   submitSignInForm: 'Sign In',
   submitSignUpForm: 'View My Recommendation',
+  saveForm: 'Save',
   signIn: 'Sign In',
   facebook: 'Sign in with Facebook',
   google: 'Sign in with Google',

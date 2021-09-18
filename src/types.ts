@@ -12,6 +12,15 @@ export type User = {
   id: number;
   last_login_at: string;
   name: string;
+  job: string;
+  bio: string;
+  address: string;
+  currency_code: string;
+  profile_picture: string;
+  phone: string;
+  annual_income: number;
+  credit_score: number;
+  gender: number;
   provider_type: number;
   provider_user_id: string;
   role_id: number;
