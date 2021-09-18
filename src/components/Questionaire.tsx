@@ -120,7 +120,7 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
           editable={false}
           containerStyle={
             methods?.fields[index]?.value === choice
-              ? styles.asasd
+              ? styles.selectedChoice
               : styles.containerTextInput
           }
           textInputStyle={styles.textInput}
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     paddingVertical: Token.spacing.m,
     marginTop: Token.spacing.l,
   },
-  asasd: {
+  selectedChoice: {
     paddingHorizontal: Token.spacing.l,
     paddingVertical: Token.spacing.m,
     marginTop: Token.spacing.l,
