@@ -30,7 +30,7 @@ export default function BasicProfile() {
       setValue('bio', data.bio);
       setValue('job', data.job);
       setValue('gender', data.gender);
-      setValue('annual_income', 123);
+      setValue('annual_income', data.annual_income);
       setValue('credit_score', data.credit_score);
       setValue('currency_code', data.currency_code);
     }
@@ -41,11 +41,23 @@ export default function BasicProfile() {
     ErrorHandling,
     User
   >(
-    async (payload) =>
-      fetcher<User>({
+    async (payload) => {
+      const bodyFormData = new FormData();
+      bodyFormData.set('name', payload.name);
+      bodyFormData.set('address', payload.address);
+      bodyFormData.set('bio', payload.bio);
+      bodyFormData.set('job', payload.job);
+      bodyFormData.set('annual_income', payload.annual_income.toString());
+      bodyFormData.set('credit_score', payload.credit_score.toString());
+      return fetcher<User>({
+        method: 'PUT',
         url: `/user/update?id=${data?.id}`,
-        data: payload,
-      }),
+        data: bodyFormData,
+        headers: {
+          'Content-Type': undefined,
+        },
+      });
+    },
     {
       onSuccess: (response: User) => {
         console.log(response);

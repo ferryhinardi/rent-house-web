@@ -7,7 +7,7 @@ import { User } from 'types';
 
 type Data = {};
 
-async function answers(req: NextApiRequest, res: NextApiResponse<Data>) {
+async function update(req: NextApiRequest, res: NextApiResponse<Data>) {
   const userID = req.query.id;
   const url = `/user/${userID}/`;
   try {
@@ -15,6 +15,7 @@ async function answers(req: NextApiRequest, res: NextApiResponse<Data>) {
       method: 'PUT',
       url,
       data: req.body,
+      headers: req.headers,
     });
     res.status(200).json(response);
   } catch (err) {
@@ -22,4 +23,4 @@ async function answers(req: NextApiRequest, res: NextApiResponse<Data>) {
   }
 }
 
-export default withSentry(withCookies(answers));
+export default withSentry(withCookies(update));
