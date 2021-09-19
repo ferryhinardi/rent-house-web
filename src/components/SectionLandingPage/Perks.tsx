@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
-import { scroller } from 'react-scroll';
 import config from 'config';
 import { fetcher, Token } from 'core';
 import { Card, Text, Button } from 'core/base';
@@ -24,7 +23,8 @@ function Perks() {
       return res;
     }
   );
-  const onNavigateToTopSection = () => {
+  const onNavigateToTopSection = async () => {
+    const { scroller } = await import('react-scroll');
     scroller.scrollTo('find-my-home', {
       duration: 500,
       delay: 100,
@@ -39,7 +39,7 @@ function Perks() {
           <Text variant="header-2" style={styles.headerTitle}>
             {t('titlePerks')}
           </Text>
-          <Text>{t('subtitlePerks')}</Text>
+          <Text variant="caption">{t('subtitlePerks')}</Text>
         </View>
         <Button
           variant="secondary"

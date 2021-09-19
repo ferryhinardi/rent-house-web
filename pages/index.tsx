@@ -40,6 +40,18 @@ export default function Home() {
 
 // SSR get data
 export async function getServerSideProps(context: NextPageContext) {
+  // This value is considered fresh for ten seconds (s-maxage=10).
+  // If a request is repeated within the next 10 seconds, the previously
+  // cached value will still be fresh. If the request is repeated before 59 seconds,
+  // the cached value will be stale but still render (stale-while-revalidate=59).
+  //
+  // In the background, a revalidation request will be made to populate the cache
+  // with a fresh value. If you refresh the page, you will see the new value.
+  // https://nextjs.org/docs/going-to-production#caching
+  context.res?.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  );
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(QUERY_KEYS.CURRENT_USER, () =>
     fetchServer<User>(

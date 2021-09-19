@@ -30,7 +30,7 @@ export default function EasyProcess() {
           <Text variant="header-2" style={styles.headerTitle}>
             {t('titleEasyProcess')}
           </Text>
-          <Text>{t('subtitleEasyProcess')}</Text>
+          <Text variant="caption">{t('subtitleEasyProcess')}</Text>
         </View>
         <Button variant="secondary" text={t('moreButtonEasyProcess')} />
       </View>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { AppProps } from 'next/app';
 import { Hydrate } from 'react-query/hydration';
 import { QueryClientProvider, QueryClient, QueryCache } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import createLocalization from 'utils/createLocalization';
 import NProgress from 'components/NProgress';
 import { Token } from 'core';
@@ -36,6 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <Component {...pageProps} />
       </Hydrate>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

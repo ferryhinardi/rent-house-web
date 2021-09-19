@@ -33,7 +33,7 @@ export default function ExploreHomes() {
           <Text variant="header-2" style={styles.headerTitle}>
             {t('titleExploreHomes')}
           </Text>
-          <Text>{t('subtitleExploreHomes')}</Text>
+          <Text variant="caption">{t('subtitleExploreHomes')}</Text>
         </View>
         <Button variant="secondary" text={t('moreButtonExploreHomes')} />
       </View>
