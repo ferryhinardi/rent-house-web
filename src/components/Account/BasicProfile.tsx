@@ -4,12 +4,13 @@ import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useFormContext, useController } from 'react-hook-form';
 import { Element } from 'react-scroll';
-import { Text, Button, Input, ErrorMessage } from 'core/base';
+import { Text, Button, Input, ErrorMessage, FileInput } from 'core/base';
 import { fetcher, Token } from 'core';
 import { User, ErrorHandling } from 'types';
 import avatar from 'assets/avatar-sample.svg';
 import { useQuery, useMutation } from 'react-query';
 import { QUERY_KEYS } from 'core/constants';
+import config from 'config';
 
 export default function BasicProfile() {
   const { t } = useTranslation();
@@ -32,7 +33,6 @@ export default function BasicProfile() {
       setValue('gender', data.gender);
       setValue('annual_income', data.annual_income);
       setValue('credit_score', data.credit_score);
-      setValue('currency_code', data.currency_code);
     }
   }, [data, setValue]);
 
@@ -69,7 +69,6 @@ export default function BasicProfile() {
     mutate(formData);
   };
 
-  console.log(data);
   const { field: nameField, fieldState: nameFieldState } = useController({
     name: 'name',
     control,
@@ -96,6 +95,11 @@ export default function BasicProfile() {
     name: 'bio',
     control,
   });
+  const { field: profilePictureField, fieldState: profilePictureState } =
+    useController({
+      name: 'profile_picture',
+      control,
+    });
   return (
     <Element name="basic-profile">
       <View style={styles.container}>
@@ -106,11 +110,20 @@ export default function BasicProfile() {
         <View style={styles.form}>
           <View>
             <View style={{ borderRadius: Token.border.radius.default }}>
-              <Image src={avatar} width={240} height={240} alt="avatar" />
+              <Image
+                src={
+                  data?.profile_picture
+                    ? `${config.imageHost}/${data?.profile_picture}}`
+                    : avatar
+                }
+                width={240}
+                height={240}
+                alt="avatar"
+              />
             </View>
-            <Button
-              variant="secondary"
-              text={t('reuploadButton')}
+            <FileInput
+              {...profilePictureField}
+              placeholder={t('reuploadButton')}
               style={styles.uploadButton}
             />
           </View>

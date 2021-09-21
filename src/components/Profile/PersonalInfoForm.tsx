@@ -2,7 +2,10 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useForm, useController } from 'react-hook-form';
-import { Token } from 'core';
+import { Token, fetcher } from 'core';
+import { User, ErrorHandling } from 'types';
+import { QUERY_KEYS, genderOptions } from 'core/constants';
+import { useQuery, useMutation } from 'react-query';
 import {
   Text,
   Input,
@@ -10,11 +13,86 @@ import {
   SelectInput,
   FileInput,
   ErrorMessage,
+  Button,
 } from 'core/base';
+import { OnSelectedDateCallback } from 'core/base/Calendar';
+
+type Payload = {
+  name: string;
+  phone: string;
+  address: string;
+  job: string;
+  annual_income: number;
+  credit_score: number;
+  dob: string;
+  gender: { label: string; value: number };
+};
 
 export default function PersonalInfoForm() {
   const { t } = useTranslation();
-  const { control } = useForm();
+  const { control, setValue, handleSubmit } = useForm();
+  const { data } = useQuery(QUERY_KEYS.CURRENT_USER, async () => {
+    const res = await fetcher<User>({
+      method: 'GET',
+      url: '/user/current-user/',
+    });
+    return res;
+  });
+  React.useEffect(() => {
+    if (data) {
+      setValue('name', data.name);
+      setValue('phone', data.phone);
+      setValue('email', data.email);
+      setValue('address', data.address);
+      setValue('job', data.job);
+      setValue('gender', data.gender);
+      setValue('annual_income', data.annual_income);
+      setValue('credit_score', data.credit_score);
+    }
+  }, [data, setValue]);
+
+  const { isLoading, isError, error, mutate } = useMutation<
+    User,
+    ErrorHandling,
+    Payload
+  >(
+    async (payload) => {
+      console.log('PAYLOAD WOOI ', payload);
+      const bodyFormData = new FormData();
+      bodyFormData.set('name', payload.name);
+      bodyFormData.set('phone', payload.phone);
+      bodyFormData.set('dob', payload.dob);
+      bodyFormData.set('address', payload.address);
+      bodyFormData.set('bio', data?.bio ?? '');
+      bodyFormData.set('gender', payload.gender.value.toString());
+      bodyFormData.set('job', payload.job);
+      bodyFormData.set('annual_income', payload.annual_income.toString());
+      bodyFormData.set('credit_score', payload.credit_score.toString());
+      console.log('FORM DATA NEEEH ', bodyFormData);
+      return fetcher<User>({
+        method: 'PUT',
+        url: `/user/update?id=${data?.id}`,
+        data: bodyFormData,
+        headers: {
+          'Content-Type': undefined,
+        },
+      });
+    },
+    {
+      onSuccess: (response: User) => {
+        console.log(response);
+      },
+    }
+  );
+
+  const onSelectedDateCallback: OnSelectedDateCallback = (value: string) => {
+    setValue('dob', value);
+  };
+
+  const onSubmit = (formData: Payload) => {
+    mutate(formData);
+  };
+
   const { field: legalNameField, fieldState: legalNameFieldState } =
     useController({
       name: 'name',
@@ -33,13 +111,13 @@ export default function PersonalInfoForm() {
   const { field: dobField, fieldState: dobFieldState } = useController({
     name: 'dob',
     control,
-    rules: {
-      required: t('dob.required') as string,
-    },
+    // rules: {
+    //   required: t('dob.required') as string,
+    // },
   });
   const { field: phoneNumberField, fieldState: phoneNumberFieldState } =
     useController({
-      name: 'phoneNumber',
+      name: 'phone',
       control,
       rules: {
         required: t('phoneNumber.required') as string,
@@ -47,7 +125,7 @@ export default function PersonalInfoForm() {
     });
   const { field: annualIncomeField, fieldState: annualIncomeFieldState } =
     useController({
-      name: 'annualIncome',
+      name: 'annual_income',
       control,
       rules: {
         required: t('annualIncome.required') as string,
@@ -55,7 +133,7 @@ export default function PersonalInfoForm() {
     });
   const { field: creditScoreField, fieldState: creditScoreFieldState } =
     useController({
-      name: 'creditScore',
+      name: 'credit_score',
       control,
       rules: {
         required: t('creditScore.required') as string,
@@ -65,17 +143,9 @@ export default function PersonalInfoForm() {
     useController({
       name: 'govermentId',
       control,
-      rules: {
-        required: t('govermentId.required') as string,
-      },
-    });
-  const { field: otherDocumentField, fieldState: otherDocumentFieldState } =
-    useController({
-      name: 'otherDocument',
-      control,
-      rules: {
-        required: t('otherDocument.required') as string,
-      },
+      // rules: {
+      //   required: t('govermentId.required') as string,
+      // },
     });
   const { field: addressField, fieldState: addressFieldState } = useController({
     name: 'address',
@@ -111,10 +181,12 @@ export default function PersonalInfoForm() {
         </Text>
         <SelectInput
           {...genderField}
+          instanceId="gender"
           variant="primary"
           placeholder={t('gender')}
           error={Boolean(genderFieldState.error)}
           errorMessageId={genderFieldState.error?.message}
+          options={genderOptions}
         />
         {Boolean(genderFieldState.error) && (
           <ErrorMessage
@@ -130,6 +202,7 @@ export default function PersonalInfoForm() {
         <CalendarInput
           {...dobField}
           placeholder={t('dob')}
+          onSelectedDateCallback={onSelectedDateCallback}
           error={Boolean(dobFieldState.error)}
           errorMessageId={dobFieldState.error?.message}
         />
@@ -213,23 +286,6 @@ export default function PersonalInfoForm() {
       </View>
       <View style={styles.formGroup}>
         <Text variant="tiny" style={styles.label}>
-          {t('otherDocument')}
-        </Text>
-        <Input
-          {...otherDocumentField}
-          placeholder={t('otherDocument')}
-          error={Boolean(otherDocumentFieldState.error)}
-          errorMessageId={otherDocumentFieldState.error?.message}
-        />
-        {Boolean(otherDocumentFieldState.error) && (
-          <ErrorMessage
-            text={otherDocumentFieldState.error?.message!}
-            errorMessageId={otherDocumentFieldState.error?.message}
-          />
-        )}
-      </View>
-      <View style={styles.formGroup}>
-        <Text variant="tiny" style={styles.label}>
           {t('address')}
         </Text>
         <Input
@@ -249,6 +305,13 @@ export default function PersonalInfoForm() {
           />
         )}
       </View>
+      <Button
+        loading={isLoading}
+        text={t('saveForm')}
+        style={styles.submitButton}
+        onPress={handleSubmit(onSubmit)}
+      />
+      {isError && <ErrorMessage text={error?.message as string} />}
     </View>
   );
 }
@@ -272,5 +335,11 @@ const styles = StyleSheet.create({
     borderRadius: Token.border.radius.default,
     minHeight: 170,
     alignItems: 'flex-start',
+  },
+  submitButton: {
+    marginTop: Token.spacing.m,
+    paddingVertical: Token.spacing.m,
+    borderRadius: 0,
+    alignItems: 'center',
   },
 });

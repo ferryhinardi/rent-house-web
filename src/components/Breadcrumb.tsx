@@ -6,6 +6,7 @@ import { StyleSheet, View } from 'react-native';
 import { Token } from 'core';
 import { Text } from 'core/base';
 
+// TODO: fix warning "Warning: Function components cannot be given refs." https://github.com/vercel/next.js/issues/7915
 function Breadcrumbs() {
   const { t } = useTranslation();
   const { asPath } = useRouter();
