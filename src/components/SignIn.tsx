@@ -1,21 +1,21 @@
-import React from 'react'
-import Router from 'next/router'
-import Image from 'next/image'
-import { View, StyleSheet } from 'react-native'
-import { useTranslation } from 'react-i18next'
-import { useMutation } from 'react-query'
-import { useForm, Controller } from 'react-hook-form'
-import { Token, fetcher } from 'core'
-import { login } from 'utils/auth'
-import { Input, Text, Button, ErrorMessage, Modal } from 'core/base'
-import { FacebookButton, GoogleButton } from 'components'
-import { Login, ErrorHandling } from 'types'
-import loginCoverImg from 'assets/login-cover.svg'
+import React from 'react';
+import Router from 'next/router';
+import Image from 'next/image';
+import { View, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { useMutation } from 'react-query';
+import { useForm, Controller } from 'react-hook-form';
+import { Token, fetcher } from 'core';
+import { login } from 'utils/auth';
+import { Input, Text, Button, ErrorMessage, Modal } from 'core/base';
+import { FacebookButton, GoogleButton } from 'components';
+import { Login, ErrorHandling } from 'types';
+import loginCoverImg from 'assets/login-cover.svg';
 
-type Payload = { email: string; password: string }
+type Payload = { email: string; password: string };
 
 function SignInForm() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const { isLoading, isError, error, mutate } = useMutation<
     Login,
     ErrorHandling,
@@ -29,27 +29,27 @@ function SignInForm() {
       }),
     {
       onSuccess: (response: Login) => {
-        login(response)
-        onSuccessLogin()
+        login(response);
+        onSuccessLogin();
       },
     }
-  )
-  const { control, handleSubmit } = useForm()
+  );
+  const { control, handleSubmit } = useForm();
   const onSuccessLogin = () => {
-    Router.reload()
-  }
+    Router.reload();
+  };
   const onSubmit = (data: Payload) => {
-    mutate(data)
-  }
+    mutate(data);
+  };
 
   return (
     <View style={styles.container}>
       <Image src={loginCoverImg} alt="login-cover" layout="responsive" />
       <View style={styles.formContainer}>
-        <Text variant="title-1" style={styles.title}>
+        <Text variant="header-2" style={styles.title}>
           {t('titleSignInForm')}
         </Text>
-        <Text variant="baseline" style={styles.title}>
+        <Text variant="caption" style={styles.title}>
           {t('subtitleSignInForm')}
         </Text>
         <GoogleButton onSuccessLogin={onSuccessLogin} />
@@ -123,12 +123,12 @@ function SignInForm() {
         onPress={handleSubmit(onSubmit)}
       />
     </View>
-  )
+  );
 }
 
 export function SignInButton() {
-  const [isVisible, onVisible] = React.useState(false)
-  const { t } = useTranslation()
+  const [isVisible, onVisible] = React.useState(false);
+  const { t } = useTranslation();
   return (
     <>
       <Button
@@ -146,7 +146,7 @@ export function SignInButton() {
         <SignInForm />
       </Modal>
     </>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -173,6 +173,6 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     alignItems: 'center',
   },
-})
+});
 
-export default SignInButton
+export default SignInButton;
