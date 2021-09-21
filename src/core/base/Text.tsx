@@ -29,7 +29,8 @@ interface Props extends TextProps {
     | 'neutral'
     | 'dark'
     | 'light'
-    | 'alert';
+    | 'alert'
+    | 'link';
 }
 
 function Text({
@@ -114,6 +115,9 @@ function Text({
       break;
     case 'neutral':
       variantStyle = StyleSheet.flatten([variantStyle, styles.neutral]);
+      break;
+    case 'link':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.link]);
       break;
     case 'normal':
     default:
@@ -233,6 +237,9 @@ const styles = StyleSheet.create({
   },
   neutral: {
     color: colors.darkGrey,
+  },
+  link: {
+    color: colors.rynaLink,
   },
   captionInk: {
     color: colors.lightGrey,

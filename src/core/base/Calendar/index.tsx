@@ -1,10 +1,15 @@
 import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import { useSpring, animated } from 'react-spring';
-import ReactCalendar, { OnChangeDateCallback } from 'react-calendar';
+import ReactCalendar, {
+  CalendarTileProperties,
+  OnChangeDateCallback,
+} from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+// @ts-ignore
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token } from 'core';
-import { Input } from 'core/base';
+import { Input, Text } from 'core/base';
 import { useStable, useClickOutside } from 'core/hooks';
 
 const AnimatedView = animated(View);
@@ -67,7 +72,26 @@ function Calendar(props: Props) {
             // @ts-ignore
             style={calendarAnimateStyle}
           >
-            <ReactCalendar onChange={onChange} value={value} />
+            <ReactCalendar
+              className="ryna-calendar"
+              onChange={onChange}
+              value={value}
+              nextLabel={null}
+              next2Label={null}
+              prevLabel={null}
+              prev2Label={null}
+              tileClassName="ryna-calendar-tile"
+              navigationLabel={(props) => {
+                return (
+                  <View style={styles.navigationMonthWrapper}>
+                    <Text ink="link" style={styles.navigationMonthLabel}>
+                      {props.label}
+                    </Text>
+                    <Icon name="chevron-down" color={Token.colors.rynaLink} />
+                  </View>
+                );
+              }}
+            />
           </AnimatedView>
         </View>
       )}
@@ -84,6 +108,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     marginTop: Token.spacing.xs,
     margin: 'auto 0px',
+  },
+  navigationMonthWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  navigationMonthLabel: {
+    paddingRight: Token.spacing.xs,
   },
 });
 

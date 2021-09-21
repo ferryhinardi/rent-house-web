@@ -90,10 +90,10 @@ function SignUpForm(props: Props) {
     <View style={styles.container}>
       <Image src={loginCoverImg} alt="login-cover" layout="responsive" />
       <View style={styles.formContainer}>
-        <Text variant="title-1" style={styles.title}>
+        <Text variant="header-2" style={styles.title}>
           {t('titleSignInForm')}
         </Text>
-        <Text variant="baseline" style={styles.title}>
+        <Text variant="caption" style={styles.title}>
           {t('subtitleSignInForm')}
         </Text>
         <GoogleButton onSuccessLogin={onSuccessLogin} />

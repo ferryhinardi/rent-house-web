@@ -124,6 +124,10 @@ export async function getServerSideProps({ res }: NextPageContext) {
     'Cache-Control',
     'public, s-maxage=10, stale-while-revalidate=59'
   );
+
+  return {
+    props: {},
+  };
 }
 
 const styles = StyleSheet.create({
