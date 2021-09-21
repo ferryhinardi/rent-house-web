@@ -57,7 +57,6 @@ export default function PersonalInfoForm() {
     Payload
   >(
     async (payload) => {
-      console.log('PAYLOAD WOOI ', payload);
       const bodyFormData = new FormData();
       bodyFormData.set('name', payload.name);
       bodyFormData.set('phone', payload.phone);
@@ -68,7 +67,6 @@ export default function PersonalInfoForm() {
       bodyFormData.set('job', payload.job);
       bodyFormData.set('annual_income', payload.annual_income.toString());
       bodyFormData.set('credit_score', payload.credit_score.toString());
-      console.log('FORM DATA NEEEH ', bodyFormData);
       return fetcher<User>({
         method: 'PUT',
         url: `/user/update?id=${data?.id}`,
