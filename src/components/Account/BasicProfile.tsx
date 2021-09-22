@@ -8,34 +8,14 @@ import { Text, Button, Input, ErrorMessage, FileInput } from 'core/base';
 import { fetcher, Token } from 'core';
 import { User, ErrorHandling } from 'types';
 import avatar from 'assets/avatar-sample.svg';
-import { useQuery, useMutation } from 'react-query';
-import { QUERY_KEYS } from 'core/constants';
+import { useMutation } from 'react-query';
 import config from 'config';
 
-export default function BasicProfile() {
-  const { t } = useTranslation();
-  const { control, setValue, handleSubmit } = useFormContext();
-  const { data } = useQuery(QUERY_KEYS.CURRENT_USER, async () => {
-    const res = await fetcher<User>({
-      method: 'GET',
-      url: '/user/current-user/',
-    });
-    return res;
-  });
-  React.useEffect(() => {
-    if (data) {
-      setValue('name', data.name);
-      setValue('phone', data.phone);
-      setValue('email', data.email);
-      setValue('address', data.address);
-      setValue('bio', data.bio);
-      setValue('job', data.job);
-      setValue('gender', data.gender);
-      setValue('annual_income', data.annual_income);
-      setValue('credit_score', data.credit_score);
-    }
-  }, [data, setValue]);
+type Props = User;
 
+export default function BasicProfile(props: Props) {
+  const { t } = useTranslation();
+  const { control, handleSubmit } = useFormContext();
   const { isLoading, isError, error, mutate } = useMutation<
     User,
     ErrorHandling,
@@ -51,7 +31,7 @@ export default function BasicProfile() {
       bodyFormData.set('credit_score', payload.credit_score.toString());
       return fetcher<User>({
         method: 'PUT',
-        url: `/user/update?id=${data?.id}`,
+        url: `/user/update?id=${props.id}`,
         data: bodyFormData,
         headers: {
           'Content-Type': undefined,
@@ -71,6 +51,7 @@ export default function BasicProfile() {
 
   const { field: nameField, fieldState: nameFieldState } = useController({
     name: 'name',
+    defaultValue: props.name,
     control,
     rules: {
       required: t('name.required') as string,
@@ -78,10 +59,12 @@ export default function BasicProfile() {
   });
   const { field: jobField, fieldState: jobFieldState } = useController({
     name: 'job',
+    defaultValue: props.job,
     control,
   });
   const { field: emailField, fieldState: emailFieldState } = useController({
     name: 'email',
+    defaultValue: props.email,
     control,
     rules: {
       required: t('email.required') as string,
@@ -93,6 +76,7 @@ export default function BasicProfile() {
   });
   const { field: bioField, fieldState: bioFieldState } = useController({
     name: 'bio',
+    defaultValue: props.bio,
     control,
   });
   const { field: profilePictureField, fieldState: profilePictureState } =
@@ -112,8 +96,8 @@ export default function BasicProfile() {
             <View style={{ borderRadius: Token.border.radius.default }}>
               <Image
                 src={
-                  data?.profile_picture
-                    ? `${config.imageHost}/${data?.profile_picture}}`
+                  props.profile_picture
+                    ? `${config.imageHost}/${props.profile_picture}}`
                     : avatar
                 }
                 width={240}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { NextPageContext } from 'next';
+import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
 import { useTranslation } from 'react-i18next';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -17,10 +17,17 @@ import {
   PreferenceBanner,
   Footer,
 } from 'components';
-import { Token } from 'core';
+import { Token, fetchServer } from 'core';
 import { ContainerDesktop } from 'core/base';
+import { QueryClient } from 'react-query';
+import { QUERY_KEYS } from 'core/constants';
+import { User } from 'types';
 
-export default function Account() {
+type Props = {
+  user: User;
+};
+
+export default function Account({ user }: Props) {
   const { t } = useTranslation();
   const forms = useForm();
 
@@ -94,7 +101,7 @@ export default function Account() {
           />
           <FormProvider {...forms}>
             <View style={styles.content}>
-              <AccountBasicProfile />
+              <AccountBasicProfile {...user} />
               <View style={styles.separator} />
               <AccountSettings />
               <View style={styles.separator} />
@@ -111,7 +118,7 @@ export default function Account() {
   );
 }
 
-export async function getServerSideProps({ res }: NextPageContext) {
+export async function getServerSideProps({ res, req }: NextPageContext) {
   // This value is considered fresh for ten seconds (s-maxage=10).
   // If a request is repeated within the next 10 seconds, the previously
   // cached value will still be fresh. If the request is repeated before 59 seconds,
@@ -124,9 +131,14 @@ export async function getServerSideProps({ res }: NextPageContext) {
     'Cache-Control',
     'public, s-maxage=10, stale-while-revalidate=59'
   );
-
+  const queryClient = new QueryClient();
+  const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () =>
+    fetchServer<User>(req as NextApiRequest, res as NextApiResponse, {
+      url: '/current-user/',
+    })
+  );
   return {
-    props: {},
+    props: { user },
   };
 }
 
