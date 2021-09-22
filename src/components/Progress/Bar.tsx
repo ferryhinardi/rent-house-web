@@ -118,7 +118,12 @@ export default function ProgressBar({
         useNativeDriver,
       }).start();
     }
-  }, [indeterminate]);
+  }, [
+    indeterminate,
+    animationValue,
+    indeterminateAnimationDuration,
+    useNativeDriver,
+  ]);
 
   useEffect(() => {
     const progress = indeterminate
@@ -135,7 +140,15 @@ export default function ProgressBar({
     } else {
       progressState.setValue(progress);
     }
-  }, [indeterminate, progressNumber, animated]);
+  }, [
+    indeterminate,
+    progressNumber,
+    animated,
+    animationConfig,
+    animationType,
+    progressState,
+    useNativeDriver,
+  ]);
 
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>

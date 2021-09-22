@@ -37,7 +37,7 @@ export default function useGestureSwiper({
   const [height, setHeight] = useState(0);
   const [activeIndex, setActiveIndex] = useState(from);
   const [pan] = useState(new Animated.ValueXY());
-  let autoPlay = useRef<any>();
+  let autoPlay = useRef<ReturnType<typeof setTimeout>>();
 
   const startAutoplay = () => {
     if (timeout) {
@@ -201,7 +201,9 @@ export default function useGestureSwiper({
   };
 
   useEffect(() => {
+    // eslint-disable-next-line
     pan.x.addListener(({ value }) => (_animatedValueX = value));
+    // eslint-disable-next-line
     pan.y.addListener(({ value }) => (_animatedValueY = value));
     startAutoplay();
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Source from https://github.com/jeanregisser/react-native-slider/pull/142
 import React, { Component } from 'react';
 import {
