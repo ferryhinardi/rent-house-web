@@ -12,7 +12,7 @@ export type Props = {
 export default function ErrorMessage(props: Props) {
   return (
     <View nativeID={props.errorMessageId} style={styles.container}>
-      <Text variant="tiny" ink="alert" numberOfLines={3}>
+      <Text variant="small" ink="alert" numberOfLines={3}>
         {props.text}
       </Text>
     </View>

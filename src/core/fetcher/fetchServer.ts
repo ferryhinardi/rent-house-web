@@ -3,8 +3,11 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import config from 'config';
 import curlirize from 'utils/axiosCurl';
 
-const instance = axios.create({ baseURL: config.apiHost });
-curlirize(instance);
+export const instance = axios.create({
+  baseURL: config.apiHost,
+});
+
+if (__DEV__) curlirize(instance);
 
 async function fetcherServer<T>(
   req: NextApiRequest,
@@ -27,7 +30,7 @@ async function fetcherServer<T>(
     responseType: 'json',
     headers,
   })) as AxiosResponse<T>;
-  return response.data;
+  return response?.data;
 }
 
 export default fetcherServer;
