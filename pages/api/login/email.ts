@@ -31,7 +31,7 @@ async function login(req: NextApiRequest, res: NextApiResponse<Data>) {
         'Content-Type': 'application/json',
       },
     });
-    console.log('response login.....', response);
+
     if ('message' in response) {
       res.status(500).json({ message: response.message });
     }
