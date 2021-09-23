@@ -33,7 +33,13 @@ module.exports = withSentryConfig(
     images: {
       domains: ['theryna.sgp1.cdn.digitaloceanspaces.com'],
     },
-    webpack: (config, { isServer }) => {
+    webpack: (config, { dev, isServer, webpack }) => {
+      config.plugins.push(
+        new webpack.DefinePlugin({
+          __DEV__: dev,
+        }),
+      );
+
       config.resolve.alias = {
         ...(config.resolve.alias || {}),
         // Transform all direct `react-native` imports to `react-native-web`

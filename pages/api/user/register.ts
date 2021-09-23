@@ -8,7 +8,7 @@ import '../../../sentry.server.config';
 
 type Data = {};
 
-async function login(req: NextApiRequest, res: NextApiResponse<Data>) {
+async function register(req: NextApiRequest, res: NextApiResponse<Data>) {
   try {
     const response = await fetcher<Login>(req, res, {
       method: 'POST',
@@ -27,4 +27,4 @@ async function login(req: NextApiRequest, res: NextApiResponse<Data>) {
   }
 }
 
-export default withSentry(withCookies(login));
+export default withSentry(withCookies(register));

@@ -24,7 +24,7 @@ function SignInForm() {
     async (payload) =>
       fetcher<Login>({
         method: 'POST',
-        url: '/login',
+        url: '/login/email',
         data: payload,
       }),
     {

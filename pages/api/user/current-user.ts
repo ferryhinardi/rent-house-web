@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { withSentry } from '@sentry/nextjs';
 import { User } from 'types';
 import fetcher from 'core/fetcher/fetchServer';
 import { withCookies } from '../utils';
@@ -14,4 +13,4 @@ async function user(req: NextApiRequest, res: NextApiResponse<Data>) {
   res.status(200).json(response);
 }
 
-export default withSentry(withCookies(user));
+export default withCookies(user);
