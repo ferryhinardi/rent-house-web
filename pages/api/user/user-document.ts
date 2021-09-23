@@ -3,16 +3,15 @@ import { withSentry } from '@sentry/nextjs';
 import fetcher from 'core/fetcher/fetchServer';
 import { withCookies } from '../utils';
 import '../../../sentry.server.config';
-import { User } from 'types';
+import { UserDocument } from 'types';
 
 type Data = {};
 
-async function update(req: NextApiRequest, res: NextApiResponse<Data>) {
-  const userID = req.query.id;
-  const url = `/user/${userID}/`;
+async function userDocument(req: NextApiRequest, res: NextApiResponse<Data>) {
+  const url = `/user-document/`;
   try {
-    const response = await fetcher<User>(req, res, {
-      method: 'PUT',
+    const response = await fetcher<UserDocument>(req, res, {
+      method: 'POST',
       url,
       data: req.body,
       headers: req.headers,
@@ -23,4 +22,4 @@ async function update(req: NextApiRequest, res: NextApiResponse<Data>) {
   }
 }
 
-export default withSentry(withCookies(update));
+export default withSentry(withCookies(userDocument));

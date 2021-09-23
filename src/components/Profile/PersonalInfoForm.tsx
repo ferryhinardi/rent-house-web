@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useForm, useController } from 'react-hook-form';
 import { Token, fetcher } from 'core';
-import { User, ErrorHandling } from 'types';
+import { User, UserDocument, ErrorHandling } from 'types';
 import { genderOptions } from 'core/constants';
 import { useMutation } from 'react-query';
 import {
@@ -11,7 +11,6 @@ import {
   Input,
   CalendarInput,
   SelectInput,
-  FileInput,
   ErrorMessage,
   Button,
 } from 'core/base';
@@ -25,13 +24,14 @@ type Payload = {
   annual_income: number;
   credit_score: number;
   dob: string;
+  government_id: any;
   gender: { label: string; value: number };
 };
 type Props = User;
 
 export default function PersonalInfoForm(props: Props) {
   const { t } = useTranslation();
-  const { control, setValue, handleSubmit } = useForm();
+  const { control, register, setValue, handleSubmit } = useForm();
   const oldGender = genderOptions.find((x) => x.value === props.gender);
 
   const { isLoading, isError, error, mutate } = useMutation<
@@ -40,6 +40,18 @@ export default function PersonalInfoForm(props: Props) {
     Payload
   >(
     async (payload) => {
+      const userDocData = new FormData();
+      userDocData.set('document_type', '0');
+      userDocData.set('document_files', payload.government_id[0]);
+      await fetcher<UserDocument>({
+        method: 'POST',
+        url: `/user/user-document/`,
+        data: userDocData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
       const bodyFormData = new FormData();
       bodyFormData.set('name', payload.name);
       bodyFormData.set('phone', payload.phone);
@@ -65,6 +77,11 @@ export default function PersonalInfoForm(props: Props) {
       },
     }
   );
+
+  const handleGovUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+    setValue('government_id', e.target.files);
+  };
 
   const onSelectedDateCallback: OnSelectedDateCallback = (value: string) => {
     setValue('dob', value);
@@ -121,11 +138,6 @@ export default function PersonalInfoForm(props: Props) {
       rules: {
         required: t('creditScore.required') as string,
       },
-    });
-  const { field: govermentIdField, fieldState: govermentIdFieldState } =
-    useController({
-      name: 'govermentId',
-      control,
     });
   const { field: addressField, fieldState: addressFieldState } = useController({
     name: 'address',
@@ -252,18 +264,13 @@ export default function PersonalInfoForm(props: Props) {
         <Text variant="tiny" style={styles.label}>
           {t('govermentId')}
         </Text>
-        <FileInput
-          {...govermentIdField}
-          placeholder={t('govermentId')}
-          error={Boolean(govermentIdFieldState.error)}
-          errorMessageId={govermentIdFieldState.error?.message}
+        <input
+          {...register('government_id')}
+          type="file"
+          name="government_id"
+          placeholder={t('reuploadButton')}
+          onChange={handleGovUpload}
         />
-        {Boolean(govermentIdFieldState.error) && (
-          <ErrorMessage
-            text={govermentIdFieldState.error?.message!}
-            errorMessageId={govermentIdFieldState.error?.message}
-          />
-        )}
       </View>
       <View style={styles.formGroup}>
         <Text variant="tiny" style={styles.label}>

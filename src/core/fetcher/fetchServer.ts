@@ -25,6 +25,7 @@ async function fetcherServer<T>(
   // Message: Hostname/IP does not match certificate's altnames: Host: localhost. is not in the cert's altnames: DNS:sni.cloudflaressl.com, DNS:ondigitalocean.app, DNS:*.ondigitalocean.app
   delete headers.host;
 
+  console.log('SERVER HEADER NEH ', headers);
   const response = (await instance({
     ...options,
     responseType: 'json',

@@ -1,10 +1,11 @@
 import React from 'react';
-import Image from 'next/image';
+import Image, { StaticImport } from 'next/image';
+// import { StaticImport } from 'next/image';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useFormContext, useController } from 'react-hook-form';
 import { Element } from 'react-scroll';
-import { Text, Button, Input, ErrorMessage, FileInput } from 'core/base';
+import { Text, Button, Input, ErrorMessage } from 'core/base';
 import { fetcher, Token } from 'core';
 import { User, ErrorHandling } from 'types';
 import avatar from 'assets/avatar-sample.svg';
@@ -12,23 +13,36 @@ import { useMutation } from 'react-query';
 import config from 'config';
 
 type Props = User;
+type Payload = {
+  name: string;
+  bio: string;
+  job: string;
+  annual_income: number;
+  credit_score: number;
+  profile_picture: any;
+};
 
 export default function BasicProfile(props: Props) {
   const { t } = useTranslation();
-  const { control, handleSubmit } = useFormContext();
+  const { register, control, setValue, handleSubmit } = useFormContext();
   const { isLoading, isError, error, mutate } = useMutation<
     User,
     ErrorHandling,
-    User
+    Payload
   >(
     async (payload) => {
       const bodyFormData = new FormData();
       bodyFormData.set('name', payload.name);
-      bodyFormData.set('address', payload.address);
+      bodyFormData.set('address', props.address);
       bodyFormData.set('bio', payload.bio);
       bodyFormData.set('job', payload.job);
-      bodyFormData.set('annual_income', payload.annual_income.toString());
-      bodyFormData.set('credit_score', payload.credit_score.toString());
+      bodyFormData.set('annual_income', props.annual_income.toString());
+      bodyFormData.set('credit_score', props.credit_score.toString());
+      console.log(payload.profile_picture);
+      if (payload.profile_picture.length > 0) {
+        bodyFormData.set('profile_picture', payload.profile_picture[0]);
+      }
+
       return fetcher<User>({
         method: 'PUT',
         url: `/user/update?id=${props.id}`,
@@ -45,7 +59,14 @@ export default function BasicProfile(props: Props) {
     }
   );
 
-  const onSubmit = (formData: User) => {
+  const handleProfilePicture = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (!e.target.files) return;
+    setValue('profile_picture', e.target.files);
+  };
+
+  const onSubmit = (formData: Payload) => {
     mutate(formData);
   };
 
@@ -79,11 +100,6 @@ export default function BasicProfile(props: Props) {
     defaultValue: props.bio,
     control,
   });
-  const { field: profilePictureField, fieldState: profilePictureState } =
-    useController({
-      name: 'profile_picture',
-      control,
-    });
   return (
     <Element name="basic-profile">
       <View style={styles.container}>
@@ -105,10 +121,12 @@ export default function BasicProfile(props: Props) {
                 alt="avatar"
               />
             </View>
-            <FileInput
-              {...profilePictureField}
+            <input
+              {...register('profile_picture')}
+              type="file"
+              name="profile_picture"
               placeholder={t('reuploadButton')}
-              style={styles.uploadButton}
+              onChange={handleProfilePicture}
             />
           </View>
           <View style={styles.formContainer}>

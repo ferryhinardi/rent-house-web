@@ -26,6 +26,14 @@ export type User = {
   role_id: number;
 };
 
+export type UserDocument = {
+  id: number;
+  user_id: number;
+  document_type: number;
+  document_path: string;
+  is_verified: boolean;
+};
+
 export type Question = {
   id: number;
   title?: string;
@@ -64,7 +72,7 @@ export type UserAnswers = {
 export type Answer = {
   question_id: number;
   value: string;
-}
+};
 
 export type AnswerState = {
   questionID: number;
