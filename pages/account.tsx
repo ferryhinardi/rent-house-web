@@ -29,7 +29,7 @@ type Props = {
 
 export default function Account({ user }: Props) {
   const { t } = useTranslation();
-  const forms = useForm();
+  const forms = useForm({ defaultValues: user });
 
   const onPressMenu = async (menuId: string) => {
     const { scroller } = await import('react-scroll');
@@ -101,7 +101,7 @@ export default function Account({ user }: Props) {
           />
           <FormProvider {...forms}>
             <View style={styles.content}>
-              <AccountBasicProfile {...user} />
+              <AccountBasicProfile />
               <View style={styles.separator} />
               <AccountSettings />
               <View style={styles.separator} />

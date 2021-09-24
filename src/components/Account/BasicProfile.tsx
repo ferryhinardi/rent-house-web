@@ -11,7 +11,6 @@ import avatar from 'assets/avatar-sample.svg';
 import { useMutation } from 'react-query';
 import config from 'config';
 
-type Props = User;
 type Payload = {
   name: string;
   bio: string;
@@ -21,9 +20,11 @@ type Payload = {
   profile_picture: FileList;
 };
 
-export default function BasicProfile(props: Props) {
+export default function BasicProfile() {
   const { t } = useTranslation();
-  const { register, control, setValue, handleSubmit } = useFormContext();
+  const { register, control, setValue, getValues, handleSubmit } =
+    useFormContext();
+  const user = getValues();
   const { isLoading, isError, error, mutate } = useMutation<
     User,
     ErrorHandling,
@@ -32,11 +33,11 @@ export default function BasicProfile(props: Props) {
     async (payload) => {
       const bodyFormData = new FormData();
       bodyFormData.set('name', payload.name);
-      bodyFormData.set('address', props.address);
+      bodyFormData.set('address', user.address);
       bodyFormData.set('bio', payload.bio);
       bodyFormData.set('job', payload.job);
-      bodyFormData.set('annual_income', props.annual_income.toString());
-      bodyFormData.set('credit_score', props.credit_score.toString());
+      bodyFormData.set('annual_income', user.annual_income.toString());
+      bodyFormData.set('credit_score', user.credit_score.toString());
       console.log(payload.profile_picture);
       if (payload.profile_picture.length > 0) {
         bodyFormData.set('profile_picture', payload.profile_picture[0]);
@@ -44,7 +45,7 @@ export default function BasicProfile(props: Props) {
 
       return fetcher<User>({
         method: 'PUT',
-        url: `/user/update?id=${props.id}`,
+        url: `/user/update?id=${user.id}`,
         data: bodyFormData,
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -71,7 +72,6 @@ export default function BasicProfile(props: Props) {
 
   const { field: nameField, fieldState: nameFieldState } = useController({
     name: 'name',
-    defaultValue: props.name,
     control,
     rules: {
       required: t('name.required') as string,
@@ -79,12 +79,10 @@ export default function BasicProfile(props: Props) {
   });
   const { field: jobField, fieldState: jobFieldState } = useController({
     name: 'job',
-    defaultValue: props.job,
     control,
   });
   const { field: emailField, fieldState: emailFieldState } = useController({
     name: 'email',
-    defaultValue: props.email,
     control,
     rules: {
       required: t('email.required') as string,
@@ -96,7 +94,6 @@ export default function BasicProfile(props: Props) {
   });
   const { field: bioField, fieldState: bioFieldState } = useController({
     name: 'bio',
-    defaultValue: props.bio,
     control,
   });
   return (
@@ -111,8 +108,8 @@ export default function BasicProfile(props: Props) {
             <View style={{ borderRadius: Token.border.radius.default }}>
               <Image
                 src={
-                  props.profile_picture
-                    ? `${config.imageHost}/${props.profile_picture}}`
+                  user.profile_picture
+                    ? `${config.imageHost}/${user.profile_picture}}`
                     : avatar
                 }
                 width={240}
