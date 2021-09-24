@@ -24,7 +24,7 @@ type Payload = {
   annual_income: number;
   credit_score: number;
   dob: string;
-  government_id: any;
+  government_id: FileList;
   gender: { label: string; value: number };
 };
 type Props = User;
@@ -67,7 +67,7 @@ export default function PersonalInfoForm(props: Props) {
         url: `/user/update?id=${props.id}`,
         data: bodyFormData,
         headers: {
-          'Content-Type': undefined,
+          'Content-Type': 'multipart/form-data',
         },
       });
     },

@@ -1,6 +1,5 @@
 import React from 'react';
-import Image, { StaticImport } from 'next/image';
-// import { StaticImport } from 'next/image';
+import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useFormContext, useController } from 'react-hook-form';
@@ -19,7 +18,7 @@ type Payload = {
   job: string;
   annual_income: number;
   credit_score: number;
-  profile_picture: any;
+  profile_picture: FileList;
 };
 
 export default function BasicProfile(props: Props) {
@@ -48,7 +47,7 @@ export default function BasicProfile(props: Props) {
         url: `/user/update?id=${props.id}`,
         data: bodyFormData,
         headers: {
-          'Content-Type': undefined,
+          'Content-Type': 'multipart/form-data',
         },
       });
     },
