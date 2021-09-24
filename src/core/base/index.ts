@@ -12,3 +12,4 @@ export { default as ErrorMessage } from './ErrorMessage';
 export { Hoverable, Pressable } from './Pressable';
 export { default as Tooltip } from './Tooltip';
 export { default as Badge } from './Badge';
+export { default as ImageUploader } from './ImageUploader';

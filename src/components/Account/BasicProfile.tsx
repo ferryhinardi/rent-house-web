@@ -1,10 +1,9 @@
 import React from 'react';
-import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useFormContext, useController } from 'react-hook-form';
 import { Element } from 'react-scroll';
-import { Text, Button, Input, ErrorMessage } from 'core/base';
+import { Text, Button, Input, ErrorMessage, ImageUploader } from 'core/base';
 import { fetcher, Token } from 'core';
 import { User, ErrorHandling } from 'types';
 import avatar from 'assets/avatar-sample.svg';
@@ -62,6 +61,7 @@ export default function BasicProfile() {
   const handleProfilePicture = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
+    console.log('files', e.target.files);
     if (!e.target.files) return;
     setValue('profile_picture', e.target.files);
   };
@@ -100,33 +100,22 @@ export default function BasicProfile() {
     <Element name="basic-profile">
       <View style={styles.container}>
         <Text variant="header-3" ink="primary">
-          {t('welcomeMessage', { name: 'username' })}
+          {t('welcomeMessage', { name: user.name })}
         </Text>
         <Text variant="caption">{t('welcomeDescription')}</Text>
         <View style={styles.form}>
-          <View>
-            <View style={{ borderRadius: Token.border.radius.default }}>
-              <Image
-                src={
-                  user.profile_picture
-                    ? `${config.imageHost}/${user.profile_picture}}`
-                    : avatar
-                }
-                width={240}
-                height={240}
-                alt="avatar"
-              />
-            </View>
-            <input
-              {...register('profile_picture')}
-              type="file"
-              name="profile_picture"
-              placeholder={t('reuploadButton')}
-              onChange={handleProfilePicture}
-            />
-          </View>
+          <ImageUploader
+            {...register('profile_picture')}
+            value={
+              user.profile_picture
+                ? `${config.imageHost}/${user.profile_picture}}`
+                : avatar
+            }
+            actionLabel={t('reuploadButton')}
+            onChange={handleProfilePicture}
+          />
           <View style={styles.formContainer}>
-            <View style={styles.formGroup}>
+            <View style={styles.formGroupHalfWidth}>
               <Text variant="tiny" style={styles.label}>
                 {t('fullName')}
               </Text>
@@ -145,7 +134,7 @@ export default function BasicProfile() {
                 />
               )}
             </View>
-            <View style={styles.formGroup}>
+            <View style={styles.formGroupHalfWidth}>
               <Text variant="tiny" style={styles.label}>
                 {t('jobTitle')}
               </Text>
@@ -164,7 +153,7 @@ export default function BasicProfile() {
                 />
               )}
             </View>
-            <View style={styles.formGroup}>
+            <View style={styles.formGroupFullWidth}>
               <Text variant="tiny" style={styles.label}>
                 {t('emailAddress')}
               </Text>
@@ -184,7 +173,7 @@ export default function BasicProfile() {
                 />
               )}
             </View>
-            <View style={styles.formGroup}>
+            <View style={styles.formGroupFullWidth}>
               <Text variant="tiny" style={styles.label}>
                 {t('biodata')}
               </Text>
@@ -204,13 +193,13 @@ export default function BasicProfile() {
                   errorMessageId={bioFieldState.error?.message}
                 />
               )}
-              <Button
-                loading={isLoading}
-                text={t('saveForm')}
-                style={styles.submitButton}
-                onPress={handleSubmit(onSubmit)}
-              />
             </View>
+            <Button
+              loading={isLoading}
+              text={t('saveForm')}
+              style={styles.submitButton}
+              onPress={handleSubmit(onSubmit)}
+            />
             {isError && <ErrorMessage text={error?.message as string} />}
           </View>
         </View>
@@ -233,10 +222,15 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: Token.spacing.ml,
   },
-  formGroup: {
+  formGroupHalfWidth: {
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: '49%',
+  },
+  formGroupFullWidth: {
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '100%',
   },
   label: {
     marginBottom: Token.spacing.xs,
@@ -254,8 +248,5 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     marginTop: Token.spacing.m,
-    paddingVertical: Token.spacing.m,
-    borderRadius: 0,
-    alignItems: 'center',
   },
 });
