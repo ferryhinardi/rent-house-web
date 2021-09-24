@@ -13,9 +13,11 @@ import {
   SelectInput,
   ErrorMessage,
   Button,
+  ImageUploader,
 } from 'core/base';
 import { OnSelectedDateCallback } from 'core/base/Calendar';
 
+type Gender = { label: string; value: number };
 type Payload = {
   name: string;
   phone: string;
@@ -25,15 +27,18 @@ type Payload = {
   credit_score: number;
   dob: string;
   government_id: FileList;
-  gender: { label: string; value: number };
+  gender: Gender;
 };
-type Props = User;
+type Props = User & {
+  government_id?: FileList;
+  dob?: string;
+};
 
 export default function PersonalInfoForm(props: Props) {
   const { t } = useTranslation();
-  const { control, register, setValue, handleSubmit } = useForm();
-  const oldGender = genderOptions.find((x) => x.value === props.gender);
-
+  const { control, register, setValue, handleSubmit } = useForm({
+    defaultValues: props,
+  });
   const { isLoading, isError, error, mutate } = useMutation<
     User,
     ErrorHandling,
@@ -94,7 +99,6 @@ export default function PersonalInfoForm(props: Props) {
   const { field: legalNameField, fieldState: legalNameFieldState } =
     useController({
       name: 'name',
-      defaultValue: props.name,
       control,
       rules: {
         required: t('legalName.required') as string,
@@ -102,7 +106,6 @@ export default function PersonalInfoForm(props: Props) {
     });
   const { field: genderField, fieldState: genderFieldState } = useController({
     name: 'gender',
-    defaultValue: oldGender,
     control,
     rules: {
       required: t('gender.required') as string,
@@ -115,7 +118,6 @@ export default function PersonalInfoForm(props: Props) {
   const { field: phoneNumberField, fieldState: phoneNumberFieldState } =
     useController({
       name: 'phone',
-      defaultValue: props.phone,
       control,
       rules: {
         required: t('phoneNumber.required') as string,
@@ -124,7 +126,6 @@ export default function PersonalInfoForm(props: Props) {
   const { field: annualIncomeField, fieldState: annualIncomeFieldState } =
     useController({
       name: 'annual_income',
-      defaultValue: props.annual_income,
       control,
       rules: {
         required: t('annualIncome.required') as string,
@@ -133,7 +134,6 @@ export default function PersonalInfoForm(props: Props) {
   const { field: creditScoreField, fieldState: creditScoreFieldState } =
     useController({
       name: 'credit_score',
-      defaultValue: props.credit_score,
       control,
       rules: {
         required: t('creditScore.required') as string,
@@ -141,7 +141,6 @@ export default function PersonalInfoForm(props: Props) {
     });
   const { field: addressField, fieldState: addressFieldState } = useController({
     name: 'address',
-    defaultValue: props.address,
     control,
     rules: {
       required: t('address.required') as string,
@@ -174,6 +173,7 @@ export default function PersonalInfoForm(props: Props) {
         </Text>
         <SelectInput
           {...genderField}
+          value={genderOptions.find((x) => x.value === genderField.value)}
           instanceId="gender"
           variant="primary"
           placeholder={t('gender')}
@@ -231,6 +231,7 @@ export default function PersonalInfoForm(props: Props) {
         </Text>
         <Input
           {...annualIncomeField}
+          value={annualIncomeField.value.toString()}
           placeholder={t('annualIncome')}
           keyboardType="numeric"
           error={Boolean(annualIncomeFieldState.error)}
@@ -249,6 +250,7 @@ export default function PersonalInfoForm(props: Props) {
         </Text>
         <Input
           {...creditScoreField}
+          value={creditScoreField.value.toString()}
           placeholder={t('creditScore')}
           error={Boolean(creditScoreFieldState.error)}
           errorMessageId={creditScoreFieldState.error?.message}
@@ -264,11 +266,9 @@ export default function PersonalInfoForm(props: Props) {
         <Text variant="tiny" style={styles.label}>
           {t('govermentId')}
         </Text>
-        <input
+        <ImageUploader
           {...register('government_id')}
-          type="file"
-          name="government_id"
-          placeholder={t('reuploadButton')}
+          actionLabel={t('reuploadButton')}
           onChange={handleGovUpload}
         />
       </View>

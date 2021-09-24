@@ -33,7 +33,12 @@ export default function ImageUploader({
 
   return (
     <View>
-      <View style={{ borderRadius: Token.border.radius.default }}>
+      <View
+        style={{
+          borderRadius: Token.border.radius.default,
+          alignItems: 'flex-start',
+        }}
+      >
         {val && (
           <Image
             className="avatar-image"
@@ -74,5 +79,6 @@ export default function ImageUploader({
 const styles = StyleSheet.create({
   uploadButton: {
     marginTop: Token.spacing.l,
+    alignSelf: 'flex-start',
   },
 });
