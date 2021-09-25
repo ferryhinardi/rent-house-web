@@ -34,16 +34,13 @@ module.exports = withSentryConfig(
     trailingSlash: true,
     reactStrictMode: true,
     images: {
-      domains: [
-        'theryna.sgp1.cdn.digitaloceanspaces.com',
-        'theryna.sgp1.digitaloceanspaces.com',
-      ],
+      domains: ['theryna.sgp1.cdn.digitaloceanspaces.com'],
     },
     webpack: (config, { dev, isServer, webpack }) => {
       config.plugins.push(
         new webpack.DefinePlugin({
           __DEV__: dev,
-        }),
+        })
       );
 
       config.resolve.alias = {
