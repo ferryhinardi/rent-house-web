@@ -19,10 +19,12 @@ function UserLoginHeader(props: Props) {
   const { t } = useTranslation();
   const router = useRouter();
   const [isVisibile, setIsVisible] = useState(false);
+
   const onLogout = () => {
     logout();
-    Router.reload();
+    Router.push('/');
   };
+
   const onNavigateToAccount = () => {
     router.push(routePaths.account);
   };

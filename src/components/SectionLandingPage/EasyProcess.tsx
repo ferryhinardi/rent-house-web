@@ -27,7 +27,12 @@ export default function EasyProcess() {
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
-          <Text variant="header-2" style={styles.headerTitle}>
+          <Text
+            ink="primary"
+            font="playfair"
+            variant="header-2"
+            style={styles.headerTitle}
+          >
             {t('titleEasyProcess')}
           </Text>
           <Text variant="caption">{t('subtitleEasyProcess')}</Text>
@@ -50,7 +55,11 @@ export default function EasyProcess() {
                   height={34}
                   alt={process.title}
                 />
-                <Text variant="header-3" style={styles.headerText}>
+                <Text
+                  font="playfair"
+                  variant="header-3"
+                  style={styles.headerText}
+                >
                   {process.title}
                 </Text>
               </View>
@@ -84,13 +93,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: Token.spacing.xxl,
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginTop: Token.spacing.xxxl,
   },
   processWrapper: {
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: '30%',
+    maxWidth: '22vw',
   },
   headerProcess: {
     flexDirection: 'row',

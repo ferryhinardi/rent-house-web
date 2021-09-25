@@ -135,6 +135,7 @@ export function SignInButton() {
         variant="secondary"
         text={t('signIn')}
         onPress={() => onVisible(true)}
+        style={styles.signInButton}
       />
       <Modal
         animationType="fade"
@@ -172,6 +173,9 @@ const styles = StyleSheet.create({
     paddingVertical: Token.spacing.m,
     borderRadius: 0,
     alignItems: 'center',
+  },
+  signInButton: {
+    height: 50,
   },
 });
 
