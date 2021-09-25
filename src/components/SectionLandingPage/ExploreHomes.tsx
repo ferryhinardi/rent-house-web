@@ -23,8 +23,8 @@ export default function ExploreHomes() {
       return res;
     }
   );
-  const homeData = data?.data || [];
-  const [firstHome, otherHomes] = [homeData[0], homeData.slice(1)];
+  const homeData = data?.data;
+  const [firstHome, otherHomes] = [homeData?.[0], homeData?.slice(1)];
 
   return (
     <ContainerDesktop style={styles.container}>
@@ -46,8 +46,8 @@ export default function ExploreHomes() {
               <Card
                 orientation="portrait"
                 imageProps={{
-                  src: `${config.imageHost}/${firstHome.lead_media}`,
-                  blurDataURL: `${config.imageHost}/${firstHome.lead_media}`,
+                  src: `${config.imageHost}/${firstHome?.lead_media}`,
+                  blurDataURL: `${config.imageHost}/${firstHome?.lead_media}`,
                   placeholder: 'blur',
                   loading: 'lazy',
                   width: '100%',
@@ -60,12 +60,12 @@ export default function ExploreHomes() {
                 style={styles.cardContainer}
               />
               <Text variant="header-4" style={styles.cardTitle}>
-                {firstHome.name}
+                {firstHome?.name}
               </Text>
             </View>
           }
           <View style={styles.layout2}>
-            {otherHomes.map((item, index) => (
+            {otherHomes?.map((item, index) => (
               <View
                 key={item.id}
                 style={[
