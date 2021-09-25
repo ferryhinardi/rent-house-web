@@ -60,6 +60,12 @@ export default function BasicProfile() {
           text1: `Update Profile ${response.name} Successfully!`,
         });
       },
+      onError: (error) => {
+        Toast.show({
+          type: 'error',
+          text1: `Update Failed! ${error.message}`,
+        });
+      },
     }
   );
 

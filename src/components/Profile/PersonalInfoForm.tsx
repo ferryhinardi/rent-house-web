@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useForm, useController } from 'react-hook-form';
+import Toast from 'react-native-toast-message';
 import { useQuery } from 'react-query';
 import { Token, fetcher } from 'core';
 import { User, UserDocument, ErrorHandling } from 'types';
@@ -86,7 +87,16 @@ export default function PersonalInfoForm() {
     },
     {
       onSuccess: (response: User) => {
-        console.log(response);
+        Toast.show({
+          type: 'success',
+          text1: `Update Personal Info ${response.name} Successfully!`,
+        });
+      },
+      onError: (error) => {
+        Toast.show({
+          type: 'error',
+          text1: `Update Failed! ${error.message}`,
+        });
       },
     }
   );
