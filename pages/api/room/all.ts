@@ -11,7 +11,6 @@ async function findAllRooms(
   res: NextApiResponse<Data>
 ) {
     const house_id = req.query.house_id;
-    console.log('mashok ', house_id)
     try {
         const response = await fetcher<ResponseItem<Room>>(req, res, {
           method: 'GET',

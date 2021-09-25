@@ -46,7 +46,6 @@ export default function ScheduleTourForm(props: Props) {
       minPrice = item.price < minPrice ? item.price : minPrice;
     });
 
-    console.log('sekali');
     pricenih =
       maxPrice == minPrice ? `$${maxPrice}` : `$${minPrice}-$${maxPrice}`;
   }

@@ -10,8 +10,6 @@ type Props = {
 };
 
 export default function PrivateAmenities(props: Props) {
-  console.log('mashok pake eko', props.house.amenities);
-
   return (
     <ContainerDesktop>
       <Text variant="header-2" ink="primary">
