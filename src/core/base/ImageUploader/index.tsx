@@ -10,6 +10,8 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 const fileRef = createRef<HTMLInputElement>();
+const imagePlaceholder =
+  'https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png';
 
 export default function ImageUploader({
   value,
@@ -39,18 +41,16 @@ export default function ImageUploader({
           alignItems: 'flex-start',
         }}
       >
-        {val && (
-          <Image
-            className="avatar-image"
-            src={val}
-            blurDataURL={val}
-            loader={customImgLoader}
-            placeholder="blur"
-            width={240}
-            height={240}
-            alt="avatar"
-          />
-        )}
+        <Image
+          className="avatar-image"
+          src={val || imagePlaceholder}
+          blurDataURL={val || imagePlaceholder}
+          loader={customImgLoader}
+          placeholder="blur"
+          width={240}
+          height={240}
+          alt="avatar"
+        />
       </View>
       <input
         {...restProps}
