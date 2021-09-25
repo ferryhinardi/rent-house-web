@@ -9,7 +9,7 @@ import { QUERY_KEYS } from 'core/constants';
 import { PerksPlaceholder } from 'components/Placeholder';
 import { Perk, ResponseItem } from 'types';
 
-const cardWidth = ['48%', '48%', '30%', '30%', '30%'];
+const cardWidth = ['35%', '35%', '30%', '30%', '30%'];
 
 function Perks() {
   const { t } = useTranslation();
@@ -36,7 +36,7 @@ function Perks() {
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
-          <Text variant="header-2" style={styles.headerTitle}>
+          <Text variant="header-2" font={'playfair'} style={styles.headerTitle}>
             {t('titlePerks')}
           </Text>
           <Text variant="caption">{t('subtitlePerks')}</Text>
@@ -53,6 +53,8 @@ function Perks() {
         <View style={styles.containerPerks}>
           {data?.data.map((item, index) => (
             <Card
+              activeOpacity={1}
+              noShadow
               key={item.id}
               orientation="portrait"
               style={[styles.cardStyle, { flexBasis: cardWidth[index] }]}
@@ -69,7 +71,7 @@ function Perks() {
             >
               <Card.Body>
                 <Card.Title variant="large">{item.title}</Card.Title>
-                <Text style={{ marginTop: Token.spacing.m }}>
+                <Text variant="caption" style={{ marginTop: Token.spacing.m }}>
                   {item.description}
                 </Text>
               </Card.Body>

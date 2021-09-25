@@ -17,6 +17,8 @@ import {
 } from 'react-native';
 
 import { Token as R } from 'core';
+import { Text } from 'core/base';
+
 import {
   Props,
   styles,
@@ -573,6 +575,13 @@ class Slider extends Component<Props, State> {
             },
           ])}
         >
+          <Text
+            style={{ position: 'absolute', top: -20, textAlign: 'center' }}
+            variant="small"
+          >
+            {/* @ts-ignore */}
+            {thumbValues[i] ? thumbValues[i]['_parent']['_value'] : ''}
+          </Text>
           {this._renderThumbImage(i)}
         </Animated.View>
       );
