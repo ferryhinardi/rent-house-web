@@ -2,6 +2,7 @@ import React from 'react';
 import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { dehydrate } from 'react-query/hydration';
 import {
   Head,
   HeaderMenu,
@@ -16,11 +17,7 @@ import { QueryClient } from 'react-query';
 import { QUERY_KEYS } from 'core/constants';
 import { User } from 'types';
 
-type Props = {
-  user: User;
-};
-
-export default function Profile({ user }: Props) {
+export default function Profile() {
   const { t } = useTranslation();
   return (
     <div>
@@ -28,7 +25,7 @@ export default function Profile({ user }: Props) {
       <HeaderMenu />
       <ContainerDesktop>
         <HeaderNavigation title={t('profile')} />
-        <PersonalInfoForm {...user} />
+        <PersonalInfoForm />
         <View style={styles.separator} />
         <EmergencyContact />
       </ContainerDesktop>
@@ -51,13 +48,15 @@ export async function getServerSideProps({ res, req }: NextPageContext) {
     'public, s-maxage=10, stale-while-revalidate=59'
   );
   const queryClient = new QueryClient();
-  const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () =>
+  await queryClient.prefetchQuery(QUERY_KEYS.CURRENT_USER, () =>
     fetchServer<User>(req as NextApiRequest, res as NextApiResponse, {
-      url: '/current-user/',
+      url: '/current-user',
     })
   );
   return {
-    props: { user },
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
   };
 }
 

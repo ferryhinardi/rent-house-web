@@ -29,6 +29,7 @@
     "react-google-login": "^5.2.2",
     "react-hook-form": "^7.12.2",
     "react-i18next": "^11.11.4",
+    "react-native-toast-message": "^1.6.0",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "^0.17.1",
     "react-no-ssr": "^1.1.0",

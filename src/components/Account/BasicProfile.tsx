@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useFormContext, useController } from 'react-hook-form';
+import Toast from 'react-native-toast-message';
 import { Element } from 'react-scroll';
 import { Text, Button, Input, ErrorMessage, ImageUploader } from 'core/base';
 import { fetcher, Token } from 'core';
@@ -37,14 +38,15 @@ export default function BasicProfile() {
       bodyFormData.set('job', payload.job);
       bodyFormData.set('annual_income', user.annual_income.toString());
       bodyFormData.set('credit_score', user.credit_score.toString());
-      console.log(payload.profile_picture);
+
       if (payload.profile_picture.length > 0) {
         bodyFormData.set('profile_picture', payload.profile_picture[0]);
       }
 
       return fetcher<User>({
         method: 'PUT',
-        url: `/user/update?id=${user.id}`,
+        url: '/user/update',
+        params: { id: user.id },
         data: bodyFormData,
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -53,7 +55,10 @@ export default function BasicProfile() {
     },
     {
       onSuccess: (response: User) => {
-        console.log(response);
+        Toast.show({
+          type: 'success',
+          text1: `Update Profile ${response.name} Successfully!`,
+        });
       },
     }
   );
@@ -61,7 +66,6 @@ export default function BasicProfile() {
   const handleProfilePicture = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log('files', e.target.files);
     if (!e.target.files) return;
     setValue('profile_picture', e.target.files);
   };

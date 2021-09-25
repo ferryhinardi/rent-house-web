@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useForm, useController } from 'react-hook-form';
+import { useQuery } from 'react-query';
 import { Token, fetcher } from 'core';
 import { User, UserDocument, ErrorHandling } from 'types';
 import { genderOptions } from 'core/constants';
@@ -16,6 +17,7 @@ import {
   ImageUploader,
 } from 'core/base';
 import { OnSelectedDateCallback } from 'core/base/Calendar';
+import { QUERY_KEYS } from 'core/constants';
 
 type Gender = { label: string; value: number };
 type Payload = {
@@ -34,10 +36,16 @@ type Props = User & {
   dob?: string;
 };
 
-export default function PersonalInfoForm(props: Props) {
+export default function PersonalInfoForm() {
+  const { data: dataUser } = useQuery<Props>(QUERY_KEYS.CURRENT_USER, () =>
+    fetcher<User>({
+      method: 'POST',
+      url: '/user/current-user',
+    })
+  );
   const { t } = useTranslation();
   const { control, register, setValue, handleSubmit } = useForm({
-    defaultValues: props,
+    defaultValues: dataUser,
   });
   const { isLoading, isError, error, mutate } = useMutation<
     User,
@@ -62,14 +70,14 @@ export default function PersonalInfoForm(props: Props) {
       bodyFormData.set('phone', payload.phone);
       bodyFormData.set('dob', payload.dob);
       bodyFormData.set('address', payload.address);
-      bodyFormData.set('bio', props.bio ?? '');
+      bodyFormData.set('bio', dataUser?.bio ?? '');
       bodyFormData.set('gender', payload.gender.value.toString());
       bodyFormData.set('job', payload.job);
       bodyFormData.set('annual_income', payload.annual_income.toString());
       bodyFormData.set('credit_score', payload.credit_score.toString());
       return fetcher<User>({
         method: 'PUT',
-        url: `/user/update?id=${props.id}`,
+        url: `/user/update?id=${dataUser?.id}`,
         data: bodyFormData,
         headers: {
           'Content-Type': 'multipart/form-data',
