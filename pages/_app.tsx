@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { AppProps } from 'next/app';
 import { Hydrate } from 'react-query/hydration';
 import { QueryClientProvider, QueryClient, QueryCache } from 'react-query';
+import Toast from 'react-native-toast-message';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import createLocalization from 'utils/createLocalization';
 import NProgress from 'components/NProgress';
@@ -34,6 +35,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           stopDelayMs={200}
           height={3}
           showOnShallow
+        />
+        <Toast
+          ref={(ref) => Toast.setRef(ref)}
+          // @ts-ignore
+          style={{ position: 'fixed', zIndex: 1 }}
         />
         <Component {...pageProps} />
       </Hydrate>

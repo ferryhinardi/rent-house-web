@@ -1,24 +1,92 @@
 import React from 'react';
-import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useFormContext, useController } from 'react-hook-form';
+import Toast from 'react-native-toast-message';
 import { Element } from 'react-scroll';
-import { Text, Button, Input, ErrorMessage } from 'core/base';
-import { Token } from 'core';
+import { Text, Button, Input, ErrorMessage, ImageUploader } from 'core/base';
+import { fetcher, Token } from 'core';
+import { User, ErrorHandling } from 'types';
 import avatar from 'assets/avatar-sample.svg';
+import { useMutation } from 'react-query';
+import config from 'config';
+
+type Payload = {
+  name: string;
+  bio: string;
+  job: string;
+  annual_income: number;
+  credit_score: number;
+  profile_picture: FileList;
+};
 
 export default function BasicProfile() {
   const { t } = useTranslation();
-  const { control } = useFormContext();
-  const { field: fullNameField, fieldState: fullNameFieldState } =
-    useController({
-      name: 'name',
-      control,
-      rules: {
-        required: t('fullName.required') as string,
+  const { register, control, setValue, getValues, handleSubmit } =
+    useFormContext();
+  const user = getValues();
+  const { isLoading, isError, error, mutate } = useMutation<
+    User,
+    ErrorHandling,
+    Payload
+  >(
+    async (payload) => {
+      const bodyFormData = new FormData();
+      bodyFormData.set('name', payload.name);
+      bodyFormData.set('address', user.address);
+      bodyFormData.set('bio', payload.bio);
+      bodyFormData.set('job', payload.job);
+      bodyFormData.set('annual_income', user.annual_income.toString());
+      bodyFormData.set('credit_score', user.credit_score.toString());
+
+      if (payload.profile_picture.length > 0) {
+        bodyFormData.set('profile_picture', payload.profile_picture[0]);
+      }
+
+      return fetcher<User>({
+        method: 'PUT',
+        url: '/user/update',
+        params: { id: user.id },
+        data: bodyFormData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+    },
+    {
+      onSuccess: (response: User) => {
+        Toast.show({
+          type: 'success',
+          text1: `Update Profile ${response.name} Successfully!`,
+        });
       },
-    });
+      onError: (error) => {
+        Toast.show({
+          type: 'error',
+          text1: `Update Failed! ${error.message}`,
+        });
+      },
+    }
+  );
+
+  const handleProfilePicture = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (!e.target.files) return;
+    setValue('profile_picture', e.target.files);
+  };
+
+  const onSubmit = (formData: Payload) => {
+    mutate(formData);
+  };
+
+  const { field: nameField, fieldState: nameFieldState } = useController({
+    name: 'name',
+    control,
+    rules: {
+      required: t('name.required') as string,
+    },
+  });
   const { field: jobField, fieldState: jobFieldState } = useController({
     name: 'job',
     control,
@@ -34,18 +102,6 @@ export default function BasicProfile() {
       },
     },
   });
-  const { field: passwordField, fieldState: passwordFieldState } =
-    useController({
-      name: 'password',
-      control,
-      rules: {
-        required: t('password.required') as string,
-        minLength: {
-          value: 5,
-          message: t('password.minLength', { length: 5 }),
-        },
-      },
-    });
   const { field: bioField, fieldState: bioFieldState } = useController({
     name: 'bio',
     control,
@@ -54,41 +110,41 @@ export default function BasicProfile() {
     <Element name="basic-profile">
       <View style={styles.container}>
         <Text variant="header-3" ink="primary">
-          {t('welcomeMessage', { name: 'username' })}
+          {t('welcomeMessage', { name: user.name })}
         </Text>
         <Text variant="caption">{t('welcomeDescription')}</Text>
         <View style={styles.form}>
-          <View>
-            <View style={{ borderRadius: Token.border.radius.default }}>
-              <Image src={avatar} width={240} height={240} alt="avatar" />
-            </View>
-            <Button
-              variant="secondary"
-              text={t('reuploadButton')}
-              style={styles.uploadButton}
-            />
-          </View>
+          <ImageUploader
+            {...register('profile_picture')}
+            value={
+              user.profile_picture
+                ? `${config.imageHost}/${user.profile_picture}}`
+                : avatar
+            }
+            actionLabel={t('reuploadButton')}
+            onChange={handleProfilePicture}
+          />
           <View style={styles.formContainer}>
-            <View style={styles.formGroup}>
+            <View style={styles.formGroupHalfWidth}>
               <Text variant="tiny" style={styles.label}>
                 {t('fullName')}
               </Text>
               <Input
-                {...fullNameField}
-                placeholder={t('fullName')}
+                {...nameField}
+                placeholder={t('name')}
                 textContentType="name"
-                error={Boolean(fullNameFieldState.error)}
-                errorMessageId={fullNameFieldState.error?.message}
+                error={Boolean(nameFieldState.error)}
+                errorMessageId={nameFieldState.error?.message}
                 containerStyle={styles.input}
               />
-              {Boolean(fullNameFieldState.error) && (
+              {Boolean(nameFieldState.error) && (
                 <ErrorMessage
-                  text={fullNameFieldState.error?.message!}
-                  errorMessageId={fullNameFieldState.error?.message}
+                  text={nameFieldState.error?.message!}
+                  errorMessageId={nameFieldState.error?.message}
                 />
               )}
             </View>
-            <View style={styles.formGroup}>
+            <View style={styles.formGroupHalfWidth}>
               <Text variant="tiny" style={styles.label}>
                 {t('jobTitle')}
               </Text>
@@ -107,7 +163,7 @@ export default function BasicProfile() {
                 />
               )}
             </View>
-            <View style={styles.formGroup}>
+            <View style={styles.formGroupFullWidth}>
               <Text variant="tiny" style={styles.label}>
                 {t('emailAddress')}
               </Text>
@@ -115,6 +171,7 @@ export default function BasicProfile() {
                 {...emailField}
                 placeholder={t('emailAddress')}
                 textContentType="emailAddress"
+                disabled={true} // should not be able to update email from this form
                 error={Boolean(emailFieldState.error)}
                 errorMessageId={emailFieldState.error?.message}
                 containerStyle={styles.input}
@@ -126,27 +183,7 @@ export default function BasicProfile() {
                 />
               )}
             </View>
-            <View style={styles.formGroup}>
-              <Text variant="tiny" style={styles.label}>
-                {t('password')}
-              </Text>
-              <Input
-                {...passwordField}
-                placeholder={t('password')}
-                textContentType="password"
-                secureTextEntry
-                error={Boolean(passwordFieldState.error)}
-                errorMessageId={passwordFieldState.error?.message}
-                containerStyle={styles.input}
-              />
-              {Boolean(passwordFieldState.error) && (
-                <ErrorMessage
-                  text={passwordFieldState.error?.message!}
-                  errorMessageId={passwordFieldState.error?.message}
-                />
-              )}
-            </View>
-            <View style={styles.formGroup}>
+            <View style={styles.formGroupFullWidth}>
               <Text variant="tiny" style={styles.label}>
                 {t('biodata')}
               </Text>
@@ -167,6 +204,13 @@ export default function BasicProfile() {
                 />
               )}
             </View>
+            <Button
+              loading={isLoading}
+              text={t('saveForm')}
+              style={styles.submitButton}
+              onPress={handleSubmit(onSubmit)}
+            />
+            {isError && <ErrorMessage text={error?.message as string} />}
           </View>
         </View>
       </View>
@@ -188,10 +232,15 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: Token.spacing.ml,
   },
-  formGroup: {
+  formGroupHalfWidth: {
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: '49%',
+  },
+  formGroupFullWidth: {
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '100%',
   },
   label: {
     marginBottom: Token.spacing.xs,
@@ -206,5 +255,8 @@ const styles = StyleSheet.create({
     borderRadius: Token.border.radius.default,
     minHeight: 170,
     alignItems: 'flex-start',
+  },
+  submitButton: {
+    marginTop: Token.spacing.m,
   },
 });
