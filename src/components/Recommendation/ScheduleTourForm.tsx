@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { Button, Text } from 'core/base';
 import { fetcher, Token } from 'core';
-import { routePaths } from 'routePaths';
 import { House, ResponseItem, Room } from 'types';
 import { useQuery } from 'react-query';
 
@@ -25,7 +24,7 @@ export default function ScheduleTourForm(props: Props) {
     window.open(props.house.external_url);
   };
 
-  const { data, isLoading, isFetched } = useQuery('rooms', async () => {
+  const { data, isLoading } = useQuery('rooms', async () => {
     const res = await fetcher<ResponseItem<Room>>({
       method: 'GET',
       url: `/room/all?house_id=${props.house.id}`,

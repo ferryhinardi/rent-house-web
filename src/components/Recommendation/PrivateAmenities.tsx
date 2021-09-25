@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button, Text, ContainerDesktop } from 'core/base';
+import { Text, ContainerDesktop } from 'core/base';
 import { Token } from 'core';
 import FacilityIcon from './FacilityIcon';
 import { House } from 'types';
@@ -22,9 +22,9 @@ export default function PrivateAmenities(props: Props) {
       </Text>
 
       <View style={styles.facilityContainer}>
-        {props.house.amenities.map((item) => {
+        {props.house.amenities.map((item, i) => {
           return (
-            <View style={styles.facility}>
+            <View key={i} style={styles.facility}>
               <FacilityIcon name={item.icon} />
               <Text ink="dark">{item.name}</Text>
             </View>

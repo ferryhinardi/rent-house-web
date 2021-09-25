@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
 import { Token } from 'core';
-import { routePaths } from 'routePaths';
 import HomeRecommendationCard from './HomeRecommendationCard';
 
 export default function HomeRecommendationColletion() {
