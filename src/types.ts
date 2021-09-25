@@ -12,9 +12,26 @@ export type User = {
   id: number;
   last_login_at: string;
   name: string;
+  job: string;
+  bio: string;
+  address: string;
+  currency_code: string;
+  profile_picture: string;
+  phone: string;
+  annual_income: number;
+  credit_score: number;
+  gender: number;
   provider_type: number;
   provider_user_id: string;
   role_id: number;
+};
+
+export type UserDocument = {
+  id: number;
+  user_id: number;
+  document_type: number;
+  document_path: string;
+  is_verified: boolean;
 };
 
 export type Question = {
@@ -55,7 +72,7 @@ export type UserAnswers = {
 export type Answer = {
   question_id: number;
   value: string;
-}
+};
 
 export type AnswerState = {
   questionID: number;

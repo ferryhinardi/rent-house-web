@@ -7,7 +7,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 const path = require('path');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
-const withTM = require('next-transpile-modules')(['react-native-vector-icons', 'rn-placeholder']); // https://github.com/vercel/next.js/issues/12481#issuecomment-623703081
+const withTM = require('next-transpile-modules')(['react-native-vector-icons', 'rn-placeholder', 'react-native-toast-message']); // https://github.com/vercel/next.js/issues/12481#issuecomment-623703081
 
 const SentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that

@@ -15,6 +15,12 @@ export const languageOptions = [
   { value: 'id', label: 'Indonesia' },
 ];
 
+export const genderOptions = [
+  { value: 0, label: 'Male' },
+  { value: 1, label: 'Female' },
+  { value: 2, label: 'Others' },
+];
+
 export const QUERY_KEYS = {
   QUESTION_LANDING_PAGE: 'QUESTION_LANDING_PAGE',
   QUESTION_USER_PREFERENCES: 'QUESTION_LANDING_PAGE',
