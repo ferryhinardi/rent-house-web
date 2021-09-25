@@ -5,7 +5,12 @@ import { Text, ContainerDesktop } from 'core/base';
 import { Token } from 'core';
 import MapWrapper from './MapWrapper';
 
-function MapLocation() {
+type Props = {
+  lat: number;
+  lon: number;
+};
+
+function MapLocation(props: Props) {
   const { t } = useTranslation();
 
   return (
@@ -17,7 +22,7 @@ function MapLocation() {
         {t('mapLocationDescription')}
       </Text>
 
-      <MapWrapper />
+      <MapWrapper lat={props.lat} lon={props.lon} />
     </ContainerDesktop>
   );
 }

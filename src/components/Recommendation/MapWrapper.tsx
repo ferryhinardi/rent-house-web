@@ -12,16 +12,24 @@ import { Text } from 'core/base';
 
 type Props = {
   google: GoogleAPI;
+  lat: number;
+  lon: number;
 };
 
-function MapWrapper({ google }: Props) {
+function MapWrapper({ google, lat, lon }: Props) {
   const onInfoWindowClose = useCallback(() => {}, []);
   const onMarkerClick = useCallback(() => {}, []);
 
   return (
     <View style={styles.container}>
       {/* @ts-ignore */}
-      <Map google={google} zoom={14}>
+      <Map
+        google={google}
+        initialCenter={{
+          lat: lat,
+          lng: lon,
+        }}
+      >
         {/* @ts-ignore */}
         <Marker onClick={onMarkerClick} name={'Current location'} />
 

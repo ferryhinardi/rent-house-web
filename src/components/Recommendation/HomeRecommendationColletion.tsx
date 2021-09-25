@@ -11,10 +11,12 @@ export default function HomeRecommendationColletion() {
   return (
     <View style={styles.container}>
       <HomeRecommendationCard
-        onViewDetail={() => router.push(routePaths.homeRecommendation)}
+        // still hardcode ID until home recommendation integrated
+        onViewDetail={() => router.push('account/home-recommendation/2')}
       />
       <HomeRecommendationCard
-        onViewDetail={() => router.push(routePaths.homeRecommendation)}
+        // still hardcode ID until home recommendation integrated
+        onViewDetail={() => router.push('account/home-recommendation/1')}
       />
     </View>
   );

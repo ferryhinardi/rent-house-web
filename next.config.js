@@ -7,7 +7,10 @@ const { withSentryConfig } = require('@sentry/nextjs');
 const path = require('path');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
-const withTM = require('next-transpile-modules')(['react-native-vector-icons', 'rn-placeholder']); // https://github.com/vercel/next.js/issues/12481#issuecomment-623703081
+const withTM = require('next-transpile-modules')([
+  'react-native-vector-icons',
+  'rn-placeholder',
+]); // https://github.com/vercel/next.js/issues/12481#issuecomment-623703081
 
 const SentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -31,7 +34,10 @@ module.exports = withSentryConfig(
     trailingSlash: true,
     reactStrictMode: true,
     images: {
-      domains: ['theryna.sgp1.cdn.digitaloceanspaces.com'],
+      domains: [
+        'theryna.sgp1.cdn.digitaloceanspaces.com',
+        'theryna.sgp1.digitaloceanspaces.com',
+      ],
     },
     webpack: (config, { dev, isServer, webpack }) => {
       config.plugins.push(
@@ -44,12 +50,15 @@ module.exports = withSentryConfig(
         ...(config.resolve.alias || {}),
         // Transform all direct `react-native` imports to `react-native-web`
         'react-native$': 'react-native-web',
-      }
+      };
       config.module.rules.push({
         test: /\.ttf$/,
-        loader: "url-loader", // or directly file-loader
-        include: path.resolve(__dirname, "node_modules/react-native-vector-icons"),
-      })
+        loader: 'url-loader', // or directly file-loader
+        include: path.resolve(
+          __dirname,
+          'node_modules/react-native-vector-icons'
+        ),
+      });
 
       // https://medium.com/ne-digital/how-to-reduce-next-js-bundle-size-68f7ac70c375
       if (ANALYZE) {
@@ -66,14 +75,14 @@ module.exports = withSentryConfig(
         __dirname,
         'node_modules',
         'fast-deep-equal'
-      )
+      );
       config.resolve.extensions = [
         '.web.js',
         '.web.ts',
         '.web.tsx',
         ...config.resolve.extensions,
-      ]
-      return config
+      ];
+      return config;
     },
   }),
   SentryWebpackPluginOptions

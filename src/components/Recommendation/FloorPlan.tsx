@@ -4,8 +4,13 @@ import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { Text, ContainerDesktop } from 'core/base';
 import { Token } from 'core';
+import config from 'config';
 
-export default function FloorPlan() {
+type Props = {
+  floorPlanImage: string;
+};
+
+export default function FloorPlan(props: Props) {
   const { t } = useTranslation();
   return (
     <ContainerDesktop>
@@ -16,7 +21,12 @@ export default function FloorPlan() {
         {t('floorPlanDescription')}
       </Text>
       <View style={styles.imageWrapper}>
-        <Image src={require('assets/floor-plan-sample.svg')} alt="floor plan" />
+        <Image
+          src={`${config.imageHost}/${props.floorPlanImage}`}
+          alt="floor plan"
+          width="530"
+          height="610"
+        />
       </View>
     </ContainerDesktop>
   );

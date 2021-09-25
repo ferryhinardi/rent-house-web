@@ -41,10 +41,25 @@ export type House = {
   address: string;
   city: string;
   description: string;
-  amenitites: string[];
+  amenities: {
+    icon:     
+    | 'rooftop'
+    | 'gym'
+    | 'pool'
+    | 'laundry'
+    | 'bedroom'
+    | 'bathroom'
+    | 'diningroom'; 
+    name: string;
+  }[];
   minimum_term_length: string;
   lead_media: string;
   galleries: string[];
+  location_lat: {Float64: number};
+  location_lon: {Float64: number};
+  external_url: string;
+  floor_plan_image: string;
+  amenities_description: string;
 };
 
 export type UserAnswers = {
@@ -87,6 +102,13 @@ export type Process = {
   description: string;
   image: string;
   step_order: number;
+};
+
+export type Room = {
+  id: number;
+  name: string;
+  price: number;
+  currency_code: string;
 };
 
 export type Login = { token: string };

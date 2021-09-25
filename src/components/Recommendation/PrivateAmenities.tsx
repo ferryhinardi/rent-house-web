@@ -3,67 +3,34 @@ import { View, StyleSheet } from 'react-native';
 import { Button, Text, ContainerDesktop } from 'core/base';
 import { Token } from 'core';
 import FacilityIcon from './FacilityIcon';
+import { House } from 'types';
 
-export default function PrivateAmenities() {
+type Props = {
+  house: House;
+};
+
+export default function PrivateAmenities(props: Props) {
+  console.log('mashok pake eko', props.house.amenities);
+
   return (
     <ContainerDesktop>
       <Text variant="header-2" ink="primary">
         {'Private Amenities'}
       </Text>
       <Text variant="caption" style={styles.description}>
-        {
-          'Spectacular outdoor rooftop pool, BBQs, tons of outdoor seating, urban garden with amazing views of King West & the CN Tower'
-        }
+        {props.house.amenities_description}
       </Text>
 
       <View style={styles.facilityContainer}>
-        <View style={styles.facility}>
-          <FacilityIcon name="rooftop" />
-          <Text ink="dark">{'Rooftop'}</Text>
-        </View>
-        <View style={styles.facility}>
-          <FacilityIcon name="gym" />
-          <Text ink="dark">{'Gym'}</Text>
-        </View>
-        <View style={styles.facility}>
-          <FacilityIcon name="pool" />
-          <Text ink="dark">{'Pool'}</Text>
-        </View>
-        <View style={styles.facility}>
-          <FacilityIcon name="laundry" />
-          <Text ink="dark">{'Laundry'}</Text>
-        </View>
-        <View style={styles.facility}>
-          <FacilityIcon name="bedroom" />
-          <Text ink="dark">{'Bedroom'}</Text>
-        </View>
-        <View style={styles.facility}>
-          <FacilityIcon name="bathroom" />
-          <Text ink="dark">{'Bathroom'}</Text>
-        </View>
-        <View style={styles.facility}>
-          <FacilityIcon name="diningroom" />
-          <Text ink="dark">{'Dining Room'}</Text>
-        </View>
-        <View style={styles.facility}>
-          <FacilityIcon name="bedroom" />
-          <Text ink="dark">{'Bedroom'}</Text>
-        </View>
-        <View style={styles.facility}>
-          <FacilityIcon name="bathroom" />
-          <Text ink="dark">{'Bathroom'}</Text>
-        </View>
-        <View style={styles.facility}>
-          <FacilityIcon name="diningroom" />
-          <Text ink="dark">{'Dining Room'}</Text>
-        </View>
+        {props.house.amenities.map((item) => {
+          return (
+            <View style={styles.facility}>
+              <FacilityIcon name={item.icon} />
+              <Text ink="dark">{item.name}</Text>
+            </View>
+          );
+        })}
       </View>
-
-      <Button
-        variant="secondary"
-        text={'Show All Amenities'}
-        style={styles.showAllAmenities}
-      />
     </ContainerDesktop>
   );
 }
