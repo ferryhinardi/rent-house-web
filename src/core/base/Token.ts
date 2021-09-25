@@ -19,6 +19,7 @@ export const colors = {
   rynaGray: '#F2F2F2',
   rynaYellow: '#F5C010',
   rynaLink: '#5F7CC1',
+  textDarkGrey: '#636363',
 };
 export const spacing = {
   xxs: 4,

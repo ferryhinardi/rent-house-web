@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     borderRadius: border.radius.extra,
     paddingVertical: spacing.m,
     paddingHorizontal: spacing.xxm,
+    height: 50,
   },
   elevation: {
     shadowOffset: { width: 7, height: 9 },
