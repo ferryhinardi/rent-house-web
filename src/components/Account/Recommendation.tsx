@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Element } from 'react-scroll';
 import { useTranslation } from 'react-i18next';
-import { Text, Badge } from 'core/base';
+import { Text } from 'core/base';
 import { Token } from 'core';
 import { HomeRecommendationColletion } from 'components';
 
@@ -15,7 +15,6 @@ export default function Recommendation() {
           <Text variant="header-3" ink="primary" style={styles.title}>
             {t('recommendationTitle')}
           </Text>
-          <Badge text="Need Action" variant="alert" />
         </View>
         <Text variant="caption" style={styles.description}>
           {t('recommendationDescription')}

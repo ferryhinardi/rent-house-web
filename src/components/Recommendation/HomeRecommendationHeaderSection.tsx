@@ -1,39 +1,51 @@
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
 import { Text, ContainerDesktop } from 'core/base';
-import { Token } from 'core';
+import { Token, fetcher } from 'core';
+import { useQuery } from 'react-query';
 import ScheduleTourForm from './ScheduleTourForm';
 import { House } from 'types';
 import config from 'config';
+import { QUERY_KEYS } from 'core/constants';
 
-type Props = {
-  house: House;
-};
-
-export default function HomeRecommendationHeaderSection(props: Props) {
+export default function HomeRecommendationHeaderSection() {
+  const router = useRouter();
+  const { homeID } = router.query;
+  const { data } = useQuery(
+    [QUERY_KEYS.HOME_DETAIL, homeID],
+    async () => {
+      const res = await fetcher<House>({
+        method: 'GET',
+        url: `/house/${homeID}`,
+      });
+      return res;
+    },
+    { enabled: homeID !== undefined }
+  );
   return (
     <ContainerDesktop style={styles.container}>
       <View style={styles.homeInfoContainer}>
         <Text variant="banner-title" ink="dark">
-          {props.house.name}
+          {data?.name}
         </Text>
         <Text variant="caption" style={styles.homeInfoDescription}>
-          {props.house.description}
+          {data?.description}
         </Text>
-        <ScheduleTourForm house={props.house} />
+        <ScheduleTourForm external_url={data?.external_url} />
       </View>
 
       <View>
         <Image
-          src={`${config.imageHost}/${props.house.lead_media}`}
+          src={`${config.imageHost}/${data?.lead_media}`}
           alt={`galery-1`}
           width={744}
           height={378}
           objectFit="cover"
         />
         <View style={styles.imageCollections}>
-          {props.house.galleries.map((item, i) => (
+          {(data?.galleries || []).map((item, i) => (
             <Image
               key={i}
               src={`${config.imageHost}/${item}`}

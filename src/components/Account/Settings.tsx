@@ -5,6 +5,7 @@ import { Element } from 'react-scroll';
 import { useTranslation } from 'react-i18next';
 import { Text, Badge } from 'core/base';
 import { Token } from 'core';
+import ProgressBar from 'components/Progress/Bar';
 import { routePaths } from 'routePaths';
 
 const settings = ['profile', 'preference', 'application'];
@@ -53,6 +54,12 @@ function SettingCard({ title, subtitle, href }: SettingCardProps) {
         {title}
       </Text>
       <Text>{subtitle}</Text>
+      <ProgressBar
+        progress={0}
+        color={Token.colors.rynaBlue}
+        unfilledColor={'rgba(28,43,79,0.24)'} // Token.colors.rynaBlue with opacity
+        style={styles.progressBar}
+      />
       <Text
         ink="primary"
         accessibilityRole="link"
@@ -69,6 +76,7 @@ function SettingCard({ title, subtitle, href }: SettingCardProps) {
 const styles = StyleSheet.create({
   titleWrapper: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   title: {
     marginRight: Token.spacing.s,
@@ -96,6 +104,11 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     marginVertical: Token.spacing.m,
+  },
+  progressBar: {
+    flex: 1,
+    alignSelf: 'center',
+    marginVertical: Token.spacing.l,
   },
   cardCompleted: {
     marginVertical: Token.spacing.m,
