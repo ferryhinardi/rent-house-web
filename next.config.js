@@ -37,19 +37,22 @@ module.exports = withSentryConfig(
       config.plugins.push(
         new webpack.DefinePlugin({
           __DEV__: dev,
-        }),
+        })
       );
 
       config.resolve.alias = {
         ...(config.resolve.alias || {}),
         // Transform all direct `react-native` imports to `react-native-web`
         'react-native$': 'react-native-web',
-      }
+      };
       config.module.rules.push({
         test: /\.ttf$/,
-        loader: "url-loader", // or directly file-loader
-        include: path.resolve(__dirname, "node_modules/react-native-vector-icons"),
-      })
+        loader: 'url-loader', // or directly file-loader
+        include: path.resolve(
+          __dirname,
+          'node_modules/react-native-vector-icons'
+        ),
+      });
 
       // https://medium.com/ne-digital/how-to-reduce-next-js-bundle-size-68f7ac70c375
       if (ANALYZE) {
@@ -66,14 +69,14 @@ module.exports = withSentryConfig(
         __dirname,
         'node_modules',
         'fast-deep-equal'
-      )
+      );
       config.resolve.extensions = [
         '.web.js',
         '.web.ts',
         '.web.tsx',
         ...config.resolve.extensions,
-      ]
-      return config
+      ];
+      return config;
     },
   }),
   SentryWebpackPluginOptions

@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
 import { Token } from 'core';
-import { routePaths } from 'routePaths';
 import HomeRecommendationCard from './HomeRecommendationCard';
 
 export default function HomeRecommendationColletion() {
@@ -11,10 +10,12 @@ export default function HomeRecommendationColletion() {
   return (
     <View style={styles.container}>
       <HomeRecommendationCard
-        onViewDetail={() => router.push(routePaths.homeRecommendation)}
+        // still hardcode ID until home recommendation integrated
+        onViewDetail={() => router.push('account/home-recommendation/2')}
       />
       <HomeRecommendationCard
-        onViewDetail={() => router.push(routePaths.homeRecommendation)}
+        // still hardcode ID until home recommendation integrated
+        onViewDetail={() => router.push('account/home-recommendation/1')}
       />
     </View>
   );
