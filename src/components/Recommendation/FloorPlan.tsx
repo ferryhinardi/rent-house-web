@@ -3,15 +3,29 @@ import { StyleSheet, View } from 'react-native';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { Text, ContainerDesktop } from 'core/base';
-import { Token } from 'core';
+import { fetcher, Token } from 'core';
 import config from 'config';
+import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
+import { House } from 'types';
+import { QUERY_KEYS } from 'core/constants';
 
-type Props = {
-  floorPlanImage: string;
-};
-
-export default function FloorPlan(props: Props) {
+export default function FloorPlan() {
   const { t } = useTranslation();
+  const router = useRouter();
+  const { homeID } = router.query;
+  const { data } = useQuery(
+    [QUERY_KEYS.HOME_DETAIL, homeID],
+    async () => {
+      const res = await fetcher<House>({
+        method: 'GET',
+        url: `/house/${homeID}`,
+      });
+      return res;
+    },
+    { enabled: homeID !== undefined }
+  );
+
   return (
     <ContainerDesktop>
       <Text variant="header-2" ink="primary" style={styles.title}>
@@ -22,7 +36,7 @@ export default function FloorPlan(props: Props) {
       </Text>
       <View style={styles.imageWrapper}>
         <Image
-          src={`${config.imageHost}/${props.floorPlanImage}`}
+          src={`${config.imageHost}/${data?.floor_plan_image}`}
           alt="floor plan"
           width="530"
           height="610"

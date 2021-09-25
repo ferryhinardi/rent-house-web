@@ -59,21 +59,21 @@ export type House = {
   city: string;
   description: string;
   amenities: {
-    icon:     
-    | 'rooftop'
-    | 'gym'
-    | 'pool'
-    | 'laundry'
-    | 'bedroom'
-    | 'bathroom'
-    | 'diningroom'; 
+    icon:
+      | 'rooftop'
+      | 'gym'
+      | 'pool'
+      | 'laundry'
+      | 'bedroom'
+      | 'bathroom'
+      | 'diningroom';
     name: string;
   }[];
   minimum_term_length: string;
   lead_media: string;
   galleries: string[];
-  location_lat: {Float64: number};
-  location_lon: {Float64: number};
+  location_lat: { Float64: number };
+  location_lon: { Float64: number };
   external_url: string;
   floor_plan_image: string;
   amenities_description: string;
@@ -130,3 +130,11 @@ export type Room = {
 
 export type Login = { token: string };
 export type ErrorHandling = { message: string };
+export type QuestionState = {
+  name: string;
+  value?: string;
+  questionID?: number;
+};
+export type PreferenceQuestionState = {
+  states: QuestionState[];
+};

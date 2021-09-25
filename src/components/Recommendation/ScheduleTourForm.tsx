@@ -2,39 +2,38 @@ import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
-import { Button, Text } from 'core/base';
-import { fetcher, Token } from 'core';
-import { House, ResponseItem, Room } from 'types';
 import { useQuery } from 'react-query';
+import { fetcher, Token } from 'core';
+import { Button, Text } from 'core/base';
+import { QUERY_KEYS } from 'core/constants';
+import { ResponseItem, Room } from 'types';
 
 type Props = {
-  house: House;
+  external_url?: string;
 };
 
 export default function ScheduleTourForm(props: Props) {
-  const { t } = useTranslation();
   const router = useRouter();
+  const { homeID } = router.query;
+  const { t } = useTranslation();
   const onNavigateHomeDetail = () => {
     router.push({
-      pathname: `/account/application/${props.house.id}`,
+      pathname: `/account/application/${homeID}`,
     });
   };
 
   const onScheduleTour = () => {
-    window.open(props.house.external_url);
+    window.open(props.external_url);
   };
 
-  const { data, isLoading } = useQuery('rooms', async () => {
+  const { data } = useQuery([QUERY_KEYS.HOME_ROOM, homeID], async () => {
     const res = await fetcher<ResponseItem<Room>>({
       method: 'GET',
-      url: `/room/all?house_id=${props.house.id}`,
+      url: '/room/all',
+      params: { house_id: homeID },
     });
     return res;
   });
-
-  if (isLoading) {
-    return <p></p>;
-  }
 
   var pricenih = '-';
   var rooms = data?.data as Room[];

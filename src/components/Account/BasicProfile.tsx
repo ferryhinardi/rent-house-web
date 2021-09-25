@@ -7,9 +7,13 @@ import { Element } from 'react-scroll';
 import { Text, Button, Input, ErrorMessage, ImageUploader } from 'core/base';
 import { fetcher, Token } from 'core';
 import { User, ErrorHandling } from 'types';
+// @ts-ignore
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import avatar from 'assets/avatar-sample.svg';
 import { useMutation } from 'react-query';
 import config from 'config';
+import { useRouter } from 'next/router';
+import { routePaths } from '../../routePaths';
 
 type Payload = {
   name: string;
@@ -22,6 +26,7 @@ type Payload = {
 
 export default function BasicProfile() {
   const { t } = useTranslation();
+  const router = useRouter();
   const { register, control, setValue, getValues, handleSubmit } =
     useFormContext();
   const user = getValues();
@@ -106,6 +111,9 @@ export default function BasicProfile() {
     name: 'bio',
     control,
   });
+  const onNavigateProfile = () => {
+    router.push(routePaths.accountProfile);
+  };
   return (
     <Element name="basic-profile">
       <View style={styles.container}>
@@ -213,6 +221,21 @@ export default function BasicProfile() {
             {isError && <ErrorMessage text={error?.message as string} />}
           </View>
         </View>
+        <View style={styles.highlight}>
+          <Text variant="caption" style={styles.highlightCaption}>
+            {'Fulfill those out to appear on your Profile Page. View '}
+            <Text
+              accessibilityRole="link"
+              onPress={onNavigateProfile}
+              variant="caption"
+              ink="primary"
+              style={styles.highlightCaptionProfile}
+            >
+              {'My Profile'}
+            </Text>
+          </Text>
+          <Icon name="chevron-right" />
+        </View>
       </View>
     </Element>
   );
@@ -258,5 +281,21 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     marginTop: Token.spacing.m,
+  },
+  highlight: {
+    marginTop: Token.spacing.xxl,
+    paddingVertical: Token.spacing.m,
+    paddingHorizontal: Token.spacing.l,
+    backgroundColor: 'rgba(28, 43, 79, 0.07)',
+    borderRadius: Token.border.radius.extra,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  highlightCaption: {
+    marginRight: Token.spacing.s,
+  },
+  highlightCaptionProfile: {
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
   },
 });

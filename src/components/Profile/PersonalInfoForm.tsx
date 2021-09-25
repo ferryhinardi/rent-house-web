@@ -100,16 +100,13 @@ export default function PersonalInfoForm() {
       },
     }
   );
-
   const handleGovUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     setValue('government_id', e.target.files);
   };
-
   const onSelectedDateCallback: OnSelectedDateCallback = (value: string) => {
     setValue('dob', value);
   };
-
   const onSubmit = (formData: Payload) => {
     mutate(formData);
   };
@@ -311,12 +308,14 @@ export default function PersonalInfoForm() {
           />
         )}
       </View>
-      <Button
-        loading={isLoading}
-        text={t('saveForm')}
-        style={styles.submitButton}
-        onPress={handleSubmit(onSubmit)}
-      />
+      <View style={{ flex: 1, alignItems: 'flex-end' }}>
+        <Button
+          loading={isLoading}
+          text={t('saveForm')}
+          style={styles.submitButton}
+          onPress={handleSubmit(onSubmit)}
+        />
+      </View>
       {isError && <ErrorMessage text={error?.message as string} />}
     </View>
   );
@@ -345,7 +344,5 @@ const styles = StyleSheet.create({
   submitButton: {
     marginTop: Token.spacing.m,
     paddingVertical: Token.spacing.m,
-    borderRadius: 0,
-    alignItems: 'center',
   },
 });

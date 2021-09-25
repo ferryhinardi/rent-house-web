@@ -1,26 +1,39 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, ContainerDesktop } from 'core/base';
-import { Token } from 'core';
+import { fetcher, Token } from 'core';
 import FacilityIcon from './FacilityIcon';
 import { House } from 'types';
+import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
+import { QUERY_KEYS } from 'core/constants';
 
-type Props = {
-  house: House;
-};
+export default function PrivateAmenities() {
+  const router = useRouter();
+  const { homeID } = router.query;
+  const { data } = useQuery(
+    [QUERY_KEYS.HOME_DETAIL, homeID],
+    async () => {
+      const res = await fetcher<House>({
+        method: 'GET',
+        url: `/house/${homeID}`,
+      });
+      return res;
+    },
+    { enabled: homeID !== undefined }
+  );
 
-export default function PrivateAmenities(props: Props) {
   return (
     <ContainerDesktop>
       <Text variant="header-2" ink="primary">
         {'Private Amenities'}
       </Text>
       <Text variant="caption" style={styles.description}>
-        {props.house.amenities_description}
+        {data?.amenities_description}
       </Text>
 
       <View style={styles.facilityContainer}>
-        {props.house.amenities.map((item, i) => {
+        {(data?.amenities || []).map((item, i) => {
           return (
             <View key={i} style={styles.facility}>
               <FacilityIcon name={item.icon} />
