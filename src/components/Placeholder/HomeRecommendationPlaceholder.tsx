@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: Token.spacing.xs,
+    marginVertical: Token.spacing.xxl,
   },
   line: {
     flexGrow: 1,

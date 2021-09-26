@@ -72,12 +72,17 @@ export type House = {
   minimum_term_length: string;
   lead_media: string;
   galleries: string[];
-  location_lat: { Float64: number };
-  location_lon: { Float64: number };
-  external_url: string;
   floor_plan_image: string;
-  amenities_description: string;
+  amenities_description?: string;
+  external_url?: string;
+  location_lat: Location;
+  location_lon: Location;
+  tags: string[];
+  created_at?: string;
+  updated_at?: string;
 };
+
+type Location = { Float64: number; Valid: boolean };
 
 export type UserAnswers = {
   question_id: number;

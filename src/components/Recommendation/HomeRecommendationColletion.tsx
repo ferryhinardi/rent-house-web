@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import { ResponseItem, House } from 'types';
+import { useFormContext } from 'react-hook-form';
+import { House, User } from 'types';
 import { QUERY_KEYS } from 'core/constants';
 import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
@@ -11,19 +12,18 @@ import { HomeRecommendationPlaceholder } from 'components/Placeholder';
 
 export default function HomeRecommendationColletion() {
   const router = useRouter();
-
-  const { data, isLoading } = useQuery<ResponseItem<House>>(
-    QUERY_KEYS.HOUSE_MATCH,
-    async () => {
-      const res = await fetcher<ResponseItem<House>>({
+  const { getValues } = useFormContext<User>();
+  const { data, isLoading } = useQuery<Array<House>>(
+    [QUERY_KEYS.HOUSE_MATCH, getValues().id],
+    async () =>
+      fetcher<Array<House>>({
         method: 'GET',
-        url: '/match-property/preferences/11',
-      });
-      return res;
-    }
+        url: '/house-matching',
+        params: { userId: getValues().id },
+        // Testing
+        // params: { userId: 11 },
+      })
   );
-  const homeData = data?.data || [];
-  console.log(data);
 
   return (
     <View style={styles.container}>
@@ -31,8 +31,10 @@ export default function HomeRecommendationColletion() {
         <HomeRecommendationPlaceholder />
       ) : (
         <View style={styles.container}>
-          {homeData.map((item, index) => (
+          {data?.map((item) => (
             <HomeRecommendationCard
+              key={item.id}
+              {...item}
               onViewDetail={() => {
                 router.push({
                   pathname: routePaths.homeDetail,

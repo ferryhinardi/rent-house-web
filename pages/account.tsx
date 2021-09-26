@@ -2,6 +2,8 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
 import { useTranslation } from 'react-i18next';
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -19,9 +21,8 @@ import {
 } from 'components';
 import { Token, fetchServer } from 'core';
 import { ContainerDesktop } from 'core/base';
-import { QueryClient } from 'react-query';
 import { QUERY_KEYS } from 'core/constants';
-import { User } from 'types';
+import { User, House, ResponseItem } from 'types';
 
 type Props = {
   user: User;
@@ -137,8 +138,20 @@ export async function getServerSideProps({ res, req }: NextPageContext) {
       url: '/current-user/',
     })
   );
+  await queryClient.prefetchQuery([QUERY_KEYS.HOUSE_MATCH, user.id], () =>
+    fetchServer<ResponseItem<House>>(
+      req as NextApiRequest,
+      res as NextApiResponse,
+      { url: `/match-property/preferences/${user.id}` }
+      // Testing
+      // { url: `/match-property/preferences/11` }
+    )
+  );
   return {
-    props: { user },
+    props: {
+      user,
+      dehydratedState: dehydrate(queryClient),
+    },
   };
 }
 

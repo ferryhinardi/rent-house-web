@@ -8,7 +8,7 @@ type Data = {};
 
 async function houseMatching(req: NextApiRequest, res: NextApiResponse<Data>) {
   try {
-    const userId = 11
+    const userId = req.query.userId;
     const response = await fetcher<ResponseItem<House>>(req, res, {
       method: 'GET',
       url: `/match-property/preferences/${userId}`,

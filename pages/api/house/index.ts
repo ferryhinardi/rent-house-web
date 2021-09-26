@@ -10,7 +10,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   try {
     const size = req.query.size ?? 4;
     const page = req.query.page ?? 1;
-    
     const response = await fetcher<ResponseItem<House>>(req, res, {
       method: 'GET',
       url: '/house/all',
