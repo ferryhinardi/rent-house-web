@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -22,7 +22,7 @@ function UserLoginHeader(props: Props) {
 
   const onLogout = () => {
     logout();
-    Router.push('/');
+    window.location.assign(routePaths.home);
   };
 
   const onNavigateToAccount = () => {
