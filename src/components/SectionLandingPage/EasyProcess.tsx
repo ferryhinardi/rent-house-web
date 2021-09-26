@@ -3,12 +3,15 @@ import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
+
 import config from 'config';
 import { Token, fetcher } from 'core';
 import { QUERY_KEYS } from 'core/constants';
 import { Text, Button } from 'core/base';
 import { EasyProcessPlaceholder } from 'components/Placeholder';
 import { Process, ResponseItem } from 'types';
+
+import assets from 'assets';
 
 export default function EasyProcess() {
   const { t } = useTranslation();
@@ -70,6 +73,13 @@ export default function EasyProcess() {
           ))}
         </View>
       )}
+
+      <View style={styles.horizontalLineContainer1}>
+        <Image src={assets.homeLineHorizontal4} />
+      </View>
+      <View style={styles.horizontalLineContainer2}>
+        <Image src={assets.homeLineHorizontal5} />
+      </View>
     </View>
   );
 }
@@ -77,6 +87,7 @@ export default function EasyProcess() {
 const styles = StyleSheet.create({
   container: {
     padding: Token.spacing.xxxxl,
+    zIndex: 2,
   },
   header: {
     flexDirection: 'row',
@@ -94,7 +105,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: Token.spacing.xxl,
     justifyContent: 'space-between',
-    marginTop: Token.spacing.xxxl,
+    marginVertical: Token.spacing.xxxl,
   },
   processWrapper: {
     flexGrow: 1,
@@ -111,5 +122,23 @@ const styles = StyleSheet.create({
   },
   processDescription: {
     marginTop: Token.spacing.m,
+  },
+  horizontalLineContainer1: {
+    width: '40vw',
+    right: -30,
+    bottom: -150,
+    position: 'absolute',
+    transform: [
+      {
+        rotate: '-5deg',
+      },
+    ],
+  },
+  horizontalLineContainer2: {
+    width: '70vw',
+    right: 0,
+    bottom: -50,
+    position: 'absolute',
+    height: 150,
   },
 });

@@ -168,12 +168,12 @@ const styles = StyleSheet.create({
   },
   horizontalLineContainer: {
     position: 'absolute',
-    top: -270,
+    top: -330,
     right: 0,
     opacity: 1,
     transform: [
       {
-        rotate: '178deg',
+        rotate: '-2deg',
       },
     ],
   },
