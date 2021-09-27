@@ -1,116 +1,25 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { useForm, useController } from 'react-hook-form';
-import Toast from 'react-native-toast-message';
-import { useQuery } from 'react-query';
-import { Token, fetcher } from 'core';
-import { User, UserDocument, ErrorHandling } from 'types';
+import { useController, useFormContext } from 'react-hook-form';
+import { Token } from 'core';
 import { genderOptions } from 'core/constants';
-import { useMutation } from 'react-query';
 import {
   Text,
   Input,
   CalendarInput,
   SelectInput,
   ErrorMessage,
-  Button,
   ImageUploader,
 } from 'core/base';
-import { OnSelectedDateCallback } from 'core/base/Calendar';
-import { QUERY_KEYS } from 'core/constants';
-
-type Gender = { label: string; value: number };
-type Payload = {
-  name: string;
-  phone: string;
-  address: string;
-  job: string;
-  annual_income: number;
-  credit_score: number;
-  dob: string;
-  government_id: FileList;
-  gender: Gender;
-};
-type Props = User & {
-  government_id?: FileList;
-  dob?: string;
-};
 
 export default function PersonalInfoForm() {
-  const { data: dataUser } = useQuery<Props>(QUERY_KEYS.CURRENT_USER, () =>
-    fetcher<User>({
-      method: 'POST',
-      url: '/user/current-user',
-    })
-  );
+  const { register, control, setValue, formState } = useFormContext();
   const { t } = useTranslation();
-  const { control, register, setValue, handleSubmit } = useForm({
-    defaultValues: dataUser,
-  });
-  const { isLoading, isError, error, mutate } = useMutation<
-    User,
-    ErrorHandling,
-    Payload
-  >(
-    async (payload) => {
-      const userDocData = new FormData();
-      userDocData.set('document_type', '0');
-      userDocData.set('document_files', payload.government_id[0]);
-      await fetcher<UserDocument>({
-        method: 'POST',
-        url: `/user/user-document/`,
-        data: userDocData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      const bodyFormData = new FormData();
-      bodyFormData.set('name', payload.name);
-      bodyFormData.set('phone', payload.phone);
-      bodyFormData.set('dob', payload.dob);
-      bodyFormData.set('address', payload.address);
-      bodyFormData.set('bio', dataUser?.bio ?? '');
-      bodyFormData.set('gender', payload.gender.value.toString());
-      bodyFormData.set('job', payload.job);
-      bodyFormData.set('annual_income', payload.annual_income.toString());
-      bodyFormData.set('credit_score', payload.credit_score.toString());
-      return fetcher<User>({
-        method: 'PUT',
-        url: `/user/update?id=${dataUser?.id}`,
-        data: bodyFormData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-    },
-    {
-      onSuccess: (response: User) => {
-        Toast.show({
-          type: 'success',
-          text1: `Update Personal Info ${response.name} Successfully!`,
-        });
-      },
-      onError: (error) => {
-        Toast.show({
-          type: 'error',
-          text1: `Update Failed! ${error.message}`,
-        });
-      },
-    }
-  );
   const handleGovUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     setValue('government_id', e.target.files);
   };
-  const onSelectedDateCallback: OnSelectedDateCallback = (value: string) => {
-    setValue('dob', value);
-  };
-  const onSubmit = (formData: Payload) => {
-    mutate(formData);
-  };
-
   const { field: legalNameField, fieldState: legalNameFieldState } =
     useController({
       name: 'name',
@@ -210,7 +119,6 @@ export default function PersonalInfoForm() {
         <CalendarInput
           {...dobField}
           placeholder={t('dob')}
-          onSelectedDateCallback={onSelectedDateCallback}
           error={Boolean(dobFieldState.error)}
           errorMessageId={dobFieldState.error?.message}
         />
@@ -278,9 +186,15 @@ export default function PersonalInfoForm() {
         )}
       </View>
       <View style={styles.formGroup}>
-        <Text variant="tiny" style={styles.label}>
-          {t('govermentId')}
-        </Text>
+        <View style={styles.wrapperImageUploader}>
+          <Text variant="tiny">{t('govermentId')}</Text>
+          {Boolean(formState.errors['government_id']) && (
+            <ErrorMessage
+              text={formState.errors['government_id']?.message}
+              errorMessageId={formState.errors['government_id']?.message}
+            />
+          )}
+        </View>
         <ImageUploader
           {...register('government_id')}
           actionLabel={t('reuploadButton')}
@@ -308,15 +222,6 @@ export default function PersonalInfoForm() {
           />
         )}
       </View>
-      <View style={{ flex: 1, alignItems: 'flex-end' }}>
-        <Button
-          loading={isLoading}
-          text={t('saveForm')}
-          style={styles.submitButton}
-          onPress={handleSubmit(onSubmit)}
-        />
-      </View>
-      {isError && <ErrorMessage text={error?.message as string} />}
     </View>
   );
 }
@@ -336,13 +241,14 @@ const styles = StyleSheet.create({
   label: {
     marginBottom: Token.spacing.xs,
   },
+  wrapperImageUploader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Token.spacing.m,
+  },
   textArea: {
     borderRadius: Token.border.radius.default,
     minHeight: 170,
     alignItems: 'flex-start',
-  },
-  submitButton: {
-    marginTop: Token.spacing.m,
-    paddingVertical: Token.spacing.m,
   },
 });

@@ -9,9 +9,7 @@ export default function EmergencyContact() {
   const { t } = useTranslation();
   const { control } = useForm({
     defaultValues: {
-      emergencyContact: [
-        { name: '', relationship: '', email: '', phoneNumber: '' },
-      ],
+      emergencyContact: [{ name: '', relationship: '', email: '', phone: '' }],
     },
   });
   const { fields, append, remove } = useFieldArray({
@@ -19,7 +17,7 @@ export default function EmergencyContact() {
     control,
   });
   const onAddContact = () => {
-    append({ name: '', relationship: '', email: '', phoneNumber: '' });
+    append({ name: '', relationship: '', email: '', phone: '' });
   };
   const onDeleteContact = (index: number) => {
     remove(index);
@@ -112,7 +110,7 @@ export default function EmergencyContact() {
             )}
           />
           <Controller
-            name={`emergencyContact.${index}.phoneNumber`}
+            name={`emergencyContact.${index}.phone`}
             control={control}
             rules={{
               required: t('emergencyPhone.required') as string,
