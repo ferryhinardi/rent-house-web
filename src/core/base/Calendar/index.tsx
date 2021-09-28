@@ -60,7 +60,6 @@ function Calendar({ onChange, ...restProps }: Props) {
     >
       <Input
         {...restProps}
-        ref={calendarInputRef as React.MutableRefObject<TextInput>}
         value={formatter.format(value)}
         editable={false}
         textInputStyle={styles.input}
