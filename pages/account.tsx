@@ -4,21 +4,18 @@ import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
 import { useTranslation } from 'react-i18next';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import { FormProvider, useForm } from 'react-hook-form';
 import {
   Head,
   HeaderMenu,
   HeaderNavigation,
   SideBar,
-  AccountBasicProfile,
   AccountSettings,
   AccountRecommendation,
-  AccountLinkedAccounts,
   PreferenceBanner,
   Footer,
 } from 'components';
 import { Token, fetchServer } from 'core';
-import { ContainerDesktop } from 'core/base';
+import { ContainerDesktop, Text } from 'core/base';
 import { QueryClient } from 'react-query';
 import { QUERY_KEYS } from 'core/constants';
 import { User } from 'types';
@@ -29,7 +26,6 @@ type Props = {
 
 export default function Account({ user }: Props) {
   const { t } = useTranslation();
-  const forms = useForm({ defaultValues: user });
 
   const onPressMenu = async (menuId: string) => {
     const { scroller } = await import('react-scroll');
@@ -52,13 +48,13 @@ export default function Account({ user }: Props) {
           <SideBar
             menus={[
               {
-                name: 'basic-profile',
-                label: t('basicProfile'),
+                name: 'recommendation',
+                label: t('recommendation'),
                 IconRight: (
                   <Icon
-                    name="check-circle"
+                    name="exclamation-triangle"
                     size={20}
-                    color={Token.colors.rynaBlue}
+                    color={Token.colors.red}
                   />
                 ),
               },
@@ -73,43 +69,22 @@ export default function Account({ user }: Props) {
                   />
                 ),
               },
-              {
-                name: 'recommendation',
-                label: t('recommendation'),
-                IconRight: (
-                  <Icon
-                    name="exclamation-triangle"
-                    size={20}
-                    color={Token.colors.red}
-                  />
-                ),
-              },
-              {
-                name: 'linked-accounts',
-                label: t('linkedAccounts'),
-                IconRight: (
-                  <Icon
-                    name="exclamation-triangle"
-                    size={20}
-                    color={Token.colors.red}
-                  />
-                ),
-              },
             ]}
             onPress={onPressMenu}
             style={styles.sidebar}
           />
-          <FormProvider {...forms}>
-            <View style={styles.content}>
-              <AccountBasicProfile />
-              <View style={styles.separator} />
-              <AccountSettings />
-              <View style={styles.separator} />
-              <AccountRecommendation />
-              <View style={styles.separator} />
-              <AccountLinkedAccounts />
-            </View>
-          </FormProvider>
+          <View style={styles.content}>
+            <Text variant="header-3" ink="primary">
+              {t('welcomeMessage', { name: user.name })}
+            </Text>
+            <Text variant="caption">{t('welcomeDescription')}</Text>
+            <View style={styles.separator} />
+            <AccountRecommendation />
+            <View style={styles.separator} />
+            <AccountSettings />
+            {/* <View style={styles.separator} />
+              <AccountLinkedAccounts /> */}
+          </View>
         </View>
       </ContainerDesktop>
       <PreferenceBanner />

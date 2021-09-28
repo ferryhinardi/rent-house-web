@@ -1,10 +1,7 @@
 import React from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import { useSpring, animated } from 'react-spring';
-import ReactCalendar, {
-  CalendarTileProperties,
-  OnChangeDateCallback,
-} from 'react-calendar';
+import ReactCalendar, { OnChangeDateCallback } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -15,13 +12,11 @@ import { useStable, useClickOutside } from 'core/hooks';
 const AnimatedView = animated(View);
 const calendarInputRef = React.createRef<TextInput | HTMLElement>();
 
-type Props = React.ComponentProps<typeof Input> & {
-  onSelectedDateCallback?: OnSelectedDateCallback;
+type Props = Omit<React.ComponentProps<typeof Input>, 'onChange'> & {
+  onChange?: (value: string) => void;
 };
 
-export type OnSelectedDateCallback = (value: string) => void;
-
-function Calendar(props: Props) {
+function Calendar({ onChange, ...restProps }: Props) {
   const formatter = useStable(
     () =>
       new Intl.DateTimeFormat('default', {
@@ -44,9 +39,9 @@ function Calendar(props: Props) {
   const onHide = () => {
     setIsVisible(false);
   };
-  const onChange: OnChangeDateCallback = (value: Date) => {
+  const onChangeCalendar: OnChangeDateCallback = (value: Date) => {
     setValue(value);
-    props.onSelectedDateCallback?.(formatter.format(value));
+    onChange?.(formatter.format(value));
     onHide();
   };
 
@@ -58,7 +53,7 @@ function Calendar(props: Props) {
   return (
     <div>
       <Input
-        {...props}
+        {...restProps}
         ref={calendarInputRef as React.MutableRefObject<TextInput>}
         value={formatter.format(value)}
         editable={false}
@@ -74,7 +69,7 @@ function Calendar(props: Props) {
           >
             <ReactCalendar
               className="ryna-calendar"
-              onChange={onChange}
+              onChange={onChangeCalendar}
               value={value}
               nextLabel={null}
               next2Label={null}

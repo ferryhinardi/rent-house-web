@@ -2,89 +2,19 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useFormContext, useController } from 'react-hook-form';
-import Toast from 'react-native-toast-message';
 import { Element } from 'react-scroll';
-import { Text, Button, Input, ErrorMessage, ImageUploader } from 'core/base';
-import { fetcher, Token } from 'core';
-import { User, ErrorHandling } from 'types';
-// @ts-ignore
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import avatar from 'assets/avatar-sample.svg';
-import { useMutation } from 'react-query';
-import config from 'config';
-import { useRouter } from 'next/router';
-import { routePaths } from '../../routePaths';
-
-type Payload = {
-  name: string;
-  bio: string;
-  job: string;
-  annual_income: number;
-  credit_score: number;
-  profile_picture: FileList;
-};
+import { Text, Input, ErrorMessage, ImageUploader } from 'core/base';
+import { Token } from 'core';
 
 export default function BasicProfile() {
   const { t } = useTranslation();
-  const router = useRouter();
-  const { register, control, setValue, getValues, handleSubmit } =
-    useFormContext();
-  const user = getValues();
-  const { isLoading, isError, error, mutate } = useMutation<
-    User,
-    ErrorHandling,
-    Payload
-  >(
-    async (payload) => {
-      const bodyFormData = new FormData();
-      bodyFormData.set('name', payload.name);
-      bodyFormData.set('address', user.address);
-      bodyFormData.set('bio', payload.bio);
-      bodyFormData.set('job', payload.job);
-      bodyFormData.set('annual_income', user.annual_income.toString());
-      bodyFormData.set('credit_score', user.credit_score.toString());
-
-      if (payload.profile_picture.length > 0) {
-        bodyFormData.set('profile_picture', payload.profile_picture[0]);
-      }
-
-      return fetcher<User>({
-        method: 'PUT',
-        url: '/user/update',
-        params: { id: user.id },
-        data: bodyFormData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-    },
-    {
-      onSuccess: (response: User) => {
-        Toast.show({
-          type: 'success',
-          text1: `Update Profile ${response.name} Successfully!`,
-        });
-      },
-      onError: (error) => {
-        Toast.show({
-          type: 'error',
-          text1: `Update Failed! ${error.message}`,
-        });
-      },
-    }
-  );
-
+  const { register, control, setValue } = useFormContext();
   const handleProfilePicture = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (!e.target.files) return;
     setValue('profile_picture', e.target.files);
   };
-
-  const onSubmit = (formData: Payload) => {
-    mutate(formData);
-  };
-
   const { field: nameField, fieldState: nameFieldState } = useController({
     name: 'name',
     control,
@@ -111,24 +41,12 @@ export default function BasicProfile() {
     name: 'bio',
     control,
   });
-  const onNavigateProfile = () => {
-    router.push(routePaths.accountProfile);
-  };
   return (
     <Element name="basic-profile">
       <View style={styles.container}>
-        <Text variant="header-3" ink="primary">
-          {t('welcomeMessage', { name: user.name })}
-        </Text>
-        <Text variant="caption">{t('welcomeDescription')}</Text>
         <View style={styles.form}>
           <ImageUploader
             {...register('profile_picture')}
-            value={
-              user.profile_picture
-                ? `${config.imageHost}/${user.profile_picture}}`
-                : avatar
-            }
             actionLabel={t('reuploadButton')}
             onChange={handleProfilePicture}
           />
@@ -212,29 +130,7 @@ export default function BasicProfile() {
                 />
               )}
             </View>
-            <Button
-              loading={isLoading}
-              text={t('saveForm')}
-              style={styles.submitButton}
-              onPress={handleSubmit(onSubmit)}
-            />
-            {isError && <ErrorMessage text={error?.message as string} />}
           </View>
-        </View>
-        <View style={styles.highlight}>
-          <Text variant="caption" style={styles.highlightCaption}>
-            {'Fulfill those out to appear on your Profile Page. View '}
-            <Text
-              accessibilityRole="link"
-              onPress={onNavigateProfile}
-              variant="caption"
-              ink="primary"
-              style={styles.highlightCaptionProfile}
-            >
-              {'My Profile'}
-            </Text>
-          </Text>
-          <Icon name="chevron-right" />
         </View>
       </View>
     </Element>
@@ -268,9 +164,6 @@ const styles = StyleSheet.create({
   label: {
     marginBottom: Token.spacing.xs,
   },
-  uploadButton: {
-    marginTop: Token.spacing.l,
-  },
   input: {
     marginBottom: Token.spacing.m,
   },
@@ -278,24 +171,5 @@ const styles = StyleSheet.create({
     borderRadius: Token.border.radius.default,
     minHeight: 170,
     alignItems: 'flex-start',
-  },
-  submitButton: {
-    marginTop: Token.spacing.m,
-  },
-  highlight: {
-    marginTop: Token.spacing.xxl,
-    paddingVertical: Token.spacing.m,
-    paddingHorizontal: Token.spacing.l,
-    backgroundColor: 'rgba(28, 43, 79, 0.07)',
-    borderRadius: Token.border.radius.extra,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  highlightCaption: {
-    marginRight: Token.spacing.s,
-  },
-  highlightCaptionProfile: {
-    fontWeight: 'bold',
-    textDecorationLine: 'underline',
   },
 });

@@ -6,34 +6,6 @@ export type ResponseItem<T> = {
   page: number;
 };
 
-export type User = {
-  email: string;
-  email_verified: boolean;
-  id: number;
-  last_login_at: string;
-  name: string;
-  job: string;
-  bio: string;
-  address: string;
-  currency_code: string;
-  profile_picture: string;
-  phone: string;
-  annual_income: number;
-  credit_score: number;
-  gender: number;
-  provider_type: number;
-  provider_user_id: string;
-  role_id: number;
-};
-
-export type UserDocument = {
-  id: number;
-  user_id: number;
-  document_type: number;
-  document_path: string;
-  is_verified: boolean;
-};
-
 export type Question = {
   id: number;
   title?: string;
@@ -138,3 +110,52 @@ export type QuestionState = {
 export type PreferenceQuestionState = {
   states: QuestionState[];
 };
+
+export type User = {
+  email: string;
+  email_verified: boolean;
+  id: number;
+  last_login_at?: string;
+  name: string;
+  job: string;
+  bio: string;
+  address: string;
+  currency_code: string;
+  profile_picture: string;
+  phone: string;
+  annual_income: number;
+  credit_score: number;
+  gender: number;
+  provider_type: number;
+  provider_user_id: string;
+  role_id: number;
+  birth_date?: string;
+  phone_verified: boolean;
+};
+
+export type UserDocument = {
+  id: number;
+  user_id: number;
+  document_type: number;
+  document_path: string;
+  is_verified: boolean;
+};
+
+export type EmergencyContactType = {
+  name: string;
+  email: string;
+  phone: string;
+  relationship: string;
+};
+
+export type PayloadUpdateUser = User & {
+  dob: string;
+  gender: Gender;
+  government_id: FileList;
+  profile_picture: FileList;
+  document_type: string;
+  document_files: FileList;
+  emergencyContacts: EmergencyContactType[];
+};
+
+type Gender = { label: string; value: number };
