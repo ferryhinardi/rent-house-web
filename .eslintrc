@@ -1,5 +1,5 @@
 {
-  "plugins": ["@typescript-eslint", "react", "react-native"],
+  "plugins": ["@typescript-eslint", "react-native"],
   "extends": [
     "next",
     "next/core-web-vitals",
