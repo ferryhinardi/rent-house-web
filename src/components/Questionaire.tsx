@@ -10,7 +10,6 @@ import {
   CalendarInput,
   LoadingIndicator,
 } from 'core/base';
-import { OnSelectedDateCallback } from 'core/base/Calendar';
 import Slider from 'components/Slider';
 import Container, {
   SliderConsumer,
@@ -45,9 +44,7 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
 
   switch (question?.type) {
     case 'DATE':
-      const onSelectedDateCallback: OnSelectedDateCallback = (
-        value: string
-      ) => {
+      const onSelectedDateCallback = (value: string) => {
         methods?.update(index, {
           name: question?.title,
           value: value,
@@ -74,7 +71,7 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
           ))}
           <br />
           <CalendarInput
-            onSelectedDateCallback={onSelectedDateCallback}
+            onChange={onSelectedDateCallback}
             placeholder={t('placeholderCalendar')}
           />
         </View>

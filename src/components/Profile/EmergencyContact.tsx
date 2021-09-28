@@ -1,25 +1,19 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Controller, useForm, useFieldArray } from 'react-hook-form';
+import { Controller, useFormContext, useFieldArray } from 'react-hook-form';
 import { Token } from 'core';
 import { Text, Button, Input, ErrorMessage } from 'core/base';
 
 export default function EmergencyContact() {
   const { t } = useTranslation();
-  const { control } = useForm({
-    defaultValues: {
-      emergencyContact: [
-        { name: '', relationship: '', email: '', phoneNumber: '' },
-      ],
-    },
-  });
+  const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
-    name: 'emergencyContact',
+    name: 'emergencyContacts',
     control,
   });
   const onAddContact = () => {
-    append({ name: '', relationship: '', email: '', phoneNumber: '' });
+    append({ name: '', relationship: '', email: '', phone: '' });
   };
   const onDeleteContact = (index: number) => {
     remove(index);
@@ -31,7 +25,7 @@ export default function EmergencyContact() {
       {fields.map((field, index) => (
         <View key={field.id} style={styles.formContact}>
           <Controller
-            name={`emergencyContact.${index}.name`}
+            name={`emergencyContacts.${index}.name`}
             control={control}
             rules={{
               required: t('emergencyName.required') as string,
@@ -58,7 +52,7 @@ export default function EmergencyContact() {
             )}
           />
           <Controller
-            name={`emergencyContact.${index}.relationship`}
+            name={`emergencyContacts.${index}.relationship`}
             control={control}
             rules={{
               required: t('emergencyRelationship.required') as string,
@@ -85,7 +79,7 @@ export default function EmergencyContact() {
             )}
           />
           <Controller
-            name={`emergencyContact.${index}.email`}
+            name={`emergencyContacts.${index}.email`}
             control={control}
             rules={{
               required: t('emergencyEmail.required') as string,
@@ -112,7 +106,7 @@ export default function EmergencyContact() {
             )}
           />
           <Controller
-            name={`emergencyContact.${index}.phoneNumber`}
+            name={`emergencyContacts.${index}.phone`}
             control={control}
             rules={{
               required: t('emergencyPhone.required') as string,
@@ -164,7 +158,7 @@ const styles = StyleSheet.create({
     gap: Token.spacing.xxl,
     backgroundColor: Token.colors.frame,
     borderRadius: Token.border.radius.default,
-    marginVertical: Token.spacing.l,
+    marginTop: Token.spacing.l,
     paddingHorizontal: Token.spacing.l,
     paddingTop: Token.spacing.l,
     paddingBottom: Token.spacing.xxm,
@@ -184,6 +178,7 @@ const styles = StyleSheet.create({
     marginBottom: Token.spacing.xs,
   },
   submitButton: {
+    marginTop: Token.spacing.l,
     marginBottom: Token.spacing.xxl,
     alignSelf: 'flex-start',
   },

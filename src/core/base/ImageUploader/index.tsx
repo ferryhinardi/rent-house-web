@@ -1,4 +1,4 @@
-import React, { createRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 import { Token } from 'core';
@@ -9,7 +9,6 @@ type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   actionLabel?: string;
 };
 
-const fileRef = createRef<HTMLInputElement>();
 const imagePlaceholder =
   'https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png';
 
@@ -18,6 +17,7 @@ export default function ImageUploader({
   actionLabel,
   ...restProps
 }: Props) {
+  const fileRef = useRef<HTMLInputElement>();
   const [image, setImage] = useState<string>();
   const val = image || value;
   const onFileChangeCapture = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,22 +42,21 @@ export default function ImageUploader({
         }}
       >
         <Image
-          className="avatar-image"
+          className="uploader-image"
           src={val || imagePlaceholder}
           blurDataURL={val || imagePlaceholder}
           loader={customImgLoader}
           placeholder="blur"
           width={240}
           height={240}
-          alt="avatar"
+          alt="image"
         />
       </View>
       <input
         {...restProps}
-        ref={fileRef}
+        ref={fileRef as React.MutableRefObject<HTMLInputElement>}
         type="file"
         accept="image/*"
-        name="profile_picture"
         style={{ visibility: 'hidden' }}
         onChangeCapture={onFileChangeCapture}
       />
