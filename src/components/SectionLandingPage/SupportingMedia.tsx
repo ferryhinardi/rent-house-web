@@ -15,7 +15,12 @@ export default function SupportingMedia() {
   const { t } = useTranslation();
   return (
     <View style={styles.container}>
-      <Text variant="header-2" ink="primary" style={styles.title}>
+      <Text
+        font="playfair"
+        variant="header-2"
+        ink="primary"
+        style={styles.title}
+      >
         {t('supportingMediaTitle')}
       </Text>
       <View style={styles.imageWrapper}>

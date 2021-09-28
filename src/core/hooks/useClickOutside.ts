@@ -19,7 +19,12 @@ export default function useOutsideClick<T extends HTMLElement>(
       }
       batch(onOutsideClick);
     };
-    document.body.addEventListener('click', handleDocumentClick, { capture: true });
-    return () => document.body.removeEventListener('click', handleDocumentClick, { capture: true });
+    document.body.addEventListener('click', handleDocumentClick, {
+      capture: true,
+    });
+    return () =>
+      document.body.removeEventListener('click', handleDocumentClick, {
+        capture: true,
+      });
   }, [nodeRef, onOutsideClick]);
 }

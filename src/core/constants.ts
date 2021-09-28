@@ -1,18 +1,28 @@
 import { routePaths } from 'routePaths';
+import assets from 'assets';
 
-export const menus = [
-  { name: 'Home', href: routePaths.home },
+export const menuHeader = [
+  { name: 'Homes', href: routePaths.home },
   { name: 'Events', href: '/events' },
   { name: 'About Us', href: '/aboutus' },
-  { name: 'Why Ryna', href: '/company-profile' },
   { name: 'Rental Homes', href: '/rental-homes' },
   { name: 'Partner With Us', href: '/partner-us' },
   { name: 'Blog', href: '/blog' },
 ];
+
+export const menus = [
+  { name: 'Company', href: routePaths.home },
+  { name: 'About Us', href: '/aboutus' },
+  { name: 'Events', href: '/events' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Find My Home', href: '/rental-homes' },
+  { name: 'Career', href: '/partner-us' },
+];
+
 export const languageOptions = [
-  { value: 'en', label: 'English' },
-  { value: 'ca', label: 'Canada' },
-  { value: 'id', label: 'Indonesia' },
+  { value: 'en', label: 'English', icon: assets.canadaFlag },
+  { value: 'ca', label: 'Canada', icon: assets.canadaFlag },
+  { value: 'id', label: 'Indonesia', icon: assets.canadaFlag },
 ];
 
 export const genderOptions = [

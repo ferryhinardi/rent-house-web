@@ -49,6 +49,7 @@ export type Props = {
   errorMessageId?: string;
   containerStyle?: StyleProp<ViewStyle>;
   textInputStyle?: StyleProp<TextStyle>;
+  rightLabel?: React.ReactElement;
 } & TextInputProps;
 
 function Input(props: Props) {
@@ -70,12 +71,15 @@ function Input(props: Props) {
     textInputStyle,
     onChange,
     editable = true,
+    rightLabel,
     ...textInputProps
   } = props;
   const EnforcedIconLeft = iconLeft ? enforceIconSizingLeft(iconLeft) : null;
   const EnforcedIconRight = iconRight
     ? enforceIconSizingRight(iconRight)
     : null;
+
+  const EnforcePostLabel = !!rightLabel;
 
   const textInputRef = useRef<TextInput>();
   const {
@@ -144,6 +148,7 @@ function Input(props: Props) {
         {EnforcedIconRight && (
           <View style={styles.iconRight}>{EnforcedIconRight}</View>
         )}
+        {EnforcePostLabel && rightLabel}
       </View>
     </TouchableWithoutFeedback>
   );
@@ -312,7 +317,6 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontFamily: typography.Baseline.fontFamily,
     fontSize: typography.Baseline.fontSize,
     lineHeight: typography.Baseline.lineHeight,
     outlineWidth: 0,

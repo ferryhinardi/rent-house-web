@@ -163,6 +163,13 @@ const en = {
     'Thank you for applying! You’re now in waiting confirmation status.',
   confirmApplyActionLabel: 'Back to My Applications',
   logout: 'Sign Out',
+
+  // home page questionnaire
+  choiceStatus: 'Available',
+  preferenceBannerTitle: 'Start Your Happy #RynaLife Today!',
+  preferenceBannerDescription:
+    'Moving to the city? Pursuing your dreams? In a transition? We’ve got properties – unique to your needs',
+  preferenceBannerButton: 'Rent With Us',
 };
 
 export default en;

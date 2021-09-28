@@ -20,7 +20,7 @@ function HeroBannerInitial() {
       }}
       DescriptionComponent={
         <>
-          <Text variant="banner-title" ink="light">
+          <Text font="playfair" variant="banner-title" ink="light">
             {t('bannerTitle')}
           </Text>
           <Text variant="caption" ink="light" style={styles.heroSubtitle}>

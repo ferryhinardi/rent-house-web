@@ -34,6 +34,11 @@ export default function Home() {
       <SupportingMediaSection />
       <PreferenceBanner />
       <Footer />
+      <style jsx global>{`
+        #__next {
+          overflow-x: hidden;
+        }
+      `}</style>
     </div>
   );
 }

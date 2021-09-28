@@ -31,6 +31,7 @@ interface Props extends TextProps {
     | 'light'
     | 'alert'
     | 'link';
+  font?: 'standard' | 'playfair';
 }
 
 function Text({
@@ -38,59 +39,70 @@ function Text({
   variant = 'baseline',
   ink = 'normal',
   style,
+  font,
   ...restProps
 }: Props) {
   let variantStyle = {};
 
+  switch (font) {
+    case 'playfair':
+      variantStyle = StyleSheet.flatten([styles.playfair]);
+      break;
+    case 'standard':
+    default:
+      variantStyle = StyleSheet.flatten([styles.defaultFont]);
+      break;
+  }
+
   switch (variant) {
     case 'banner-title':
-      variantStyle = StyleSheet.flatten([style, styles.bannerTitle]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.bannerTitle]);
       break;
     case 'banner-subtitle':
-      variantStyle = StyleSheet.flatten([style, styles.bannerSubtitle]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.bannerSubtitle]);
       break;
     case 'sidebar-menu':
-      variantStyle = StyleSheet.flatten([style, styles.sidebarMenu]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.sidebarMenu]);
       break;
     case 'header-2':
-      variantStyle = StyleSheet.flatten([style, styles.header2]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.header2]);
       break;
     case 'header-3':
-      variantStyle = StyleSheet.flatten([style, styles.header3]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.header3]);
       break;
     case 'header-4':
-      variantStyle = StyleSheet.flatten([style, styles.header4]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.header4]);
       break;
     case 'title-1':
-      variantStyle = StyleSheet.flatten([style, styles.title1]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.title1]);
       break;
     case 'title-2':
-      variantStyle = StyleSheet.flatten([style, styles.title2]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.title2]);
       break;
     case 'title-3':
-      variantStyle = StyleSheet.flatten([style, styles.title3]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.title3]);
       break;
     case 'huge':
-      variantStyle = StyleSheet.flatten([style, styles.huge]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.huge]);
       break;
     case 'big':
-      variantStyle = StyleSheet.flatten([style, styles.big]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.big]);
       break;
     case 'large':
-      variantStyle = StyleSheet.flatten([style, styles.large]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.large]);
       break;
     case 'caption':
-      variantStyle = StyleSheet.flatten([style, styles.caption]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.caption]);
       break;
     case 'small':
-      variantStyle = StyleSheet.flatten([style, styles.small]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.small]);
       break;
     case 'tiny':
-      variantStyle = StyleSheet.flatten([style, styles.tiny]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.tiny]);
       break;
     case 'baseline':
     default:
-      variantStyle = StyleSheet.flatten([style, styles.baseline]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.baseline]);
       break;
   }
 
@@ -125,6 +137,8 @@ function Text({
       break;
   }
 
+  variantStyle = StyleSheet.flatten([variantStyle, style]);
+
   return (
     <RNText {...restProps} style={variantStyle}>
       {children}
@@ -134,88 +148,77 @@ function Text({
 
 const styles = StyleSheet.create({
   bannerTitle: {
-    ...typography.Baseline,
     fontSize: fontSize.super,
     fontWeight: '700',
     lineHeight: 80,
   },
   bannerSubtitle: {
-    ...typography.Baseline,
     fontSize: fontSize.large,
     fontWeight: '400',
   },
   sidebarMenu: {
-    ...typography.Baseline,
     fontSize: fontSize.medium,
     lineHeight: 20,
     fontWeight: '600',
   },
   header2: {
-    ...typography.Baseline,
     fontSize: fontSize.xlarge,
     lineHeight: 48,
     fontWeight: '700',
   },
   header3: {
-    ...typography.Baseline,
     fontSize: fontSize.bigger,
     lineHeight: 42,
     fontWeight: '700',
   },
   header4: {
-    ...typography.Baseline,
     fontSize: fontSize.big,
     lineHeight: 42,
     fontWeight: '700',
   },
   title1: {
-    ...typography.Baseline,
     fontSize: fontSize.huge,
     fontWeight: '700',
   },
   title2: {
-    ...typography.Baseline,
     fontSize: fontSize.large,
     fontWeight: '700',
   },
   title3: {
-    ...typography.Baseline,
     fontSize: fontSize.medium,
     fontWeight: '700',
   },
   huge: {
-    ...typography.Baseline,
     fontSize: fontSize.huge,
     fontWeight: '400',
   },
   big: {
-    ...typography.Baseline,
     fontSize: fontSize.big,
     fontWeight: '400',
   },
   large: {
-    ...typography.Baseline,
     fontSize: fontSize.large,
     fontWeight: '400',
   },
   caption: {
-    ...typography.Baseline,
     fontSize: fontSize.jumbo,
     fontWeight: '400',
     lineHeight: 32,
   },
   baseline: {
-    ...typography.Baseline,
+    fontSize: fontSize.medium,
+    lineHeight: 24,
   },
   small: {
-    ...typography.Baseline,
     fontSize: fontSize.small,
     fontWeight: '400',
   },
   tiny: {
-    ...typography.Baseline,
     fontSize: fontSize.tiny,
     fontWeight: '400',
+  },
+  button: {
+    fontSize: fontSize.medium,
   },
   dark: {
     color: colors.rynaBlack,
@@ -243,6 +246,10 @@ const styles = StyleSheet.create({
   },
   captionInk: {
     color: colors.lightGrey,
+  },
+  defaultFont: {},
+  playfair: {
+    ...typography.Baseline,
   },
 });
 

@@ -18,7 +18,7 @@ import Container, {
 } from 'components/Slider/Container';
 import { Question } from 'types';
 import { FormData } from 'components/SectionLandingPage/Hero';
-import { colors } from 'core/base/Token';
+import { colors, fontSize } from 'core/base/Token';
 
 type Props = {
   loading: boolean;
@@ -52,7 +52,7 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
         });
       };
       QuestionContent = (
-        <div>
+        <View style={{ zIndex: 100 }}>
           {choicesSelectableTime.map((choice) => (
             <Input
               key={choice}
@@ -74,38 +74,40 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
             onChange={onSelectedDateCallback}
             placeholder={t('placeholderCalendar')}
           />
-        </div>
+        </View>
       );
       break;
     case 'RANGE_NUMBER':
       QuestionContent = (
         <Container>
           <SliderConsumer>
-            {({ min = minV, max = maxV }) => (
-              <Slider
-                trackColor={'rgba(28,43,79,0.3)'} // Token.colors.rynaBlue with opacity
-                trackHighlightColor={Token.colors.blue}
-                value={[min!, max!]}
-                step={50}
-                minimumValue={minV}
-                maximumValue={maxV}
-                trackStyle={{ height: 8, borderRadius: 50 }}
-                onValueChange={(value: number | number[]) => {
-                  console.log('onValueChange', value);
-                }}
-                onSlidingStart={(value: number | number[]) =>
-                  console.log('onSlidingStart', value)
-                }
-                onSlidingComplete={(value: number | number[]) => {
-                  const answer = value as number[];
-                  methods?.update(index, {
-                    name: question?.title,
-                    value: '$' + answer[0] + '-' + '$' + answer[1],
-                    questionID: question?.id,
-                  });
-                }}
-              />
-            )}
+            {({ min = minV, max = maxV }) => {
+              return (
+                <Slider
+                  trackColor={'rgba(28,43,79,0.3)'} // Token.colors.rynaBlue with opacity
+                  trackHighlightColor={Token.colors.blue}
+                  value={[min!, max!]}
+                  step={50}
+                  minimumValue={min}
+                  maximumValue={max}
+                  trackStyle={{ height: 8, borderRadius: 50 }}
+                  onValueChange={(value: number | number[]) => {
+                    console.log('onValueChange', value);
+                  }}
+                  onSlidingStart={(value: number | number[]) =>
+                    console.log('onSlidingStart', value)
+                  }
+                  onSlidingComplete={(value: number | number[]) => {
+                    const answer = value as number[];
+                    methods?.update(index, {
+                      name: question?.title,
+                      value: '$' + answer[0] + '-' + '$' + answer[1],
+                      questionID: question?.id,
+                    });
+                  }}
+                />
+              );
+            }}
           </SliderConsumer>
         </Container>
       );
@@ -122,6 +124,18 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
           }
           textInputStyle={styles.textInput}
           value={choice}
+          rightLabel={
+            <Text
+              style={{
+                color:
+                  methods?.fields[index]?.value === choice
+                    ? colors.rynaBlack
+                    : colors.textDarkGrey,
+              }}
+            >
+              {t('choiceStatus')}
+            </Text>
+          }
           onFocus={() => {
             methods?.update(index, {
               name: question?.title,
@@ -141,7 +155,12 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
       ) : (
         <>
           {question?.title && (
-            <Text variant="header-2" ink="primary" style={styles.title}>
+            <Text
+              font="playfair"
+              variant="header-2"
+              ink="primary"
+              style={styles.title}
+            >
               {question?.title}
             </Text>
           )}
@@ -174,6 +193,7 @@ export function QuestionaireCard({
         style={styles.submitButton}
         text={t('submitQuestionButton')}
         onPress={onSubmit}
+        textStyle={styles.buttonText}
       />
     </View>
   );
@@ -189,6 +209,7 @@ const styles = StyleSheet.create({
     shadowColor: 'rgba(0, 0, 0, 0.08)',
     padding: Token.spacing.l,
     alignSelf: 'flex-start',
+    zIndex: 100,
   },
   title: {
     marginBottom: Token.spacing.ml,
@@ -218,6 +239,9 @@ const styles = StyleSheet.create({
     paddingVertical: Token.spacing.m,
     backgroundColor: Token.colors.blue,
     alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: fontSize.medium,
   },
 });
 

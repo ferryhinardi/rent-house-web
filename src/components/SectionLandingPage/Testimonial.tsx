@@ -27,7 +27,9 @@ export default function Testimonial() {
   return (
     <ContainerDesktop style={styles.container}>
       <View style={styles.itemWrapperStyle}>
-        <Text variant="header-2">{t('titleTestimonial')}</Text>
+        <Text font="playfair" variant="header-2">
+          {t('titleTestimonial')}
+        </Text>
         <Text variant="caption" style={styles.subtitle}>
           {t('subtitleTestimonial')}
         </Text>
@@ -54,16 +56,17 @@ export default function Testimonial() {
                 blurDataURL: `${config.imageHost}/${item.user.profile_picture}`,
                 placeholder: 'blur',
                 loading: 'lazy',
-                width: 300,
-                height: 180,
+                layout: 'fill',
                 alt: 'testimony profile image',
                 onError: () => console.error('error render image'),
               }}
+              imageContainerStyle={styles.cardImage}
+              roundedCorner={['topLeft', 'bottomRight']}
             >
               <Card.Body style={{ width: 400 }}>
-                <Card.Title>
+                <Text variant="header-4" font="playfair">
                   {item.user.name + ' | ' + item.user.job}
-                </Card.Title>
+                </Text>
                 <Text style={{ marginTop: Token.spacing.m }}>
                   {item.testimony_text}
                 </Text>
@@ -84,11 +87,11 @@ const styles = StyleSheet.create({
     backgroundColor: Token.colors.lightGrey,
   },
   listContainer: {
-    backgroundColor: Token.colors.lightGrey,
+    padding: Token.spacing.m,
   },
   itemWrapperStyle: {
     paddingHorizontal: Token.spacing.l,
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
     justifyContent: 'space-between',
   },
   subtitle: {
@@ -102,12 +105,18 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: '20%',
-    margin: 20,
+    marginHorizontal: Token.spacing.ml,
     height: '100%',
     width: '100%',
     filter: '',
-    shadowOffset: { width: 0, height: 0 },
-    shadowRadius: 0,
-    shadowColor: 'rgba(0, 0, 0, 0)',
+    shadowOffset: { width: 10, height: 5 },
+    shadowRadius: 10,
+    shadowColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  cardImage: {
+    height: '100%',
+    width: 200,
+    borderTopLeftRadius: Token.border.radius.extra,
+    overflow: 'hidden',
   },
 });
