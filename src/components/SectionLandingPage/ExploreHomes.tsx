@@ -70,9 +70,7 @@ export default function ExploreHomes() {
               />
               <Text font="playfair" variant="header-2" style={styles.cardTitle}>
                 {firstHome?.name}
-
               </Text>
-              <Text variant="caption">{firstHome.name}</Text>
             </View>
           }
           <View style={styles.layout2}>
