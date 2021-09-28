@@ -1,6 +1,15 @@
 import { routePaths } from 'routePaths';
 import assets from 'assets';
 
+export const menuHeader = [
+  { name: 'Homes', href: routePaths.home },
+  { name: 'Events', href: '/events' },
+  { name: 'About Us', href: '/aboutus' },
+  { name: 'Rental Homes', href: '/rental-homes' },
+  { name: 'Partner With Us', href: '/partner-us' },
+  { name: 'Blog', href: '/blog' },
+];
+
 export const menus = [
   { name: 'Company', href: routePaths.home },
   { name: 'About Us', href: '/aboutus' },
