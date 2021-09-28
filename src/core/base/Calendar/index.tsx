@@ -27,7 +27,7 @@ function Calendar({ onChange, ...restProps }: Props) {
   const [isVisibile, setIsVisible] = React.useState(false);
   const [isConstruct, setIsContruct] = React.useState(false);
   const [value, setValue] = React.useState(new Date());
-  const calendarInputRef = useRef<HTMLDivElement | undefined>(undefined);
+  const calendarInputRef = useRef<TextInput>();
 
   const calendarAnimateStyle = useSpring({
     opacity: isVisibile ? 1 : 0,
@@ -43,18 +43,18 @@ function Calendar({ onChange, ...restProps }: Props) {
     setIsVisible(false);
   };
 
-  const onChange: OnChangeDateCallback = (value: Date) => {
+  const onChangeCalendar: OnChangeDateCallback = (value: Date) => {
     setValue(value);
     onChange?.(formatter.format(value));
     onHide();
   };
 
-  useClickOutside(calendarInputRef, onHide);
+  useClickOutside(calendarInputRef as any, onHide);
 
   return (
     <View
       ref={(ref) => {
-        calendarInputRef.current = ref as any as HTMLDivElement;
+        calendarInputRef.current = ref as TextInput;
       }}
       style={{ zIndex: 100 }}
     >
