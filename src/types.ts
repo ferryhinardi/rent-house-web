@@ -141,7 +141,7 @@ export type UserDocument = {
   is_verified: boolean;
 };
 
-export type EmergencyContact = {
+export type EmergencyContactType = {
   name: string;
   email: string;
   phone: string;
@@ -155,6 +155,7 @@ export type PayloadUpdateUser = User & {
   profile_picture: FileList;
   document_type: string;
   document_files: FileList;
+  emergencyContacts: EmergencyContactType[];
 };
 
 type Gender = { label: string; value: number };

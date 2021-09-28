@@ -18,18 +18,29 @@ import {
 import { Token, fetcher, fetchServer } from 'core';
 import { ContainerDesktop, Button, ErrorMessage } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
-import { User, UserDocument, ErrorHandling, PayloadUpdateUser } from 'types';
+import {
+  User,
+  ResponseItem,
+  EmergencyContactType,
+  UserDocument,
+  ErrorHandling,
+  PayloadUpdateUser,
+} from 'types';
 import createPayloadUpdateUser from 'utils/createPayloadUpdateUser';
 
 type Props = {
   user: User;
+  emergencyContacts: ResponseItem<EmergencyContactType>;
 };
 
-export default function Profile({ user }: Props) {
-  const forms = useForm<PayloadUpdateUser>({ defaultValues: user });
+export default function Profile({ user, emergencyContacts }: Props) {
+  console.log({ emergencyContacts });
+  const forms = useForm<PayloadUpdateUser>({
+    defaultValues: { ...user, emergencyContacts: emergencyContacts.data },
+  });
   const { t } = useTranslation();
   const { isLoading, isError, error, mutate } = useMutation<
-    [User, UserDocument],
+    [User, UserDocument, EmergencyContactType[]],
     ErrorHandling,
     PayloadUpdateUser
   >(
@@ -54,10 +65,18 @@ export default function Profile({ user }: Props) {
             'Content-Type': 'multipart/form-data',
           },
         }),
+        fetcher<EmergencyContactType[]>({
+          method: 'POST',
+          url: `/user/emergency-contact`,
+          data: payload.emergencyContacts,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }),
       ]);
     },
     {
-      onSuccess: (response: [User, UserDocument]) => {
+      onSuccess: (response: [User, UserDocument, EmergencyContactType[]]) => {
         Toast.show({
           type: 'success',
           text1: `Update Profile ${response[0].name} Successfully!`,
@@ -72,10 +91,10 @@ export default function Profile({ user }: Props) {
     }
   );
   const onSubmit = (formData: PayloadUpdateUser) => {
+    console.log('formData', formData);
     forms.clearErrors();
 
     if (!formData.government_id?.length) {
-      console.log('error government_id');
       forms.setError('government_id', {
         type: 'required',
         message: 'Please import File!',
@@ -133,9 +152,17 @@ export async function getServerSideProps({ res, req }: NextPageContext) {
       url: '/current-user',
     })
   );
+  const emergencyContacts = await queryClient.fetchQuery(
+    [QUERY_KEYS.EMERGENCY_CONTACT, user.id],
+    () =>
+      fetchServer<User>(req as NextApiRequest, res as NextApiResponse, {
+        url: `/emergency-contact/${user.id}`,
+      })
+  );
   return {
     props: {
       user,
+      emergencyContacts,
       dehydratedState: dehydrate(queryClient),
     },
   };
