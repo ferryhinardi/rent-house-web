@@ -109,5 +109,6 @@ const styles = StyleSheet.create({
   },
   cardCompleted: {
     marginVertical: Token.spacing.m,
+    alignSelf: 'flex-start',
   },
 });
