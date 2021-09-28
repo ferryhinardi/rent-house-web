@@ -34,7 +34,6 @@ type Props = {
 };
 
 export default function Profile({ user, emergencyContacts }: Props) {
-  console.log({ emergencyContacts });
   const forms = useForm<PayloadUpdateUser>({
     defaultValues: { ...user, emergencyContacts: emergencyContacts.data },
   });
@@ -91,7 +90,6 @@ export default function Profile({ user, emergencyContacts }: Props) {
     }
   );
   const onSubmit = (formData: PayloadUpdateUser) => {
-    console.log('formData', formData);
     forms.clearErrors();
 
     if (!formData.government_id?.length) {
