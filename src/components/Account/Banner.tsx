@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import PreferenceBanner from 'assets/preference-banner.svg';
+import PreferenceBanner from 'assets/preference-banner.png';
 
 import { Text, Button } from 'core/base';
 import { Token } from 'core';
@@ -13,11 +13,12 @@ export default function Banner() {
   return (
     <View style={styles.container}>
       <View style={styles.backgroundImage}>
+        <View style={styles.backDrop} />
         <Image
           src={PreferenceBanner}
           alt="preference banner"
           loading="eager"
-          layout="fill"
+          layout="responsive"
           objectFit="cover"
         />
       </View>
@@ -34,14 +35,26 @@ export default function Banner() {
   );
 }
 
+const PreferenceBannerHeight = 437;
+
 const styles = StyleSheet.create({
   container: {
-    height: PreferenceBanner.height,
+    height: PreferenceBannerHeight,
   },
   backgroundImage: {
     position: 'absolute',
-    height: PreferenceBanner.height,
+    bottom: 0,
+    height: PreferenceBannerHeight,
     width: '100vw',
+  },
+  backDrop: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(12, 27, 64, 0.6)',
+    zIndex: 1,
   },
   textContainer: {
     zIndex: 2,
