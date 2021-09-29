@@ -50,13 +50,6 @@ export default function Account({ user }: Props) {
               {
                 name: 'recommendation',
                 label: t('recommendation'),
-                IconRight: (
-                  <Icon
-                    name="exclamation-triangle"
-                    size={20}
-                    color={Token.colors.red}
-                  />
-                ),
               },
               {
                 name: 'account-settings',
@@ -82,8 +75,6 @@ export default function Account({ user }: Props) {
             <AccountRecommendation />
             <View style={styles.separator} />
             <AccountSettings />
-            {/* <View style={styles.separator} />
-              <AccountLinkedAccounts /> */}
           </View>
         </View>
       </ContainerDesktop>

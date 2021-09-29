@@ -40,7 +40,7 @@ function Button({
       break;
     case 'secondary':
       buttonStyle = {
-        backgroundColor: colors.rynaYellowLight, // colors.rynaYellow with opacity 0.4
+        backgroundColor: colors.rynaYellowLight,
       };
       break;
     case 'empty':

@@ -8,6 +8,7 @@ import {
   LayoutAnimationType,
   StyleProp,
   ViewStyle,
+  StyleSheet,
 } from 'react-native';
 import { Text } from 'core/base';
 import { Token } from 'core';
@@ -151,7 +152,7 @@ export default function ProgressBar({
   ]);
 
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <View style={styles.wrapper}>
       <View
         style={[containerStyle, style]}
         onLayout={handleLayout}
@@ -188,3 +189,11 @@ function animate(
     }
   });
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flexDirection: 'row',
+    gap: Token.spacing.m,
+    alignItems: 'center',
+  },
+});

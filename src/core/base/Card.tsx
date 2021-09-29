@@ -64,7 +64,6 @@ function Card({
     cornerStyle.borderTopRightRadius = border.radius.extra;
   }
 
-  console.log(cornerStyle);
   return (
     <CardContext.Provider value={{ orientation }}>
       {/* @ts-ignore */}

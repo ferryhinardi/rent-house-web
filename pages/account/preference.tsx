@@ -44,7 +44,7 @@ export async function getServerSideProps({ res, req }: NextPageContext) {
     'public, s-maxage=10, stale-while-revalidate=59'
   );
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(QUERY_KEYS.QUESTION_USER_PREFERENCES, () =>
+  await queryClient.fetchQuery(QUERY_KEYS.QUESTION_USER_PREFERENCES, () =>
     fetchServer<ResponseItem<Question>>(
       req as NextApiRequest,
       res as NextApiResponse,

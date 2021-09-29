@@ -1,22 +1,13 @@
 import { routePaths } from 'routePaths';
 import assets from 'assets';
 
-export const menuHeader = [
+export const menus = [
   { name: 'Homes', href: routePaths.home },
   { name: 'Events', href: '/events' },
   { name: 'About Us', href: '/aboutus' },
   { name: 'Rental Homes', href: '/rental-homes' },
   { name: 'Partner With Us', href: '/partner-us' },
   { name: 'Blog', href: '/blog' },
-];
-
-export const menus = [
-  { name: 'Company', href: routePaths.home },
-  { name: 'About Us', href: '/aboutus' },
-  { name: 'Events', href: '/events' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Find My Home', href: '/rental-homes' },
-  { name: 'Career', href: '/partner-us' },
 ];
 
 export const languageOptions = [
