@@ -60,12 +60,13 @@ function SettingCard({ title, subtitle, href }: SettingCardProps) {
         unfilledColor={'rgba(28,43,79,0.24)'} // Token.colors.rynaBlue with opacity
         style={styles.progressBar}
       />
-      <Button
-        variant="secondary"
-        text={t('completeNow')}
-        onPress={() => router.push(`${routePaths.account}/${href}`)}
-        style={styles.cardCompleted}
-      />
+      <View style={{ alignItems: 'flex-start' }}>
+        <Button
+          text={t('completeNow')}
+          onPress={() => router.push(`${routePaths.account}/${href}`)}
+          style={styles.btnCompleted}
+        />
+      </View>
     </View>
   );
 }
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginVertical: Token.spacing.l,
   },
-  cardCompleted: {
+  btnCompleted: {
     marginVertical: Token.spacing.m,
     alignSelf: 'flex-start',
   },
