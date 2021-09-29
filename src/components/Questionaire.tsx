@@ -60,32 +60,34 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
       QuestionContent = (
         <Container>
           <SliderConsumer>
-            {({ min = minV, max = maxV }) => (
-              <Slider
-                trackColor={'rgba(28,43,79,0.3)'} // Token.colors.rynaBlue with opacity
-                trackHighlightColor={Token.colors.blue}
-                value={[min!, max!]}
-                step={50}
-                minimumValue={minV}
-                maximumValue={maxV}
-                trackStyle={{ height: 8, borderRadius: 50 }}
-                onValueChange={(value: number | number[]) => {
-                  console.log('onValueChange', value);
-                }}
-                onSlidingStart={(value: number | number[]) =>
-                  console.log('onSlidingStart', value)
-                }
-                onSlidingComplete={(value: number | number[]) => {
-                  const answer = value as number[];
-                  methods?.update(index, {
-                    name: question?.title,
-                    value: '$' + answer[0] + '-' + '$' + answer[1],
-                    tag: question?.matching_tag,
-                    questionID: question?.id,
-                  });
-                }}
-              />
-            )}
+            {({ min = minV, max = maxV }) => {
+              return (
+                <Slider
+                  trackColor={'rgba(28,43,79,0.3)'} // Token.colors.rynaBlue with opacity
+                  trackHighlightColor={Token.colors.blue}
+                  value={[min!, max!]}
+                  step={50}
+                  minimumValue={min}
+                  maximumValue={max}
+                  trackStyle={{ height: 8, borderRadius: 50 }}
+                  onValueChange={(value: number | number[]) => {
+                    console.log('onValueChange', value);
+                  }}
+                  onSlidingStart={(value: number | number[]) =>
+                    console.log('onSlidingStart', value)
+                  }
+                  onSlidingComplete={(value: number | number[]) => {
+                    const answer = value as number[];
+                    methods?.update(index, {
+                      name: question?.title,
+                      value: '$' + answer[0] + '-' + '$' + answer[1],
+                      tag: question?.matching_tag,
+                      questionID: question?.id,
+                    });
+                  }}
+                />
+              );
+            }}
           </SliderConsumer>
         </Container>
       );
