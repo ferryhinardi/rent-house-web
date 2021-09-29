@@ -21,6 +21,7 @@ export type HeroState = {
   name: string;
   value?: string;
   questionID?: number;
+  tag?: string;
 };
 
 export type FormData = {
