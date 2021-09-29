@@ -13,6 +13,7 @@ export default function Swiper({
   slideWrapperStyle,
   children,
   controlsProps,
+  renderDots,
   ...props
 }: Props) {
   const ArrayChildren = (() => React.Children.toArray(children))();
@@ -76,12 +77,29 @@ export default function Swiper({
             activeIndex={activeIndex}
             isFirst={!props.loop && !activeIndex}
             isLast={!props.loop && activeIndex + 1 >= count}
-            goToPrev={goToPrev}
-            goToNext={goToNext}
-            goTo={goTo}
+            goToPrev={(index: number) => {
+              controlsProps?.goToPrev?.(index);
+              goToPrev();
+            }}
+            goToNext={(index: number) => {
+              controlsProps?.goToNext?.(index);
+              goToNext();
+            }}
+            goTo={(index: number) => {
+              controlsProps?.goTo?.(index);
+              goTo();
+            }}
           />
         )}
       </View>
+      {typeof renderDots !== 'undefined' && (
+        // @ts-ignore
+        <View style={styles.dotsContainer}>
+          {Array(count)
+            .fill(count)
+            .map((_, index) => renderDots(index, goTo))}
+        </View>
+      )}
     </View>
   );
 }
@@ -122,4 +140,8 @@ const styles = {
     height: vertical ? height * count : height,
     flexDirection: vertical ? 'column' : 'row',
   }),
+  dotsContainer: {
+    flexDirection: 'row',
+    gap: 16,
+  },
 };

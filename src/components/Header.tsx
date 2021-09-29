@@ -5,7 +5,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useSprings, animated, config } from 'react-spring';
 import { fetcher, Token } from 'core';
-import { menuHeader, QUERY_KEYS } from 'core/constants';
+import { menus, QUERY_KEYS } from 'core/constants';
 import { User } from 'types';
 import logo from 'assets/logo.svg';
 import { routePaths } from 'routePaths';
@@ -24,9 +24,9 @@ function Header() {
     })
   );
   const menuAnimations = useSprings(
-    menuHeader.length,
+    menus.length,
     // all animations
-    menuHeader.map(() => ({
+    menus.map(() => ({
       from: {
         opacity: 0,
       },
@@ -50,7 +50,7 @@ function Header() {
           <Image src={logo} alt="logo" />
         </Pressable>
         {menuAnimations.map((animateStyle, idx) => {
-          const { name, href } = menuHeader[idx];
+          const { name, href } = menus[idx];
           const isActiveMenu =
             href.replace('/', '') === router.pathname.split('/')[1];
           return (
