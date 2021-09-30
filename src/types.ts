@@ -14,6 +14,7 @@ export type Question = {
   category: string;
   section: 'landing_page' | 'user_preferences';
   type: 'CHOICES' | 'DATE' | 'TEXT' | 'RANGE_NUMBER';
+  matching_tag: string;
   add_ons: AddOns;
 };
 
@@ -21,6 +22,7 @@ export type AddOns = {
   choices?: string[];
   range_number_min?: number;
   range_number_max?: number;
+  tags?: string[];
 };
 
 export type House = {
@@ -54,11 +56,13 @@ export type House = {
 export type UserAnswers = {
   question_id: number;
   value: string;
+  tag: string;
 }[];
 
 export type Answer = {
   question_id: number;
   value: string;
+  tag: string;
 };
 
 export type AnswerState = {
@@ -106,6 +110,7 @@ export type QuestionState = {
   name: string;
   value?: string;
   questionID?: number;
+  tag: string;
 };
 export type PreferenceQuestionState = {
   states: QuestionState[];
