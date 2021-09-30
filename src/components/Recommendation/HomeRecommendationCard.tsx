@@ -84,9 +84,9 @@ export default function HomeRecommendationCard({
         <Text variant="header-3" style={styles.title}>
           {name}
         </Text>
-        <Text variant="title-2" ink="primary" style={styles.subtitle}>
+        {/* <Text variant="title-2" ink="primary" style={styles.subtitle}>
           {'$1500 - $1700'}
-        </Text>
+        </Text> */}
         <Text variant="caption" style={styles.description}>
           {description}
         </Text>
