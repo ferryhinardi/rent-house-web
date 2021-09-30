@@ -26,9 +26,13 @@ function Breadcrumbs() {
           {listPath.map((path, idx) => {
             const isActiveMenu = idx === listPath.length - 1;
             const hrefPath = listPath.slice(0, idx + 1);
+            console.log('hrefPath', hrefPath);
             return (
               <li key={path}>
-                <Link href={isActiveMenu ? '' : `/${hrefPath}`} passHref>
+                <Link
+                  href={isActiveMenu ? '' : `/${hrefPath.join('/')}`}
+                  passHref
+                >
                   <Text
                     accessibilityRole="link"
                     ink={isActiveMenu ? 'normal' : 'primary'}

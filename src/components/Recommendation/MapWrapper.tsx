@@ -11,7 +11,7 @@ import config from 'config';
 import { Text } from 'core/base';
 
 type Props = {
-  google: GoogleAPI;
+  google: GoogleAPI; // https://developers.google.com/maps/documentation/embed/get-api-key
   lat: number;
   lon: number;
 };

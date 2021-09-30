@@ -2,12 +2,16 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Token, fetcher } from 'core';
+import Image from 'next/image';
+
 import config from 'config';
 import { ResponseItem, House } from 'types';
+import { Token, fetcher } from 'core';
 import { Card, Text, Button, ContainerDesktop } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
+
 import { ExploreHomePlaceholder } from 'components/Placeholder';
+import assets from 'assets';
 
 const cardWidthSecondLayout = ['100%', '40%', '40%'];
 
@@ -28,9 +32,13 @@ export default function ExploreHomes() {
 
   return (
     <ContainerDesktop style={styles.container}>
+      {/* pink line */}
+      <View style={styles.horizontalLineContainer}>
+        <Image src={assets.homeLineHorizontal} />
+      </View>
       <View style={styles.header}>
         <View>
-          <Text variant="header-2" style={styles.headerTitle}>
+          <Text font="playfair" variant="header-2" style={styles.headerTitle}>
             {t('titleExploreHomes')}
           </Text>
           <Text variant="caption">{t('subtitleExploreHomes')}</Text>
@@ -44,22 +52,23 @@ export default function ExploreHomes() {
           {
             <View style={[styles.cardStyle, styles.layout1]}>
               <Card
+                noShadow
+                activeOpacity={1}
                 orientation="portrait"
                 imageProps={{
                   src: `${config.imageHost}/${firstHome?.lead_media}`,
                   blurDataURL: `${config.imageHost}/${firstHome?.lead_media}`,
                   placeholder: 'blur',
                   loading: 'lazy',
-                  width: '100%',
-                  height: '100%',
-                  alt: 'hause explore image',
-                  layout: 'responsive',
+                  alt: 'house explore image',
+                  layout: 'fill',
                   objectFit: 'contain',
                   onError: () => console.error('error render image'),
                 }}
+                imageContainerStyle={styles.firstCardImage}
                 style={styles.cardContainer}
               />
-              <Text variant="header-4" style={styles.cardTitle}>
+              <Text font="playfair" variant="header-2" style={styles.cardTitle}>
                 {firstHome?.name}
               </Text>
             </View>
@@ -87,9 +96,14 @@ export default function ExploreHomes() {
                     onError: () => console.error('error render image'),
                   }}
                 />
-                <Text variant="header-4" style={styles.cardTitle}>
+                <Text
+                  font="playfair"
+                  variant="header-2"
+                  style={styles.cardTitle}
+                >
                   {item.name}
                 </Text>
+                <Text variant="caption">{item.name}</Text>
               </View>
             ))}
           </View>
@@ -103,6 +117,7 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: Token.spacing.xxxxl,
     backgroundColor: Token.colors.lightGrey,
+    zIndex: -1,
   },
   header: {
     flexDirection: 'row',
@@ -146,5 +161,19 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 1,
     flexBasis: '40%',
+  },
+  firstCardImage: {
+    minHeight: '100%',
+  },
+  horizontalLineContainer: {
+    position: 'absolute',
+    top: -330,
+    right: 0,
+    opacity: 1,
+    transform: [
+      {
+        rotate: '-2deg',
+      },
+    ],
   },
 });

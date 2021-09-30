@@ -16,6 +16,7 @@ import {
   Login,
   Question,
   PreferenceQuestionState,
+  QuestionState,
 } from 'types';
 
 type Props = {
@@ -23,12 +24,6 @@ type Props = {
   stateIndexSetter: React.Dispatch<React.SetStateAction<number>>;
   questions: Question[];
   methods?: UseFieldArrayReturn<PreferenceQuestionState>;
-};
-
-export type QuestionState = {
-  name: string;
-  value?: string;
-  questionID?: number;
 };
 
 export type FormQuestion = {
@@ -91,6 +86,7 @@ export default function PreferenceQuestion(props: Props) {
       answers.push({
         question_id: item.questionID as number,
         value: item.value as string,
+        tag: item?.tag as string,
       });
     });
 

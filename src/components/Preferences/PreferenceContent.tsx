@@ -7,15 +7,9 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token, fetcher } from 'core';
 import { Text } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
-import { Question, ResponseItem } from 'types';
+import { Question, QuestionState, ResponseItem } from 'types';
 import SideBar from '../SideBar';
 import PreferenceQuestion from './PreferenceQuestion';
-
-type QuestionState = {
-  name: string;
-  value?: string;
-  questionID?: number;
-};
 
 type PreferenceQuestionState = {
   states: QuestionState[];

@@ -54,13 +54,13 @@ export async function getServerSideProps({ res, req, query }: NextPageContext) {
   }
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery([QUERY_KEYS.HOME_DETAIL, query.homeID], () =>
+  await queryClient.fetchQuery([QUERY_KEYS.HOME_DETAIL, query.homeID], () =>
     fetchServer<House>(req as NextApiRequest, res as NextApiResponse, {
       method: 'GET',
       url: `/house/${query.homeID}`,
     })
   );
-  await queryClient.prefetchQuery([QUERY_KEYS.HOME_ROOM, query.homeID], () =>
+  await queryClient.fetchQuery([QUERY_KEYS.HOME_ROOM, query.homeID], () =>
     fetchServer<ResponseItem<Room>>(
       req as NextApiRequest,
       res as NextApiResponse,

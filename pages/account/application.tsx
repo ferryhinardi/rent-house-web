@@ -22,7 +22,7 @@ export default function Application() {
   const onNavigateApplicationDetail = () => {
     router.push({
       pathname: routePaths.applicationDetail,
-      query: { applicationId: 'application.id' },
+      query: { homeID: 'application.id' },
     });
   };
 

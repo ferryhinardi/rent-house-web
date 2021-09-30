@@ -3,14 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { UseFieldArrayReturn } from 'react-hook-form';
 import { Token } from 'core';
-import {
-  Text,
-  Button,
-  Input,
-  CalendarInput,
-  LoadingIndicator,
-} from 'core/base';
-import { OnSelectedDateCallback } from 'core/base/Calendar';
+import { Text, Button, Input, LoadingIndicator } from 'core/base';
 import Slider from 'components/Slider';
 import Container, {
   SliderConsumer,
@@ -19,7 +12,8 @@ import Container, {
 } from 'components/Slider/Container';
 import { Question } from 'types';
 import { FormData } from 'components/SectionLandingPage/Hero';
-import { colors } from 'core/base/Token';
+import { colors, fontSize } from 'core/base/Token';
+import DirectCalendar from 'core/base/Calendar/DirectCalendar';
 
 type Props = {
   loading: boolean;
@@ -45,76 +39,61 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
 
   switch (question?.type) {
     case 'DATE':
-      const onSelectedDateCallback: OnSelectedDateCallback = (
-        value: string
-      ) => {
+      const onSelectedDateCallback = (value: string) => {
         methods?.update(index, {
           name: question?.title,
           value: value,
+          tag: question?.matching_tag,
           questionID: question?.id,
         });
       };
       QuestionContent = (
-        <div>
-          {choicesSelectableTime.map((choice) => (
-            <Input
-              key={choice}
-              editable={false}
-              containerStyle={styles.containerTextInput}
-              textInputStyle={styles.textInput}
-              value={choice}
-              onFocus={() => {
-                methods?.update(index, {
-                  name: question?.title,
-                  value: choice,
-                  questionID: question?.id,
-                });
-              }}
-            />
-          ))}
-          <br />
-          <CalendarInput
-            onSelectedDateCallback={onSelectedDateCallback}
+        <View style={styles.alignCenterContainer}>
+          <DirectCalendar
+            onChange={onSelectedDateCallback}
             placeholder={t('placeholderCalendar')}
           />
-        </div>
+        </View>
       );
       break;
     case 'RANGE_NUMBER':
       QuestionContent = (
         <Container>
           <SliderConsumer>
-            {({ min = minV, max = maxV }) => (
-              <Slider
-                trackColor={'rgba(28,43,79,0.3)'} // Token.colors.rynaBlue with opacity
-                trackHighlightColor={Token.colors.blue}
-                value={[min!, max!]}
-                step={50}
-                minimumValue={minV}
-                maximumValue={maxV}
-                trackStyle={{ height: 8, borderRadius: 50 }}
-                onValueChange={(value: number | number[]) => {
-                  console.log('onValueChange', value);
-                }}
-                onSlidingStart={(value: number | number[]) =>
-                  console.log('onSlidingStart', value)
-                }
-                onSlidingComplete={(value: number | number[]) => {
-                  const answer = value as number[];
-                  methods?.update(index, {
-                    name: question?.title,
-                    value: '$' + answer[0] + '-' + '$' + answer[1],
-                    questionID: question?.id,
-                  });
-                }}
-              />
-            )}
+            {({ min = minV, max = maxV }) => {
+              return (
+                <Slider
+                  trackColor={'rgba(28,43,79,0.3)'} // Token.colors.rynaBlue with opacity
+                  trackHighlightColor={Token.colors.blue}
+                  value={[min!, max!]}
+                  step={50}
+                  minimumValue={min}
+                  maximumValue={max}
+                  trackStyle={{ height: 8, borderRadius: 50 }}
+                  onValueChange={(value: number | number[]) => {
+                    console.log('onValueChange', value);
+                  }}
+                  onSlidingStart={(value: number | number[]) =>
+                    console.log('onSlidingStart', value)
+                  }
+                  onSlidingComplete={(value: number | number[]) => {
+                    const answer = value as number[];
+                    methods?.update(index, {
+                      name: question?.title,
+                      value: '$' + answer[0] + '-' + '$' + answer[1],
+                      tag: question?.matching_tag,
+                      questionID: question?.id,
+                    });
+                  }}
+                />
+              );
+            }}
           </SliderConsumer>
         </Container>
       );
       break;
     case 'CHOICES':
-      QuestionContent = question.add_ons.choices?.map((choice) => (
+      QuestionContent = question.add_ons.choices?.map((choice, idx) => (
         <Input
           key={choice}
           editable={false}
@@ -125,10 +104,26 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
           }
           textInputStyle={styles.textInput}
           value={choice}
+          rightLabel={
+            <Text
+              style={{
+                color:
+                  methods?.fields[index]?.value === choice
+                    ? colors.rynaBlack
+                    : colors.textDarkGrey,
+              }}
+            >
+              {t('choiceStatus')}
+            </Text>
+          }
           onFocus={() => {
             methods?.update(index, {
               name: question?.title,
               value: choice,
+              tag:
+                question?.matching_tag.length != 0
+                  ? question?.matching_tag
+                  : (question?.add_ons?.tags?.[idx] as string),
               questionID: question?.id,
             });
           }}
@@ -144,7 +139,12 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
       ) : (
         <>
           {question?.title && (
-            <Text variant="header-2" ink="primary" style={styles.title}>
+            <Text
+              font="playfair"
+              variant="header-2"
+              ink="primary"
+              style={styles.title}
+            >
               {question?.title}
             </Text>
           )}
@@ -177,6 +177,7 @@ export function QuestionaireCard({
         style={styles.submitButton}
         text={t('submitQuestionButton')}
         onPress={onSubmit}
+        textStyle={styles.buttonText}
       />
     </View>
   );
@@ -192,6 +193,10 @@ const styles = StyleSheet.create({
     shadowColor: 'rgba(0, 0, 0, 0.08)',
     padding: Token.spacing.l,
     alignSelf: 'flex-start',
+    zIndex: 100,
+  },
+  alignCenterContainer: {
+    alignItems: 'center',
   },
   title: {
     marginBottom: Token.spacing.ml,
@@ -221,6 +226,9 @@ const styles = StyleSheet.create({
     paddingVertical: Token.spacing.m,
     backgroundColor: Token.colors.blue,
     alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: fontSize.medium,
   },
 });
 

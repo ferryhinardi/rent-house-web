@@ -1,10 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import { useSpring, animated } from 'react-spring';
-import ReactCalendar, {
-  CalendarTileProperties,
-  OnChangeDateCallback,
-} from 'react-calendar';
+import ReactCalendar, { OnChangeDateCallback } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -13,15 +10,12 @@ import { Input, Text } from 'core/base';
 import { useStable, useClickOutside } from 'core/hooks';
 
 const AnimatedView = animated(View);
-const calendarInputRef = React.createRef<TextInput | HTMLElement>();
 
-type Props = React.ComponentProps<typeof Input> & {
-  onSelectedDateCallback?: OnSelectedDateCallback;
+type Props = Omit<React.ComponentProps<typeof Input>, 'onChange'> & {
+  onChange?: (value: string) => void;
 };
 
-export type OnSelectedDateCallback = (value: string) => void;
-
-function Calendar(props: Props) {
+function Calendar({ onChange, ...restProps }: Props) {
   const formatter = useStable(
     () =>
       new Intl.DateTimeFormat('default', {
@@ -33,33 +27,39 @@ function Calendar(props: Props) {
   const [isVisibile, setIsVisible] = React.useState(false);
   const [isConstruct, setIsContruct] = React.useState(false);
   const [value, setValue] = React.useState(new Date());
+  const calendarInputRef = useRef<TextInput>();
+
   const calendarAnimateStyle = useSpring({
     opacity: isVisibile ? 1 : 0,
     onRest: () => (!isVisibile ? setIsContruct(false) : {}),
   });
+
   const onPress = () => {
     setIsContruct(true);
-    setIsVisible((prev) => !prev);
+    setIsVisible(true);
   };
+
   const onHide = () => {
     setIsVisible(false);
   };
-  const onChange: OnChangeDateCallback = (value: Date) => {
+
+  const onChangeCalendar: OnChangeDateCallback = (value: Date) => {
     setValue(value);
-    props.onSelectedDateCallback?.(formatter.format(value));
+    onChange?.(formatter.format(value));
     onHide();
   };
 
-  useClickOutside(
-    calendarInputRef as React.MutableRefObject<HTMLElement>,
-    onHide
-  );
+  useClickOutside(calendarInputRef as any, onHide);
 
   return (
-    <div>
+    <View
+      ref={(ref) => {
+        calendarInputRef.current = ref as TextInput;
+      }}
+      style={{ zIndex: 100 }}
+    >
       <Input
-        {...props}
-        ref={calendarInputRef as React.MutableRefObject<TextInput>}
+        {...restProps}
         value={formatter.format(value)}
         editable={false}
         textInputStyle={styles.input}
@@ -74,7 +74,7 @@ function Calendar(props: Props) {
           >
             <ReactCalendar
               className="ryna-calendar"
-              onChange={onChange}
+              onChange={onChangeCalendar}
               value={value}
               nextLabel={null}
               next2Label={null}
@@ -95,7 +95,7 @@ function Calendar(props: Props) {
           </AnimatedView>
         </View>
       )}
-    </div>
+    </View>
   );
 }
 
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     marginTop: Token.spacing.xs,
     margin: 'auto 0px',
+    zIndex: 100,
   },
   navigationMonthWrapper: {
     flexDirection: 'row',

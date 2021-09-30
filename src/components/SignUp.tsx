@@ -73,6 +73,7 @@ function SignUpForm(props: Props) {
       props.landingPageAnswers.map((item) => {
         answers.push({
           question_id: item.questionID as number,
+          tag: item.tag as string,
           value: item.value as string,
         });
       });

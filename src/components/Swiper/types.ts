@@ -25,6 +25,10 @@ export type Props = Partial<{
   controlsEnabled: boolean;
   controlsProps: React.ComponentProps<typeof Controls>;
   Controls: React.ReactNode;
+  renderDots?: (
+    index: number,
+    goTo: (index: number) => void
+  ) => React.ReactElement;
 
   theme: object;
 }>;

@@ -6,34 +6,6 @@ export type ResponseItem<T> = {
   page: number;
 };
 
-export type User = {
-  email: string;
-  email_verified: boolean;
-  id: number;
-  last_login_at: string;
-  name: string;
-  job: string;
-  bio: string;
-  address: string;
-  currency_code: string;
-  profile_picture: string;
-  phone: string;
-  annual_income: number;
-  credit_score: number;
-  gender: number;
-  provider_type: number;
-  provider_user_id: string;
-  role_id: number;
-};
-
-export type UserDocument = {
-  id: number;
-  user_id: number;
-  document_type: number;
-  document_path: string;
-  is_verified: boolean;
-};
-
 export type Question = {
   id: number;
   title?: string;
@@ -42,6 +14,7 @@ export type Question = {
   category: string;
   section: 'landing_page' | 'user_preferences';
   type: 'CHOICES' | 'DATE' | 'TEXT' | 'RANGE_NUMBER';
+  matching_tag: string;
   add_ons: AddOns;
 };
 
@@ -49,6 +22,7 @@ export type AddOns = {
   choices?: string[];
   range_number_min?: number;
   range_number_max?: number;
+  tags?: string[];
 };
 
 export type House = {
@@ -87,11 +61,13 @@ type Location = { Float64: number; Valid: boolean };
 export type UserAnswers = {
   question_id: number;
   value: string;
+  tag: string;
 }[];
 
 export type Answer = {
   question_id: number;
   value: string;
+  tag: string;
 };
 
 export type AnswerState = {
@@ -139,7 +115,57 @@ export type QuestionState = {
   name: string;
   value?: string;
   questionID?: number;
+  tag: string;
 };
 export type PreferenceQuestionState = {
   states: QuestionState[];
 };
+
+export type User = {
+  email: string;
+  email_verified: boolean;
+  id: number;
+  last_login_at?: string;
+  name: string;
+  job: string;
+  bio: string;
+  address: string;
+  currency_code: string;
+  profile_picture: string;
+  phone: string;
+  annual_income: number;
+  credit_score: number;
+  gender: number;
+  provider_type: number;
+  provider_user_id: string;
+  role_id: number;
+  birth_date?: string;
+  phone_verified: boolean;
+};
+
+export type UserDocument = {
+  id: number;
+  user_id: number;
+  document_type: number;
+  document_path: string;
+  is_verified: boolean;
+};
+
+export type EmergencyContactType = {
+  name: string;
+  email: string;
+  phone: string;
+  relationship: string;
+};
+
+export type PayloadUpdateUser = User & {
+  dob: string;
+  gender: Gender;
+  government_id: FileList;
+  profile_picture: FileList;
+  document_type: string;
+  document_files: FileList;
+  emergencyContacts: EmergencyContactType[];
+};
+
+type Gender = { label: string; value: number };

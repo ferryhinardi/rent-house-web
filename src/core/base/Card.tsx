@@ -1,6 +1,12 @@
 import React, { useContext } from 'react';
 import Image, { ImageProps } from 'next/image';
-import { View, TouchableOpacity, StyleSheet, ViewProps } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  ViewProps,
+  ViewStyle,
+} from 'react-native';
 import { colors, border, spacing } from './Token';
 import Text from './Text';
 
@@ -8,22 +14,65 @@ interface Props extends ViewProps {
   orientation?: 'landscape' | 'portrait';
   imageProps?: ImageProps;
   children?: React.ReactNode;
+  activeOpacity?: number;
   onPress?: () => void;
+  noShadow?: boolean;
+  imageContainerStyle?: ViewStyle;
+  roundedCorner?: RoundedCorner[];
 }
+
+type RoundedCorner = 'topRight' | 'topLeft' | 'bottomRight' | 'bottomLeft';
 
 const CardContext = React.createContext<{
   orientation?: 'landscape' | 'portrait';
 }>({});
 
-function Card({ style, imageProps, orientation, onPress, children }: Props) {
+function Card({
+  style,
+  imageProps,
+  orientation,
+  onPress,
+  children,
+  activeOpacity,
+  noShadow,
+  imageContainerStyle,
+  roundedCorner,
+}: Props) {
   const Wrapper = !!onPress ? TouchableOpacity : View;
+
+  const cornerStyle: ViewStyle = {};
+  if (roundedCorner) {
+    roundedCorner?.map((corner) => {
+      switch (corner) {
+        case 'topLeft':
+          cornerStyle.borderTopLeftRadius = border.radius.extra;
+          break;
+        case 'topRight':
+          cornerStyle.borderTopRightRadius = border.radius.extra;
+          break;
+        case 'bottomLeft':
+          cornerStyle.borderBottomLeftRadius = border.radius.extra;
+          break;
+        case 'bottomRight':
+          cornerStyle.borderBottomRightRadius = border.radius.extra;
+          break;
+        default:
+          break;
+      }
+    });
+  } else {
+    cornerStyle.borderTopRightRadius = border.radius.extra;
+  }
+
   return (
     <CardContext.Provider value={{ orientation }}>
       {/* @ts-ignore */}
       <Wrapper
-        activeOpacity={0.8}
+        activeOpacity={activeOpacity ? activeOpacity : 0.8}
         style={[
           styles.container,
+          noShadow ? {} : styles.shadowContainer,
+          cornerStyle,
           style,
           orientation === 'landscape'
             ? { flexDirection: 'row' }
@@ -32,12 +81,14 @@ function Card({ style, imageProps, orientation, onPress, children }: Props) {
         onPress={onPress}
       >
         {imageProps && (
-          <Image
-            {...imageProps}
-            className="banner-card"
-            objectFit="cover"
-            alt="image card"
-          />
+          <View style={[styles.imageContainer, imageContainerStyle]}>
+            <Image
+              {...imageProps}
+              className="banner-card"
+              objectFit="cover"
+              alt="image card"
+            />
+          </View>
         )}
         {children}
       </Wrapper>
@@ -51,7 +102,7 @@ function Card({ style, imageProps, orientation, onPress, children }: Props) {
 }
 
 function CardTitle(props: React.ComponentProps<typeof Text>) {
-  return <Text {...props} variant="header-3" />;
+  return <Text {...props} font="playfair" variant="header-2" />;
 }
 
 function CardBody(
@@ -74,11 +125,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
-    borderTopRightRadius: border.radius.extra,
     filter: 'drop-shadow(8px 16px 94px rgba(0, 0, 0, 0.04))',
+  },
+  shadowContainer: {
     shadowOffset: { width: 20, height: 14 },
     shadowRadius: 84,
     shadowColor: 'rgba(0, 0, 0, 0.08)',
+  },
+  imageContainer: {
+    display: 'flex',
   },
 });
 

@@ -92,7 +92,7 @@ React Calendar
   border-radius: 12px;
   padding-top: 24px;
   padding-bottom: 24px;
-  border: none;
+  border: none !important;
 }
 
 .ryna-calendar .react-calendar__navigation {
@@ -115,12 +115,12 @@ React Calendar
 }
 
 .ryna-calendar .react-calendar__tile--active {
-  background: #5f7cc1;
+  background: #1c2b4f !important;
 }
 
 .ryna-calendar .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #5f7cc1;
+  background: #1c2b4f !important;
 }
 
 .ryna-calendar abbr[title] {
@@ -130,4 +130,8 @@ React Calendar
 .ryna-calendar .react-calendar__month-view div div {
   padding-left: 8px;
   padding-right: 8px;
+}
+
+/* current date */
+.ryna-calendar .react-calendar__tile--now {
 }

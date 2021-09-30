@@ -9,6 +9,7 @@ import ScheduleTourForm from './ScheduleTourForm';
 import { House } from 'types';
 import config from 'config';
 import { QUERY_KEYS } from 'core/constants';
+import PreviewImageButtonModal from './PreviewImageButtonModal';
 
 export default function HomeRecommendationHeaderSection() {
   const router = useRouter();
@@ -37,19 +38,32 @@ export default function HomeRecommendationHeaderSection() {
       </View>
 
       <View>
-        <Image
-          src={`${config.imageHost}/${data?.lead_media}`}
-          alt={`galery-1`}
-          width={744}
-          height={378}
-          objectFit="cover"
-        />
+        <View>
+          <Image
+            src={`${config.imageHost}/${data?.lead_media}`}
+            blurDataURL={`${config.imageHost}/${data?.lead_media}`}
+            placeholder="blur"
+            alt={`galery-1`}
+            className="galery-recommendation"
+            width={744}
+            height={378}
+            objectFit="cover"
+          />
+          <PreviewImageButtonModal
+            text={'Show All Photos'}
+            images={[data?.lead_media!, ...(data?.galleries || [])]}
+            style={styles.seeAllBtn}
+          />
+        </View>
         <View style={styles.imageCollections}>
           {(data?.galleries || []).map((item, i) => (
             <Image
               key={i}
               src={`${config.imageHost}/${item}`}
+              blurDataURL={`${config.imageHost}/${item}`}
+              placeholder="blur"
               alt={`galery-${i + 1}`}
+              className="galery-recommendation"
               width={243}
               height={205}
               objectFit="cover"
@@ -57,6 +71,11 @@ export default function HomeRecommendationHeaderSection() {
           ))}
         </View>
       </View>
+      <style jsx global>{`
+        .galery-recommendation {
+          border-radius: 16px;
+        }
+      `}</style>
     </ContainerDesktop>
   );
 }
@@ -89,4 +108,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: Token.spacing.l,
   },
+  seeAllBtn: { position: 'absolute', right: 16, bottom: 16 },
 });
