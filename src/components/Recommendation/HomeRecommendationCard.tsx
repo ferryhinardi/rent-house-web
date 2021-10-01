@@ -2,16 +2,24 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
+import config from 'config';
 import { Token } from 'core';
 import { Card, Text, Button } from 'core/base';
 import Swiper from '../Swiper';
 import FacilityIcon from './FacilityIcon';
+import { House } from 'types';
 
-type CardProps = {
+type CardProps = House & {
   onViewDetail?: () => void;
 };
 
-export default function HomeRecommendationCard({ onViewDetail }: CardProps) {
+export default function HomeRecommendationCard({
+  name,
+  description,
+  amenities,
+  galleries,
+  onViewDetail,
+}: CardProps) {
   const { t } = useTranslation();
   return (
     <Card style={styles.containerCard}>
@@ -58,63 +66,39 @@ export default function HomeRecommendationCard({ onViewDetail }: CardProps) {
             ),
           }}
         >
-          <Image
-            src={require('assets/home-recommendation-sample.svg')}
-            alt="home-recommendation"
-            layout="responsive"
-            loading="eager"
-            objectFit="cover"
-          />
-          <Image
-            src={require('assets/home-recommendation-sample.svg')}
-            alt="home-recommendation"
-            layout="responsive"
-            loading="eager"
-            objectFit="cover"
-          />
-          <Image
-            src={require('assets/home-recommendation-sample.svg')}
-            alt="home-recommendation"
-            layout="responsive"
-            loading="eager"
-            objectFit="cover"
-          />
+          {galleries.map((galery, idx) => (
+            <Image
+              key={`${galery}-${idx}`}
+              src={`${config.imageHost}/${galery}`}
+              blurDataURL={`${config.imageHost}/${galery}`}
+              placeholder="blur"
+              loading="lazy"
+              width="100%"
+              height="100%"
+              layout="responsive"
+              objectFit="cover"
+              alt="home-recommendation"
+            />
+          ))}
         </Swiper>
         <Text variant="header-3" style={styles.title}>
-          {'Beautiful Minto Apartment'}
+          {name}
         </Text>
-        <Text variant="title-2" ink="primary" style={styles.subtitle}>
+        {/* <Text variant="title-2" ink="primary" style={styles.subtitle}>
           {'$1500 - $1700'}
+        </Text> */}
+        <Text variant="caption" style={styles.description}>
+          {description}
         </Text>
         <View style={styles.facilityContainer}>
-          <View style={styles.facility}>
-            <FacilityIcon name="rooftop" />
-            <Text ink="dark">{'Rooftop'}</Text>
-          </View>
-          <View style={styles.facility}>
-            <FacilityIcon name="gym" />
-            <Text ink="dark">{'Gym'}</Text>
-          </View>
-          <View style={styles.facility}>
-            <FacilityIcon name="pool" />
-            <Text ink="dark">{'Pool'}</Text>
-          </View>
-          <View style={styles.facility}>
-            <FacilityIcon name="laundry" />
-            <Text ink="dark">{'Laundry'}</Text>
-          </View>
-          <View style={styles.facility}>
-            <FacilityIcon name="bedroom" />
-            <Text ink="dark">{'Bedroom'}</Text>
-          </View>
-          <View style={styles.facility}>
-            <FacilityIcon name="bathroom" />
-            <Text ink="dark">{'Bathroom'}</Text>
-          </View>
-          <View style={styles.facility}>
-            <FacilityIcon name="diningroom" />
-            <Text ink="dark">{'Dining Room'}</Text>
-          </View>
+          {(amenities || []).map((item, i) => {
+            return (
+              <View key={i} style={styles.facility}>
+                <FacilityIcon name={item.icon} />
+                <Text ink="dark">{item.name}</Text>
+              </View>
+            );
+          })}
         </View>
         <Button
           text={t('homeRecommendationViewButton')}
@@ -137,6 +121,7 @@ const styles = StyleSheet.create({
   },
   title: { marginTop: Token.spacing.xl },
   subtitle: { marginTop: Token.spacing.l },
+  description: { marginTop: Token.spacing.l },
   facilityContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',

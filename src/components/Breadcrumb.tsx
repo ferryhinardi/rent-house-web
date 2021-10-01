@@ -26,7 +26,6 @@ function Breadcrumbs() {
           {listPath.map((path, idx) => {
             const isActiveMenu = idx === listPath.length - 1;
             const hrefPath = listPath.slice(0, idx + 1);
-            console.log('hrefPath', hrefPath);
             return (
               <li key={path}>
                 <Link

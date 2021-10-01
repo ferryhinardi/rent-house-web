@@ -2,6 +2,8 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
 import { useTranslation } from 'react-i18next';
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {
@@ -16,9 +18,9 @@ import {
 } from 'components';
 import { Token, fetchServer } from 'core';
 import { ContainerDesktop, Text } from 'core/base';
-import { QueryClient } from 'react-query';
 import { QUERY_KEYS } from 'core/constants';
-import { User } from 'types';
+import { User, House, ResponseItem } from 'types';
+import { redirectIfUnauthenticated } from 'utils/auth';
 
 type Props = {
   user: User;
@@ -84,7 +86,7 @@ export default function Account({ user }: Props) {
   );
 }
 
-export async function getServerSideProps({ res, req }: NextPageContext) {
+export async function getServerSideProps(context: NextPageContext) {
   // This value is considered fresh for ten seconds (s-maxage=10).
   // If a request is repeated within the next 10 seconds, the previously
   // cached value will still be fresh. If the request is repeated before 59 seconds,
@@ -93,18 +95,29 @@ export async function getServerSideProps({ res, req }: NextPageContext) {
   // In the background, a revalidation request will be made to populate the cache
   // with a fresh value. If you refresh the page, you will see the new value.
   // https://nextjs.org/docs/going-to-production#caching
-  res?.setHeader(
+  context.res?.setHeader(
     'Cache-Control',
     'public, s-maxage=10, stale-while-revalidate=59'
   );
   const queryClient = new QueryClient();
   const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () =>
-    fetchServer<User>(req as NextApiRequest, res as NextApiResponse, {
-      url: '/current-user/',
-    })
+    redirectIfUnauthenticated(context)
+  );
+
+  await queryClient.prefetchQuery([QUERY_KEYS.HOUSE_MATCH, user?.id], () =>
+    fetchServer<ResponseItem<House>>(
+      context.req as NextApiRequest,
+      context.res as NextApiResponse,
+      { url: `/match-property/preferences/${user?.id}` }
+      // Testing
+      // { url: `/match-property/preferences/11` }
+    )
   );
   return {
-    props: { user },
+    props: {
+      user,
+      dehydratedState: dehydrate(queryClient),
+    },
   };
 }
 

@@ -27,6 +27,7 @@ import {
   PayloadUpdateUser,
 } from 'types';
 import createPayloadUpdateUser from 'utils/createPayloadUpdateUser';
+import { redirectIfUnauthenticated } from 'utils/auth';
 
 type Props = {
   user: User;
@@ -131,7 +132,7 @@ export default function Profile({ user, emergencyContacts }: Props) {
   );
 }
 
-export async function getServerSideProps({ res, req }: NextPageContext) {
+export async function getServerSideProps(context: NextPageContext) {
   // This value is considered fresh for ten seconds (s-maxage=10).
   // If a request is repeated within the next 10 seconds, the previously
   // cached value will still be fresh. If the request is repeated before 59 seconds,
@@ -140,22 +141,24 @@ export async function getServerSideProps({ res, req }: NextPageContext) {
   // In the background, a revalidation request will be made to populate the cache
   // with a fresh value. If you refresh the page, you will see the new value.
   // https://nextjs.org/docs/going-to-production#caching
-  res?.setHeader(
+  context.res?.setHeader(
     'Cache-Control',
     'public, s-maxage=10, stale-while-revalidate=59'
   );
   const queryClient = new QueryClient();
   const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () =>
-    fetchServer<User>(req as NextApiRequest, res as NextApiResponse, {
-      url: '/current-user',
-    })
+    redirectIfUnauthenticated(context)
   );
   const emergencyContacts = await queryClient.fetchQuery(
-    [QUERY_KEYS.EMERGENCY_CONTACT, user.id],
+    [QUERY_KEYS.EMERGENCY_CONTACT, user?.id],
     () =>
-      fetchServer<User>(req as NextApiRequest, res as NextApiResponse, {
-        url: `/emergency-contact/${user.id}`,
-      })
+      fetchServer<User>(
+        context.req as NextApiRequest,
+        context.res as NextApiResponse,
+        {
+          url: `/emergency-contact/${user?.id}`,
+        }
+      )
   );
   return {
     props: {

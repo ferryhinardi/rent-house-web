@@ -16,8 +16,9 @@ import {
   Footer,
 } from 'components';
 import { fetchServer } from 'core';
-import { ResponseItem, Question, House, Testimony, User } from 'types';
+import { ResponseItem, Question, House, Testimony } from 'types';
 import { QUERY_KEYS } from 'core/constants';
+import { redirectIfUnauthenticated } from 'utils/auth';
 
 export default function Home() {
   return (
@@ -58,32 +59,28 @@ export async function getServerSideProps(context: NextPageContext) {
     'public, s-maxage=10, stale-while-revalidate=59'
   );
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(QUERY_KEYS.CURRENT_USER, () =>
-    fetchServer<User>(
-      context.req as NextApiRequest,
-      context.res as NextApiResponse,
-      { url: '/current-user' }
-    )
+  await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () =>
+    redirectIfUnauthenticated(context)
   );
-  await queryClient.prefetchQuery(QUERY_KEYS.QUESTION_LANDING_PAGE, () =>
+  await queryClient.fetchQuery(QUERY_KEYS.QUESTION_LANDING_PAGE, () =>
     fetchServer<ResponseItem<Question>>(
       context.req as NextApiRequest,
       context.res as NextApiResponse,
       { url: '/question/all', params: { section: 'landing_page' } }
     )
   );
-  await queryClient.prefetchQuery(QUERY_KEYS.HOUSE, () =>
+  await queryClient.fetchQuery(QUERY_KEYS.HOUSE, () =>
     fetchServer<ResponseItem<House>>(
       context.req as NextApiRequest,
       context.res as NextApiResponse,
-      { url: '/house?size=4' }
+      { url: '/house/all', params: { size: 4 } }
     )
   );
-  await queryClient.prefetchQuery(QUERY_KEYS.TESTIMONY, () =>
+  await queryClient.fetchQuery(QUERY_KEYS.TESTIMONY, () =>
     fetchServer<ResponseItem<Testimony>>(
       context.req as NextApiRequest,
       context.res as NextApiResponse,
-      { url: '/testimony' }
+      { url: '/testimony/all', params: { size: 4 } }
     )
   );
 
