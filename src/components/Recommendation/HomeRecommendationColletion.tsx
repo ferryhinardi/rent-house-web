@@ -1,6 +1,5 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import { useFormContext } from 'react-hook-form';
 import { House, User } from 'types';
 import { QUERY_KEYS } from 'core/constants';
 import { useRouter } from 'next/router';
@@ -12,14 +11,19 @@ import { HomeRecommendationPlaceholder } from 'components/Placeholder';
 
 export default function HomeRecommendationColletion() {
   const router = useRouter();
-  const { getValues } = useFormContext<User>();
+  const { data: user } = useQuery<User>(QUERY_KEYS.CURRENT_USER, () =>
+    fetcher<User>({
+      method: 'POST',
+      url: '/user/current-user',
+    })
+  );
   const { data, isLoading } = useQuery<Array<House>>(
-    [QUERY_KEYS.HOUSE_MATCH, getValues().id],
+    [QUERY_KEYS.HOUSE_MATCH, user?.id],
     async () =>
       fetcher<Array<House>>({
         method: 'GET',
         url: '/house-matching',
-        params: { userId: getValues().id },
+        params: { userId: user?.id },
         // Testing
         // params: { userId: 11 },
       })

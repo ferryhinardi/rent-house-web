@@ -20,6 +20,7 @@ import { Token, fetchServer } from 'core';
 import { ContainerDesktop, Text } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { User, House, ResponseItem } from 'types';
+import { redirectIfUnauthenticated } from 'utils/auth';
 
 type Props = {
   user: User;
@@ -85,7 +86,7 @@ export default function Account({ user }: Props) {
   );
 }
 
-export async function getServerSideProps({ res, req }: NextPageContext) {
+export async function getServerSideProps(context: NextPageContext) {
   // This value is considered fresh for ten seconds (s-maxage=10).
   // If a request is repeated within the next 10 seconds, the previously
   // cached value will still be fresh. If the request is repeated before 59 seconds,
@@ -94,21 +95,20 @@ export async function getServerSideProps({ res, req }: NextPageContext) {
   // In the background, a revalidation request will be made to populate the cache
   // with a fresh value. If you refresh the page, you will see the new value.
   // https://nextjs.org/docs/going-to-production#caching
-  res?.setHeader(
+  context.res?.setHeader(
     'Cache-Control',
     'public, s-maxage=10, stale-while-revalidate=59'
   );
   const queryClient = new QueryClient();
   const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () =>
-    fetchServer<User>(req as NextApiRequest, res as NextApiResponse, {
-      url: '/current-user/',
-    })
+    redirectIfUnauthenticated(context)
   );
-  await queryClient.prefetchQuery([QUERY_KEYS.HOUSE_MATCH, user.id], () =>
+
+  await queryClient.prefetchQuery([QUERY_KEYS.HOUSE_MATCH, user?.id], () =>
     fetchServer<ResponseItem<House>>(
-      req as NextApiRequest,
-      res as NextApiResponse,
-      { url: `/match-property/preferences/${user.id}` }
+      context.req as NextApiRequest,
+      context.res as NextApiResponse,
+      { url: `/match-property/preferences/${user?.id}` }
       // Testing
       // { url: `/match-property/preferences/11` }
     )

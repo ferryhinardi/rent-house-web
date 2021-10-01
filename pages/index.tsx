@@ -16,8 +16,9 @@ import {
   Footer,
 } from 'components';
 import { fetchServer } from 'core';
-import { ResponseItem, Question, House, Testimony, User } from 'types';
+import { ResponseItem, Question, House, Testimony } from 'types';
 import { QUERY_KEYS } from 'core/constants';
+import { redirectIfUnauthenticated } from 'utils/auth';
 
 export default function Home() {
   return (
@@ -59,11 +60,7 @@ export async function getServerSideProps(context: NextPageContext) {
   );
   const queryClient = new QueryClient();
   await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () =>
-    fetchServer<User>(
-      context.req as NextApiRequest,
-      context.res as NextApiResponse,
-      { url: '/current-user' }
-    )
+    redirectIfUnauthenticated(context)
   );
   await queryClient.fetchQuery(QUERY_KEYS.QUESTION_LANDING_PAGE, () =>
     fetchServer<ResponseItem<Question>>(

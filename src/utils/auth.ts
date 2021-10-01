@@ -1,33 +1,42 @@
-import { NextPageContext } from 'next';
-import nextCookie from 'next-cookies'
+import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
 import cookie from 'js-cookie';
-import { Login } from 'types';
+import { AxiosError } from 'axios';
+import { fetchServer } from 'core';
+import { Login, User } from 'types';
 
 export const login = ({ token }: Login) => {
-  cookie.set('token', token, { expires: 1 })
+  cookie.set('token', token, { expires: 1 });
   // Redirect to homepage
-}
+};
 
-export const auth = (ctx: NextPageContext) => {
-  const { token } = nextCookie(ctx)
-
-  // If there's no token, it means the user is not logged in.
-  if (!token) {
-    if (typeof window === 'undefined') {
-      ctx.res?.writeHead(302, { Location: '/login' })
-      ctx.res?.end()
-    } else {
-      // Redirect to login
+export const redirectIfUnauthenticated = async ({
+  req,
+  res,
+  pathname,
+}: NextPageContext) => {
+  try {
+    const user = await fetchServer<User>(
+      req as NextApiRequest,
+      res as NextApiResponse,
+      {
+        url: '/current-user/',
+      }
+    );
+    return user;
+  } catch (err) {
+    if ((err as AxiosError).response?.status == 401 && pathname !== undefined) {
+      (res as NextApiResponse).writeHead(301, { Location: '/' });
+      (res as NextApiResponse).end();
+      return null;
     }
-  }
 
-  return token
-}
+    return null;
+  }
+};
 
 export const logout = () => {
-  cookie.remove('token')
+  cookie.remove('token');
   // to support logging out from all windows
-  localStorage.setItem('logout', `${(new Date).getTime()}`)
+  localStorage.setItem('logout', `${new Date().getTime()}`);
   // Redirect to login
-}
-;
+};
