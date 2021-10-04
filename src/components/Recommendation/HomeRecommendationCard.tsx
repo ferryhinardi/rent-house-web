@@ -26,7 +26,12 @@ export default function HomeRecommendationCard({
       <Card.Body>
         <Swiper
           containerStyle={{ flex: 1 }}
-          innerContainerStyle={{ width: '100%', height: 170 }}
+          innerContainerStyle={{
+            flexBasis: '100%',
+            flexGrow: 0,
+            flexShrink: 1,
+            height: '100%',
+          }}
           minDistanceForAction={0.1}
           controlsProps={{
             dotsTouchable: true,
@@ -71,6 +76,7 @@ export default function HomeRecommendationCard({
               key={`${galery}-${idx}`}
               src={`${config.imageHost}/${galery}`}
               blurDataURL={`${config.imageHost}/${galery}`}
+              className="image-galery"
               placeholder="blur"
               loading="lazy"
               width="100%"
@@ -84,9 +90,6 @@ export default function HomeRecommendationCard({
         <Text variant="header-3" style={styles.title}>
           {name}
         </Text>
-        {/* <Text variant="title-2" ink="primary" style={styles.subtitle}>
-          {'$1500 - $1700'}
-        </Text> */}
         <Text variant="caption" style={styles.description}>
           {description}
         </Text>
@@ -106,13 +109,18 @@ export default function HomeRecommendationCard({
           onPress={onViewDetail}
         />
       </Card.Body>
+      <style jsx global>{`
+        .image-galery {
+          border-radius: 8px;
+        }
+      `}</style>
     </Card>
   );
 }
 
 const styles = StyleSheet.create({
   containerCard: {
-    flexGrow: 1,
+    flexGrow: 0,
     flexShrink: 1,
     flexBasis: '48%',
     overflow: 'hidden',
@@ -120,7 +128,6 @@ const styles = StyleSheet.create({
     borderRadius: Token.border.radius.default,
   },
   title: { marginTop: Token.spacing.xl },
-  subtitle: { marginTop: Token.spacing.l },
   description: { marginTop: Token.spacing.l },
   facilityContainer: {
     flexDirection: 'row',

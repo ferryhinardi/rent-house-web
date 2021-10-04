@@ -34,7 +34,7 @@ export default function HomeRecommendationColletion() {
       {isLoading ? (
         <HomeRecommendationPlaceholder />
       ) : (
-        <View style={styles.container}>
+        <>
           {data?.map((item) => (
             <HomeRecommendationCard
               key={item.id}
@@ -47,7 +47,7 @@ export default function HomeRecommendationColletion() {
               }}
             />
           ))}
-        </View>
+        </>
       )}
     </View>
   );

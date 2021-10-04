@@ -13,7 +13,12 @@ export default function LinkedAccounts() {
     <Element name="linked-accounts">
       <>
         <View style={styles.titleWrapper}>
-          <Text variant="header-3" ink="primary" style={styles.title}>
+          <Text
+            font="playfair"
+            variant="header-3"
+            ink="primary"
+            style={styles.title}
+          >
             {t('linkedAccountsTitle')}
           </Text>
           <Badge text="Need Action" variant="alert" />

@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   header2: {
     fontSize: fontSize.xlarge,
     lineHeight: 48,
-    fontWeight: '700',
+    fontWeight: '600',
   },
   header3: {
     fontSize: fontSize.bigger,

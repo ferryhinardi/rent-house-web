@@ -20,6 +20,7 @@ export { default as SideBar } from './SideBar';
 export { default as AccountBasicProfile } from './Account/BasicProfile';
 export { default as AccountSettings } from './Account/Settings';
 export { default as AccountRecommendation } from './Account/Recommendation';
+export { default as AccountRoommates } from './Account/Roommates';
 export { default as AccountLinkedAccounts } from './Account/LinkedAccounts';
 export { default as PersonalInfoForm } from './Profile/PersonalInfoForm';
 export { default as EmergencyContact } from './Profile/EmergencyContact';

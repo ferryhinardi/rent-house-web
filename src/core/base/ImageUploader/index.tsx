@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 import { Token } from 'core';
 import { Button } from 'core/base';
+import customImgLoader from 'core/utils/customImgLoader';
 
 type Props = React.InputHTMLAttributes<HTMLInputElement> & {
   value?: string;
@@ -25,10 +26,7 @@ export default function ImageUploader({
       setImage(URL.createObjectURL(event.target.files[0]));
     }
   };
-  // https://github.com/vercel/next.js/discussions/19732#discussioncomment-1136915
-  const customImgLoader = ({ src }: { src: string }) => {
-    return `${src}`;
-  };
+
   const onPress = () => {
     fileRef.current?.click();
   };
