@@ -173,6 +173,7 @@ const en = {
 
   // static page
   aboutUs: 'About Us',
+  partnerUs: 'Partner with Us',
 };
 
 export default en;

@@ -1,15 +1,17 @@
 import React from 'react';
 import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
-import { useTranslation } from 'react-i18next';
 
 import OfficeBanner from 'assets/office-banner.jpg';
 
 import { Text } from 'core/base';
 import { Token } from 'core';
 
-export default function Banner() {
-  const { t } = useTranslation();
+type Props = {
+  title?: () => void;
+};
+
+export default function Banner({ title }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.backgroundImage}>
@@ -24,7 +26,7 @@ export default function Banner() {
       </View>
       <View style={styles.textContainer}>
         <Text ink="light" font="playfair" variant="header-2">
-          {t('aboutUs')}
+          {title}
         </Text>
       </View>
     </View>
