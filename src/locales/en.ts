@@ -170,6 +170,9 @@ const en = {
   preferenceBannerDescription:
     'Moving to the city? Pursuing your dreams? In a transition? We’ve got properties – unique to your needs',
   preferenceBannerButton: 'Rent With Us',
+
+  // static page
+  aboutUs: 'About Us',
 };
 
 export default en;
