@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useForm, useController } from 'react-hook-form';
 import { Text, Button, Input, CalendarInput, ErrorMessage } from 'core/base';
 import { Token } from 'core';
-import avatar from 'assets/avatar-sample.svg';
+import assets from 'assets';
 
 type Props = {
   onSubmit?: () => void;
@@ -55,7 +55,7 @@ export default function FormApply({ onSubmit }: Props) {
     <View style={styles.form}>
       <View>
         <View style={{ borderRadius: Token.border.radius.default }}>
-          <Image src={avatar} width={240} height={240} alt="avatar" />
+          <Image src={assets.avatar} width={240} height={240} alt="avatar" />
         </View>
       </View>
       <View style={styles.formContainer}>

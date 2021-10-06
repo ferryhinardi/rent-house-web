@@ -4,11 +4,12 @@ import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 import { Text } from 'core/base';
+import assets from 'assets';
 
 const mediaAssets = [
-  require('assets/support-media-1.svg'),
-  require('assets/support-media-2.svg'),
-  require('assets/support-media-3.svg'),
+  assets.supportMedia1,
+  assets.supportMedia2,
+  assets.supportMedia3,
 ];
 
 export default function SupportingMedia() {

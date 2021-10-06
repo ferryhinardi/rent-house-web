@@ -3,10 +3,12 @@ import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 import { Text } from 'core/base';
-import hero from 'assets/hero-3.svg';
+import assets from 'assets';
 import HeroBannerTemplate from './HeroBannerTemplate';
 import HeroTimeline from './HeroTimeline';
 import { HeroStates } from '../HeroBanner';
+
+const hero = assets.hero3;
 
 type Props = {
   states: HeroStates;
@@ -40,9 +42,6 @@ HeroBannerDone.width = hero.width;
 HeroBannerDone.height = hero.height;
 
 const styles = StyleSheet.create({
-  heroText: {
-    color: Token.colors.white,
-  },
   heroSubtitle: {
     paddingTop: Token.spacing.l,
   },

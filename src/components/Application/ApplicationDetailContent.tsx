@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card, Text, Button } from 'core/base';
 import { Token } from 'core';
-import avatar from 'assets/avatar-sample.svg';
+import assets from 'assets';
 import Swiper from '../Swiper';
 
 export default function ApplicationDetailContent() {
@@ -24,7 +24,10 @@ export default function ApplicationDetailContent() {
       </View>
 
       <Swiper
-        innerContainerStyle={{ width: avatar.width, height: avatar.height }}
+        innerContainerStyle={{
+          width: assets.avatar.width,
+          height: assets.avatar.height,
+        }}
         minDistanceForAction={0.1}
         controlsProps={{
           dotsTouchable: true,
@@ -66,19 +69,19 @@ export default function ApplicationDetailContent() {
       >
         <Card
           imageProps={{
-            src: avatar,
+            src: assets.avatar,
             layout: 'fixed',
           }}
         />
         <Card
           imageProps={{
-            src: avatar,
+            src: assets.avatar,
             layout: 'fixed',
           }}
         />
         <Card
           imageProps={{
-            src: avatar,
+            src: assets.avatar,
             layout: 'fixed',
           }}
         />

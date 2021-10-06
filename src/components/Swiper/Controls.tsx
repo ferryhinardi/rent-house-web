@@ -388,9 +388,6 @@ const styles = StyleSheet.create({
   dotsItemContainer: {
     margin: 3,
   },
-  hidden: {
-    opacity: 0,
-  },
 });
 
 const customStyles = {

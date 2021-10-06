@@ -10,7 +10,7 @@ import { login } from 'utils/auth';
 import { Input, Text, LoadingIndicator, ErrorMessage } from 'core/base';
 import { FacebookButton, GoogleButton } from 'components';
 import { Login, ErrorHandling, UserAnswers } from 'types';
-import loginCoverImg from 'assets/login-cover.svg';
+import assets from 'assets';
 import { HeroState } from 'components/SectionLandingPage/Hero';
 
 type Payload = {
@@ -89,7 +89,7 @@ function SignUpForm(props: Props) {
 
   return (
     <View style={styles.container}>
-      <Image src={loginCoverImg} alt="login-cover" layout="responsive" />
+      <Image src={assets.loginCover} alt="login-cover" layout="responsive" />
       <View style={styles.formContainer}>
         <Text variant="header-2" style={styles.title}>
           {t('titleSignInForm')}
