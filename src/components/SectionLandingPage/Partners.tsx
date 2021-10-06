@@ -1,44 +1,37 @@
 import React from 'react';
 import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
-
-import parnerLogo from 'assets/partner-logo.svg';
-import mintoLogo from 'assets/partner-minto.svg';
-import kingsetLogo from 'assets/partner-kingset.svg';
-import bentallGreenOakLogo from 'assets/partner-bentallGreenOak.svg';
-import { imageDataBase64 as mintoBase64 } from 'assets/partner-minto';
-import { imageDataBase64 as kingsetBase64 } from 'assets/partner-kingset';
-import { imageDataBase64 as bentallGreenOakBase64 } from 'assets/partner-bentallGreenOak';
+import assets from 'assets';
 
 import { Token } from 'core';
 
 export default function Partners() {
   return (
     <View style={styles.container}>
-      <Image src={parnerLogo} alt="partner-logo" />
+      <Image src={assets.parnerLogo} alt="partner-logo" />
       <Image
-        src={mintoLogo}
-        blurDataURL={mintoBase64}
+        src={assets.mintoLogo}
+        blurDataURL={assets.mintoLogo}
         placeholder="blur"
-        width={mintoLogo.width}
-        height={mintoLogo.height}
-        alt="partner-logo"
+        width={assets.mintoLogo.width}
+        height={assets.mintoLogo.height}
+        alt="minto-logo"
       />
       <Image
-        src={kingsetLogo}
-        blurDataURL={kingsetBase64}
+        src={assets.kingsetLogo}
+        blurDataURL={assets.kingsetLogo}
         placeholder="blur"
-        width={kingsetLogo.width}
-        height={kingsetLogo.height}
-        alt="partner-logo"
+        width={assets.kingsetLogo.width}
+        height={assets.kingsetLogo.height}
+        alt="kingset-logo"
       />
       <Image
-        src={bentallGreenOakLogo}
-        blurDataURL={bentallGreenOakBase64}
+        src={assets.bentallGreenOakLogo}
+        blurDataURL={assets.bentallGreenOakLogo}
         placeholder="blur"
-        width={bentallGreenOakLogo.width}
-        height={bentallGreenOakLogo.height}
-        alt="partner-logo"
+        width={assets.bentallGreenOakLogo.width}
+        height={assets.bentallGreenOakLogo.height}
+        alt="bentallGreenOak-logo"
       />
     </View>
   );

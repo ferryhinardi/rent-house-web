@@ -64,8 +64,4 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: Token.spacing.s,
   },
-  showAllAmenities: {
-    alignSelf: 'flex-start',
-    marginTop: Token.spacing.xxl,
-  },
 });

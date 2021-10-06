@@ -22,12 +22,6 @@ type Props = {
   index?: number;
 };
 
-const choicesSelectableTime = [
-  'as soon as possible',
-  '1 month later',
-  '2 months later',
-];
-
 function Questionaire({ loading, question, methods, index = 0 }: Props) {
   const { t } = useTranslation();
   let QuestionContent;

@@ -2,13 +2,13 @@ import React from 'react';
 import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 
-import VideoSectionImage from 'assets/video-section.svg';
+import assets from 'assets';
 
 export default function VideoSection() {
   return (
     <View style={styles.container}>
       <Image
-        src={VideoSectionImage}
+        src={assets.videoSection}
         loading="eager"
         layout="fill"
         objectFit="cover"
@@ -20,6 +20,6 @@ export default function VideoSection() {
 
 const styles = StyleSheet.create({
   container: {
-    height: VideoSectionImage.height,
+    height: assets.videoSection.height,
   },
 });
