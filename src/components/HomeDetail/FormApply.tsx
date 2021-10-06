@@ -55,7 +55,7 @@ export default function FormApply({ onSubmit }: Props) {
     <View style={styles.form}>
       <View>
         <View style={{ borderRadius: Token.border.radius.default }}>
-          <Image src={assets.avatar} width={240} height={240} alt="avatar" />
+          <Image {...assets.avatar} width={240} height={240} alt="avatar" />
         </View>
       </View>
       <View style={styles.formContainer}>

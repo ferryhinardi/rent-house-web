@@ -26,7 +26,7 @@ export default function SupportingMedia() {
       </Text>
       <View style={styles.imageWrapper}>
         {mediaAssets.map((image, index) => (
-          <Image key={`${index}`} src={image} alt="media-1" />
+          <Image key={`${index}`} {...image} placeholder="blur" alt="media-1" />
         ))}
       </View>
     </View>

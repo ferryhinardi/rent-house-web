@@ -67,24 +67,9 @@ export default function ApplicationDetailContent() {
           ),
         }}
       >
-        <Card
-          imageProps={{
-            src: assets.avatar,
-            layout: 'fixed',
-          }}
-        />
-        <Card
-          imageProps={{
-            src: assets.avatar,
-            layout: 'fixed',
-          }}
-        />
-        <Card
-          imageProps={{
-            src: assets.avatar,
-            layout: 'fixed',
-          }}
-        />
+        <Card imageProps={assets.avatar} />
+        <Card imageProps={assets.avatar} />
+        <Card imageProps={assets.avatar} />
       </Swiper>
     </View>
   );

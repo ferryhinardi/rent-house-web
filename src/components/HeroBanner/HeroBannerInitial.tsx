@@ -12,13 +12,7 @@ function HeroBannerInitial() {
   const { t } = useTranslation();
   return (
     <HeroBannerTemplate
-      imageProps={{
-        src: hero,
-        blurDataURL: hero,
-        placeholder: 'blur',
-        width: hero.width,
-        height: hero.height,
-      }}
+      imageProps={hero}
       DescriptionComponent={
         <>
           <Text font="playfair" variant="banner-title" ink="light">

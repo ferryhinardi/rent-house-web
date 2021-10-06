@@ -20,7 +20,12 @@ function Footer() {
     <View style={styles.container}>
       <View style={styles.footer}>
         <View style={styles.sectionLogo}>
-          <Image src={assets.logoWhite} layout="fixed" alt="logo" />
+          <Image
+            {...assets.logoWhite}
+            placeholder="blur"
+            layout="fixed"
+            alt="logo"
+          />
           <Text ink="light">{t('footerTitle')}</Text>
         </View>
         <View style={styles.sectionMenu}>

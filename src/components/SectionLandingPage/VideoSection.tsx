@@ -7,13 +7,7 @@ import assets from 'assets';
 export default function VideoSection() {
   return (
     <View style={styles.container}>
-      <Image
-        src={assets.videoSection}
-        loading="eager"
-        layout="fill"
-        objectFit="cover"
-        alt="video-section"
-      />
+      <Image {...assets.videoSection} placeholder="blur" alt="video-section" />
     </View>
   );
 }

@@ -8,29 +8,12 @@ import { Token } from 'core';
 export default function Partners() {
   return (
     <View style={styles.container}>
-      <Image src={assets.parnerLogo} alt="partner-logo" />
+      <Image {...assets.parnerLogo} placeholder="blur" alt="partner-logo" />
+      <Image {...assets.mintoLogo} placeholder="blur" alt="minto-logo" />
+      <Image {...assets.kingsetLogo} placeholder="blur" alt="kingset-logo" />
       <Image
-        src={assets.mintoLogo}
-        blurDataURL={assets.mintoLogo}
+        {...assets.bentallGreenOakLogo}
         placeholder="blur"
-        width={assets.mintoLogo.width}
-        height={assets.mintoLogo.height}
-        alt="minto-logo"
-      />
-      <Image
-        src={assets.kingsetLogo}
-        blurDataURL={assets.kingsetLogo}
-        placeholder="blur"
-        width={assets.kingsetLogo.width}
-        height={assets.kingsetLogo.height}
-        alt="kingset-logo"
-      />
-      <Image
-        src={assets.bentallGreenOakLogo}
-        blurDataURL={assets.bentallGreenOakLogo}
-        placeholder="blur"
-        width={assets.bentallGreenOakLogo.width}
-        height={assets.bentallGreenOakLogo.height}
         alt="bentallGreenOak-logo"
       />
     </View>

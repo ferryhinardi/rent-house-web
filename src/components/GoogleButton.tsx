@@ -49,7 +49,7 @@ function GoogleButton(props: Props) {
   });
   return (
     <Pressable style={styles.button} onPress={signIn} disabled={!loaded}>
-      <Image src={assets.GoogleLogo} alt="Google" width={20} height={20} />
+      <Image {...assets.GoogleLogo} alt="Google" width={20} height={20} />
       <Text style={styles.text}>{t('google')}</Text>
     </Pressable>
   );

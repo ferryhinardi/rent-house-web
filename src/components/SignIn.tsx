@@ -44,7 +44,7 @@ function SignInForm() {
 
   return (
     <View style={styles.container}>
-      <Image src={assets.loginCover} alt="login-cover" layout="responsive" />
+      <Image {...assets.loginCover} alt="login-cover" layout="responsive" />
       <View style={styles.formContainer}>
         <Text variant="header-2" style={styles.title}>
           {t('titleSignInForm')}

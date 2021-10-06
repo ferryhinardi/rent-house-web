@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import PreferenceBanner from 'assets/preference-banner.png';
+import assets from 'assets';
 
 import { Text, Button } from 'core/base';
 import { Token } from 'core';
@@ -15,10 +15,9 @@ export default function Banner() {
       <View style={styles.backgroundImage}>
         <View style={styles.backDrop} />
         <Image
-          src={PreferenceBanner}
+          {...assets.preferenceBanner}
           alt="preference banner"
-          loading="eager"
-          layout="responsive"
+          placeholder="blur"
           objectFit="cover"
         />
       </View>

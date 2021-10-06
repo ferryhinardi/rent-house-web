@@ -22,8 +22,10 @@ function HeroBannerTemplate({
       <View style={styles.imageWrapper}>
         <Image
           {...imageProps}
-          loading="eager"
+          layout="responsive"
           objectFit="cover"
+          width="100%"
+          height="100%"
           alt="hero-image"
         />
       </View>

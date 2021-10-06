@@ -43,6 +43,6 @@ export default function FacilityIcon({ name }: Props) {
   }
 
   return srcImg ? (
-    <Image src={srcImg} alt={`${name}-icon`} layout="fixed" />
+    <Image {...srcImg} alt={`${name}-icon`} layout="fixed" />
   ) : null;
 }

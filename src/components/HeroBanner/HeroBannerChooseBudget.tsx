@@ -19,9 +19,7 @@ function HeroBannerChooseBudget({ states, onChange }: Props) {
   const { t } = useTranslation();
   return (
     <HeroBannerTemplate
-      imageProps={{
-        src: hero,
-      }}
+      imageProps={hero}
       DescriptionComponent={
         <>
           <HeroTimeline states={states} onChange={onChange} />

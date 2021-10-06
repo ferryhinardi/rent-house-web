@@ -47,7 +47,7 @@ function Header() {
     <View style={styles.container}>
       <View style={styles.menuWrapper}>
         <Pressable onPress={() => router.push(routePaths.home)}>
-          <Image src={assets.logo} alt="logo" />
+          <Image {...assets.logo} alt="logo" />
         </Pressable>
         {menuAnimations.map((animateStyle, idx) => {
           const { name, href } = menus[idx];

@@ -1,11 +1,12 @@
 // temp use imported img later will upload to digital ocean
 const assets = {
-  logo: require('./logo.png'),
-  logoWhite: require('./logo-white.png'),
-  loginCover: require('./login-cover.png'),
+  logo: require('./logo.png').default,
+  logoWhite: require('./logo-white.png').default,
+  loginCover: require('./login-cover.png').default,
   canadaFlag: require('./canada-flag.png'),
-  GoogleLogo: require('./G__Logo.png'),
-  videoSection: require('./video-section.png'),
+  GoogleLogo: require('./G__Logo.png').default,
+  videoSection: require('./video-section.png').default,
+  preferenceBanner: require('./preference-banner.png').default,
   // wavy line on homepage
   homeLineHorizontal: require('./line-horizontal.png'),
   homeLineHorizontal2: require('./line-2.png'),
@@ -13,29 +14,29 @@ const assets = {
   homeLineHorizontal4: require('./line-4.png'),
   homeLineHorizontal5: require('./line-5.png'),
   // Hero Banner
-  hero0: require('./hero-0.png'),
-  hero1: require('./hero-1.png'),
-  hero2: require('./hero-2.png'),
-  hero3: require('./hero-3.png'),
+  hero0: require('./hero-0.png').default,
+  hero1: require('./hero-1.png').default,
+  hero2: require('./hero-2.png').default,
+  hero3: require('./hero-3.png').default,
   // Partner Logo
-  parnerLogo: require('assets/partner-logo.png'),
-  mintoLogo: require('assets/partner-minto.png'),
-  kingsetLogo: require('assets/partner-kingset.png'),
-  bentallGreenOakLogo: require('assets/partner-bentallGreenOak.png'),
+  parnerLogo: require('assets/partner-logo.png').default,
+  mintoLogo: require('assets/partner-minto.png').default,
+  kingsetLogo: require('assets/partner-kingset.png').default,
+  bentallGreenOakLogo: require('assets/partner-bentallGreenOak.png').default,
   // Profile
-  avatar: require('./avatar-sample.png'),
+  avatar: require('./avatar-sample.png').default,
   // Facility Icon
-  rooftop: require('./ic-rooftop.png'),
-  gym: require('./ic-gym.png'),
-  pool: require('./ic-pool.png'),
-  laundry: require('./ic-laundry.png'),
-  bedroom: require('./ic-bedroom.png'),
-  bathroom: require('./ic-bathroom.png'),
-  diningroom: require('./ic-diningroom.png'),
+  rooftop: require('./ic-rooftop.png').default,
+  gym: require('./ic-gym.png').default,
+  pool: require('./ic-pool.png').default,
+  laundry: require('./ic-laundry.png').default,
+  bedroom: require('./ic-bedroom.png').default,
+  bathroom: require('./ic-bathroom.png').default,
+  diningroom: require('./ic-diningroom.png').default,
   // Support Media
-  supportMedia1: require('assets/support-media-1.png'),
-  supportMedia2: require('assets/support-media-2.png'),
-  supportMedia3: require('assets/support-media-3.png'),
+  supportMedia1: require('assets/support-media-1.png').default,
+  supportMedia2: require('assets/support-media-2.png').default,
+  supportMedia3: require('assets/support-media-3.png').default,
 };
 
 export default assets;
