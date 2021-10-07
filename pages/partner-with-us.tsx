@@ -57,7 +57,7 @@ export default function Home() {
                     Floor plans, building massing, financial models, offering memorandums, etc
                 </Text>
                 <br /><br />
-                Ryna's evaluation
+                Ryna&apos;s evaluation
                 <br /><br />
                 <Text ink="dark">
                     Ryna will provide a detailed pro-forma and property analysis
@@ -99,7 +99,7 @@ export default function Home() {
                 Stunning Property Refinements
                 <br /><br />
                 <Text ink="dark">
-                    Ryna's design team carefully curates unique and sustainable pieces to ensure that you have a property you can be proud of
+                    Ryna&apos;s design team carefully curates unique and sustainable pieces to ensure that you have a property you can be proud of
                 </Text>
             </Text>
             

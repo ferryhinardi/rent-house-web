@@ -35,7 +35,7 @@ export default function Home() {
             <Text ink="dark" variant="large">
                 Many women in their early, mid, and late-twenties/thirties are looking for a place due to common factors. Women are transitioning into new careers, new cities, new stages of life, getting out of a breakup, getting out of a bad roommate situation, moving because their roomies are moving in with their partners…
                 <br/><br/>
-                But finding a place in the city can be daunting, unsafe, and a whole job in and of itself. It can be hard to find what you're looking for - affordability, nice space, location, roommates, etc. Women have it hard enough as it is, without enough credit.
+                But finding a place in the city can be daunting, unsafe, and a whole job in and of itself. It can be hard to find what you&apos;re looking for - affordability, nice space, location, roommates, etc. Women have it hard enough as it is, without enough credit.
             </Text>
             
             <br /><br />
