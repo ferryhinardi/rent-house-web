@@ -8,7 +8,7 @@ import { Text } from 'core/base';
 import { Token } from 'core';
 
 type Props = {
-  title?: () => void;
+  title?: string;
 };
 
 export default function Banner({ title }: Props) {
@@ -60,9 +60,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 'auto',
     maxWidth: '40%',
-  },
-  descriptionText: {
-    marginVertical: Token.spacing.m,
-    textAlign: 'center',
   },
 });

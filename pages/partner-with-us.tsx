@@ -120,7 +120,4 @@ const styles = StyleSheet.create({
       marginTop: Token.spacing.xxm,
       marginBottom: Token.spacing.xxm,
     },
-    active: {
-      fontWeight: '600',
-    },
   });
