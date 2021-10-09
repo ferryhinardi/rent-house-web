@@ -54,6 +54,7 @@ const en = {
   basicProfile: 'Basic Profile',
   accountSettings: 'Account Settings',
   recommendation: 'Recommendation',
+  roommates: 'Your Roommates',
   linkedAccounts: 'Linked Accounts',
   welcomeMessage: 'Hi, {{name}}!',
   welcomeDescription:
@@ -72,6 +73,10 @@ const en = {
   recommendationTitle: 'Home Recommendation',
   recommendationDescription:
     'Your recommendation will be showed up here once you completed your profile and account settings.',
+  roommatesTitle: 'Your Roommates',
+  roommatesSubtitle:
+    'We link your profile and help you to populate your profile.',
+  roommatesViewButton: 'View Detail',
   linkedAccountsTitle: 'Linked Accounts',
   linkedAccountsDescription:
     'We link your profile and help you to populate your profile.',
@@ -170,6 +175,7 @@ const en = {
   preferenceBannerDescription:
     'Moving to the city? Pursuing your dreams? In a transition? We’ve got properties – unique to your needs',
   preferenceBannerButton: 'Rent With Us',
+  shortBio: 'Short Bio',
 };
 
 export default en;

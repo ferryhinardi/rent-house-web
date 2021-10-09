@@ -5,12 +5,13 @@ import { View, Pressable, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import { useForm, Controller } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
 import { Token, fetcher } from 'core';
 import { login } from 'utils/auth';
 import { Input, Text, LoadingIndicator, ErrorMessage } from 'core/base';
 import { FacebookButton, GoogleButton } from 'components';
 import { Login, ErrorHandling, UserAnswers } from 'types';
-import loginCoverImg from 'assets/login-cover.svg';
+import assets from 'assets';
 import { HeroState } from 'components/SectionLandingPage/Hero';
 
 type Payload = {
@@ -90,8 +91,9 @@ function SignUpForm(props: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image src={loginCoverImg} alt="login-cover" layout="responsive" />
+        <Image {...assets.loginCover} alt="login-cover" layout="responsive" />
       </View>
+
       <View style={styles.formContainer}>
         <Text variant="header-2" font="playfair" style={styles.title}>
           {t('titleSignInForm')}
@@ -214,6 +216,7 @@ function SignUpForm(props: Props) {
             )}
           />
           {isError && <ErrorMessage text={error?.message as string} />}
+         <DevTool control={control} />
         </View>
       </View>
       <Pressable style={styles.submitButton} onPress={handleSubmit(onSubmit)}>

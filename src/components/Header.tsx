@@ -7,7 +7,7 @@ import { useSprings, animated, config } from 'react-spring';
 import { fetcher, Token } from 'core';
 import { menus, QUERY_KEYS } from 'core/constants';
 import { User } from 'types';
-import logo from 'assets/logo.svg';
+import assets from 'assets';
 import { routePaths } from 'routePaths';
 import LanguageSelection from './LanguageSelection';
 import { SignInButton } from './SignIn';
@@ -47,7 +47,7 @@ function Header() {
     <View style={styles.container}>
       <View style={styles.menuWrapper}>
         <Pressable onPress={() => router.push(routePaths.home)}>
-          <Image src={logo} alt="logo" />
+          <Image {...assets.logo} alt="logo" />
         </Pressable>
         {menuAnimations.map((animateStyle, idx) => {
           const { name, href } = menus[idx];

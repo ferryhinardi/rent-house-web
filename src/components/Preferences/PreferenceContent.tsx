@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token, fetcher } from 'core';
@@ -86,6 +87,7 @@ export default function PreferenceContent() {
           methods={fieldsArrayMethods}
         />
       </View>
+      <DevTool control={control} />
     </View>
   );
 }

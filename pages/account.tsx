@@ -13,6 +13,7 @@ import {
   SideBar,
   AccountSettings,
   AccountRecommendation,
+  AccountRoommates,
   PreferenceBanner,
   Footer,
 } from 'components';
@@ -64,6 +65,17 @@ export default function Account({ user }: Props) {
                   />
                 ),
               },
+              {
+                name: 'roommates',
+                label: t('roommates'),
+                IconRight: (
+                  <Icon
+                    name="exclamation-triangle"
+                    size={20}
+                    color={Token.colors.red}
+                  />
+                ),
+              },
             ]}
             onPress={onPressMenu}
             style={styles.sidebar}
@@ -77,6 +89,8 @@ export default function Account({ user }: Props) {
             <AccountRecommendation />
             <View style={styles.separator} />
             <AccountSettings />
+            <View style={styles.separator} />
+            <AccountRoommates />
           </View>
         </View>
       </ContainerDesktop>

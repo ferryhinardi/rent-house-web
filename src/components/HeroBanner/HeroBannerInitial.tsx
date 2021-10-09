@@ -3,21 +3,16 @@ import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 import { Text, Button } from 'core/base';
-import hero from 'assets/hero-0.svg';
-import { imageDataBase64 } from 'assets/hero-0';
+import assets from 'assets';
 import HeroBannerTemplate from './HeroBannerTemplate';
+
+const hero = assets.hero0;
 
 function HeroBannerInitial() {
   const { t } = useTranslation();
   return (
     <HeroBannerTemplate
-      imageProps={{
-        src: hero,
-        blurDataURL: imageDataBase64,
-        placeholder: 'blur',
-        width: hero.width,
-        height: hero.height,
-      }}
+      imageProps={{ ...hero, placeholder: 'blur' }}
       DescriptionComponent={
         <>
           <Text font="playfair" variant="banner-title" ink="light">

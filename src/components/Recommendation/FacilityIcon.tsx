@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import assets from 'assets';
 
 type Props = {
   name:
@@ -16,25 +17,25 @@ export default function FacilityIcon({ name }: Props) {
   let srcImg;
   switch (name) {
     case 'rooftop':
-      srcImg = require('assets/ic-rooftop.svg');
+      srcImg = assets.rooftop;
       break;
     case 'gym':
-      srcImg = require('assets/ic-gym.svg');
+      srcImg = assets.gym;
       break;
     case 'pool':
-      srcImg = require('assets/ic-pool.svg');
+      srcImg = assets.pool;
       break;
     case 'laundry':
-      srcImg = require('assets/ic-laundry.svg');
+      srcImg = assets.laundry;
       break;
     case 'bedroom':
-      srcImg = require('assets/ic-bedroom.svg');
+      srcImg = assets.bedroom;
       break;
     case 'bathroom':
-      srcImg = require('assets/ic-bathroom.svg');
+      srcImg = assets.bathroom;
       break;
     case 'diningroom':
-      srcImg = require('assets/ic-diningroom.svg');
+      srcImg = assets.diningroom;
       break;
     default:
       return null;
@@ -42,6 +43,6 @@ export default function FacilityIcon({ name }: Props) {
   }
 
   return srcImg ? (
-    <Image src={srcImg} alt={`${name}-icon`} layout="fixed" />
+    <Image {...srcImg} alt={`${name}-icon`} layout="fixed" />
   ) : null;
 }
