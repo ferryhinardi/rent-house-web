@@ -66,11 +66,10 @@ const styles = StyleSheet.create({
     boxShadow: '7px 9px 44px rgba(0, 0, 0, 0.08)',
     flexDirection: 'row',
     alignItems: 'center',
+    height: 60,
   },
   text: {
     marginLeft: Token.spacing.s,
-    ...Token.typography.Baseline,
-    fontSize: Token.fontSize.big,
   },
 });
 

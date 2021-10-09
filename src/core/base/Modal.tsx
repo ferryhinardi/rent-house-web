@@ -1,27 +1,50 @@
-import React from 'react';
-import { StyleSheet, Modal as RNModal, TouchableWithoutFeedback, View } from 'react-native';
+import React, { useRef } from 'react';
+import {
+  StyleSheet,
+  Modal as RNModal,
+  View,
+  ScrollView,
+  ViewStyle,
+} from 'react-native';
+
+import { useClickOutside } from 'core/hooks';
+
 import { spacing, colors, border } from './Token';
 
 type Props = React.ComponentProps<typeof RNModal> & {
   children: React.ReactNode;
   noPadding?: boolean;
+  modalContentStyle?: ViewStyle;
 };
 
-export default function Modal ({ children, onDismiss, noPadding, ...restProps }: Props) {
+export default function Modal({
+  children,
+  onDismiss,
+  noPadding,
+  modalContentStyle,
+  ...restProps
+}: Props) {
+  const modalContent = useRef<View>();
+
+  useClickOutside(modalContent as any, () => {
+    onDismiss && onDismiss();
+  });
+
   const paddingContent = noPadding ? {} : { padding: spacing.m };
   return (
-    <RNModal
-      {...restProps}
-      transparent
-      onDismiss={onDismiss}
-    >
+    <RNModal {...restProps} transparent onDismiss={onDismiss}>
       <View style={styles.container}>
-        <TouchableWithoutFeedback onPress={onDismiss}>
-          <View style={styles.modalOverlay} />
-        </TouchableWithoutFeedback>
-        <View style={[styles.modalContent, paddingContent]}>
-          {children}
-        </View>
+        <View style={styles.modalOverlay} />
+        <ScrollView showsHorizontalScrollIndicator={false}>
+          <View
+            ref={(ref) => {
+              modalContent.current = ref as View;
+            }}
+            style={[styles.modalContent, paddingContent, modalContentStyle]}
+          >
+            {children}
+          </View>
+        </ScrollView>
       </View>
     </RNModal>
   );

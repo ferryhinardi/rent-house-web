@@ -12,8 +12,6 @@ import { PerksPlaceholder } from 'components/Placeholder';
 import { Perk, ResponseItem } from 'types';
 import assets from 'assets';
 
-const cardWidth = ['35%', '35%', '30%', '30%', '30%'];
-
 function Perks() {
   const { t } = useTranslation();
   const { data, isLoading } = useQuery<ResponseItem<Perk>>(
@@ -37,14 +35,20 @@ function Perks() {
     });
   };
 
+  const perks = data?.data;
+  const [upperSection, bottomSection] = [perks?.slice(0, 2), perks?.slice(2)];
+
   return (
     <View style={styles.container}>
+      {/* line */}
       <View style={styles.horizontalLineContainer1}>
         <Image src={assets.homeLineHorizontal} />
       </View>
       <View style={styles.horizontalLineContainer2}>
         <Image src={assets.homeLineHorizontal3} />
       </View>
+
+      {/* Header */}
       <View style={styles.header}>
         <View>
           <Text variant="header-2" font={'playfair'} style={styles.headerTitle}>
@@ -61,36 +65,75 @@ function Perks() {
           }}
         />
       </View>
+
       {isLoading ? (
         <PerksPlaceholder />
       ) : (
         <View style={styles.containerPerks}>
-          {data?.data.map((item, index) => (
-            <Card
-              activeOpacity={1}
-              noShadow
-              key={item.id}
-              orientation="portrait"
-              style={[styles.cardStyle, { flexBasis: cardWidth[index] }]}
-              imageProps={{
-                src: `${config.imageHost}/${item.image}`,
-                blurDataURL: `${config.imageHost}/${item.image}`,
-                placeholder: 'blur',
-                loading: 'lazy',
-                width: '100%',
-                height: 180,
-                alt: 'perk image',
-                onError: () => console.error('error render image'),
-              }}
-            >
-              <Card.Body>
-                <Card.Title variant="large">{item.title}</Card.Title>
-                <Text variant="caption" style={{ marginTop: Token.spacing.m }}>
-                  {item.description}
-                </Text>
-              </Card.Body>
-            </Card>
-          ))}
+          <View style={styles.upperSection}>
+            {upperSection &&
+              upperSection.map((item) => (
+                <Card
+                  activeOpacity={1}
+                  noShadow
+                  key={item.id}
+                  orientation="portrait"
+                  style={[styles.upperSectionCard]}
+                  imageProps={{
+                    src: `${config.imageHost}/${item.image}`,
+                    blurDataURL: `${config.imageHost}/${item.image}`,
+                    placeholder: 'blur',
+                    loading: 'lazy',
+                    width: '100%',
+                    height: 180,
+                    alt: 'perk image',
+                    onError: () => console.error('error render image'),
+                  }}
+                >
+                  <Card.Body>
+                    <Card.Title variant="large">{item.title}</Card.Title>
+                    <Text
+                      variant="caption"
+                      style={{ marginTop: Token.spacing.m }}
+                    >
+                      {item.description}
+                    </Text>
+                  </Card.Body>
+                </Card>
+              ))}
+          </View>
+          <View style={styles.bottomSection}>
+            {bottomSection &&
+              bottomSection?.map((item, index) => (
+                <Card
+                  activeOpacity={1}
+                  noShadow
+                  key={item.id}
+                  orientation="portrait"
+                  style={[styles.cardStyle, {}]}
+                  imageProps={{
+                    src: `${config.imageHost}/${item.image}`,
+                    blurDataURL: `${config.imageHost}/${item.image}`,
+                    placeholder: 'blur',
+                    loading: 'lazy',
+                    width: '100%',
+                    height: 180,
+                    alt: 'perk image',
+                    onError: () => console.error('error render image'),
+                  }}
+                >
+                  <Card.Body>
+                    <Card.Title variant="large">{item.title}</Card.Title>
+                    <Text
+                      variant="caption"
+                      style={{ marginTop: Token.spacing.m }}
+                    >
+                      {item.description}
+                    </Text>
+                  </Card.Body>
+                </Card>
+              ))}
+          </View>
         </View>
       )}
     </View>
@@ -104,9 +147,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   containerPerks: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: Token.spacing.xxxl,
+    flexDirection: 'column',
     justifyContent: 'space-between',
     marginTop: Token.spacing.xxl,
   },
@@ -120,10 +161,10 @@ const styles = StyleSheet.create({
   headerTitle: {
     marginBottom: Token.spacing.xs,
   },
-  cardStyle: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: '30%',
+  cardStyle: {},
+  upperSectionCard: {
+    maxWidth: '46%',
+    height: 406,
   },
   horizontalLineContainer2: {
     width: '100vw',
@@ -141,6 +182,19 @@ const styles = StyleSheet.create({
         rotate: '16deg',
       },
     ],
+  },
+  upperSection: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: Token.spacing.l,
+  },
+  bottomSection: {
+    marginTop: Token.spacing.xxl,
+    /* @ts-ignore */
+    display: 'grid',
+    gridTemplateColumns: `1fr 1fr 1fr`,
+    columnGap: Token.spacing.xxxxxl,
   },
 });
 
