@@ -5,6 +5,7 @@ import { View, Pressable, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import { useForm, Controller } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
 import { Token, fetcher } from 'core';
 import { login } from 'utils/auth';
 import { Input, Text, LoadingIndicator, ErrorMessage } from 'core/base';
@@ -211,6 +212,7 @@ function SignUpForm(props: Props) {
           )}
         />
         {isError && <ErrorMessage text={error?.message as string} />}
+        <DevTool control={control} />
       </View>
       <Pressable style={styles.submitButton} onPress={handleSubmit(onSubmit)}>
         {isLoading ? (

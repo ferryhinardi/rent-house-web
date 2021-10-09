@@ -6,4 +6,5 @@ export const routePaths = {
   homeRecommendation: '/account/home-recommendation',
   homeDetail: '/account/home-recommendation/[homeId]',
   agreement: '/account/home-recommendation/agreement',
+  roommateDetail: '/account/profile/[userId]',
 };

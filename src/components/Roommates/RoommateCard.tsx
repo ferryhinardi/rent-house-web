@@ -1,16 +1,25 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 import { Card, Text, Button } from 'core/base';
 import customImgLoader from 'core/utils/customImgLoader';
+import { routePaths } from 'routePaths';
 
 const imagePlaceholder =
   'https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png';
 
 export default function RoommateCard() {
   const { t } = useTranslation();
+  const router = useRouter();
+  const onNavigateRoommateDetail = () => {
+    router.push({
+      pathname: routePaths.roommateDetail,
+      query: { userId: 'userId' },
+    });
+  };
   return (
     <Card style={styles.containerCard}>
       <Card.Body>
@@ -32,7 +41,10 @@ export default function RoommateCard() {
           </Text>
         </View>
 
-        <Button text={t('roommatesViewButton')} />
+        <Button
+          text={t('roommatesViewButton')}
+          onPress={onNavigateRoommateDetail}
+        />
       </Card.Body>
     </Card>
   );

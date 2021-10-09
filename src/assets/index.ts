@@ -25,6 +25,7 @@ const assets = {
   bentallGreenOakLogo: require('assets/partner-bentallGreenOak.png').default,
   // Profile
   avatar: require('./avatar-sample.png').default,
+  profile: require('./profile_sample.png').default,
   // Facility Icon
   rooftop: require('./ic-rooftop.png').default,
   gym: require('./ic-gym.png').default,

@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useMutation, QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 import { FormProvider, useForm } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
 import {
   Head,
   HeaderMenu,
@@ -125,6 +126,7 @@ export default function Profile({ user, emergencyContacts }: Props) {
             style={styles.submitButton}
             onPress={forms.handleSubmit(onSubmit)}
           />
+          <DevTool control={forms.control} />
         </FormProvider>
       </ContainerDesktop>
       <Footer />

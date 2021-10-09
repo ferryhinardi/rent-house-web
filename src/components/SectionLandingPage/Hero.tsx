@@ -16,6 +16,7 @@ import {
 import Questionaire, { QuestionaireCard } from 'components/Questionaire';
 import SignUpForm from 'components/SignUp';
 import { useForm, useFieldArray } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
 
 export type HeroState = {
   name: string;
@@ -131,6 +132,7 @@ function Hero() {
           </Modal>
         )}
       </View>
+      <DevTool control={control} />
     </Element>
   );
 }

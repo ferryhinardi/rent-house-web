@@ -19,7 +19,7 @@ function HeroBannerDone({ states, onChange }: Props) {
   const { t } = useTranslation();
   return (
     <HeroBannerTemplate
-      imageProps={hero}
+      imageProps={{ ...hero, placeholder: 'blur' }}
       DescriptionComponent={
         <>
           <HeroTimeline states={states} onChange={onChange} />
