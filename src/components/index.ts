@@ -39,3 +39,4 @@ export { default as FloorPlan } from './Recommendation/FloorPlan';
 export { default as MapLocation } from './Recommendation/MapLocation';
 export { default as HomeDetailContent } from './HomeDetail/Content';
 export { default as HomeDetailAgreement } from './HomeDetail/Agreement';
+export { default as RoommateProfile } from './Roommates/RoommateProfile';

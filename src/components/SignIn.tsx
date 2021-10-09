@@ -5,6 +5,7 @@ import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import { useForm, Controller } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
 import { Token, fetcher } from 'core';
 import { login } from 'utils/auth';
 import { Input, Text, Button, ErrorMessage, Modal } from 'core/base';
@@ -122,6 +123,7 @@ function SignInForm() {
         style={styles.submitButton}
         onPress={handleSubmit(onSubmit)}
       />
+      <DevTool control={control} />
     </View>
   );
 }

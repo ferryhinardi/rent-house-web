@@ -40,6 +40,7 @@
     "rn-placeholder": "^3.0.3"
   },
   "devDependencies": {
+    "@hookform/devtools": "^4.0.1",
     "@types/cookie": "^0.4.1",
     "@types/js-cookie": "^2.2.7",
     "@types/react": "17.0.15",
