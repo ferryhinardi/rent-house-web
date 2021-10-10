@@ -104,13 +104,12 @@ function Perks() {
           </View>
           <View style={styles.bottomSection}>
             {bottomSection &&
-              bottomSection?.map((item, index) => (
+              bottomSection?.map((item) => (
                 <Card
                   activeOpacity={1}
                   noShadow
                   key={item.id}
                   orientation="portrait"
-                  style={[styles.cardStyle, {}]}
                   imageProps={{
                     src: `${config.imageHost}/${item.image}`,
                     blurDataURL: `${config.imageHost}/${item.image}`,
@@ -161,10 +160,9 @@ const styles = StyleSheet.create({
   headerTitle: {
     marginBottom: Token.spacing.xs,
   },
-  cardStyle: {},
   upperSectionCard: {
     maxWidth: '46%',
-    height: 406,
+    minHeight: 406,
   },
   horizontalLineContainer2: {
     width: '100vw',
