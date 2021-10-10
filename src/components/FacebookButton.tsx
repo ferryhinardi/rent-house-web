@@ -84,7 +84,7 @@ function FacebookButton(props: Props) {
 const styles = StyleSheet.create({
   button: {
     width: '100%',
-    marginTop: Token.spacing.m,
+    marginTop: Token.spacing.ml,
     paddingLeft: Token.spacing.l,
     paddingVertical: Token.spacing.m,
     borderRadius: Token.border.radius.extra,
@@ -92,11 +92,10 @@ const styles = StyleSheet.create({
     boxShadow: '7px 9px 44px rgba(0, 0, 0, 0.08)',
     flexDirection: 'row',
     alignItems: 'center',
+    height: 60,
   },
   text: {
     marginLeft: Token.spacing.s,
-    ...Token.typography.Baseline,
-    fontSize: Token.fontSize.big,
   },
 });
 

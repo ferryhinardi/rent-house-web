@@ -64,6 +64,7 @@ function Hero() {
   });
   const [isVisible, setIsVisible] = useState(false);
   const [stateIndex, setStateIndex] = useState(0);
+
   const herosSprings = useSprings(
     totalData,
     heros.map((item, index) =>
@@ -78,10 +79,12 @@ function Hero() {
         : { opacity: 0, position: 'absolute' }
     )
   );
+
   const onChangeTimelineBanner = (index: number) => {
     // Index + 1 because there is banner without hero timeline component in initial banner
     setStateIndex(index + 1);
   };
+
   const onSubmit = () => {
     if (stateIndex < totalData - 1) {
       setStateIndex((prev) => prev + 1);
@@ -126,7 +129,9 @@ function Hero() {
             animationType="fade"
             visible={isVisible}
             onRequestClose={() => setIsVisible(false)}
+            onDismiss={() => setIsVisible(false)}
             noPadding
+            modalContentStyle={styles.modalContentStyle}
           >
             <SignUpForm landingPageAnswers={fieldsArrayMethods.fields} />
           </Modal>
@@ -151,6 +156,9 @@ const styles = StyleSheet.create({
   containerSignUpForm: {
     marginLeft: '-25%',
     width: '50%',
+  },
+  modalContentStyle: {
+    marginVertical: 100,
   },
 });
 
