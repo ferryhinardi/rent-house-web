@@ -32,6 +32,7 @@ export {
 export { default as ApplicationDetailContent } from './Application/ApplicationDetailContent';
 export { default as DepositSection } from './Application/DepositSection';
 export { default as PreferenceBanner } from './Account/Banner';
+export { default as StaticPageBanner } from './StaticPage/Banner';
 export { default as HomeRecommendationColletion } from './Recommendation/HomeRecommendationColletion';
 export { default as HomeRecommendationHeaderSection } from './Recommendation/HomeRecommendationHeaderSection';
 export { default as PrivateAmenities } from './Recommendation/PrivateAmenities';

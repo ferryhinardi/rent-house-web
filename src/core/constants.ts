@@ -4,9 +4,9 @@ import assets from 'assets';
 export const menus = [
   { name: 'Homes', href: routePaths.home },
   { name: 'Events', href: '/events' },
-  { name: 'About Us', href: '/aboutus' },
+  { name: 'About Us', href: '/about-us' },
   { name: 'Rental Homes', href: '/rental-homes' },
-  { name: 'Partner With Us', href: '/partner-us' },
+  { name: 'Partner With Us', href: '/partner-with-us' },
   { name: 'Blog', href: '/blog' },
 ];
 
