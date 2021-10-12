@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token } from 'core';
 import { Text } from 'core/base';
 import { menus } from 'core/constants';
-import logo from '../assets/logo-white.svg';
+import assets from 'assets';
 
 function Footer() {
   const { t } = useTranslation();
@@ -20,7 +20,12 @@ function Footer() {
     <View style={styles.container}>
       <View style={styles.footer}>
         <View style={styles.sectionLogo}>
-          <Image src={logo} layout="fixed" alt="logo" />
+          <Image
+            {...assets.logoWhite}
+            placeholder="blur"
+            layout="fixed"
+            alt="logo"
+          />
           <Text ink="light">{t('footerTitle')}</Text>
         </View>
         <View style={styles.sectionMenu}>

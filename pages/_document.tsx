@@ -6,7 +6,7 @@ class RynaDocument extends Document {
       <Html>
         <Head>
           <link
-            href="https://fonts.googleapis.com/css2?family=Playfair Display&display=optional"
+            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=optional"
             rel="stylesheet"
           />
         </Head>

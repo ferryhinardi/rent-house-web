@@ -12,7 +12,7 @@ import { Token, fetcher } from 'core';
 import { Text } from 'core/base';
 import { login } from 'utils/auth';
 import { Login } from 'types';
-import GoogleLogo from 'assets/G__Logo.svg';
+import assets from 'assets';
 
 const onSuccess =
   (callback: () => void) =>
@@ -49,7 +49,7 @@ function GoogleButton(props: Props) {
   });
   return (
     <Pressable style={styles.button} onPress={signIn} disabled={!loaded}>
-      <Image src={GoogleLogo} alt="Google" width={20} height={20} />
+      <Image {...assets.GoogleLogo} alt="Google" width={20} height={20} />
       <Text style={styles.text}>{t('google')}</Text>
     </Pressable>
   );
@@ -66,11 +66,10 @@ const styles = StyleSheet.create({
     boxShadow: '7px 9px 44px rgba(0, 0, 0, 0.08)',
     flexDirection: 'row',
     alignItems: 'center',
+    height: 60,
   },
   text: {
     marginLeft: Token.spacing.s,
-    ...Token.typography.Baseline,
-    fontSize: Token.fontSize.big,
   },
 });
 

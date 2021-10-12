@@ -5,12 +5,13 @@ import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import { useForm, Controller } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
 import { Token, fetcher } from 'core';
 import { login } from 'utils/auth';
 import { Input, Text, Button, ErrorMessage, Modal } from 'core/base';
 import { FacebookButton, GoogleButton } from 'components';
 import { Login, ErrorHandling } from 'types';
-import loginCoverImg from 'assets/login-cover.svg';
+import assets from 'assets';
 
 type Payload = { email: string; password: string };
 
@@ -44,7 +45,7 @@ function SignInForm() {
 
   return (
     <View style={styles.container}>
-      <Image src={loginCoverImg} alt="login-cover" layout="responsive" />
+      <Image {...assets.loginCover} alt="login-cover" layout="responsive" />
       <View style={styles.formContainer}>
         <Text variant="header-2" style={styles.title}>
           {t('titleSignInForm')}
@@ -122,6 +123,7 @@ function SignInForm() {
         style={styles.submitButton}
         onPress={handleSubmit(onSubmit)}
       />
+      <DevTool control={control} />
     </View>
   );
 }

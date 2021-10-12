@@ -1,44 +1,20 @@
 import React from 'react';
 import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
-
-import parnerLogo from 'assets/partner-logo.svg';
-import mintoLogo from 'assets/partner-minto.svg';
-import kingsetLogo from 'assets/partner-kingset.svg';
-import bentallGreenOakLogo from 'assets/partner-bentallGreenOak.svg';
-import { imageDataBase64 as mintoBase64 } from 'assets/partner-minto';
-import { imageDataBase64 as kingsetBase64 } from 'assets/partner-kingset';
-import { imageDataBase64 as bentallGreenOakBase64 } from 'assets/partner-bentallGreenOak';
+import assets from 'assets';
 
 import { Token } from 'core';
 
 export default function Partners() {
   return (
     <View style={styles.container}>
-      <Image src={parnerLogo} alt="partner-logo" />
+      <Image {...assets.parnerLogo} placeholder="blur" alt="partner-logo" />
+      <Image {...assets.mintoLogo} placeholder="blur" alt="minto-logo" />
+      <Image {...assets.kingsetLogo} placeholder="blur" alt="kingset-logo" />
       <Image
-        src={mintoLogo}
-        blurDataURL={mintoBase64}
+        {...assets.bentallGreenOakLogo}
         placeholder="blur"
-        width={mintoLogo.width}
-        height={mintoLogo.height}
-        alt="partner-logo"
-      />
-      <Image
-        src={kingsetLogo}
-        blurDataURL={kingsetBase64}
-        placeholder="blur"
-        width={kingsetLogo.width}
-        height={kingsetLogo.height}
-        alt="partner-logo"
-      />
-      <Image
-        src={bentallGreenOakLogo}
-        blurDataURL={bentallGreenOakBase64}
-        placeholder="blur"
-        width={bentallGreenOakLogo.width}
-        height={bentallGreenOakLogo.height}
-        alt="partner-logo"
+        alt="bentallGreenOak-logo"
       />
     </View>
   );

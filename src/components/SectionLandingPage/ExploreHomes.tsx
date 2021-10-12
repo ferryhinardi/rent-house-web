@@ -13,8 +13,6 @@ import { QUERY_KEYS } from 'core/constants';
 import { ExploreHomePlaceholder } from 'components/Placeholder';
 import assets from 'assets';
 
-const cardWidthSecondLayout = ['100%', '40%', '40%'];
-
 export default function ExploreHomes() {
   const { t } = useTranslation();
   const { data, isLoading } = useQuery<ResponseItem<House>>(
@@ -27,8 +25,13 @@ export default function ExploreHomes() {
       return res;
     }
   );
+
   const homeData = data?.data;
-  const [firstHome, otherHomes] = [homeData?.[0], homeData?.slice(1)];
+  const [firstHome, secondHome, otherHomes] = [
+    homeData?.[0],
+    homeData?.[1],
+    homeData?.slice(2),
+  ];
 
   return (
     <ContainerDesktop style={styles.container}>
@@ -45,12 +48,13 @@ export default function ExploreHomes() {
         </View>
         <Button variant="secondary" text={t('moreButtonExploreHomes')} />
       </View>
+
       {isLoading ? (
         <ExploreHomePlaceholder />
       ) : (
         <View style={styles.containerHouses}>
-          {
-            <View style={[styles.cardStyle, styles.layout1]}>
+          {firstHome && (
+            <View>
               <Card
                 noShadow
                 activeOpacity={1}
@@ -65,47 +69,83 @@ export default function ExploreHomes() {
                   objectFit: 'contain',
                   onError: () => console.error('error render image'),
                 }}
-                imageContainerStyle={styles.firstCardImage}
+                imageContainerStyle={styles.cardImage}
                 style={styles.cardContainer}
               />
               <Text font="playfair" variant="header-2" style={styles.cardTitle}>
                 {firstHome?.name}
               </Text>
             </View>
-          }
-          <View style={styles.layout2}>
-            {otherHomes?.map((item, index) => (
-              <View
-                key={item.id}
-                style={[
-                  styles.cardStyle,
-                  { flexBasis: cardWidthSecondLayout[index] },
-                ]}
-              >
+          )}
+
+          <View style={styles.rightContainer}>
+            {secondHome && (
+              <View style={styles.secondCardContainer}>
                 <Card
                   orientation="portrait"
                   imageProps={{
-                    src: `${config.imageHost}/${item.lead_media}`,
-                    blurDataURL: `${config.imageHost}/${item.lead_media}`,
+                    src: `${config.imageHost}/${secondHome?.lead_media}`,
+                    blurDataURL: `${config.imageHost}/${secondHome?.lead_media}`,
                     placeholder: 'blur',
                     loading: 'lazy',
+                    layout: 'responsive',
+                    height: '100%',
                     width: '100%',
-                    height: 350,
-                    layout: 'intrinsic',
                     alt: 'hause explore image',
+                    objectFit: 'contain',
                     onError: () => console.error('error render image'),
                   }}
+                  imageContainerStyle={styles.cardImage}
                 />
                 <Text
                   font="playfair"
                   variant="header-2"
                   style={styles.cardTitle}
                 >
-                  {item.name}
+                  {secondHome?.name}
                 </Text>
-                <Text variant="caption">{item.name}</Text>
+                <Text variant="caption">{secondHome?.name}</Text>
               </View>
-            ))}
+            )}
+
+            <View style={styles.layout2}>
+              {otherHomes?.map((item, index) => (
+                <View
+                  key={item.id}
+                  style={[
+                    styles.otherHomeCardContainer,
+                    {
+                      marginRight: index === 0 ? Token.spacing.xxxxl : 0,
+                    },
+                  ]}
+                >
+                  <Card
+                    orientation="portrait"
+                    imageProps={{
+                      src: `${config.imageHost}/${item.lead_media}`,
+                      blurDataURL: `${config.imageHost}/${item.lead_media}`,
+                      placeholder: 'blur',
+                      loading: 'lazy',
+                      height: '100%',
+                      width: '100%',
+                      layout: 'responsive',
+                      alt: 'hause explore image',
+                      objectFit: 'contain',
+                      onError: () => console.error('error render image'),
+                    }}
+                    imageContainerStyle={styles.cardImage}
+                  />
+                  <Text
+                    font="playfair"
+                    variant="header-2"
+                    style={styles.cardTitle}
+                  >
+                    {item.name}
+                  </Text>
+                  <Text variant="caption">{item.name}</Text>
+                </View>
+              ))}
+            </View>
           </View>
         </View>
       )}
@@ -130,40 +170,30 @@ const styles = StyleSheet.create({
     marginBottom: Token.spacing.xs,
   },
   containerHouses: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: Token.spacing.xxxl,
-    justifyContent: 'space-between',
     marginTop: Token.spacing.xxl,
-  },
-  layout1: {
-    flexGrow: 0.4,
-    flexShrink: 1,
-    flexBasis: '0%',
+    /* @ts-ignore */
+    display: 'grid',
+    gridTemplateColumns: `1fr 1.5fr`,
+    columnGap: Token.spacing.xxxxxl,
+    height: '73vh',
   },
   layout2: {
-    flexGrow: 0.6,
-    flexShrink: 1,
-    flexBasis: '0%',
+    display: 'flex',
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: Token.spacing.xxl,
+    height: '100%',
+    marginTop: Token.spacing.xl,
   },
   cardTitle: {
     marginBottom: Token.spacing.s,
-    marginTop: Token.spacing.xs,
+    marginTop: Token.spacing.m,
     alignItems: 'center',
   },
   cardContainer: {
     backgroundColor: 'transparent',
   },
-  cardStyle: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: '40%',
-  },
-  firstCardImage: {
+  cardImage: {
     minHeight: '100%',
+    height: '100%',
   },
   horizontalLineContainer: {
     position: 'absolute',
@@ -175,5 +205,16 @@ const styles = StyleSheet.create({
         rotate: '-2deg',
       },
     ],
+  },
+  rightContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  secondCardContainer: {
+    height: '60%',
+  },
+  otherHomeCardContainer: {
+    width: '47%',
+    height: '40%',
   },
 });

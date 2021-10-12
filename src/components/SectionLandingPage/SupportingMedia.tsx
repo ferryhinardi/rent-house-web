@@ -4,11 +4,12 @@ import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 import { Text } from 'core/base';
+import assets from 'assets';
 
 const mediaAssets = [
-  require('assets/support-media-1.svg'),
-  require('assets/support-media-2.svg'),
-  require('assets/support-media-3.svg'),
+  assets.supportMedia1,
+  assets.supportMedia2,
+  assets.supportMedia3,
 ];
 
 export default function SupportingMedia() {
@@ -25,7 +26,7 @@ export default function SupportingMedia() {
       </Text>
       <View style={styles.imageWrapper}>
         {mediaAssets.map((image, index) => (
-          <Image key={`${index}`} src={image} alt="media-1" />
+          <Image key={`${index}`} {...image} placeholder="blur" alt="media-1" />
         ))}
       </View>
     </View>

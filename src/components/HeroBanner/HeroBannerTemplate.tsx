@@ -22,8 +22,10 @@ function HeroBannerTemplate({
       <View style={styles.imageWrapper}>
         <Image
           {...imageProps}
-          loading="eager"
+          layout="responsive"
           objectFit="cover"
+          width="100%"
+          height="100%"
           alt="hero-image"
         />
       </View>
@@ -50,11 +52,6 @@ const styles = StyleSheet.create({
     height: '100%',
     overflow: 'hidden',
     zIndex: -1,
-  },
-  placeholder: {
-    backgroundColor: Token.colors.grey,
-    width: '100%',
-    height: '100%',
   },
   heroDescription: {
     paddingLeft: Token.spacing.xl,

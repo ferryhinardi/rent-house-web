@@ -2,13 +2,7 @@ import React from 'react';
 import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
 import { useTranslation } from 'react-i18next';
 import { QueryClient } from 'react-query';
-import {
-  Head,
-  HeaderMenu,
-  HeaderNavigation,
-  PreferenceContent,
-  Footer,
-} from 'components';
+import { Head, HeaderMenu, HeaderNavigation, PreferenceContent, Footer } from 'components';
 import { fetchServer } from 'core';
 import { ContainerDesktop } from 'core/base';
 import { dehydrate } from 'react-query/hydration';
@@ -39,20 +33,13 @@ export async function getServerSideProps({ res, req }: NextPageContext) {
   // In the background, a revalidation request will be made to populate the cache
   // with a fresh value. If you refresh the page, you will see the new value.
   // https://nextjs.org/docs/going-to-production#caching
-  res?.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  );
+  res?.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   const queryClient = new QueryClient();
   await queryClient.fetchQuery(QUERY_KEYS.QUESTION_USER_PREFERENCES, () =>
-    fetchServer<ResponseItem<Question>>(
-      req as NextApiRequest,
-      res as NextApiResponse,
-      {
-        url: '/question',
-        params: { section: 'user_preferences' },
-      }
-    )
+    fetchServer<ResponseItem<Question>>(req as NextApiRequest, res as NextApiResponse, {
+      url: '/question/all',
+      params: { section: 'user_preferences' },
+    })
   );
   return {
     props: {

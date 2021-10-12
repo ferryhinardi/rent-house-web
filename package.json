@@ -8,6 +8,18 @@
     "start": "next start -H 0.0.0.0 -p ${PORT:-8080}",
     "lint": "next lint"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "dependencies": {
     "@rpldy/upload-button": "^0.13.3",
     "@rpldy/uploady": "^0.13.3",
@@ -40,6 +52,7 @@
     "rn-placeholder": "^3.0.3"
   },
   "devDependencies": {
+    "@hookform/devtools": "^4.0.1",
     "@types/cookie": "^0.4.1",
     "@types/js-cookie": "^2.2.7",
     "@types/react": "17.0.15",
@@ -53,12 +66,14 @@
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "babel-plugin-react-native-web": "^0.17.1",
     "duplicate-package-checker-webpack-plugin": "^3.0.0",
-    "eslint": "7.32.0",
+    "eslint": "^7.32.0",
     "eslint-config-next": "11.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react-native": "^3.11.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.2.1",
     "next-transpile-modules": "^8.0.0",
-    "prettier": "^2.3.2",
+    "prettier": "^2.4.1",
     "typescript": "4.3.5",
     "url-loader": "^4.1.1",
     "webpack-bundle-analyzer": "^4.4.2"
