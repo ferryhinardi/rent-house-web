@@ -4,25 +4,35 @@ import { Card, Text, Button } from 'core/base';
 import { Token } from 'core';
 import assets from 'assets';
 import Swiper from '../Swiper';
+import { ApplicationData } from 'types';
 
-export default function ApplicationDetailContent() {
+type Props = {
+  application?: ApplicationData;
+};
+
+export default function ApplicationDetailContent(props: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
         <View style={styles.row}>
           <Text style={styles.field}>{'City'}</Text>
-          <Text style={styles.value}>{'Toronto'}</Text>
+          <Text style={styles.value}>{props.application?.city}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.field}>{'Budget'}</Text>
-          <Text style={styles.value}>{'$1500'}</Text>
+          <Text style={styles.value}>{props.application?.budget}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.field}>{'Moving Date'}</Text>
-          <Text style={styles.value}>{'21 Aug 2021'}</Text>
+          <Text style={styles.value}>{props.application?.moving_date as string}</Text>
         </View>
-      </View>
+        <View style={styles.row}>
+          <Text style={styles.field}>{'Application Status'}</Text>
+          <Text style={styles.value}>{props.application?.status as string}</Text>
+        </View>
 
+        <Text style={styles.field}>{'Deposit paid will be returned if the application is cancelled'}</Text>
+      </View>
       <Swiper
         innerContainerStyle={{
           width: assets.avatar.width,
@@ -65,8 +75,7 @@ export default function ApplicationDetailContent() {
               }}
             />
           ),
-        }}
-      >
+        }}>
         <Card imageProps={assets.avatar} />
         <Card imageProps={assets.avatar} />
         <Card imageProps={assets.avatar} />

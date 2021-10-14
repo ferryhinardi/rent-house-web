@@ -2,32 +2,57 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Card, Badge, Text } from 'core/base';
 import { Token } from 'core';
+import { ApplicationData } from 'types';
 
 type Props = {
+  application: ApplicationData;
   onPress?: () => void;
 };
 
-export default function ApplicationCard({ onPress }: Props) {
+export default function ApplicationCard({ application, onPress }: Props) {
+  var badgeText = 'Deposit Incomplete';
+  var variant: 'info' | 'alert' | 'neutral' = 'info';
+  switch (application.status) {
+    case 'submitted':
+      badgeText = 'Deposit Incomplete';
+      variant = 'alert';
+      break;
+    case 'approved':
+      badgeText = 'Approved';
+      variant = 'info';
+      break;
+    case 'completed':
+      badgeText = 'Completed';
+      variant = 'info';
+      break;
+    case 'canceled':
+      badgeText = 'Canceled';
+      variant = 'neutral';
+      break;
+  }
+
+  var formatter = new Intl.DateTimeFormat('default', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
   return (
     <Card style={styles.cardContainer} onPress={onPress}>
       <Card.Body>
-        <Badge text="Deposit Incompleted" variant="alert" align="flex-start" />
+        <Badge text={badgeText} variant={variant} align="flex-start" />
         <Text ink="dark" variant="header-4" style={styles.title}>
-          {'Ryna x Minto Apartement'}
+          {application.house.name}
         </Text>
-        <Text>{'Toronto'}</Text>
-        <Text style={styles.amount}>{'$1500'}</Text>
-        <Text>{'Moving Date: 21 Aug 2021'}</Text>
+        <Text>{application.city}</Text>
+        <Text style={styles.amount}>{application.budget}</Text>
+        <Text>{`Moving Date: ${formatter.format(Date.parse(application.moving_date))}`}</Text>
       </Card.Body>
     </Card>
   );
 }
 
-export function ApplicationContainer({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function ApplicationContainer({ children }: { children: React.ReactNode }) {
   return <View style={styles.container}>{children}</View>;
 }
 

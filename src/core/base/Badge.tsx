@@ -9,11 +9,7 @@ type Props = {
   text: string;
 };
 
-export default function Badge({
-  text,
-  align: alignSelf = 'center',
-  variant = 'info',
-}: Props) {
+export default function Badge({ text, align: alignSelf = 'center', variant = 'info' }: Props) {
   let borderColor, inkVariant: React.ComponentProps<typeof Text>['ink'];
 
   switch (variant) {

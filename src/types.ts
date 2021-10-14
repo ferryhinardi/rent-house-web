@@ -168,4 +168,20 @@ export type PayloadUpdateUser = User & {
   emergencyContacts: EmergencyContactType[];
 };
 
-type Gender = { label: string; value: number };
+type Gender = { label: string; value: number }
+
+export type ApplicationData = {
+  id: number;
+  user_id: number;
+  house_id: number;
+  house: House;
+  room_id?: number;
+  city: string;
+  moving_date: string;
+  budget: string;
+  status: string;
+  is_deposit_paid: boolean;
+  is_approved: boolean;
+  is_completed: boolean;
+  is_canceled: boolean;
+}

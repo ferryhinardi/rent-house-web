@@ -18,17 +18,14 @@ type PreferenceQuestionState = {
 
 export default function PreferenceContent() {
   const [stateIndex, setStateIndex] = React.useState(0);
-  const { data, isLoading } = useQuery(
-    QUERY_KEYS.QUESTION_USER_PREFERENCES,
-    async () => {
-      const res = await fetcher<ResponseItem<Question>>({
-        method: 'GET',
-        url: '/question',
-        params: { section: 'user_preferences' },
-      });
-      return res;
-    }
-  );
+  const { data, isLoading } = useQuery(QUERY_KEYS.QUESTION_USER_PREFERENCES, async () => {
+    const res = await fetcher<ResponseItem<Question>>({
+      method: 'GET',
+      url: '/question',
+      params: { section: 'user_preferences' },
+    });
+    return res;
+  });
   const questions = !isLoading ? data?.data || [] : [];
   const { control } = useForm<PreferenceQuestionState>();
   const fieldsArrayMethods = useFieldArray<PreferenceQuestionState, 'states'>({
@@ -74,11 +71,7 @@ export default function PreferenceContent() {
 
   return (
     <View style={styles.contentWrapper}>
-      <SideBar
-        menus={sideBarMenu}
-        style={styles.sidebar}
-        onPress={onChangeActiveSidebar}
-      />
+      <SideBar menus={sideBarMenu} style={styles.sidebar} onPress={onChangeActiveSidebar} />
       <View style={styles.content}>
         <PreferenceQuestion
           stateIndex={stateIndex}

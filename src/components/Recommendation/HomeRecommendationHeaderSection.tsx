@@ -34,7 +34,7 @@ export default function HomeRecommendationHeaderSection() {
         <Text variant="caption" style={styles.homeInfoDescription}>
           {data?.description}
         </Text>
-        <ScheduleTourForm external_url={data?.external_url} />
+        <ScheduleTourForm house_id={data?.id as number} external_url={data?.external_url} />
       </View>
 
       <View>

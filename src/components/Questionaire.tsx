@@ -5,11 +5,7 @@ import { UseFieldArrayReturn } from 'react-hook-form';
 import { Token } from 'core';
 import { Text, Button, Input, LoadingIndicator } from 'core/base';
 import Slider from 'components/Slider';
-import Container, {
-  SliderConsumer,
-  MinRange,
-  MaxRange,
-} from 'components/Slider/Container';
+import Container, { MinRange, MaxRange } from 'components/Slider/Container';
 import { Question } from 'types';
 import { FormData } from 'components/SectionLandingPage/Hero';
 import { colors, fontSize } from 'core/base/Token';
@@ -58,10 +54,7 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
     case 'DATE':
       QuestionContent = (
         <View style={styles.alignCenterContainer}>
-          <DirectCalendar
-            onChange={onSelectedDateCallback}
-            placeholder={t('placeholderCalendar')}
-          />
+          <DirectCalendar onChange={onSelectedDateCallback} placeholder={t('placeholderCalendar')} />
         </View>
       );
       break;
@@ -86,22 +79,14 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
         <Input
           key={choice}
           editable={false}
-          containerStyle={
-            methods?.fields[index]?.value === choice
-              ? styles.selectedChoice
-              : styles.containerTextInput
-          }
+          containerStyle={methods?.fields[index]?.value === choice ? styles.selectedChoice : styles.containerTextInput}
           textInputStyle={styles.textInput}
           value={choice}
           rightLabel={
             <Text
               style={{
-                color:
-                  methods?.fields[index]?.value === choice
-                    ? colors.rynaBlack
-                    : colors.textDarkGrey,
-              }}
-            >
+                color: methods?.fields[index]?.value === choice ? colors.rynaBlack : colors.textDarkGrey,
+              }}>
               {t('choiceStatus')}
             </Text>
           }
@@ -146,13 +131,7 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
         break;
     }
     setChoice.current = question?.type ?? '';
-  }, [
-    maxV,
-    minV,
-    onRangeSlideComplete,
-    onSelectedDateCallback,
-    question?.type,
-  ]);
+  }, [maxV, minV, onRangeSlideComplete, onSelectedDateCallback, question?.type]);
 
   return (
     <>
@@ -161,12 +140,7 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
       ) : (
         <>
           {question?.title && (
-            <Text
-              font="playfair"
-              variant="header-2"
-              ink="primary"
-              style={styles.title}
-            >
+            <Text font="playfair" variant="header-2" ink="primary" style={styles.title}>
               {question?.title}
             </Text>
           )}
@@ -186,10 +160,7 @@ type QuestionaireCardProps = {
   onSubmit?: () => void;
 };
 
-export function QuestionaireCard({
-  children,
-  onSubmit,
-}: QuestionaireCardProps) {
+export function QuestionaireCard({ children, onSubmit }: QuestionaireCardProps) {
   const { t } = useTranslation();
   return (
     <View style={styles.container}>
