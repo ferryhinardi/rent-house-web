@@ -22,6 +22,11 @@ export const genderOptions = [
   { value: 2, label: 'Others' },
 ];
 
+export const proofIncomeOptions = [
+  { value: 0, label: 'Paystub' },
+  { value: 1, label: 'Guarantor' },
+];
+
 export const QUERY_KEYS = {
   QUESTION_LANDING_PAGE: 'QUESTION_LANDING_PAGE',
   QUESTION_USER_PREFERENCES: 'QUESTION_LANDING_PAGE',

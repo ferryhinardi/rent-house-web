@@ -43,10 +43,7 @@ export default function EmergencyContact() {
                   errorMessageId={fieldState.error?.message}
                 />
                 {Boolean(fieldState.error) && (
-                  <ErrorMessage
-                    text={fieldState.error?.message!}
-                    errorMessageId={fieldState.error?.message}
-                  />
+                  <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
                 )}
               </View>
             )}
@@ -70,10 +67,7 @@ export default function EmergencyContact() {
                   errorMessageId={fieldState.error?.message}
                 />
                 {Boolean(fieldState.error) && (
-                  <ErrorMessage
-                    text={fieldState.error?.message!}
-                    errorMessageId={fieldState.error?.message}
-                  />
+                  <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
                 )}
               </View>
             )}
@@ -97,10 +91,7 @@ export default function EmergencyContact() {
                   errorMessageId={fieldState.error?.message}
                 />
                 {Boolean(fieldState.error) && (
-                  <ErrorMessage
-                    text={fieldState.error?.message!}
-                    errorMessageId={fieldState.error?.message}
-                  />
+                  <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
                 )}
               </View>
             )}
@@ -124,10 +115,7 @@ export default function EmergencyContact() {
                   errorMessageId={fieldState.error?.message}
                 />
                 {Boolean(fieldState.error) && (
-                  <ErrorMessage
-                    text={fieldState.error?.message!}
-                    errorMessageId={fieldState.error?.message}
-                  />
+                  <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
                 )}
               </View>
             )}
@@ -141,12 +129,9 @@ export default function EmergencyContact() {
           />
         </View>
       ))}
-      <Button
-        variant="secondary"
-        text={t('addContact')}
-        onPress={onAddContact}
-        style={styles.submitButton}
-      />
+      <View style={{ marginTop: Token.spacing.l, marginBottom: Token.spacing.xxl, alignItems: 'flex-start' }}>
+        <Button variant="secondary" text={t('addContact')} onPress={onAddContact} />
+      </View>
     </View>
   );
 }
@@ -176,10 +161,5 @@ const styles = StyleSheet.create({
   },
   label: {
     marginBottom: Token.spacing.xs,
-  },
-  submitButton: {
-    marginTop: Token.spacing.l,
-    marginBottom: Token.spacing.xxl,
-    alignSelf: 'flex-start',
   },
 });

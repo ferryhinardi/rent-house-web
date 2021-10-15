@@ -1,0 +1,26 @@
+diff --git a/node_modules/typescript/lib/tsc.js b/node_modules/typescript/lib/tsc.js
+index 78c5ec2..b3b1667 100644
+--- a/node_modules/typescript/lib/tsc.js
++++ b/node_modules/typescript/lib/tsc.js
+@@ -49264,7 +49264,7 @@ var ts;
+             if (!couldContainTypeVariables(type)) {
+                 return type;
+             }
+-            if (instantiationDepth === 50 || instantiationCount >= 5000000) {
++            if (instantiationDepth === (50 * 2) || instantiationCount >= (5000000 * 2)) {
+                 ts.tracing === null || ts.tracing === void 0 ? void 0 : ts.tracing.instant("checkTypes", "instantiateType_DepthLimit", { typeId: type.id, instantiationDepth: instantiationDepth, instantiationCount: instantiationCount });
+                 error(currentNode, ts.Diagnostics.Type_instantiation_is_excessively_deep_and_possibly_infinite);
+                 return errorType;
+diff --git a/node_modules/typescript/lib/typescript.js b/node_modules/typescript/lib/typescript.js
+index 85a70c4..9618a57 100644
+--- a/node_modules/typescript/lib/typescript.js
++++ b/node_modules/typescript/lib/typescript.js
+@@ -59532,7 +59532,7 @@ var ts;
+             if (!couldContainTypeVariables(type)) {
+                 return type;
+             }
+-            if (instantiationDepth === 50 || instantiationCount >= 5000000) {
++            if (instantiationDepth === (50 * 2) || instantiationCount >= (5000000 * 2)) {
+                 // We have reached 50 recursive type instantiations and there is a very high likelyhood we're dealing
+                 // with a combination of infinite generic types that perpetually generate new type identities. We stop
+                 // the recursion here by yielding the error type.
