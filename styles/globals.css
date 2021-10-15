@@ -14,3 +14,124 @@ a {
 * {
   box-sizing: border-box;
 }
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+.col-1 {
+  width: 8.33%;
+}
+.col-2 {
+  width: 16.66%;
+}
+.col-3 {
+  width: 25%;
+}
+.col-4 {
+  width: 33.33%;
+}
+.col-5 {
+  width: 41.66%;
+}
+.col-6 {
+  width: 50%;
+}
+.col-7 {
+  width: 58.33%;
+}
+.col-8 {
+  width: 66.66%;
+}
+.col-9 {
+  width: 75%;
+}
+.col-10 {
+  width: 83.33%;
+}
+.col-11 {
+  width: 91.66%;
+}
+.col-12 {
+  width: 100%;
+}
+
+[class*='col-'] {
+  float: left;
+  padding: 15px;
+  border: 1px solid red;
+}
+
+.row::after {
+  content: '';
+  clear: both;
+  display: table;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  [class*='col-'] {
+    width: 100%;
+  }
+}
+
+/* =================================================================
+React Calendar
+================================================================= */
+.ryna-calendar {
+  background: #ffffff;
+  box-shadow: 0px 30px 84px rgba(19, 10, 46, 0.08),
+    0px 8px 32px rgba(19, 10, 46, 0.07), 0px 3px 14px rgba(19, 10, 46, 0.03),
+    0px 1px 3px rgba(19, 10, 46, 0.13);
+  border-radius: 12px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border: none !important;
+}
+
+.ryna-calendar .react-calendar__navigation {
+  align-items: center;
+  justify-content: center;
+}
+
+.ryna-calendar .react-calendar__navigation__label {
+  background: #f8f7fa;
+  flex-grow: 0 !important;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 8px;
+}
+
+.ryna-calendar .ryna-calendar-tile {
+  border-radius: 8px;
+}
+
+.ryna-calendar .react-calendar__tile--active {
+  background: #1c2b4f !important;
+}
+
+.ryna-calendar .react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #1c2b4f !important;
+}
+
+.ryna-calendar abbr[title] {
+  text-decoration: none;
+}
+
+.ryna-calendar .react-calendar__month-view div div {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+/* current date */
+.ryna-calendar .react-calendar__tile--now {
+}

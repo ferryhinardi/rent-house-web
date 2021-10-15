@@ -5,11 +5,80 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -H 0.0.0.0 -p ${PORT:-8080}",
+    "lint": "next lint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
   },
   "dependencies": {
-    "next": "10.2.0",
+    "@rpldy/upload-button": "^0.13.3",
+    "@rpldy/uploady": "^0.13.3",
+    "@sentry/nextjs": "^6.11.0",
+    "@types/nprogress": "^0.2.0",
+    "axios": "^0.21.1",
+    "cookie": "^0.4.1",
+    "google-maps-react": "^2.0.6",
+    "htmr": "^1.0.1",
+    "i18next": "^20.3.5",
+    "js-cookie": "^3.0.0",
+    "next": "11.0.1",
+    "next-cookies": "^2.0.3",
+    "nprogress": "^0.2.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-calendar": "^3.4.0",
+    "react-dom": "17.0.2",
+    "react-facebook-login": "^4.1.1",
+    "react-google-login": "^5.2.2",
+    "react-hook-form": "^7.12.2",
+    "react-i18next": "^11.11.4",
+    "react-native-toast-message": "^1.6.0",
+    "react-native-vector-icons": "^8.1.0",
+    "react-native-web": "^0.17.1",
+    "react-no-ssr": "^1.1.0",
+    "react-query": "^3.19.2",
+    "react-scroll": "^1.8.3",
+    "react-select": "^4.3.1",
+    "react-spring": "^9.0.0-rc.3",
+    "rn-placeholder": "^3.0.3"
+  },
+  "devDependencies": {
+    "@hookform/devtools": "^4.0.1",
+    "@types/cookie": "^0.4.1",
+    "@types/js-cookie": "^2.2.7",
+    "@types/react": "17.0.15",
+    "@types/react-calendar": "^3.4.3",
+    "@types/react-facebook-login": "^4.1.4",
+    "@types/react-native": "^0.64.12",
+    "@types/react-native-vector-icons": "^6.4.8",
+    "@types/react-no-ssr": "^1.1.2",
+    "@types/react-scroll": "^1.8.3",
+    "@types/react-select": "^4.0.17",
+    "@typescript-eslint/eslint-plugin": "^4.29.0",
+    "babel-plugin-react-native-web": "^0.17.1",
+    "duplicate-package-checker-webpack-plugin": "^3.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-next": "11.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-react-native": "^3.11.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.2.1",
+    "next-transpile-modules": "^8.0.0",
+    "prettier": "^2.4.1",
+    "typescript": "4.3.5",
+    "url-loader": "^4.1.1",
+    "webpack-bundle-analyzer": "^4.4.2"
+  },
+  "peerDependencies": {
+    "nprogress": "^0.2.0"
   }
 }
