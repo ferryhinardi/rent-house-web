@@ -88,7 +88,7 @@ export default function FileUploader({ value, variant = 'image-preview', actionL
         ref={fileRef as React.MutableRefObject<HTMLInputElement>}
         type="file"
         aria-label="input-file-image"
-        accept="image/*"
+        accept={variant === 'input' ? 'application/*' : 'image/*'}
         style={{ visibility: 'hidden' }}
         onChangeCapture={onFileChangeCapture}
       />
