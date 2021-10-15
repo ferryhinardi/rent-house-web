@@ -7,25 +7,33 @@ import { Token } from 'core';
 import { Card, Text, Button } from 'core/base';
 import customImgLoader from 'core/utils/customImgLoader';
 import { routePaths } from 'routePaths';
+import config from 'config';
 
-const imagePlaceholder =
-  'https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png';
+import { User } from 'types';
 
-export default function RoommateCard() {
+const imagePlaceholder = 'https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png';
+
+type RoommateCardProps = {
+  roomate: User;
+};
+
+export default function RoommateCard({ roomate }: RoommateCardProps) {
   const { t } = useTranslation();
   const router = useRouter();
   const onNavigateRoommateDetail = () => {
     router.push({
       pathname: routePaths.roommateDetail,
-      query: { userId: 'userId' },
+      query: { userId: roomate.id },
     });
   };
+
+  const imgSource = roomate?.profile_picture ? `${config.imageHost}/${roomate.profile_picture}` : imagePlaceholder;
   return (
     <Card style={styles.containerCard}>
       <Card.Body>
         <Image
-          src={imagePlaceholder}
-          blurDataURL={imagePlaceholder}
+          src={imgSource}
+          blurDataURL={imgSource}
           loader={customImgLoader}
           placeholder="blur"
           width={240}
@@ -34,17 +42,14 @@ export default function RoommateCard() {
         />
         <View style={styles.wrapperInfo}>
           <Text variant="header-3" font="playfair" style={styles.roommateName}>
-            {'Sadie'}
+            {roomate.name}
           </Text>
           <Text variant="caption" ink="primary">
-            {'Law Clerk'}
+            {roomate.job}
           </Text>
         </View>
 
-        <Button
-          text={t('roommatesViewButton')}
-          onPress={onNavigateRoommateDetail}
-        />
+        <Button text={t('roommatesViewButton')} onPress={onNavigateRoommateDetail} />
       </Card.Body>
     </Card>
   );
