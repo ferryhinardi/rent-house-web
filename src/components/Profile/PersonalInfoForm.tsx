@@ -73,7 +73,11 @@ export default function PersonalInfoForm() {
       required: t('address.required') as string,
     },
   });
-  const proofOfIncomeValue = useWatch({ name: 'proof_of_income_type', control });
+  let proofOfIncomeValue = useWatch({ name: 'proof_of_income_type', control });
+
+  if (typeof proofOfIncomeValue === 'object' && 'value' in proofOfIncomeValue) {
+    proofOfIncomeValue = proofOfIncomeValue.value;
+  }
 
   function renderGuarantor(optionId: number) {
     switch (optionId) {
@@ -353,11 +357,14 @@ export default function PersonalInfoForm() {
           />
         )}
       </View>
-      <View style={styles.separator} />
 
-      <Text variant="header-3">{t('Guarantor')}</Text>
-
-      <View style={styles.formContainer}>{renderGuarantor(proofOfIncomeValue.value)}</View>
+      {Boolean(renderGuarantor(proofOfIncomeValue)) ? (
+        <React.Fragment>
+          <View style={styles.separator} />
+          <Text variant="header-3">{t('Guarantor')}</Text>
+          <View style={styles.formContainer}>{renderGuarantor(proofOfIncomeValue)}</View>
+        </React.Fragment>
+      ) : null}
     </React.Fragment>
   );
 }
