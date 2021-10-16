@@ -12,29 +12,14 @@ interface Props extends TextProps {
     | 'header-4'
     | 'body'
     | 'button'
+    | 'large'
     | 'small'
     | 'caption';
-  ink?:
-    | 'normal'
-    | 'light'
-    | 'primary'
-    | 'secondary'
-    | 'caption'
-    | 'neutral'
-    | 'dark'
-    | 'alert'
-    | 'link';
+  ink?: 'normal' | 'light' | 'primary' | 'secondary' | 'caption' | 'neutral' | 'dark' | 'alert' | 'link';
   font?: 'standard' | 'playfair';
 }
 
-function Text({
-  children,
-  variant = 'caption',
-  ink = 'normal',
-  style,
-  font,
-  ...restProps
-}: Props) {
+function Text({ children, variant = 'caption', ink = 'normal', style, font, ...restProps }: Props) {
   let variantStyle = {};
 
   switch (font) {
@@ -62,6 +47,9 @@ function Text({
       break;
     case 'header-4':
       variantStyle = StyleSheet.flatten([variantStyle, styles.header4]);
+      break;
+    case 'large':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.large]);
       break;
     case 'body':
       variantStyle = StyleSheet.flatten([variantStyle, styles.body]);
@@ -168,6 +156,10 @@ const styles = StyleSheet.create({
   baseline: {
     fontSize: fontSize.medium,
     lineHeight: 24,
+  },
+  large: {
+    fontSize: fontSize.large,
+    fontWeight: '400',
   },
   small: {
     fontSize: fontSize.tiny,
