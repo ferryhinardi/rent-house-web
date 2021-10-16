@@ -37,10 +37,10 @@ export default function PreviewImageButtonModal({
           onPress={() => onVisible(false)}
         />
         <View style={styles.modalContainer}>
-          <Text variant="header-2" font="playfair" ink="primary">
+          <Text variant="header-2" ink="primary">
             {'View All Photos'}
           </Text>
-          <Text variant="caption" font="standard" ink="primary">
+          <Text variant="caption" ink="primary">
             {'of Ryna x Minto Apartement'}
           </Text>
           <View style={styles.imagePreview}>

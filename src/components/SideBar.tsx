@@ -26,7 +26,7 @@ function SideBar({ menus, onPress, style }: Props) {
           }}
           style={styles.menuWrapper}
         >
-          <Text variant="sidebar-menu" ink="primary" style={styles.menu}>
+          <Text variant="button" ink="primary" style={styles.menu}>
             {activeMenu === idx && <View style={styles.activeMenu} />}
             {menu.label}
           </Text>

@@ -51,7 +51,7 @@ function Perks() {
       {/* Header */}
       <View style={styles.header}>
         <View>
-          <Text variant="header-2" font={'playfair'} style={styles.headerTitle}>
+          <Text variant="header-2" style={styles.headerTitle}>
             {t('titlePerks')}
           </Text>
           <Text variant="caption">{t('subtitlePerks')}</Text>

@@ -23,7 +23,7 @@ function HeroBannerChooseBudget({ states, onChange }: Props) {
       DescriptionComponent={
         <>
           <HeroTimeline states={states} onChange={onChange} />
-          <Text variant="banner-title" ink="light">
+          <Text variant="headline-1" ink="light">
             {t('bannerTitle')}
           </Text>
           <Text variant="caption" ink="light" style={styles.heroSubtitle}>

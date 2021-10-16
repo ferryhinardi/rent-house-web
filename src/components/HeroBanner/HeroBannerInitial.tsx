@@ -15,7 +15,7 @@ function HeroBannerInitial() {
       imageProps={{ ...hero, placeholder: 'blur' }}
       DescriptionComponent={
         <>
-          <Text font="playfair" variant="banner-title" ink="light">
+          <Text font="playfair" variant="headline-1" ink="light">
             {t('bannerTitle')}
           </Text>
           <Text variant="caption" ink="light" style={styles.heroSubtitle}>

@@ -41,7 +41,7 @@ export default function RoommateCard({ roomate }: RoommateCardProps) {
           alt="image"
         />
         <View style={styles.wrapperInfo}>
-          <Text variant="header-3" font="playfair" style={styles.roommateName}>
+          <Text variant="header-3" style={styles.roommateName}>
             {roomate.name}
           </Text>
           <Text variant="caption" ink="primary">

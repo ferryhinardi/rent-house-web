@@ -5,30 +5,23 @@ import { fontSize, colors, typography } from './Token';
 interface Props extends TextProps {
   children: React.ReactNode;
   variant?:
-    | 'banner-title'
-    | 'banner-subtitle'
-    | 'sidebar-menu'
+    | 'headline-1'
+    | 'header-1'
     | 'header-2'
     | 'header-3'
     | 'header-4'
-    | 'title-1'
-    | 'title-2'
-    | 'title-3'
-    | 'huge'
-    | 'big'
-    | 'large'
-    | 'caption'
-    | 'baseline'
+    | 'body'
+    | 'button'
     | 'small'
-    | 'tiny';
+    | 'caption';
   ink?:
     | 'normal'
+    | 'light'
     | 'primary'
     | 'secondary'
     | 'caption'
     | 'neutral'
     | 'dark'
-    | 'light'
     | 'alert'
     | 'link';
   font?: 'standard' | 'playfair';
@@ -36,7 +29,7 @@ interface Props extends TextProps {
 
 function Text({
   children,
-  variant = 'baseline',
+  variant = 'caption',
   ink = 'normal',
   style,
   font,
@@ -55,14 +48,11 @@ function Text({
   }
 
   switch (variant) {
-    case 'banner-title':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.bannerTitle]);
+    case 'headline-1':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.headline1]);
       break;
-    case 'banner-subtitle':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.bannerSubtitle]);
-      break;
-    case 'sidebar-menu':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.sidebarMenu]);
+    case 'header-1':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.header1]);
       break;
     case 'header-2':
       variantStyle = StyleSheet.flatten([variantStyle, styles.header2]);
@@ -73,34 +63,18 @@ function Text({
     case 'header-4':
       variantStyle = StyleSheet.flatten([variantStyle, styles.header4]);
       break;
-    case 'title-1':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.title1]);
+    case 'body':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.body]);
       break;
-    case 'title-2':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.title2]);
-      break;
-    case 'title-3':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.title3]);
-      break;
-    case 'huge':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.huge]);
-      break;
-    case 'big':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.big]);
-      break;
-    case 'large':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.large]);
-      break;
-    case 'caption':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.caption]);
+    case 'button':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.button]);
       break;
     case 'small':
       variantStyle = StyleSheet.flatten([variantStyle, styles.small]);
       break;
-    case 'tiny':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.tiny]);
+    case 'caption':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.caption]);
       break;
-    case 'baseline':
     default:
       variantStyle = StyleSheet.flatten([variantStyle, styles.baseline]);
       break;
@@ -147,58 +121,44 @@ function Text({
 }
 
 const styles = StyleSheet.create({
-  bannerTitle: {
+  headline1: {
+    ...typography.Baseline,
     fontSize: fontSize.super,
-    fontWeight: '700',
     lineHeight: 80,
+    fontWeight: '700',
   },
-  bannerSubtitle: {
-    fontSize: fontSize.large,
-    fontWeight: '400',
-  },
-  sidebarMenu: {
-    fontSize: fontSize.medium,
-    lineHeight: 20,
+  header1: {
+    ...typography.Baseline,
+    fontSize: fontSize.gigantic,
+    lineHeight: 48,
     fontWeight: '600',
   },
   header2: {
+    ...typography.Baseline,
     fontSize: fontSize.xlarge,
     lineHeight: 48,
     fontWeight: '600',
   },
   header3: {
+    ...typography.Baseline,
     fontSize: fontSize.bigger,
     lineHeight: 42,
     fontWeight: '700',
   },
   header4: {
-    fontSize: fontSize.big,
-    lineHeight: 42,
-    fontWeight: '700',
+    ...typography.Baseline,
+    fontSize: fontSize.jumbo,
+    lineHeight: 18,
+    fontWeight: '600',
   },
-  title1: {
-    fontSize: fontSize.huge,
-    fontWeight: '700',
-  },
-  title2: {
-    fontSize: fontSize.large,
-    fontWeight: '700',
-  },
-  title3: {
+  body: {
     fontSize: fontSize.medium,
-    fontWeight: '700',
+    lineHeight: 28,
   },
-  huge: {
-    fontSize: fontSize.huge,
-    fontWeight: '400',
-  },
-  big: {
-    fontSize: fontSize.big,
-    fontWeight: '400',
-  },
-  large: {
-    fontSize: fontSize.large,
-    fontWeight: '400',
+  button: {
+    fontSize: fontSize.medium,
+    lineHeight: 16,
+    fontWeight: '600',
   },
   caption: {
     fontSize: fontSize.jumbo,
@@ -210,15 +170,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   small: {
-    fontSize: fontSize.small,
-    fontWeight: '400',
-  },
-  tiny: {
     fontSize: fontSize.tiny,
-    fontWeight: '400',
-  },
-  button: {
-    fontSize: fontSize.medium,
   },
   dark: {
     color: colors.rynaBlack,
