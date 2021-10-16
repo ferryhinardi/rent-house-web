@@ -2,8 +2,7 @@ const en = {
   metaTitle: 'Ryna Web',
   metaDescription: 'Rent hause with partner',
   bannerTitle: 'Homes to Empower Women',
-  bannerSubtitle:
-    'Young, working hard, and want those killer city views? We’ve got properties – unique to your needs.',
+  bannerSubtitle: 'Young, working hard, and want those killer city views? We’ve got properties – unique to your needs.',
   supportingMediaTitle: 'See who’s talking about us',
   timelineCity: 'City',
   timelineMoveDate: 'Move Date',
@@ -23,8 +22,7 @@ const en = {
   separator: 'Or',
   placeholderCalendar: 'Select a date',
   titleSignInForm: 'Your Home Recommendation',
-  subtitleSignInForm:
-    'Please sign up first and enjoy your home recommendation.',
+  subtitleSignInForm: 'Please sign up first and enjoy your home recommendation.',
   submitSignInForm: 'Sign In',
   submitSignUpForm: 'View My Recommendation',
   saveForm: 'Save',
@@ -57,29 +55,22 @@ const en = {
   roommates: 'Your Roommates',
   linkedAccounts: 'Linked Accounts',
   welcomeMessage: 'Hi, {{name}}!',
-  welcomeDescription:
-    'We link your profile and help you to populate your profile.',
+  welcomeDescription: 'We link your profile and help you to populate your profile.',
   reuploadButton: 'Change Photo Profile',
   accountSettingsTitle: 'Accounts Settings',
-  accountSettingsDescription:
-    'We link your profile and help you to populate your profile.',
-  profileDescription:
-    'We link your profile and help you to populate your profile.',
-  preferenceDescription:
-    'We link your profile and help you to populate your profile.',
-  applicationDescription:
-    'We link your profile and help you to populate your profile.',
+  accountSettingsDescription: 'We link your profile and help you to populate your profile.',
+  profileDescription: 'We link your profile and help you to populate your profile.',
+  preferenceDescription: 'We link your profile and help you to populate your profile.',
+  applicationDescription: 'We link your profile and help you to populate your profile.',
   completeNow: 'Complete Now',
   recommendationTitle: 'Home Recommendation',
   recommendationDescription:
     'Your recommendation will be showed up here once you completed your profile and account settings.',
   roommatesTitle: 'Your Roommates',
-  roommatesSubtitle:
-    'We link your profile and help you to populate your profile.',
+  roommatesSubtitle: 'We link your profile and help you to populate your profile.',
   roommatesViewButton: 'View Detail',
   linkedAccountsTitle: 'Linked Accounts',
-  linkedAccountsDescription:
-    'We link your profile and help you to populate your profile.',
+  linkedAccountsDescription: 'We link your profile and help you to populate your profile.',
   instagramConnect: 'Connect to Instagram',
   spotifyConnect: 'Connect to Spotify',
   googleConnect: 'Connect to Google Account',
@@ -123,8 +114,7 @@ const en = {
   uploadPlaceholder: 'Upload File (in PDF, jpeg/png)',
   completeness: 'Completeness',
   depositSectionTitle: 'One Time Deposit',
-  depositSectionDescription:
-    'This deposit will be accounted to your first rent when you decided to rent with us.',
+  depositSectionDescription: 'This deposit will be accounted to your first rent when you decided to rent with us.',
   depositIncomplete: 'Deposit Incompleted',
   paydeposit: 'Pay Deposit',
   placeholderPayDeposit: '<i>*[placeholder why we need this doc]</i>',
@@ -150,24 +140,28 @@ const en = {
   rentWithUsLabel: 'Rent with Us',
   startYourApplication: 'Start Your Application',
   floorPlanTitle: 'Floor Plan',
-  floorPlanDescription:
-    'From a room for a night to a loft for as long as you like, there’s a Ryna for every occasion.',
+  floorPlanDescription: 'From a room for a night to a loft for as long as you like, there’s a Ryna for every occasion.',
   mapLocationTitle: 'Location',
   mapLocationDescription:
     'From a room for a night to a loft for as long as you like, there’s a Ryna for every occasion.',
   'home-recommendation': 'Home Recommendation',
   homeDetailTitle: 'Apply to {{homeName}}',
-  homeDetailSubtitle:
-    'We link your profile and help you to populate your profile.',
+  homeDetailSubtitle: 'We link your profile and help you to populate your profile.',
   edit: 'Edit',
   continueApply: 'Continue to Apply',
   applyNow: 'Apply Now',
   confirmApplyTitle: 'Thank You for Applying',
   confirmApplySubtitle: 'to Kingset Apartement',
-  confirmApplyContent:
-    'Thank you for applying! You’re now in waiting confirmation status.',
+  confirmApplyContent: 'Thank you for applying! You’re now in waiting confirmation status.',
   confirmApplyActionLabel: 'Back to My Applications',
   logout: 'Sign Out',
+  socialMedia: 'Social Media',
+  creditReport: 'Credit Report',
+  proofIncome: 'Proof of Income',
+
+  guarantorGovermentId: 'Guarantor Government ID',
+  guarantorCreditReport: 'Guarantor Credit Report',
+  guarantorPaystubs: 'Guarantor Paystubs',
 
   // home page questionnaire
   choiceStatus: 'Available',

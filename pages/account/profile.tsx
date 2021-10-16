@@ -19,14 +19,7 @@ import {
 import { Token, fetcher, fetchServer } from 'core';
 import { ContainerDesktop, Button, ErrorMessage } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
-import {
-  User,
-  ResponseItem,
-  EmergencyContactType,
-  UserDocument,
-  ErrorHandling,
-  PayloadUpdateUser,
-} from 'types';
+import { User, ResponseItem, EmergencyContactType, UserDocument, ErrorHandling, PayloadUpdateUser } from 'types';
 import createPayloadUpdateUser from 'utils/createPayloadUpdateUser';
 import { redirectIfUnauthenticated } from 'utils/auth';
 
@@ -34,34 +27,29 @@ type Props = {
   user: User;
   emergencyContacts: ResponseItem<EmergencyContactType>;
 };
+type PromiseResult = Array<User | EmergencyContactType[] | UserDocument>;
 
 export default function Profile({ user, emergencyContacts }: Props) {
   const forms = useForm<PayloadUpdateUser>({
+    // @ts-ignore
     defaultValues: { ...user, emergencyContacts: emergencyContacts.data },
   });
   const { t } = useTranslation();
-  const { isLoading, isError, error, mutate } = useMutation<
-    [User, UserDocument, EmergencyContactType[]],
-    ErrorHandling,
-    PayloadUpdateUser
-  >(
+  const { isLoading, isError, error, mutate } = useMutation<PromiseResult, ErrorHandling, PayloadUpdateUser>(
     async (payload) => {
-      const { bodyFormDataUser, bodyFormDataDoc } =
-        createPayloadUpdateUser(payload);
-      return Promise.all([
+      const {
+        bodyFormDataUser,
+        bodyFormGovermentDataDoc,
+        bodyFormCreditScoreDataDoc,
+        bodyFormProofIncomeGuarantorDataDoc,
+        bodyFormProofIncomeGuarantorCreditReportDataDoc,
+      } = createPayloadUpdateUser(payload);
+      const promiseRequest: Array<Promise<User> | Promise<EmergencyContactType[]> | Promise<UserDocument>> = [
         fetcher<User>({
           method: 'PUT',
           url: '/user/update',
           params: { id: user.id },
           data: bodyFormDataUser,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }),
-        fetcher<UserDocument>({
-          method: 'POST',
-          url: `/user/user-document/`,
-          data: bodyFormDataDoc,
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -74,13 +62,57 @@ export default function Profile({ user, emergencyContacts }: Props) {
             'Content-Type': 'application/json',
           },
         }),
-      ]);
+        fetcher<UserDocument>({
+          method: 'POST',
+          url: `/user/user-document/`,
+          data: bodyFormGovermentDataDoc,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }),
+        fetcher<UserDocument>({
+          method: 'POST',
+          url: `/user/user-document/`,
+          data: bodyFormCreditScoreDataDoc,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }),
+      ];
+
+      if (bodyFormProofIncomeGuarantorDataDoc) {
+        promiseRequest.push(
+          fetcher<UserDocument>({
+            method: 'POST',
+            url: `/user/user-document/`,
+            data: bodyFormProofIncomeGuarantorDataDoc,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+        );
+      }
+
+      if (bodyFormProofIncomeGuarantorCreditReportDataDoc) {
+        promiseRequest.push(
+          fetcher<UserDocument>({
+            method: 'POST',
+            url: `/user/user-document/`,
+            data: bodyFormProofIncomeGuarantorCreditReportDataDoc,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+        );
+      }
+      // @ts-ignore
+      return Promise.all(promiseRequest);
     },
     {
-      onSuccess: (response: [User, UserDocument, EmergencyContactType[]]) => {
+      onSuccess: (response: PromiseResult) => {
         Toast.show({
           type: 'success',
-          text1: `Update Profile ${response[0].name} Successfully!`,
+          text1: `Update Profile ${(response[0] as User)?.name} Successfully!`,
         });
       },
       onError: (error) => {
@@ -124,6 +156,7 @@ export default function Profile({ user, emergencyContacts }: Props) {
             variant="secondary"
             text={t('saveForm')}
             style={styles.submitButton}
+            // @ts-ignore
             onPress={forms.handleSubmit(onSubmit)}
           />
           <DevTool control={forms.control} />
@@ -143,24 +176,13 @@ export async function getServerSideProps(context: NextPageContext) {
   // In the background, a revalidation request will be made to populate the cache
   // with a fresh value. If you refresh the page, you will see the new value.
   // https://nextjs.org/docs/going-to-production#caching
-  context.res?.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  );
+  context.res?.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   const queryClient = new QueryClient();
-  const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () =>
-    redirectIfUnauthenticated(context)
-  );
-  const emergencyContacts = await queryClient.fetchQuery(
-    [QUERY_KEYS.EMERGENCY_CONTACT, user?.id],
-    () =>
-      fetchServer<User>(
-        context.req as NextApiRequest,
-        context.res as NextApiResponse,
-        {
-          url: `/emergency-contact/${user?.id}`,
-        }
-      )
+  const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () => redirectIfUnauthenticated(context));
+  const emergencyContacts = await queryClient.fetchQuery([QUERY_KEYS.EMERGENCY_CONTACT, user?.id], () =>
+    fetchServer<User>(context.req as NextApiRequest, context.res as NextApiResponse, {
+      url: `/emergency-contact/${user?.id}`,
+    })
   );
   return {
     props: {

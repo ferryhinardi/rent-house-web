@@ -9,20 +9,9 @@ export default function LanguageSelection() {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image
-          src={options[0].icon}
-          blurDataURL={options[0].icon}
-          placeholder="blur"
-          alt="language-flag"
-          width={24}
-          height={12}
-        />
+        <Image src={options[0].icon} alt="language-flag" width={24} height={12} />
       </View>
-      <SelectInput
-        instanceId="language-selection"
-        defaultValue={options[0]}
-        options={options}
-      />
+      <SelectInput instanceId="language-selection" defaultValue={options[0]} options={options} />
     </View>
   );
 }

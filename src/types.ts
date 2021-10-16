@@ -33,14 +33,7 @@ export type House = {
   city: string;
   description: string;
   amenities: {
-    icon:
-      | 'rooftop'
-      | 'gym'
-      | 'pool'
-      | 'laundry'
-      | 'bedroom'
-      | 'bathroom'
-      | 'diningroom';
+    icon: 'rooftop' | 'gym' | 'pool' | 'laundry' | 'bedroom' | 'bathroom' | 'diningroom';
     name: string;
   }[];
   minimum_term_length: string;
@@ -160,15 +153,21 @@ export type EmergencyContactType = {
 
 export type PayloadUpdateUser = User & {
   dob: string;
-  gender: Gender;
+  gender: Option;
   government_id: FileList;
-  profile_picture: FileList;
+  credit_report: FileList;
+  profile_picture: string | FileList;
   document_type: string;
   document_files: FileList;
+  social_media_url: string;
+  proof_of_income_type: Option;
+  guarantor_paystubs?: FileList;
+  guarantor_government_id?: FileList;
+  guarantor_credit_report?: FileList;
   emergencyContacts: EmergencyContactType[];
 };
 
-type Gender = { label: string; value: number }
+export type Option = { label: string; value: number };
 
 export type ApplicationData = {
   id: number;
@@ -184,4 +183,4 @@ export type ApplicationData = {
   is_approved: boolean;
   is_completed: boolean;
   is_canceled: boolean;
-}
+};
