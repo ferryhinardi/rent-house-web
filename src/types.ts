@@ -184,3 +184,12 @@ export type ApplicationData = {
   is_completed: boolean;
   is_canceled: boolean;
 };
+
+export type Roomate = {
+  roomates: User[];
+  roommate_ids: number[];
+  to_match: boolean;
+  room_id: number;
+  house_id: number;
+  tags: string[];
+} & User;

@@ -1,28 +1,33 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
 import Image from 'next/image';
+import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+
+import config from 'config';
 import assets from 'assets';
 import { Token } from 'core';
 import { Text } from 'core/base';
 
-export default function RoommateProfile() {
+import { User } from 'types';
+
+type RoommateProfileProps = {
+  user?: User;
+};
+export default function RoommateProfile({ user }: RoommateProfileProps) {
   const { t } = useTranslation();
+  const imgSource = user?.profile_picture ? `${config.imageHost}/${user.profile_picture}` : assets.profile;
+
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row' }}>
         <View style={styles.wrapperProfileInfo}>
           <Text variant="header-2" font="playfair" ink="primary">
-            {'Sadie'}
+            {user?.name}
           </Text>
-          <Text variant="caption">{'Chief Mouser'}</Text>
+          <Text variant="caption">{user?.job}</Text>
         </View>
         <View style={styles.wrapperImage}>
-          <Image
-            {...assets.profile}
-            className="profileImage"
-            placeholder="blur"
-          />
+          <Image src={imgSource} blurDataURL={imgSource} alt="image" className="profileImage" placeholder="blur" />
         </View>
         <style jsx global>{`
           .profileImage {
@@ -38,9 +43,7 @@ export default function RoommateProfile() {
           {t('shortBio')}
         </Text>
         <Text variant="caption" style={styles.shortbio}>
-          {
-            'Sadie has had one heck of a life so far and has plenty of stories to tell. This adventurer was found living off the land, a nomad cat who hung out with other cat hippies - they preached free love (treats mostly), protested against dogs, and were often found dancing under the stars after rolling around in catnip.'
-          }
+          {user?.bio}
         </Text>
       </View>
     </View>
