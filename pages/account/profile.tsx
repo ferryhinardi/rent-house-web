@@ -62,23 +62,33 @@ export default function Profile({ user, emergencyContacts }: Props) {
             'Content-Type': 'application/json',
           },
         }),
-        fetcher<UserDocument>({
-          method: 'POST',
-          url: `/user/user-document/`,
-          data: bodyFormGovermentDataDoc,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }),
-        fetcher<UserDocument>({
-          method: 'POST',
-          url: `/user/user-document/`,
-          data: bodyFormCreditScoreDataDoc,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }),
       ];
+
+      if (bodyFormGovermentDataDoc) {
+        promiseRequest.push(
+          fetcher<UserDocument>({
+            method: 'POST',
+            url: `/user/user-document/`,
+            data: bodyFormGovermentDataDoc,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+        );
+      }
+
+      if (bodyFormCreditScoreDataDoc) {
+        promiseRequest.push(
+          fetcher<UserDocument>({
+            method: 'POST',
+            url: `/user/user-document/`,
+            data: bodyFormCreditScoreDataDoc,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+        );
+      }
 
       if (bodyFormProofIncomeGuarantorDataDoc) {
         promiseRequest.push(

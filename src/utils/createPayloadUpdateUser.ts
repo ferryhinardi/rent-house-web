@@ -2,6 +2,10 @@ import { PayloadUpdateUser } from 'types';
 
 export default function createPayloadUpdateUser(payload: PayloadUpdateUser) {
   const proofOfIncomeType = payload.proof_of_income_type.value;
+  let bodyFormProofIncomeGuarantorDataDoc,
+    bodyFormProofIncomeGuarantorCreditReportDataDoc,
+    bodyFormGovermentDataDoc,
+    bodyFormCreditScoreDataDoc;
   const bodyFormDataUser = new FormData();
   bodyFormDataUser.set('name', payload.name);
   bodyFormDataUser.set('address', payload.address);
@@ -19,19 +23,18 @@ export default function createPayloadUpdateUser(payload: PayloadUpdateUser) {
     bodyFormDataUser.set('profile_picture', payload.profile_picture[0]);
   }
 
-  const bodyFormGovermentDataDoc = new FormData();
   if (payload.government_id?.length > 0) {
+    bodyFormGovermentDataDoc = new FormData();
     bodyFormGovermentDataDoc.set('document_type', '0');
     bodyFormGovermentDataDoc.set('document_files', payload.government_id[0]);
   }
 
-  const bodyFormCreditScoreDataDoc = new FormData();
   if (payload.credit_report?.length > 0) {
+    bodyFormCreditScoreDataDoc = new FormData();
     bodyFormCreditScoreDataDoc.set('document_type', '1');
     bodyFormCreditScoreDataDoc.set('document_files', payload.credit_report[0]);
   }
 
-  let bodyFormProofIncomeGuarantorDataDoc, bodyFormProofIncomeGuarantorCreditReportDataDoc;
   if (Number(proofOfIncomeType) === 0) {
     // guarantor_paystubs document
     if (payload?.guarantor_paystubs?.length) {
