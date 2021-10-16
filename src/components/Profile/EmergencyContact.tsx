@@ -120,13 +120,15 @@ export default function EmergencyContact() {
               </View>
             )}
           />
-          <Button
-            variant="empty"
-            IconStart="trash"
-            text={t('deleteContact')}
-            style={styles.deleteContact}
-            onPress={() => onDeleteContact(index)}
-          />
+          {index !== 0 && (
+            <Button
+              variant="empty"
+              IconStart="trash"
+              text={t('deleteContact')}
+              style={styles.deleteContact}
+              onPress={() => onDeleteContact(index)}
+            />
+          )}
         </View>
       ))}
       <View style={{ marginTop: Token.spacing.l, marginBottom: Token.spacing.xxl, alignItems: 'flex-start' }}>

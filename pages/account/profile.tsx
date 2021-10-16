@@ -21,6 +21,7 @@ import { ContainerDesktop, Button, ErrorMessage } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { User, ResponseItem, EmergencyContactType, UserDocument, ErrorHandling, PayloadUpdateUser } from 'types';
 import createPayloadUpdateUser from 'utils/createPayloadUpdateUser';
+import createDefaultEmergencyContact from 'utils/createDefaultEmergencyContact';
 import { redirectIfUnauthenticated } from 'utils/auth';
 
 type Props = {
@@ -32,8 +33,9 @@ type PromiseResult = Array<User | EmergencyContactType[] | UserDocument>;
 export default function Profile({ user, emergencyContacts }: Props) {
   const forms = useForm<PayloadUpdateUser>({
     // @ts-ignore
-    defaultValues: { ...user, emergencyContacts: emergencyContacts.data },
+    defaultValues: { ...user, emergencyContacts: createDefaultEmergencyContact(emergencyContacts.data) },
   });
+  console.log('emergency contact', emergencyContacts.data);
   const { t } = useTranslation();
   const { isLoading, isError, error, mutate } = useMutation<PromiseResult, ErrorHandling, PayloadUpdateUser>(
     async (payload) => {
