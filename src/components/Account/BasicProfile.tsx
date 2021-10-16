@@ -3,15 +3,13 @@ import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useFormContext, useController } from 'react-hook-form';
 import { Element } from 'react-scroll';
-import { Text, Input, ErrorMessage, ImageUploader } from 'core/base';
+import { Text, Input, ErrorMessage, FileUploader } from 'core/base';
 import { Token } from 'core';
 
 export default function BasicProfile() {
   const { t } = useTranslation();
   const { register, control, setValue } = useFormContext();
-  const handleProfilePicture = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleProfilePicture = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     setValue('profile_picture', e.target.files);
   };
@@ -45,7 +43,7 @@ export default function BasicProfile() {
     <Element name="basic-profile">
       <View style={styles.container}>
         <View style={styles.form}>
-          <ImageUploader
+          <FileUploader
             {...register('profile_picture')}
             actionLabel={t('reuploadButton')}
             onChange={handleProfilePicture}
@@ -64,10 +62,7 @@ export default function BasicProfile() {
                 containerStyle={styles.input}
               />
               {Boolean(nameFieldState.error) && (
-                <ErrorMessage
-                  text={nameFieldState.error?.message!}
-                  errorMessageId={nameFieldState.error?.message}
-                />
+                <ErrorMessage text={nameFieldState.error?.message!} errorMessageId={nameFieldState.error?.message} />
               )}
             </View>
             <View style={styles.formGroupHalfWidth}>
@@ -83,10 +78,7 @@ export default function BasicProfile() {
                 containerStyle={styles.input}
               />
               {Boolean(jobFieldState.error) && (
-                <ErrorMessage
-                  text={jobFieldState.error?.message!}
-                  errorMessageId={jobFieldState.error?.message}
-                />
+                <ErrorMessage text={jobFieldState.error?.message!} errorMessageId={jobFieldState.error?.message} />
               )}
             </View>
             <View style={styles.formGroupFullWidth}>
@@ -103,10 +95,7 @@ export default function BasicProfile() {
                 containerStyle={styles.input}
               />
               {Boolean(emailFieldState.error) && (
-                <ErrorMessage
-                  text={emailFieldState.error?.message!}
-                  errorMessageId={emailFieldState.error?.message}
-                />
+                <ErrorMessage text={emailFieldState.error?.message!} errorMessageId={emailFieldState.error?.message} />
               )}
             </View>
             <View style={styles.formGroupFullWidth}>
@@ -124,10 +113,7 @@ export default function BasicProfile() {
                 containerStyle={styles.textArea}
               />
               {Boolean(bioFieldState.error) && (
-                <ErrorMessage
-                  text={bioFieldState.error?.message!}
-                  errorMessageId={bioFieldState.error?.message}
-                />
+                <ErrorMessage text={bioFieldState.error?.message!} errorMessageId={bioFieldState.error?.message} />
               )}
             </View>
           </View>

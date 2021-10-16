@@ -1,10 +1,5 @@
 import React from 'react';
-import ReactSelect, {
-  Props as ReactSelectProps,
-  components,
-  Styles,
-  OptionTypeBase,
-} from 'react-select';
+import ReactSelect, { Props as ReactSelectProps, components, Styles, OptionTypeBase } from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { Token } from 'core';
 

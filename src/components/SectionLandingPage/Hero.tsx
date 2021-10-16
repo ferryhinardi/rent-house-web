@@ -7,13 +7,8 @@ import { fetcher } from 'core';
 import { Modal } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { ResponseItem, Question } from 'types';
-import {
-  HeroBannerInitial,
-  HeroBannerChooseDate,
-  HeroBannerChooseBudget,
-  HeroBannerDone,
-} from 'components/HeroBanner';
-import Questionaire, { QuestionaireCard } from 'components/Questionaire';
+import { HeroBannerInitial, HeroBannerChooseDate, HeroBannerChooseBudget, HeroBannerDone } from 'components/HeroBanner';
+import Questionaire from 'components/Questionaire';
 import SignUpForm from 'components/SignUp';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
@@ -30,24 +25,16 @@ export type FormData = {
 };
 
 const AnimatedView = animated(View);
-const heros = [
-  HeroBannerInitial,
-  HeroBannerChooseDate,
-  HeroBannerChooseBudget,
-  HeroBannerDone,
-];
+const heros = [HeroBannerInitial, HeroBannerChooseDate, HeroBannerChooseBudget, HeroBannerDone];
 
 function Hero() {
-  const { data, isLoading } = useQuery<ResponseItem<Question>>(
-    QUERY_KEYS.QUESTION_LANDING_PAGE,
-    async () => {
-      const res = await fetcher<ResponseItem<Question>>({
-        method: 'GET',
-        url: '/question?section=landing_page',
-      });
-      return res;
-    }
-  );
+  const { data, isLoading } = useQuery<ResponseItem<Question>>(QUERY_KEYS.QUESTION_LANDING_PAGE, async () => {
+    const res = await fetcher<ResponseItem<Question>>({
+      method: 'GET',
+      url: '/question?section=landing_page',
+    });
+    return res;
+  });
   const totalData = data?.count || heros.length;
   const defaultValues = {
     states: Array(totalData)
@@ -103,22 +90,17 @@ function Hero() {
             <AnimatedView
               key={`${idx}`}
               // @ts-ignore
-              style={animateStyle}
-            >
+              style={animateStyle}>
               <View style={styles.wrapper}>
-                <HeroDescription
-                  states={watch('states')}
-                  onChange={onChangeTimelineBanner}
-                />
+                <HeroDescription states={watch('states')} onChange={onChangeTimelineBanner} />
                 <View style={styles.containerSignUpForm}>
-                  <QuestionaireCard onSubmit={onSubmit}>
-                    <Questionaire
-                      loading={isLoading}
-                      question={data?.data?.[stateIndex]}
-                      methods={fieldsArrayMethods}
-                      index={stateIndex}
-                    />
-                  </QuestionaireCard>
+                  <Questionaire
+                    loading={isLoading}
+                    question={data?.data?.[stateIndex]}
+                    methods={fieldsArrayMethods}
+                    index={stateIndex}
+                    onSubmit={onSubmit}
+                  />
                 </View>
               </View>
             </AnimatedView>
@@ -131,8 +113,7 @@ function Hero() {
             onRequestClose={() => setIsVisible(false)}
             onDismiss={() => setIsVisible(false)}
             noPadding
-            modalContentStyle={styles.modalContentStyle}
-          >
+            modalContentStyle={styles.modalContentStyle}>
             <SignUpForm landingPageAnswers={fieldsArrayMethods.fields} />
           </Modal>
         )}
