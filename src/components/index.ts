@@ -17,7 +17,7 @@ export { default as FacebookButton } from './FacebookButton';
 export { default as GoogleButton } from './GoogleButton';
 export { default as Perks } from './SectionLandingPage/Perks';
 export { default as SideBar } from './SideBar';
-export { default as AccountBasicProfile } from './Account/BasicProfile';
+export { default as AccountBasicProfile } from './Profile/BasicProfile';
 export { default as AccountSettings } from './Account/Settings';
 export { default as AccountRecommendation } from './Account/Recommendation';
 export { default as AccountRoommates } from './Account/Roommates';
@@ -25,10 +25,7 @@ export { default as AccountLinkedAccounts } from './Account/LinkedAccounts';
 export { default as PersonalInfoForm } from './Profile/PersonalInfoForm';
 export { default as EmergencyContact } from './Profile/EmergencyContact';
 export { default as PreferenceContent } from './Preferences/PreferenceContent';
-export {
-  default as ApplicationCard,
-  ApplicationContainer,
-} from './Application/ApplicationCard';
+export { default as ApplicationCard, ApplicationContainer } from './Application/ApplicationCard';
 export { default as ApplicationDetailContent } from './Application/ApplicationDetailContent';
 export { default as DepositSection } from './Application/DepositSection';
 export { default as PreferenceBanner } from './Account/Banner';

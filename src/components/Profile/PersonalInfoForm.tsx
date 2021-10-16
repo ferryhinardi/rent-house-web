@@ -30,6 +30,9 @@ export default function PersonalInfoForm() {
   const { field: dobField, fieldState: dobFieldState } = useController({
     name: 'dob',
     control,
+    rules: {
+      required: t('dob.required') as string,
+    },
   });
   const { field: phoneNumberField, fieldState: phoneNumberFieldState } = useController({
     name: 'phone',

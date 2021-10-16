@@ -23,6 +23,9 @@ export default function BasicProfile() {
   const { field: jobField, fieldState: jobFieldState } = useController({
     name: 'job',
     control,
+    rules: {
+      required: t('job.required') as string,
+    },
   });
   const { field: emailField, fieldState: emailFieldState } = useController({
     name: 'email',
