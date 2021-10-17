@@ -161,6 +161,7 @@ export type PayloadUpdateUser = User & {
   document_files: FileList;
   social_media_url: string;
   proof_of_income_type: Option;
+  paystubs?: FileList;
   guarantor_paystubs?: FileList;
   guarantor_government_id?: FileList;
   guarantor_credit_report?: FileList;

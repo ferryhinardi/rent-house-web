@@ -13,13 +13,6 @@ export default function PersonalInfoForm() {
     if (!e.target.files) return;
     setValue(field, e.target.files);
   };
-  const { field: legalNameField, fieldState: legalNameFieldState } = useController({
-    name: 'name',
-    control,
-    rules: {
-      required: t('legalName.required') as string,
-    },
-  });
   const { field: genderField, fieldState: genderFieldState } = useController({
     name: 'gender',
     control,
@@ -89,20 +82,20 @@ export default function PersonalInfoForm() {
           <View style={styles.formGroup}>
             <View style={styles.wrapperImageUploader}>
               <Text variant="tiny" style={styles.label}>
-                {t('guarantorPaystubs')}
+                {t('paystubs')}
               </Text>
-              {Boolean(formState.errors['guarantor_paystubs']) && (
+              {Boolean(formState.errors['paystubs']) && (
                 <ErrorMessage
-                  text={formState.errors['guarantor_paystubs']?.message}
-                  errorMessageId={formState.errors['guarantor_paystubs']?.message}
+                  text={formState.errors['paystubs']?.message}
+                  errorMessageId={formState.errors['paystubs']?.message}
                 />
               )}
             </View>
             <FileUploader
-              {...register('guarantor_paystubs')}
+              {...register('paystubs')}
               variant="input"
-              actionLabel={t('guarantorPaystubs')}
-              onChange={handleUpload('guarantor_paystubs')}
+              actionLabel={t('paystubs')}
+              onChange={handleUpload('paystubs')}
             />
           </View>
         );
@@ -148,6 +141,25 @@ export default function PersonalInfoForm() {
                 onChange={handleUpload('guarantor_credit_report')}
               />
             </View>
+            <View style={styles.formGroup}>
+              <View style={styles.wrapperImageUploader}>
+                <Text variant="tiny" style={styles.label}>
+                  {t('guarantorPaystubs')}
+                </Text>
+                {Boolean(formState.errors['guarantor_paystubs']) && (
+                  <ErrorMessage
+                    text={formState.errors['guarantor_paystubs']?.message}
+                    errorMessageId={formState.errors['guarantor_paystubs']?.message}
+                  />
+                )}
+              </View>
+              <FileUploader
+                {...register('guarantor_paystubs')}
+                variant="input"
+                actionLabel={t('guarantorPaystubs')}
+                onChange={handleUpload('guarantor_paystubs')}
+              />
+            </View>
           </React.Fragment>
         );
       default:
@@ -158,24 +170,6 @@ export default function PersonalInfoForm() {
   return (
     <React.Fragment>
       <View style={styles.formContainer}>
-        <View style={styles.formGroup}>
-          <Text variant="tiny" style={styles.label}>
-            {t('legalName')}
-          </Text>
-          <Input
-            {...legalNameField}
-            placeholder={t('legalName')}
-            textContentType="name"
-            error={Boolean(legalNameFieldState.error)}
-            errorMessageId={legalNameFieldState.error?.message}
-          />
-          {Boolean(legalNameFieldState.error) && (
-            <ErrorMessage
-              text={legalNameFieldState.error?.message!}
-              errorMessageId={legalNameFieldState.error?.message}
-            />
-          )}
-        </View>
         <View style={[styles.formGroup, { zIndex: 1 }]}>
           <Text variant="tiny" style={styles.label}>
             {t('gender')}
@@ -320,6 +314,27 @@ export default function PersonalInfoForm() {
             />
           )}
         </View>
+        <View style={[styles.formGroup, { zIndex: 1 }]}>
+          <Text variant="tiny" style={styles.label}>
+            {t('proofIncome')}
+          </Text>
+          <SelectInput
+            {...proofIncomeField}
+            value={proofIncomeOptions.find((x) => x.value === proofIncomeField.value)}
+            instanceId="proofIncome"
+            variant="primary"
+            placeholder={t('proofIncome')}
+            error={Boolean(proofIncomeFieldState.error)}
+            errorMessageId={proofIncomeFieldState.error?.message}
+            options={proofIncomeOptions}
+          />
+          {Boolean(proofIncomeFieldState.error) && (
+            <ErrorMessage
+              text={proofIncomeFieldState.error?.message!}
+              errorMessageId={proofIncomeFieldState.error?.message}
+            />
+          )}
+        </View>
         <View style={styles.formGroup}>
           <Text variant="tiny" style={styles.label}>
             {t('address')}
@@ -339,32 +354,11 @@ export default function PersonalInfoForm() {
           )}
         </View>
       </View>
-      <View style={[styles.formGroup, { zIndex: 1 }]}>
-        <Text variant="tiny" style={styles.label}>
-          {t('proofIncome')}
-        </Text>
-        <SelectInput
-          {...proofIncomeField}
-          value={proofIncomeOptions.find((x) => x.value === proofIncomeField.value)}
-          instanceId="proofIncome"
-          variant="primary"
-          placeholder={t('proofIncome')}
-          error={Boolean(proofIncomeFieldState.error)}
-          errorMessageId={proofIncomeFieldState.error?.message}
-          options={proofIncomeOptions}
-        />
-        {Boolean(proofIncomeFieldState.error) && (
-          <ErrorMessage
-            text={proofIncomeFieldState.error?.message!}
-            errorMessageId={proofIncomeFieldState.error?.message}
-          />
-        )}
-      </View>
 
       {Boolean(renderGuarantor(proofOfIncomeValue)) ? (
         <React.Fragment>
           <View style={styles.separator} />
-          <Text variant="header-3">{t('Guarantor')}</Text>
+          <Text variant="header-3">{proofOfIncomeValue === 0 ? t('proofIncome') : t('Guarantor')}</Text>
           <View style={styles.formContainer}>{renderGuarantor(proofOfIncomeValue)}</View>
         </React.Fragment>
       ) : null}

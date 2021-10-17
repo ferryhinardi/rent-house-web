@@ -21,8 +21,8 @@ const en = {
   submitSignUpForm: 'View My Recommendation',
   saveForm: 'Save',
   signIn: 'Sign In',
-  facebook: 'Sign in with Facebook',
-  google: 'Sign in with Google',
+  signInFacebook: 'Sign in with Facebook',
+  signInGoogle: 'Sign in with Google',
   submitQuestionButton: 'Find My Home',
   titleExploreHomes: 'Explore Our Homes',
   subtitleExploreHomes: `From a room for a night to a loft for as long as you like, there’s a Ryna for every occasion.`,
@@ -142,6 +142,8 @@ const en = {
   socialMedia: 'Social Media',
   creditReport: 'Credit Report',
   proofIncome: 'Proof of Income',
+
+  paystubs: 'Paystubs',
 
   guarantorGovermentId: 'Guarantor Government ID',
   guarantorCreditReport: 'Guarantor Credit Report',

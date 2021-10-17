@@ -13,6 +13,7 @@ import {
   HeaderNavigation,
   AccountBasicProfile,
   PersonalInfoForm,
+  SocialMedia,
   EmergencyContact,
   Footer,
 } from 'components';
@@ -35,7 +36,6 @@ export default function Profile({ user, emergencyContacts }: Props) {
     // @ts-ignore
     defaultValues: { ...user, emergencyContacts: createDefaultEmergencyContact(emergencyContacts.data) },
   });
-  console.log('emergency contact', emergencyContacts.data);
   const { t } = useTranslation();
   const { isLoading, isError, error, mutate } = useMutation<PromiseResult, ErrorHandling, PayloadUpdateUser>(
     async (payload) => {
@@ -43,8 +43,10 @@ export default function Profile({ user, emergencyContacts }: Props) {
         bodyFormDataUser,
         bodyFormGovermentDataDoc,
         bodyFormCreditScoreDataDoc,
-        bodyFormProofIncomeGuarantorDataDoc,
+        bodyFormProofIncomeGuarantorGovIdDataDoc,
         bodyFormProofIncomeGuarantorCreditReportDataDoc,
+        bodyFormProofIncomeGuarantorPaystubDataDoc,
+        bodyFormProofIncomePaystubDataDoc,
       } = createPayloadUpdateUser(payload);
       const promiseRequest: Array<Promise<User> | Promise<EmergencyContactType[]> | Promise<UserDocument>> = [
         fetcher<User>({
@@ -92,12 +94,12 @@ export default function Profile({ user, emergencyContacts }: Props) {
         );
       }
 
-      if (bodyFormProofIncomeGuarantorDataDoc) {
+      if (bodyFormProofIncomeGuarantorGovIdDataDoc) {
         promiseRequest.push(
           fetcher<UserDocument>({
             method: 'POST',
             url: `/user/user-document/`,
-            data: bodyFormProofIncomeGuarantorDataDoc,
+            data: bodyFormProofIncomeGuarantorGovIdDataDoc,
             headers: {
               'Content-Type': 'multipart/form-data',
             },
@@ -111,6 +113,32 @@ export default function Profile({ user, emergencyContacts }: Props) {
             method: 'POST',
             url: `/user/user-document/`,
             data: bodyFormProofIncomeGuarantorCreditReportDataDoc,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+        );
+      }
+
+      if (bodyFormProofIncomeGuarantorPaystubDataDoc) {
+        promiseRequest.push(
+          fetcher<UserDocument>({
+            method: 'POST',
+            url: `/user/user-document/`,
+            data: bodyFormProofIncomeGuarantorPaystubDataDoc,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+        );
+      }
+
+      if (bodyFormProofIncomePaystubDataDoc) {
+        promiseRequest.push(
+          fetcher<UserDocument>({
+            method: 'POST',
+            url: `/user/user-document/`,
+            data: bodyFormProofIncomePaystubDataDoc,
             headers: {
               'Content-Type': 'multipart/form-data',
             },
@@ -155,10 +183,13 @@ export default function Profile({ user, emergencyContacts }: Props) {
       <HeaderMenu />
       <ContainerDesktop>
         <HeaderNavigation title={t('profile')} />
+        {/* @ts-ignore */}
         <FormProvider {...forms}>
           <AccountBasicProfile />
           <View style={styles.separator} />
           <PersonalInfoForm />
+          <View style={styles.separator} />
+          <SocialMedia />
           <View style={styles.separator} />
           <EmergencyContact />
           <View style={styles.separator} />
