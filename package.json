@@ -22,7 +22,10 @@
     ]
   },
   "workspaces": {
-    "nohoist": ["typescript", "typescript/**"]
+    "nohoist": [
+      "typescript",
+      "typescript/**"
+    ]
   },
   "dependencies": {
     "@rpldy/upload-button": "^0.13.3",

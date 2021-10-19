@@ -17,11 +17,7 @@ type Payload = { email: string; password: string };
 
 function SignInForm() {
   const { t } = useTranslation();
-  const { isLoading, isError, error, mutate } = useMutation<
-    Login,
-    ErrorHandling,
-    Payload
-  >(
+  const { isLoading, isError, error, mutate } = useMutation<Login, ErrorHandling, Payload>(
     async (payload) =>
       fetcher<Login>({
         method: 'POST',
@@ -77,10 +73,7 @@ function SignInForm() {
                 containerStyle={styles.input}
               />
               {Boolean(fieldState.error) && (
-                <ErrorMessage
-                  text={fieldState.error?.message!}
-                  errorMessageId={fieldState.error?.message}
-                />
+                <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
               )}
             </>
           )}
@@ -107,10 +100,7 @@ function SignInForm() {
                 containerStyle={styles.input}
               />
               {Boolean(fieldState.error) && (
-                <ErrorMessage
-                  text={fieldState.error?.message!}
-                  errorMessageId={fieldState.error?.message}
-                />
+                <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
               )}
             </>
           )}
@@ -133,19 +123,13 @@ export function SignInButton() {
   const { t } = useTranslation();
   return (
     <>
-      <Button
-        variant="secondary"
-        text={t('signIn')}
-        onPress={() => onVisible(true)}
-        style={styles.signInButton}
-      />
+      <Button variant="secondary" text={t('signIn')} onPress={() => onVisible(true)} style={styles.signInButton} />
       <Modal
         animationType="fade"
         visible={isVisible}
         onRequestClose={() => onVisible(false)}
         onDismiss={() => onVisible(false)}
-        noPadding
-      >
+        noPadding>
         <SignInForm />
       </Modal>
     </>
