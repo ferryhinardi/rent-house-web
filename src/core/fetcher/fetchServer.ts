@@ -9,13 +9,9 @@ export const instance = axios.create({
 
 if (__DEV__) curlirize(instance);
 
-async function fetcherServer<T>(
-  req: NextApiRequest,
-  res: NextApiResponse<T>,
-  options: AxiosRequestConfig
-) {
-  const cookies = req.cookies;
-  const authentication = cookies['token'];
+async function fetcherServer<T>(req: NextApiRequest, res: NextApiResponse<T>, options: AxiosRequestConfig) {
+  const cookies = req?.cookies;
+  const authentication = cookies?.['token'];
   const headers = {
     ...options.headers,
     Authorization: `Bearer ${authentication}`,
