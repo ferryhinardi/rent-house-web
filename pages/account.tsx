@@ -22,6 +22,7 @@ import { ContainerDesktop, Text } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { User, House, ResponseItem } from 'types';
 import { redirectIfUnauthenticated } from 'utils/auth';
+import { REVALIDATE_INTERVAL } from 'consts';
 
 type Props = {
   user: User;
@@ -88,7 +89,7 @@ export default function Account({ user }: Props) {
   );
 }
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getStaticProps(context: NextPageContext) {
   // This value is considered fresh for ten seconds (s-maxage=10).
   // If a request is repeated within the next 10 seconds, the previously
   // cached value will still be fresh. If the request is repeated before 59 seconds,
@@ -100,6 +101,15 @@ export async function getServerSideProps(context: NextPageContext) {
   context.res?.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   const queryClient = new QueryClient();
   const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () => redirectIfUnauthenticated(context));
+
+  if (!user) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
 
   await queryClient.prefetchQuery([QUERY_KEYS.HOUSE_MATCH, user?.id], () =>
     fetchServer<ResponseItem<House>>(
@@ -115,6 +125,13 @@ export async function getServerSideProps(context: NextPageContext) {
       user,
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: REVALIDATE_INTERVAL,
+  };
+}
+
+export async function getStaticPaths() {
+  return {
+    fallback: true,
   };
 }
 

@@ -33,6 +33,15 @@ module.exports = withSentryConfig(
     images: {
       domains: ['theryna.sgp1.cdn.digitaloceanspaces.com'],
     },
+    async redirects() {
+      return [
+        {
+          source: '/account',
+          destination: '/',
+          permanent: false,
+        },
+      ]
+    },
     webpack: (config, { dev, isServer, webpack }) => {
       config.plugins.push(
         new webpack.DefinePlugin({
