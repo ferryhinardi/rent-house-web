@@ -32,7 +32,6 @@ export default function FileUploader({ value, variant = 'image-preview', actionL
       onFileChange?.();
 
       if (maxFileSize && file.size > maxFileSize) {
-        console.log({ fileSize: file.size, maxFileSize });
         onError?.({ status: 'LIMIT_SIZE' });
       }
     }
