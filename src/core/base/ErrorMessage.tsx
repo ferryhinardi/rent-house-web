@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ViewProps, ViewStyle, StyleSheet } from 'react-native';
+import { View, ViewProps, StyleSheet } from 'react-native';
 
 import { spacing } from './Token';
 import Text from './Text';
@@ -7,7 +7,7 @@ import Text from './Text';
 export type Props = {
   text: string;
   errorMessageId?: string;
-  containerStyle?: ViewProps<ViewStyle>;
+  containerStyle?: ViewProps['style'];
 };
 
 export default function ErrorMessage(props: Props) {

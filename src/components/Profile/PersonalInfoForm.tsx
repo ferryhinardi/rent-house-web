@@ -3,11 +3,11 @@ import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useController, useFormContext, useWatch } from 'react-hook-form';
 import { Token } from 'core';
-import { genderOptions, proofIncomeOptions } from 'core/constants';
+import { genderOptions, proofIncomeOptions, MAX_FILE_SIZE } from 'core/constants';
 import { Text, Input, CalendarInput, SelectInput, ErrorMessage, FileUploader } from 'core/base';
 
 export default function PersonalInfoForm() {
-  const { register, control, setValue, formState } = useFormContext();
+  const { register, control, setValue, setError, clearErrors, formState } = useFormContext();
   const { t } = useTranslation();
   const handleUpload = (field: string) => async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -70,6 +70,14 @@ export default function PersonalInfoForm() {
     },
   });
   let proofOfIncomeValue = useWatch({ name: 'proof_of_income_type', control });
+  const validateFileSize = (fieldName: string) => (error: { status: string, message?: string }) => {
+    if (error.status === 'LIMIT_SIZE') {
+      setError(fieldName, {
+        type: 'validate',
+        message: t(`${fieldName}.maxFileSize`, { maxFileSize: `${(MAX_FILE_SIZE / 1048576).toFixed(2)} MB` }),
+      });
+    }
+  };  
 
   if (typeof proofOfIncomeValue === 'object' && 'value' in proofOfIncomeValue) {
     proofOfIncomeValue = proofOfIncomeValue.value;
@@ -94,11 +102,13 @@ export default function PersonalInfoForm() {
             </View>
             <FileUploader
               {...register('paystubs', {
-                required: 'Please import File!'
+                required: t('paystubs.required') as string,
               })}
               variant="input"
               actionLabel={t('paystubs')}
               onChange={handleUpload('paystubs')}
+              maxFileSize={MAX_FILE_SIZE}
+              onError={validateFileSize('paystubs')}
             />
           </View>
         );
@@ -120,11 +130,13 @@ export default function PersonalInfoForm() {
               </View>
               <FileUploader
                 {...register('guarantor_government_id', {
-                  required: 'Please import File!'
+                  required: t('guarantor_government_id.required') as string,
                 })}
                 variant="input"
                 actionLabel={t('guarantorGovermentId')}
                 onChange={handleUpload('guarantor_government_id')}
+                maxFileSize={MAX_FILE_SIZE}
+                onError={validateFileSize('guarantor_government_id')}
               />
             </View>
 
@@ -143,11 +155,13 @@ export default function PersonalInfoForm() {
               </View>
               <FileUploader
                 {...register('guarantor_credit_report', {
-                  required: 'Please import File!'
+                  required: t('guarantor_credit_report.required') as string,
                 })}
                 variant="input"
                 actionLabel={t('guarantorCreditReport')}
                 onChange={handleUpload('guarantor_credit_report')}
+                maxFileSize={MAX_FILE_SIZE}
+                onError={validateFileSize('guarantor_credit_report')}
               />
             </View>
             <View style={styles.formGroup}>
@@ -165,11 +179,13 @@ export default function PersonalInfoForm() {
               </View>
               <FileUploader
                 {...register('guarantor_paystubs', {
-                  required: 'Please import File!'
+                  required: t('guarantor_paystubs.required') as string,
                 })}
                 variant="input"
                 actionLabel={t('guarantorPaystubs')}
                 onChange={handleUpload('guarantor_paystubs')}
+                maxFileSize={MAX_FILE_SIZE}
+                onError={validateFileSize('guarantor_paystubs')}
               />
             </View>
           </React.Fragment>
@@ -285,11 +301,14 @@ export default function PersonalInfoForm() {
           </View>
           <FileUploader
             {...register('government_id', {
-              required: 'Please import File!'
+              required: t('government_id.required') as string,
             })}
             variant="input"
             actionLabel={t('govermentId')}
             onChange={handleUpload('government_id')}
+            maxFileSize={MAX_FILE_SIZE}
+            onFileChange={() => clearErrors('government_id')}
+            onError={validateFileSize('government_id')}
           />
         </View>
         <View style={styles.formGroup}>
@@ -307,11 +326,13 @@ export default function PersonalInfoForm() {
           </View>
           <FileUploader
             {...register('credit_report', {
-              required: 'Please import File!'
+              required: t('credit_report.required') as string
             })}
             variant="input"
             actionLabel={t('creditReport')}
             onChange={handleUpload('credit_report')}
+            maxFileSize={MAX_FILE_SIZE}
+            onError={validateFileSize('credit_report')}
           />
         </View>
         <View style={styles.formGroup}>
