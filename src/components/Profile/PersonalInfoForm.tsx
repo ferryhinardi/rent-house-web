@@ -88,11 +88,14 @@ export default function PersonalInfoForm() {
                 <ErrorMessage
                   text={formState.errors['paystubs']?.message}
                   errorMessageId={formState.errors['paystubs']?.message}
+                  containerStyle={{ marginBottom: Token.spacing.xs }}
                 />
               )}
             </View>
             <FileUploader
-              {...register('paystubs')}
+              {...register('paystubs', {
+                required: 'Please import File!'
+              })}
               variant="input"
               actionLabel={t('paystubs')}
               onChange={handleUpload('paystubs')}
@@ -111,11 +114,14 @@ export default function PersonalInfoForm() {
                   <ErrorMessage
                     text={formState.errors['guarantor_government_id']?.message}
                     errorMessageId={formState.errors['guarantor_government_id']?.message}
+                    containerStyle={{ marginBottom: Token.spacing.xs }}
                   />
                 )}
               </View>
               <FileUploader
-                {...register('guarantor_government_id')}
+                {...register('guarantor_government_id', {
+                  required: 'Please import File!'
+                })}
                 variant="input"
                 actionLabel={t('guarantorGovermentId')}
                 onChange={handleUpload('guarantor_government_id')}
@@ -131,11 +137,14 @@ export default function PersonalInfoForm() {
                   <ErrorMessage
                     text={formState.errors['guarantor_credit_report']?.message}
                     errorMessageId={formState.errors['guarantor_credit_report']?.message}
+                    containerStyle={{ marginBottom: Token.spacing.xs }}
                   />
                 )}
               </View>
               <FileUploader
-                {...register('guarantor_credit_report')}
+                {...register('guarantor_credit_report', {
+                  required: 'Please import File!'
+                })}
                 variant="input"
                 actionLabel={t('guarantorCreditReport')}
                 onChange={handleUpload('guarantor_credit_report')}
@@ -150,11 +159,14 @@ export default function PersonalInfoForm() {
                   <ErrorMessage
                     text={formState.errors['guarantor_paystubs']?.message}
                     errorMessageId={formState.errors['guarantor_paystubs']?.message}
+                    containerStyle={{ marginBottom: Token.spacing.xs }}
                   />
                 )}
               </View>
               <FileUploader
-                {...register('guarantor_paystubs')}
+                {...register('guarantor_paystubs', {
+                  required: 'Please import File!'
+                })}
                 variant="input"
                 actionLabel={t('guarantorPaystubs')}
                 onChange={handleUpload('guarantor_paystubs')}
@@ -267,11 +279,14 @@ export default function PersonalInfoForm() {
               <ErrorMessage
                 text={formState.errors['government_id']?.message}
                 errorMessageId={formState.errors['government_id']?.message}
+                containerStyle={{ marginBottom: Token.spacing.xs }}
               />
             )}
           </View>
           <FileUploader
-            {...register('government_id')}
+            {...register('government_id', {
+              required: 'Please import File!'
+            })}
             variant="input"
             actionLabel={t('govermentId')}
             onChange={handleUpload('government_id')}
@@ -286,11 +301,14 @@ export default function PersonalInfoForm() {
               <ErrorMessage
                 text={formState.errors['credit_report']?.message}
                 errorMessageId={formState.errors['credit_report']?.message}
+                containerStyle={{ marginBottom: Token.spacing.xs }}
               />
             )}
           </View>
           <FileUploader
-            {...register('credit_report')}
+            {...register('credit_report', {
+              required: 'Please import File!'
+            })}
             variant="input"
             actionLabel={t('creditReport')}
             onChange={handleUpload('credit_report')}

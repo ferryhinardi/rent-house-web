@@ -164,16 +164,6 @@ export default function Profile({ user, emergencyContacts }: Props) {
     }
   );
   const onSubmit = (formData: PayloadUpdateUser) => {
-    forms.clearErrors();
-
-    if (!formData.government_id?.length) {
-      forms.setError('government_id', {
-        type: 'required',
-        message: 'Please import File!',
-      });
-      return;
-    }
-
     mutate(formData);
   };
 
@@ -194,14 +184,15 @@ export default function Profile({ user, emergencyContacts }: Props) {
           <EmergencyContact />
           <View style={styles.separator} />
           {isError && <ErrorMessage text={error?.message as string} />}
-          <Button
-            loading={isLoading}
-            variant="secondary"
-            text={t('saveForm')}
-            style={styles.submitButton}
-            // @ts-ignore
-            onPress={forms.handleSubmit(onSubmit)}
-          />
+          <View style={styles.submitButton}>
+            <Button
+              loading={isLoading}
+              variant="secondary"
+              text={t('saveForm')}
+              // @ts-ignore
+              onPress={forms.handleSubmit(onSubmit)}
+            />
+          </View>
           <DevTool control={forms.control} />
         </FormProvider>
       </ContainerDesktop>
