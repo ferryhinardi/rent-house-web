@@ -108,6 +108,7 @@ export default function PersonalInfoForm() {
               actionLabel={t('paystubs')}
               onChange={handleUpload('paystubs')}
               maxFileSize={MAX_FILE_SIZE}
+              onFileChange={() => clearErrors('paystubs')}
               onError={validateFileSize('paystubs')}
             />
           </View>
@@ -136,6 +137,7 @@ export default function PersonalInfoForm() {
                 actionLabel={t('guarantorGovermentId')}
                 onChange={handleUpload('guarantor_government_id')}
                 maxFileSize={MAX_FILE_SIZE}
+                onFileChange={() => clearErrors('guarantor_government_id')}
                 onError={validateFileSize('guarantor_government_id')}
               />
             </View>
@@ -161,6 +163,7 @@ export default function PersonalInfoForm() {
                 actionLabel={t('guarantorCreditReport')}
                 onChange={handleUpload('guarantor_credit_report')}
                 maxFileSize={MAX_FILE_SIZE}
+                onFileChange={() => clearErrors('guarantor_credit_report')}
                 onError={validateFileSize('guarantor_credit_report')}
               />
             </View>
@@ -185,6 +188,7 @@ export default function PersonalInfoForm() {
                 actionLabel={t('guarantorPaystubs')}
                 onChange={handleUpload('guarantor_paystubs')}
                 maxFileSize={MAX_FILE_SIZE}
+                onFileChange={() => clearErrors('guarantor_paystubs')}
                 onError={validateFileSize('guarantor_paystubs')}
               />
             </View>
@@ -332,6 +336,7 @@ export default function PersonalInfoForm() {
             actionLabel={t('creditReport')}
             onChange={handleUpload('credit_report')}
             maxFileSize={MAX_FILE_SIZE}
+            onFileChange={() => clearErrors('credit_report')}
             onError={validateFileSize('credit_report')}
           />
         </View>
