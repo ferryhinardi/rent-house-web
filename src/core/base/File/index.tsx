@@ -27,7 +27,7 @@ export default function File(props: Props) {
               <View style={styles.placeholderButton}>
                 <Icon name="upload" size={16} color={Token.colors.rynaBlack} />
                 <Text
-                  variant="tiny"
+                  variant="small"
                   ink="dark"
                   style={styles.placeholderButtonText}
                 >

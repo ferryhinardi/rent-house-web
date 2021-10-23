@@ -102,7 +102,7 @@ function Card({
 }
 
 function CardTitle(props: React.ComponentProps<typeof Text>) {
-  return <Text {...props} font="playfair" variant="header-2" />;
+  return <Text {...props} variant="header-2" />;
 }
 
 function CardBody(

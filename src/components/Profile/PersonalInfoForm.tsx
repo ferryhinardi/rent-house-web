@@ -88,7 +88,7 @@ export default function PersonalInfoForm() {
         return (
           <View style={styles.formGroup}>
             <View style={styles.wrapperImageUploader}>
-              <Text variant="tiny" style={styles.label}>
+              <Text variant="small" style={styles.label}>
                 {t('paystubs')}
               </Text>
               {Boolean(formState.errors['paystubs']) && (
@@ -117,7 +117,7 @@ export default function PersonalInfoForm() {
           <React.Fragment>
             <View style={styles.formGroup}>
               <View style={styles.wrapperImageUploader}>
-                <Text variant="tiny" style={styles.label}>
+                <Text variant="small" style={styles.label}>
                   {t('guarantorGovermentId')}
                 </Text>
                 {Boolean(formState.errors['guarantor_government_id']) && (
@@ -143,7 +143,7 @@ export default function PersonalInfoForm() {
 
             <View style={styles.formGroup}>
               <View style={styles.wrapperImageUploader}>
-                <Text variant="tiny" style={styles.label}>
+                <Text variant="small" style={styles.label}>
                   {t('guarantorCreditReport')}
                 </Text>
                 {Boolean(formState.errors['guarantor_credit_report']) && (
@@ -202,7 +202,7 @@ export default function PersonalInfoForm() {
     <React.Fragment>
       <View style={styles.formContainer}>
         <View style={[styles.formGroup, { zIndex: 1 }]}>
-          <Text variant="tiny" style={styles.label}>
+          <Text variant="small" style={styles.label}>
             {t('gender')}
           </Text>
           <SelectInput
@@ -220,7 +220,7 @@ export default function PersonalInfoForm() {
           )}
         </View>
         <View style={styles.formGroup}>
-          <Text variant="tiny" style={styles.label}>
+          <Text variant="small" style={styles.label}>
             {t('phoneNumber')}
           </Text>
           <Input
@@ -239,7 +239,7 @@ export default function PersonalInfoForm() {
           )}
         </View>
         <View style={[styles.formGroup, { zIndex: 1 }]}>
-          <Text variant="tiny" style={styles.label}>
+          <Text variant="small" style={styles.label}>
             {t('dob')}
           </Text>
           <CalendarInput
@@ -253,7 +253,7 @@ export default function PersonalInfoForm() {
           )}
         </View>
         <View style={styles.formGroup}>
-          <Text variant="tiny" style={styles.label}>
+          <Text variant="small" style={styles.label}>
             {t('annualIncome')}
           </Text>
           <Input
@@ -271,7 +271,7 @@ export default function PersonalInfoForm() {
           )}
         </View>
         <View style={styles.formGroup}>
-          <Text variant="tiny" style={styles.label}>
+          <Text variant="small" style={styles.label}>
             {t('creditScore')}
           </Text>
           <Input
@@ -289,7 +289,7 @@ export default function PersonalInfoForm() {
         </View>
         <View style={styles.formGroup}>
           <View style={styles.wrapperImageUploader}>
-            <Text variant="tiny" style={styles.label}>
+            <Text variant="small" style={styles.label}>
               {t('govermentId')}
             </Text>
             {Boolean(formState.errors['government_id']) && (
@@ -314,7 +314,7 @@ export default function PersonalInfoForm() {
         </View>
         <View style={styles.formGroup}>
           <View style={styles.wrapperImageUploader}>
-            <Text variant="tiny" style={styles.label}>
+            <Text variant="small" style={styles.label}>
               {t('creditReport')}
             </Text>
             {Boolean(formState.errors['credit_report']) && (
@@ -338,7 +338,7 @@ export default function PersonalInfoForm() {
           />
         </View>
         <View style={styles.formGroup}>
-          <Text variant="tiny" style={styles.label}>
+          <Text variant="small" style={styles.label}>
             {t('address')}
           </Text>
           <Input
@@ -356,7 +356,7 @@ export default function PersonalInfoForm() {
           )}
         </View>
         <View style={[styles.formGroup, { zIndex: 1 }]}>
-          <Text variant="tiny" style={styles.label}>
+          <Text variant="small" style={styles.label}>
             {t('proofIncome')}
           </Text>
           <SelectInput

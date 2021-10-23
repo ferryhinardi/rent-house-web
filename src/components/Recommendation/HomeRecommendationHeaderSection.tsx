@@ -28,7 +28,7 @@ export default function HomeRecommendationHeaderSection() {
   return (
     <ContainerDesktop style={styles.container}>
       <View style={styles.homeInfoContainer}>
-        <Text variant="banner-title" ink="dark">
+        <Text variant="headline-1" ink="dark">
           {data?.name}
         </Text>
         <Text variant="caption" style={styles.homeInfoDescription}>

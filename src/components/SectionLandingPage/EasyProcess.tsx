@@ -30,12 +30,7 @@ export default function EasyProcess() {
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
-          <Text
-            ink="primary"
-            font="playfair"
-            variant="header-2"
-            style={styles.headerTitle}
-          >
+          <Text ink="primary" variant="header-2" style={styles.headerTitle}>
             {t('titleEasyProcess')}
           </Text>
           <Text variant="caption">{t('subtitleEasyProcess')}</Text>
@@ -58,11 +53,7 @@ export default function EasyProcess() {
                   height={34}
                   alt={process.title}
                 />
-                <Text
-                  font="playfair"
-                  variant="header-3"
-                  style={styles.headerText}
-                >
+                <Text variant="header-3" style={styles.headerText}>
                   {process.title}
                 </Text>
               </View>

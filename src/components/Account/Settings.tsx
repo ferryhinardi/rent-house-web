@@ -16,12 +16,7 @@ export default function AccountSettings() {
     <Element name="account-settings">
       <>
         <View style={styles.titleWrapper}>
-          <Text
-            font="playfair"
-            variant="header-3"
-            ink="primary"
-            style={styles.title}
-          >
+          <Text variant="header-3" ink="primary" style={styles.title}>
             {t('accountSettingsTitle')}
           </Text>
           <Badge text="Need Action" variant="alert" />

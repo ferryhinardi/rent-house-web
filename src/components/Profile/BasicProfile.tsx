@@ -53,7 +53,7 @@ export default function BasicProfile() {
           />
           <View style={styles.formContainer}>
             <View style={styles.formGroupHalfWidth}>
-              <Text variant="tiny" style={styles.label}>
+              <Text variant="small" style={styles.label}>
                 {t('fullName')}
               </Text>
               <Input
@@ -69,7 +69,7 @@ export default function BasicProfile() {
               )}
             </View>
             <View style={styles.formGroupHalfWidth}>
-              <Text variant="tiny" style={styles.label}>
+              <Text variant="small" style={styles.label}>
                 {t('jobTitle')}
               </Text>
               <Input
@@ -85,7 +85,7 @@ export default function BasicProfile() {
               )}
             </View>
             <View style={styles.formGroupFullWidth}>
-              <Text variant="tiny" style={styles.label}>
+              <Text variant="small" style={styles.label}>
                 {t('emailAddress')}
               </Text>
               <Input
@@ -102,7 +102,7 @@ export default function BasicProfile() {
               )}
             </View>
             <View style={styles.formGroupFullWidth}>
-              <Text variant="tiny" style={styles.label}>
+              <Text variant="small" style={styles.label}>
                 {t('biodata')}
               </Text>
               <Input

@@ -62,7 +62,7 @@ export default function PreferenceContent() {
         result.length === value.length ? (
           <Icon name="check-circle" size={20} color={Token.colors.rynaBlue} />
         ) : (
-          <Text variant="sidebar-menu" ink="primary">
+          <Text variant="button" ink="primary">
             {result.length + `/` + value.length}
           </Text>
         ),

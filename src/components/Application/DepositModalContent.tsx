@@ -16,9 +16,7 @@ export default function DepositModalContent() {
       <Text variant="caption" ink="primary" style={styles.subtitle}>
         {t('modalDepositSubtitle')}
       </Text>
-      {state === 'CREDIT' && (
-        <CreditCardForm onCancel={() => setState(undefined)} />
-      )}
+      {state === 'CREDIT' && <CreditCardForm onCancel={() => setState(undefined)} />}
       {!state && (
         <>
           <Button
@@ -54,47 +52,35 @@ function CreditCardForm({ onCancel }: FormProps) {
     name: 'name',
     control,
   });
-  const { field: fieldCardNumber, fieldState: fieldStateCardNumber } =
-    useController({ name: 'cardNumber', control });
-  const { field: fieldCardExpired, fieldState: fieldStateCardExpired } =
-    useController({ name: 'cardExpired', control });
+  const { field: fieldCardNumber, fieldState: fieldStateCardNumber } = useController({ name: 'cardNumber', control });
+  const { field: fieldCardExpired, fieldState: fieldStateCardExpired } = useController({
+    name: 'cardExpired',
+    control,
+  });
   const { field: fieldCardVcc, fieldState: fieldStateCardVcc } = useController({
     name: 'cardVcc',
     control,
   });
-  const onSubmit = (data: {
-    name: string;
-    cardNumber: string;
-    cardExpired: string;
-    cardVcc: string;
-  }) => {
+  const onSubmit = (data: { name: string; cardNumber: string; cardExpired: string; cardVcc: string }) => {
     console.log('data', data);
   };
 
   return (
     <View style={styles.containerCreditCardForm}>
       <View style={styles.formGroupFullWidth}>
-        <Text variant="tiny" ink="dark" style={styles.label}>
+        <Text variant="small" ink="dark" style={styles.label}>
           {t('nameOfCreditCard')}
         </Text>
         <Input {...fieldName} placeholder="Joe" />
         {Boolean(fieldStateName.error) && (
-          <ErrorMessage
-            text={fieldStateName.error?.message!}
-            errorMessageId={fieldStateName.error?.message}
-          />
+          <ErrorMessage text={fieldStateName.error?.message!} errorMessageId={fieldStateName.error?.message} />
         )}
       </View>
       <View style={styles.formGroupFullWidth}>
-        <Text variant="tiny" ink="dark" style={styles.label}>
+        <Text variant="small" ink="dark" style={styles.label}>
           {t('numberOfCreditCard')}
         </Text>
-        <Input
-          {...fieldCardNumber}
-          placeholder="xxxx-xxxx-xxxx-xxxx"
-          keyboardType="numeric"
-          maxLength={19}
-        />
+        <Input {...fieldCardNumber} placeholder="xxxx-xxxx-xxxx-xxxx" keyboardType="numeric" maxLength={19} />
         {Boolean(fieldStateCardNumber.error) && (
           <ErrorMessage
             text={fieldStateCardNumber.error?.message!}
@@ -103,15 +89,10 @@ function CreditCardForm({ onCancel }: FormProps) {
         )}
       </View>
       <View style={styles.formGroupHalfWidth}>
-        <Text variant="tiny" ink="dark" style={styles.label}>
+        <Text variant="small" ink="dark" style={styles.label}>
           {t('expiredOfCreditCard')}
         </Text>
-        <Input
-          {...fieldCardExpired}
-          placeholder="mm/yyyy"
-          keyboardType="numeric"
-          maxLength={7}
-        />
+        <Input {...fieldCardExpired} placeholder="mm/yyyy" keyboardType="numeric" maxLength={7} />
         {Boolean(fieldStateCardExpired.error) && (
           <ErrorMessage
             text={fieldStateCardExpired.error?.message!}
@@ -120,32 +101,17 @@ function CreditCardForm({ onCancel }: FormProps) {
         )}
       </View>
       <View style={styles.formGroupHalfWidth}>
-        <Text variant="tiny" ink="dark" style={styles.label}>
+        <Text variant="small" ink="dark" style={styles.label}>
           {t('vccOfCreditCard')}
         </Text>
-        <Input
-          {...fieldCardVcc}
-          placeholder="xxx"
-          secureTextEntry
-          keyboardType="numeric"
-          maxLength={3}
-        />
+        <Input {...fieldCardVcc} placeholder="xxx" secureTextEntry keyboardType="numeric" maxLength={3} />
         {Boolean(fieldStateCardVcc.error) && (
-          <ErrorMessage
-            text={fieldStateCardVcc.error?.message!}
-            errorMessageId={fieldStateCardVcc.error?.message}
-          />
+          <ErrorMessage text={fieldStateCardVcc.error?.message!} errorMessageId={fieldStateCardVcc.error?.message} />
         )}
       </View>
       <View style={styles.formGroupHalfWidth}>
         <Button text={t('submitPay')} onPress={handleSubmit(onSubmit)} />
-        <Button
-          variant="empty"
-          elevation
-          text={t('cancelPay')}
-          style={styles.button}
-          onPress={onCancel}
-        />
+        <Button variant="empty" elevation text={t('cancelPay')} style={styles.button} onPress={onCancel} />
       </View>
     </View>
   );
