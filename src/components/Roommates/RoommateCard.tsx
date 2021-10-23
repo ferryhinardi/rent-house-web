@@ -1,17 +1,16 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
+
 import { Token } from 'core';
-import { Card, Text, Button } from 'core/base';
+import { Card, Text, Button, Image } from 'core/base';
 import customImgLoader from 'core/utils/customImgLoader';
 import { routePaths } from 'routePaths';
 import config from 'config';
+import assets from 'assets';
 
 import { User } from 'types';
-
-const imagePlaceholder = 'https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png';
 
 type RoommateCardProps = {
   roomate: User;
@@ -27,7 +26,10 @@ export default function RoommateCard({ roomate }: RoommateCardProps) {
     });
   };
 
-  const imgSource = roomate?.profile_picture ? `${config.imageHost}/${roomate.profile_picture}` : imagePlaceholder;
+  const imgSource = roomate?.profile_picture
+    ? `${config.imageHost}/${roomate.profile_picture}`
+    : assets.placehoderImage;
+
   return (
     <Card style={styles.containerCard}>
       <Card.Body>

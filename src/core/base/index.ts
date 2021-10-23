@@ -13,3 +13,4 @@ export { Hoverable, Pressable } from './Pressable';
 export { default as Tooltip } from './Tooltip';
 export { default as Badge } from './Badge';
 export { default as FileUploader } from './FileUploader';
+export { default as Image } from './Image';
