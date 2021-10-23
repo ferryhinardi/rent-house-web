@@ -8,9 +8,9 @@ import { Text, Input, ErrorMessage } from 'core/base';
 export default function SocialMedia() {
   const { control } = useFormContext();
   const { t } = useTranslation();
-  const { field: fieldFacebook, fieldState: fieldStateFacebook } = useController({ name: 'facebook', control });
-  const { field: fieldTwitter, fieldState: fieldStateTwitter } = useController({ name: 'twitter', control });
-  const { field: fieldInstagram, fieldState: fieldStateInstagram } = useController({ name: 'instagram', control });
+  const { field: fieldFacebook, fieldState: fieldStateFacebook } = useController({ name: 'facebook_url', control });
+  const { field: fieldTwitter, fieldState: fieldStateTwitter } = useController({ name: 'twitter_url', control });
+  const { field: fieldInstagram, fieldState: fieldStateInstagram } = useController({ name: 'instagram_url', control });
   return (
     <View>
       <Text variant="header-3">{t('socialMedia')}</Text>

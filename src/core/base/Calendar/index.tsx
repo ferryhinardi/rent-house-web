@@ -12,7 +12,7 @@ import { useStable, useClickOutside } from 'core/hooks';
 const AnimatedView = animated(View);
 
 type Props = Omit<React.ComponentProps<typeof Input>, 'onChange'> & {
-  onChange?: (value: string) => void;
+  onChange?: (value: Date) => void;
 };
 
 function Calendar({ onChange, ...restProps }: Props) {
@@ -45,7 +45,7 @@ function Calendar({ onChange, ...restProps }: Props) {
 
   const onChangeCalendar: OnChangeDateCallback = (value: Date) => {
     setValue(value);
-    onChange?.(formatter.format(value));
+    onChange?.(value);
     onHide();
   };
 

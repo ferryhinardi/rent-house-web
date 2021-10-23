@@ -1,7 +1,7 @@
 import { PayloadUpdateUser } from 'types';
 
 export default function createPayloadUpdateUser(payload: PayloadUpdateUser) {
-  const proofOfIncomeType = payload.proof_of_income_type.value;
+  const proofOfIncomeType = typeof payload.proof_of_income_type === 'object' ? payload.proof_of_income_type.value : payload.proof_of_income_type;
   let bodyFormProofIncomeGuarantorGovIdDataDoc,
     bodyFormProofIncomeGuarantorCreditReportDataDoc,
     bodyFormProofIncomeGuarantorPaystubDataDoc,
@@ -16,11 +16,13 @@ export default function createPayloadUpdateUser(payload: PayloadUpdateUser) {
   bodyFormDataUser.set('annual_income', payload.annual_income?.toString());
   bodyFormDataUser.set('credit_score', payload.credit_score?.toString());
   bodyFormDataUser.set('gender', payload.gender.value?.toString());
-  bodyFormDataUser.set('dob', payload.dob);
+  bodyFormDataUser.set('birth_date', payload.dob);
   bodyFormDataUser.set('phone', payload.phone);
-  bodyFormDataUser.set('social_media_url', payload.social_media_url);
   bodyFormDataUser.set('proof_of_income_type', proofOfIncomeType?.toString());
-
+  if (payload.facebook_url) bodyFormDataUser.set('facebook_url', payload.facebook_url);
+  if (payload.twitter_url) bodyFormDataUser.set('twitter_url', payload.twitter_url);
+  if (payload.instagram_url) bodyFormDataUser.set('instagram_url', payload.instagram_url);
+console.log({ payload });
   if (payload.profile_picture?.length > 0) {
     bodyFormDataUser.set('profile_picture', payload.profile_picture[0]);
   }

@@ -48,13 +48,6 @@ export default function PersonalInfoForm() {
       required: t('creditScore.required') as string,
     },
   });
-  const { field: socialMediaField, fieldState: socialMediaFieldState } = useController({
-    name: 'social_media_url',
-    control,
-    rules: {
-      required: t('socialMedia.required') as string,
-    },
-  });
   const { field: proofIncomeField, fieldState: proofIncomeFieldState } = useController({
     name: 'proof_of_income_type',
     control,
@@ -339,24 +332,6 @@ export default function PersonalInfoForm() {
             onFileChange={() => clearErrors('credit_report')}
             onError={validateFileSize('credit_report')}
           />
-        </View>
-        <View style={styles.formGroup}>
-          <Text variant="tiny" style={styles.label}>
-            {t('socialMedia')}
-          </Text>
-          <Input
-            {...socialMediaField}
-            placeholder={t('socialMedia')}
-            textContentType="name"
-            error={Boolean(socialMediaFieldState.error)}
-            errorMessageId={socialMediaFieldState.error?.message}
-          />
-          {Boolean(socialMediaFieldState.error) && (
-            <ErrorMessage
-              text={socialMediaFieldState.error?.message!}
-              errorMessageId={socialMediaFieldState.error?.message}
-            />
-          )}
         </View>
         <View style={[styles.formGroup, { zIndex: 1 }]}>
           <Text variant="tiny" style={styles.label}>
