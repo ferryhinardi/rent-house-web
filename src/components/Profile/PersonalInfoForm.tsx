@@ -168,7 +168,7 @@ export default function PersonalInfoForm() {
             </View>
             <View style={styles.formGroup}>
               <View style={styles.wrapperImageUploader}>
-                <Text variant="tiny" style={styles.label}>
+                <Text variant="small" style={styles.label}>
                   {t('guarantorPaystubs')}
                 </Text>
                 {Boolean(formState.errors['guarantor_paystubs']) && (

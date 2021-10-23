@@ -1,9 +1,9 @@
+import { Token } from 'core';
+import { ErrorMessage, Input, Text } from 'core/base';
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
 import { useController, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Token } from 'core';
-import { Text, Input, ErrorMessage } from 'core/base';
+import { StyleSheet, View } from 'react-native';
 
 export default function SocialMedia() {
   const { control } = useFormContext();
@@ -16,7 +16,7 @@ export default function SocialMedia() {
       <Text variant="header-3">{t('socialMedia')}</Text>
       <View style={styles.formContainer}>
         <View style={styles.formGroup}>
-          <Text variant="tiny" style={styles.label}>
+          <Text variant="small" style={styles.label}>
             {t('facebook')}
           </Text>
           <Input
@@ -34,7 +34,7 @@ export default function SocialMedia() {
           )}
         </View>
         <View style={styles.formGroup}>
-          <Text variant="tiny" style={styles.label}>
+          <Text variant="small" style={styles.label}>
             {t('twitter')}
           </Text>
           <Input
@@ -49,7 +49,7 @@ export default function SocialMedia() {
           )}
         </View>
         <View style={styles.formGroup}>
-          <Text variant="tiny" style={styles.label}>
+          <Text variant="small" style={styles.label}>
             {t('instagram')}
           </Text>
           <Input
