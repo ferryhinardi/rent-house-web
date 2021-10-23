@@ -1,10 +1,11 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { useTranslation } from 'react-i18next';
-import { useController, useFormContext, useWatch } from 'react-hook-form';
 import { Token } from 'core';
-import { genderOptions, proofIncomeOptions, MAX_FILE_SIZE } from 'core/constants';
-import { Text, Input, CalendarInput, SelectInput, ErrorMessage, FileUploader } from 'core/base';
+import { CalendarInput, ErrorMessage, FileUploader, Input, SelectInput, Text } from 'core/base';
+import { genderOptions, MAX_FILE_SIZE, proofIncomeOptions } from 'core/constants';
+import React from 'react';
+import { useController, useFormContext } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { StyleSheet, View } from 'react-native';
+import { Option } from 'types';
 
 export default function PersonalInfoForm() {
   const { register, control, setValue, setError, clearErrors, formState } = useFormContext();
@@ -62,18 +63,23 @@ export default function PersonalInfoForm() {
       required: t('address.required') as string,
     },
   });
-  let proofOfIncomeValue = useWatch({ name: 'proof_of_income_type', control });
-  const validateFileSize = (fieldName: string) => (error: { status: string, message?: string }) => {
+  const validateFileSize = (fieldName: string) => (error: { status: string; message?: string }) => {
     if (error.status === 'LIMIT_SIZE') {
       setError(fieldName, {
         type: 'validate',
         message: t(`${fieldName}.maxFileSize`, { maxFileSize: `${(MAX_FILE_SIZE / 1048576).toFixed(2)} MB` }),
       });
     }
-  };  
-
-  if (typeof proofOfIncomeValue === 'object' && 'value' in proofOfIncomeValue) {
-    proofOfIncomeValue = proofOfIncomeValue.value;
+  };
+  function onChangeProofOfIncome(proofOfIncome: Option) {
+    if (proofOfIncome.value === 0) {
+      setValue('guarantor_government_id', undefined);
+      setValue('guarantor_credit_report', undefined);
+      setValue('guarantor_paystubs', undefined);
+    } else if (proofOfIncome.value === 1) {
+      setValue('paystubs', undefined);
+    }
+    proofIncomeField.onChange(proofOfIncome.value);
   }
 
   function renderGuarantor(optionId: number) {
@@ -213,20 +219,6 @@ export default function PersonalInfoForm() {
             <ErrorMessage text={genderFieldState.error?.message!} errorMessageId={genderFieldState.error?.message} />
           )}
         </View>
-        <View style={[styles.formGroup, { zIndex: 1 }]}>
-          <Text variant="tiny" style={styles.label}>
-            {t('dob')}
-          </Text>
-          <CalendarInput
-            {...dobField}
-            placeholder={t('dob')}
-            error={Boolean(dobFieldState.error)}
-            errorMessageId={dobFieldState.error?.message}
-          />
-          {Boolean(dobFieldState.error) && (
-            <ErrorMessage text={dobFieldState.error?.message!} errorMessageId={dobFieldState.error?.message} />
-          )}
-        </View>
         <View style={styles.formGroup}>
           <Text variant="tiny" style={styles.label}>
             {t('phoneNumber')}
@@ -246,13 +238,26 @@ export default function PersonalInfoForm() {
             />
           )}
         </View>
+        <View style={[styles.formGroup, { zIndex: 1 }]}>
+          <Text variant="tiny" style={styles.label}>
+            {t('dob')}
+          </Text>
+          <CalendarInput
+            {...dobField}
+            placeholder={t('dob')}
+            error={Boolean(dobFieldState.error)}
+            errorMessageId={dobFieldState.error?.message}
+          />
+          {Boolean(dobFieldState.error) && (
+            <ErrorMessage text={dobFieldState.error?.message!} errorMessageId={dobFieldState.error?.message} />
+          )}
+        </View>
         <View style={styles.formGroup}>
           <Text variant="tiny" style={styles.label}>
             {t('annualIncome')}
           </Text>
           <Input
             {...annualIncomeField}
-            value={annualIncomeField.value.toString()}
             placeholder={t('annualIncome')}
             keyboardType="numeric"
             error={Boolean(annualIncomeFieldState.error)}
@@ -271,7 +276,6 @@ export default function PersonalInfoForm() {
           </Text>
           <Input
             {...creditScoreField}
-            value={creditScoreField.value.toString()}
             placeholder={t('creditScore')}
             error={Boolean(creditScoreFieldState.error)}
             errorMessageId={creditScoreFieldState.error?.message}
@@ -323,7 +327,7 @@ export default function PersonalInfoForm() {
           </View>
           <FileUploader
             {...register('credit_report', {
-              required: t('credit_report.required') as string
+              required: t('credit_report.required') as string,
             })}
             variant="input"
             actionLabel={t('creditReport')}
@@ -332,27 +336,6 @@ export default function PersonalInfoForm() {
             onFileChange={() => clearErrors('credit_report')}
             onError={validateFileSize('credit_report')}
           />
-        </View>
-        <View style={[styles.formGroup, { zIndex: 1 }]}>
-          <Text variant="tiny" style={styles.label}>
-            {t('proofIncome')}
-          </Text>
-          <SelectInput
-            {...proofIncomeField}
-            value={proofIncomeOptions.find((x) => x.value === proofIncomeField.value)}
-            instanceId="proofIncome"
-            variant="primary"
-            placeholder={t('proofIncome')}
-            error={Boolean(proofIncomeFieldState.error)}
-            errorMessageId={proofIncomeFieldState.error?.message}
-            options={proofIncomeOptions}
-          />
-          {Boolean(proofIncomeFieldState.error) && (
-            <ErrorMessage
-              text={proofIncomeFieldState.error?.message!}
-              errorMessageId={proofIncomeFieldState.error?.message}
-            />
-          )}
         </View>
         <View style={styles.formGroup}>
           <Text variant="tiny" style={styles.label}>
@@ -372,13 +355,35 @@ export default function PersonalInfoForm() {
             <ErrorMessage text={addressFieldState.error?.message!} errorMessageId={addressFieldState.error?.message} />
           )}
         </View>
+        <View style={[styles.formGroup, { zIndex: 1 }]}>
+          <Text variant="tiny" style={styles.label}>
+            {t('proofIncome')}
+          </Text>
+          <SelectInput
+            {...proofIncomeField}
+            onChange={onChangeProofOfIncome as any}
+            value={proofIncomeOptions.find((x) => x.value === proofIncomeField.value)}
+            instanceId="proofIncome"
+            variant="primary"
+            placeholder={t('proofIncome')}
+            error={Boolean(proofIncomeFieldState.error)}
+            errorMessageId={proofIncomeFieldState.error?.message}
+            options={proofIncomeOptions}
+          />
+          {Boolean(proofIncomeFieldState.error) && (
+            <ErrorMessage
+              text={proofIncomeFieldState.error?.message!}
+              errorMessageId={proofIncomeFieldState.error?.message}
+            />
+          )}
+        </View>
       </View>
 
-      {Boolean(renderGuarantor(proofOfIncomeValue)) ? (
+      {Boolean(renderGuarantor(proofIncomeField.value)) ? (
         <React.Fragment>
           <View style={styles.separator} />
-          <Text variant="header-3">{proofOfIncomeValue === 0 ? t('proofIncome') : t('Guarantor')}</Text>
-          <View style={styles.formContainer}>{renderGuarantor(proofOfIncomeValue)}</View>
+          <Text variant="header-3">{proofIncomeField.value === 0 ? t('proofIncome') : t('Guarantor')}</Text>
+          <View style={styles.formContainer}>{renderGuarantor(proofIncomeField.value)}</View>
         </React.Fragment>
       ) : null}
     </React.Fragment>
@@ -393,7 +398,7 @@ const styles = StyleSheet.create({
     marginTop: Token.spacing.xxl,
   },
   formGroup: {
-    flexGrow: 0,
+    flexGrow: 1,
     flexShrink: 1,
     flexBasis: '48%',
   },

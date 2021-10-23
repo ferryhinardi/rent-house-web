@@ -1,22 +1,18 @@
-import React from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
-import { useSpring, animated } from 'react-spring';
-import ReactCalendar, { OnChangeDateCallback } from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-// @ts-ignore
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token } from 'core';
 import { Input, Text } from 'core/base';
 import { useStable } from 'core/hooks';
-
-const AnimatedView = animated(View);
-const calendarInputRef = React.createRef<TextInput | HTMLElement>();
+import React from 'react';
+import ReactCalendar, { OnChangeDateCallback } from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { StyleSheet, View } from 'react-native';
+// @ts-ignore
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 type Props = Omit<React.ComponentProps<typeof Input>, 'onChange'> & {
   onChange?: (value: string) => void;
 };
 
-function DirectCalendar({ onChange, ...restProps }: Props) {
+function DirectCalendar({ onChange }: Props) {
   const formatter = useStable(
     () =>
       new Intl.DateTimeFormat('default', {
@@ -59,15 +55,6 @@ function DirectCalendar({ onChange, ...restProps }: Props) {
 }
 
 const styles = StyleSheet.create({
-  input: {
-    // @ts-ignore
-    cursor: 'pointer',
-  },
-  containerCalendar: {
-    position: 'absolute',
-    marginTop: Token.spacing.xs,
-    margin: 'auto 0px',
-  },
   navigationMonthWrapper: {
     flexDirection: 'row',
     alignItems: 'center',

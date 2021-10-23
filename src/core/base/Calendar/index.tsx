@@ -1,18 +1,19 @@
-import React, { useRef } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
-import { useSpring, animated } from 'react-spring';
-import ReactCalendar, { OnChangeDateCallback } from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-// @ts-ignore
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token } from 'core';
 import { Input, Text } from 'core/base';
-import { useStable, useClickOutside } from 'core/hooks';
+import { useClickOutside, useStable } from 'core/hooks';
+import React, { useRef } from 'react';
+import ReactCalendar, { OnChangeDateCallback } from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { StyleSheet, TextInput, View } from 'react-native';
+// @ts-ignore
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import { animated, useSpring } from 'react-spring';
+import { parseUnixTime } from '../../utils/parseunix';
 
 const AnimatedView = animated(View);
 
 type Props = Omit<React.ComponentProps<typeof Input>, 'onChange'> & {
-  onChange?: (value: Date) => void;
+  onChange?: (value: number | Date) => void;
 };
 
 function Calendar({ onChange, ...restProps }: Props) {
@@ -45,7 +46,7 @@ function Calendar({ onChange, ...restProps }: Props) {
 
   const onChangeCalendar: OnChangeDateCallback = (value: Date) => {
     setValue(value);
-    onChange?.(value);
+    onChange?.(parseUnixTime(value));
     onHide();
   };
 
@@ -56,22 +57,19 @@ function Calendar({ onChange, ...restProps }: Props) {
       ref={(ref) => {
         calendarInputRef.current = ref as TextInput;
       }}
-      style={{ zIndex: 100 }}
-    >
+      style={{ zIndex: 100 }}>
       <Input
         {...restProps}
         value={formatter.format(value)}
         editable={false}
         textInputStyle={styles.input}
         onFocus={onPress}
-        onBlur={onHide}
       />
       {isConstruct && (
         <View style={styles.containerCalendar}>
           <AnimatedView
             // @ts-ignore
-            style={calendarAnimateStyle}
-          >
+            style={calendarAnimateStyle}>
             <ReactCalendar
               className="ryna-calendar"
               onChange={onChangeCalendar}
@@ -106,6 +104,7 @@ const styles = StyleSheet.create({
   },
   containerCalendar: {
     position: 'absolute',
+    top: 40,
     marginTop: Token.spacing.xs,
     margin: 'auto 0px',
     zIndex: 100,
