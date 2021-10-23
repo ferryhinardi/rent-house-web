@@ -1,9 +1,11 @@
 import { PayloadUpdateUser } from 'types';
 
 export default function createPayloadUpdateUser(payload: PayloadUpdateUser) {
-  const proofOfIncomeType = payload.proof_of_income_type.value;
-  let bodyFormProofIncomeGuarantorDataDoc,
+  const proofOfIncomeType = typeof payload.proof_of_income_type === 'object' ? payload.proof_of_income_type.value : payload.proof_of_income_type;
+  let bodyFormProofIncomeGuarantorGovIdDataDoc,
     bodyFormProofIncomeGuarantorCreditReportDataDoc,
+    bodyFormProofIncomeGuarantorPaystubDataDoc,
+    bodyFormProofIncomePaystubDataDoc,
     bodyFormGovermentDataDoc,
     bodyFormCreditScoreDataDoc;
   const bodyFormDataUser = new FormData();
@@ -14,11 +16,13 @@ export default function createPayloadUpdateUser(payload: PayloadUpdateUser) {
   bodyFormDataUser.set('annual_income', payload.annual_income?.toString());
   bodyFormDataUser.set('credit_score', payload.credit_score?.toString());
   bodyFormDataUser.set('gender', payload.gender.value?.toString());
-  bodyFormDataUser.set('dob', payload.dob);
+  bodyFormDataUser.set('birth_date', payload.dob);
   bodyFormDataUser.set('phone', payload.phone);
-  bodyFormDataUser.set('social_media_url', payload.social_media_url);
   bodyFormDataUser.set('proof_of_income_type', proofOfIncomeType?.toString());
-
+  if (payload.facebook_url) bodyFormDataUser.set('facebook_url', payload.facebook_url);
+  if (payload.twitter_url) bodyFormDataUser.set('twitter_url', payload.twitter_url);
+  if (payload.instagram_url) bodyFormDataUser.set('instagram_url', payload.instagram_url);
+console.log({ payload });
   if (payload.profile_picture?.length > 0) {
     bodyFormDataUser.set('profile_picture', payload.profile_picture[0]);
   }
@@ -36,23 +40,28 @@ export default function createPayloadUpdateUser(payload: PayloadUpdateUser) {
   }
 
   if (Number(proofOfIncomeType) === 0) {
-    // guarantor_paystubs document
-    if (payload?.guarantor_paystubs?.length) {
-      bodyFormProofIncomeGuarantorDataDoc = new FormData();
-      bodyFormProofIncomeGuarantorDataDoc.set('document_type', '5');
-      bodyFormProofIncomeGuarantorDataDoc.set('document_files', payload?.guarantor_paystubs?.[0]);
+    // paystubs document
+    if (payload?.paystubs?.length) {
+      bodyFormProofIncomePaystubDataDoc = new FormData();
+      bodyFormProofIncomePaystubDataDoc.set('document_type', '6');
+      bodyFormProofIncomePaystubDataDoc.set('document_files', payload?.paystubs?.[0]);
     }
   } else if (Number(proofOfIncomeType) === 1) {
-    // guarantor_government_id + guarantor_credit_report document
+    // guarantor_government_id + guarantor_credit_report + guarantor_paystubs document
     if (payload?.guarantor_government_id?.length) {
-      bodyFormProofIncomeGuarantorDataDoc = new FormData();
-      bodyFormProofIncomeGuarantorDataDoc.set('document_type', '3');
-      bodyFormProofIncomeGuarantorDataDoc.set('document_files', payload?.guarantor_government_id?.[0]);
+      bodyFormProofIncomeGuarantorGovIdDataDoc = new FormData();
+      bodyFormProofIncomeGuarantorGovIdDataDoc.set('document_type', '3');
+      bodyFormProofIncomeGuarantorGovIdDataDoc.set('document_files', payload?.guarantor_government_id?.[0]);
     }
     if (payload?.guarantor_credit_report?.length) {
       bodyFormProofIncomeGuarantorCreditReportDataDoc = new FormData();
       bodyFormProofIncomeGuarantorCreditReportDataDoc.set('document_type', '4');
       bodyFormProofIncomeGuarantorCreditReportDataDoc.set('document_files', payload?.guarantor_credit_report?.[0]);
+    }
+    if (payload?.guarantor_paystubs?.length) {
+      bodyFormProofIncomeGuarantorPaystubDataDoc = new FormData();
+      bodyFormProofIncomeGuarantorPaystubDataDoc.set('document_type', '5');
+      bodyFormProofIncomeGuarantorPaystubDataDoc.set('document_files', payload?.guarantor_paystubs?.[0]);
     }
   }
 
@@ -60,7 +69,9 @@ export default function createPayloadUpdateUser(payload: PayloadUpdateUser) {
     bodyFormDataUser,
     bodyFormGovermentDataDoc,
     bodyFormCreditScoreDataDoc,
-    bodyFormProofIncomeGuarantorDataDoc,
+    bodyFormProofIncomeGuarantorGovIdDataDoc,
     bodyFormProofIncomeGuarantorCreditReportDataDoc,
+    bodyFormProofIncomeGuarantorPaystubDataDoc,
+    bodyFormProofIncomePaystubDataDoc,
   };
 }

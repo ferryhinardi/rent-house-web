@@ -1,11 +1,11 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import { View, StyleSheet } from 'react-native';
-import { Element } from 'react-scroll';
-import { useTranslation } from 'react-i18next';
-import { Text, Button, Badge } from 'core/base';
-import { Token } from 'core';
 import ProgressBar from 'components/Progress/Bar';
+import { Token } from 'core';
+import { Badge, Button, Text } from 'core/base';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { StyleSheet, View } from 'react-native';
+import { Element } from 'react-scroll';
 import { routePaths } from 'routePaths';
 
 const settings = ['profile', 'preference', 'application'];
@@ -26,12 +26,7 @@ export default function AccountSettings() {
         </Text>
         <View style={styles.cardContainer}>
           {settings.map((setting) => (
-            <SettingCard
-              key={setting}
-              title={t(`${setting}`)}
-              subtitle={t(`${setting}Description`)}
-              href={setting}
-            />
+            <SettingCard key={setting} title={t(`${setting}`)} subtitle={t(`${setting}Description`)} href={setting} />
           ))}
         </View>
       </>
@@ -50,7 +45,7 @@ function SettingCard({ title, subtitle, href }: SettingCardProps) {
   const router = useRouter();
   return (
     <View style={styles.card}>
-      <Text variant="title-2" style={styles.cardTitle}>
+      <Text variant="header-2" style={styles.cardTitle}>
         {title}
       </Text>
       <Text>{subtitle}</Text>

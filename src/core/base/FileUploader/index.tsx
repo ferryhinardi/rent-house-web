@@ -1,28 +1,47 @@
-import React, { useRef, useState } from 'react';
-import Image from 'next/image';
-import { View, StyleSheet, TextInput, Pressable } from 'react-native';
 import { Token } from 'core';
 import { Button, Text } from 'core/base';
 import customImgLoader from 'core/utils/customImgLoader';
+import Image from 'next/image';
+import React, { useRef, useState } from 'react';
+import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
-type Props = React.InputHTMLAttributes<HTMLInputElement> & {
+type ErrorStatus = 'LIMIT_SIZE';
+type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onError'> & {
   variant?: 'input' | 'image-preview';
   value?: string | File;
   actionLabel?: string;
+  maxFileSize?: number;
+  onFileChange?: () => void;
+  onError?: (error: { status: string | ErrorStatus; message?: string }) => void;
 };
 
 const imagePlaceholder = 'https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png';
 
-export default function FileUploader({ value, variant = 'image-preview', actionLabel, ...restProps }: Props) {
+export default function FileUploader({
+  value,
+  variant = 'image-preview',
+  actionLabel,
+  maxFileSize,
+  onFileChange,
+  onError,
+  ...restProps
+}: Props) {
   const fileRef = useRef<HTMLInputElement>();
   const [image, setImage] = useState<string | File>();
   const val = image || value;
   const onFileChangeCapture = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      if (variant === 'image-preview') setImage(URL.createObjectURL(event.target.files[0]));
+      const file = event.target.files[0];
+      if (variant === 'image-preview') setImage(URL.createObjectURL(file));
       else setImage(event.target.files[0]);
+
+      onFileChange?.();
+
+      if (maxFileSize && file.size > maxFileSize) {
+        onError?.({ status: 'LIMIT_SIZE' });
+      }
     }
   };
 
@@ -38,7 +57,7 @@ export default function FileUploader({ value, variant = 'image-preview', actionL
             editable={false}
             placeholder={actionLabel}
             style={styles.inputUploader}
-            value={(val as File)?.name}
+            value={(value as File)?.name}
             underlineColorAndroid="transparent"
           />
           <View
