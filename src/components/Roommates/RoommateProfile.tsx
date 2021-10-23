@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+// @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 import config from 'config';
