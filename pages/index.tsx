@@ -44,7 +44,7 @@ export default function Home() {
   );
 }
 
-export async function getStaticProps(context: NextPageContext) {
+export async function getServerSideProps(context: NextPageContext) {
   // This value is considered fresh for ten seconds (s-maxage=10).
   // If a request is repeated within the next 10 seconds, the previously
   // cached value will still be fresh. If the request is repeated before 59 seconds,
@@ -79,6 +79,5 @@ export async function getStaticProps(context: NextPageContext) {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
-    revalidate: false,
   };
 }
