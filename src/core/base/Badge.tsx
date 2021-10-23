@@ -30,7 +30,7 @@ export default function Badge({ text, align: alignSelf = 'center', variant = 'in
 
   return (
     <View style={[styles.container, { borderColor, alignSelf }]}>
-      <Text variant="tiny" ink={inkVariant}>
+      <Text variant="small" ink={inkVariant}>
         {text}
       </Text>
     </View>

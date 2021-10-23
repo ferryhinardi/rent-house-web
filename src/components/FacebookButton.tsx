@@ -73,7 +73,9 @@ function FacebookButton(props: Props) {
             disabled={isDisabled || isProcessing}
           >
             <Icon name="facebook-f" size={20} color={Token.colors.fb} />
-            <Text style={styles.text}>{t('facebook')}</Text>
+            <Text variant="body" style={styles.text}>
+              {t('facebook')}
+            </Text>
           </Pressable>
         );
       }}

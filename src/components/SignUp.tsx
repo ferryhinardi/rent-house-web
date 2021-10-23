@@ -203,7 +203,7 @@ function SignUpForm(props: Props) {
         {isLoading ? (
           <LoadingIndicator color={Token.colors.white} />
         ) : (
-          <Text style={styles.submitButtonText} ink="light">
+          <Text variant="button" ink="light">
             {t('submitSignUpForm')}
           </Text>
         )}
@@ -256,9 +256,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: Token.border.radius.default,
     overflow: 'hidden',
     maxHeight: 200,
-  },
-  submitButtonText: {
-    fontWeight: '600',
   },
 });
 

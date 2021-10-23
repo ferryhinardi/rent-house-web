@@ -14,16 +14,13 @@ import assets from 'assets';
 
 function Perks() {
   const { t } = useTranslation();
-  const { data, isLoading } = useQuery<ResponseItem<Perk>>(
-    QUERY_KEYS.PERKS,
-    async () => {
-      const res = await fetcher<ResponseItem<Perk>>({
-        method: 'GET',
-        url: '/perks',
-      });
-      return res;
-    }
-  );
+  const { data, isLoading } = useQuery<ResponseItem<Perk>>(QUERY_KEYS.PERKS, async () => {
+    const res = await fetcher<ResponseItem<Perk>>({
+      method: 'GET',
+      url: '/perks',
+    });
+    return res;
+  });
 
   const onNavigateToTopSection = async () => {
     const { scroller } = await import('react-scroll');
@@ -51,7 +48,7 @@ function Perks() {
       {/* Header */}
       <View style={styles.header}>
         <View>
-          <Text variant="header-2" font={'playfair'} style={styles.headerTitle}>
+          <Text variant="header-2" style={styles.headerTitle}>
             {t('titlePerks')}
           </Text>
           <Text variant="caption">{t('subtitlePerks')}</Text>
@@ -88,14 +85,10 @@ function Perks() {
                     height: 180,
                     alt: 'perk image',
                     onError: () => console.error('error render image'),
-                  }}
-                >
+                  }}>
                   <Card.Body>
-                    <Card.Title variant="large">{item.title}</Card.Title>
-                    <Text
-                      variant="caption"
-                      style={{ marginTop: Token.spacing.m }}
-                    >
+                    <Card.Title variant="header-2">{item.title}</Card.Title>
+                    <Text variant="caption" style={{ marginTop: Token.spacing.m }}>
                       {item.description}
                     </Text>
                   </Card.Body>
@@ -119,14 +112,10 @@ function Perks() {
                     height: 180,
                     alt: 'perk image',
                     onError: () => console.error('error render image'),
-                  }}
-                >
+                  }}>
                   <Card.Body>
-                    <Card.Title variant="large">{item.title}</Card.Title>
-                    <Text
-                      variant="caption"
-                      style={{ marginTop: Token.spacing.m }}
-                    >
+                    <Card.Title variant="header-2">{item.title}</Card.Title>
+                    <Text variant="caption" style={{ marginTop: Token.spacing.m }}>
                       {item.description}
                     </Text>
                   </Card.Body>

@@ -27,9 +27,7 @@ export default function Testimonial() {
   return (
     <ContainerDesktop style={styles.container}>
       <View style={styles.itemWrapperStyle}>
-        <Text font="playfair" variant="header-2">
-          {t('titleTestimonial')}
-        </Text>
+        <Text variant="header-2">{t('titleTestimonial')}</Text>
         <Text variant="caption" style={styles.subtitle}>
           {t('subtitleTestimonial')}
         </Text>

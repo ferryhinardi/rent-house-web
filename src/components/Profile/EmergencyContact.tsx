@@ -32,7 +32,7 @@ export default function EmergencyContact() {
             }}
             render={({ field, fieldState }) => (
               <View style={styles.formGroup}>
-                <Text variant="tiny" style={styles.label}>
+                <Text variant="small" style={styles.label}>
                   {t('emergencyName')}
                 </Text>
                 <Input
@@ -56,7 +56,7 @@ export default function EmergencyContact() {
             }}
             render={({ field, fieldState }) => (
               <View style={styles.formGroup}>
-                <Text variant="tiny" style={styles.label}>
+                <Text variant="small" style={styles.label}>
                   {t('emergencyRelationship')}
                 </Text>
                 <Input
@@ -80,7 +80,7 @@ export default function EmergencyContact() {
             }}
             render={({ field, fieldState }) => (
               <View style={styles.formGroup}>
-                <Text variant="tiny" style={styles.label}>
+                <Text variant="small" style={styles.label}>
                   {t('emergencyEmail')}
                 </Text>
                 <Input
@@ -104,7 +104,7 @@ export default function EmergencyContact() {
             }}
             render={({ field, fieldState }) => (
               <View style={styles.formGroup}>
-                <Text variant="tiny" style={styles.label}>
+                <Text variant="small" style={styles.label}>
                   {t('emergencyPhone')}
                 </Text>
                 <Input

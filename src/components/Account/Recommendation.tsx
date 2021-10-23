@@ -12,12 +12,7 @@ export default function Recommendation() {
     <Element name="recommendation">
       <View>
         <View style={styles.titleWrapper}>
-          <Text
-            font="playfair"
-            variant="header-3"
-            ink="primary"
-            style={styles.title}
-          >
+          <Text variant="header-3" ink="primary" style={styles.title}>
             {t('recommendationTitle')}
           </Text>
         </View>
