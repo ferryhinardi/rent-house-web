@@ -3,24 +3,22 @@ import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Head, HeaderMenu, HeaderNavigation, ApplicationContainer, ApplicationCard, Footer } from 'components';
-import { fetcher, fetchServer, Token } from 'core';
+import { fetchServer, Token } from 'core';
 import { Text, ContainerDesktop } from 'core/base';
 import htmr from 'htmr';
 import { routePaths } from '../../src/routePaths';
 import { QUERY_KEYS } from 'core/constants';
-import { QueryClient, useQuery } from 'react-query';
+import { QueryClient } from 'react-query';
 import { NextApiRequest, NextApiResponse, NextPageContext } from 'next';
 import { redirectIfUnauthenticated } from 'utils/auth';
-import { ApplicationData, ResponseItem, User } from 'types';
+import { ApplicationData, ResponseItem } from 'types';
 import { dehydrate } from 'react-query/hydration';
-import fetcherServer from 'core/fetcher/fetchServer';
 
 type Props = {
-  user: User;
   applications: ResponseItem<ApplicationData>;
 };
 
-export default function Application({ user, applications }: Props) {
+export default function Application({ applications }: Props) {
   const router = useRouter();
   const { t } = useTranslation();
 
@@ -87,7 +85,6 @@ export async function getServerSideProps(context: NextPageContext) {
 
   return {
     props: {
-      user,
       applications,
       dehydratedState: dehydrate(queryClient),
     },
