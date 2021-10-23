@@ -38,6 +38,8 @@ const assets = {
   supportMedia1: require('assets/support-media-1.png').default,
   supportMedia2: require('assets/support-media-2.png').default,
   supportMedia3: require('assets/support-media-3.png').default,
+  // placeholder
+  placehoderImage: 'https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png',
 };
 
 export default assets;

@@ -12,13 +12,17 @@ export default function ProfileDetail() {
   const router = useRouter();
   const { query } = router;
 
-  const { data } = useQuery<User>(QUERY_KEYS.USER, async () => {
-    const res = await fetcher<User>({
-      method: 'GET',
-      url: `/user/${query.userId}`,
-    });
-    return res;
-  });
+  const { data } = useQuery<User>(
+    QUERY_KEYS.USER,
+    async () => {
+      const res = await fetcher<User>({
+        method: 'GET',
+        url: `/user/${query.userId}`,
+      });
+      return res;
+    },
+    { enabled: query.userId !== undefined }
+  );
 
   return (
     <div>

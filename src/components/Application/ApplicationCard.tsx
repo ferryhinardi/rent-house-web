@@ -41,7 +41,7 @@ export default function ApplicationCard({ application, onPress }: Props) {
     <Card style={styles.cardContainer} onPress={onPress}>
       <Card.Body>
         <Badge text={badgeText} variant={variant} align="flex-start" />
-        <Text ink="dark" variant="header-4" style={styles.title}>
+        <Text ink="dark" variant="header-5" style={styles.title}>
           {application.house.name}
         </Text>
         <Text>{application.city}</Text>

@@ -10,6 +10,7 @@ interface Props extends TextProps {
     | 'header-2'
     | 'header-3'
     | 'header-4'
+    | 'header-5'
     | 'body'
     | 'button'
     | 'large'
@@ -47,6 +48,9 @@ function Text({ children, variant = 'caption', ink = 'normal', style, font, ...r
       break;
     case 'header-4':
       variantStyle = StyleSheet.flatten([variantStyle, styles.header4]);
+      break;
+    case 'header-5':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.header5]);
       break;
     case 'large':
       variantStyle = StyleSheet.flatten([variantStyle, styles.large]);
@@ -134,6 +138,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   header4: {
+    ...typography.Baseline,
+    fontSize: fontSize.big,
+    lineHeight: 40,
+    fontWeight: '700',
+  },
+  header5: {
     ...typography.Baseline,
     fontSize: fontSize.jumbo,
     lineHeight: 18,
