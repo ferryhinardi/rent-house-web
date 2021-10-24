@@ -7,6 +7,7 @@ import { useMutation, QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 import { FormProvider, useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
+import Cookie from 'js-cookie';
 import {
   Head,
   HeaderMenu,
@@ -24,6 +25,7 @@ import { User, ResponseItem, EmergencyContactType, UserDocument, ErrorHandling, 
 import createPayloadUpdateUser from 'utils/createPayloadUpdateUser';
 import createDefaultEmergencyContact from 'utils/createDefaultEmergencyContact';
 import { redirectIfUnauthenticated } from 'utils/auth';
+import config from 'config';
 
 type Props = {
   user: User;
@@ -134,16 +136,17 @@ export default function Profile({ user, emergencyContacts }: Props) {
       }
 
       if (bodyFormProofIncomePaystubDataDoc) {
-        promiseRequest.push(
-          fetcher<UserDocument>({
-            method: 'POST',
-            url: `/user/user-document/`,
-            data: bodyFormProofIncomePaystubDataDoc,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-        );
+        const fullURL = `${config.apiHost}/user-document/`;
+        const authentication = Cookie.get('token');
+        const fullHeader: HeadersInit = {
+          Authorization: `Bearer ${authentication}`,
+        };
+        const res = await fetch(fullURL, {
+          method: 'POST',
+          headers: fullHeader,
+          body: bodyFormProofIncomePaystubDataDoc,
+        });
+        promiseRequest.push(res.json());
       }
       // @ts-ignore
       return Promise.all(promiseRequest);
