@@ -7,7 +7,6 @@ import { useMutation, QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 import { FormProvider, useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
-import Cookie from 'js-cookie';
 import {
   Head,
   HeaderMenu,
@@ -25,7 +24,7 @@ import { User, ResponseItem, EmergencyContactType, UserDocument, ErrorHandling, 
 import createPayloadUpdateUser from 'utils/createPayloadUpdateUser';
 import createDefaultEmergencyContact from 'utils/createDefaultEmergencyContact';
 import { redirectIfUnauthenticated } from 'utils/auth';
-import config from 'config';
+import clientUpload from 'core/fetcher/upload';
 
 type Props = {
   user: User;
@@ -51,10 +50,9 @@ export default function Profile({ user, emergencyContacts }: Props) {
         bodyFormProofIncomePaystubDataDoc,
       } = createPayloadUpdateUser(payload);
       const promiseRequest: Array<Promise<User> | Promise<EmergencyContactType[]> | Promise<UserDocument>> = [
-        fetcher<User>({
+        clientUpload<User>({
           method: 'PUT',
-          url: '/user/update',
-          params: { id: user.id },
+          url: `/user/${user.id}`,
           data: bodyFormDataUser,
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -70,84 +68,28 @@ export default function Profile({ user, emergencyContacts }: Props) {
         }),
       ];
 
-      if (bodyFormGovermentDataDoc) {
-        promiseRequest.push(
-          fetcher<UserDocument>({
-            method: 'POST',
-            url: `/user/user-document/`,
-            data: bodyFormGovermentDataDoc,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-        );
-      }
+      [
+        bodyFormGovermentDataDoc,
+        bodyFormCreditScoreDataDoc,
+        bodyFormProofIncomeGuarantorGovIdDataDoc,
+        bodyFormProofIncomeGuarantorCreditReportDataDoc,
+        bodyFormProofIncomeGuarantorPaystubDataDoc,
+        bodyFormProofIncomePaystubDataDoc,
+      ].forEach((bodyData) => {
+        if (bodyData) {
+          promiseRequest.push(
+            clientUpload<UserDocument>({
+              method: 'POST',
+              url: `/user-document/`,
+              data: bodyData,
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            })
+          );
+        }
+      });
 
-      if (bodyFormCreditScoreDataDoc) {
-        promiseRequest.push(
-          fetcher<UserDocument>({
-            method: 'POST',
-            url: `/user/user-document/`,
-            data: bodyFormCreditScoreDataDoc,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-        );
-      }
-
-      if (bodyFormProofIncomeGuarantorGovIdDataDoc) {
-        promiseRequest.push(
-          fetcher<UserDocument>({
-            method: 'POST',
-            url: `/user/user-document/`,
-            data: bodyFormProofIncomeGuarantorGovIdDataDoc,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-        );
-      }
-
-      if (bodyFormProofIncomeGuarantorCreditReportDataDoc) {
-        promiseRequest.push(
-          fetcher<UserDocument>({
-            method: 'POST',
-            url: `/user/user-document/`,
-            data: bodyFormProofIncomeGuarantorCreditReportDataDoc,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-        );
-      }
-
-      if (bodyFormProofIncomeGuarantorPaystubDataDoc) {
-        promiseRequest.push(
-          fetcher<UserDocument>({
-            method: 'POST',
-            url: `/user/user-document/`,
-            data: bodyFormProofIncomeGuarantorPaystubDataDoc,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-        );
-      }
-
-      if (bodyFormProofIncomePaystubDataDoc) {
-        const fullURL = `${config.apiHost}/user-document/`;
-        const authentication = Cookie.get('token');
-        const fullHeader: HeadersInit = {
-          Authorization: `Bearer ${authentication}`,
-        };
-        const res = await fetch(fullURL, {
-          method: 'POST',
-          headers: fullHeader,
-          body: bodyFormProofIncomePaystubDataDoc,
-        });
-        promiseRequest.push(res.json());
-      }
       // @ts-ignore
       return Promise.all(promiseRequest);
     },

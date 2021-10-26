@@ -57,7 +57,7 @@ export default function FileUploader({
             editable={false}
             placeholder={actionLabel}
             style={styles.inputUploader}
-            value={(value as File)?.name}
+            value={(val as File)?.name}
             underlineColorAndroid="transparent"
           />
           <View
