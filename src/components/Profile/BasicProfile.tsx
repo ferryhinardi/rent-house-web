@@ -8,7 +8,7 @@ import { Token } from 'core';
 
 export default function BasicProfile() {
   const { t } = useTranslation();
-  const { register, control, setValue } = useFormContext();
+  const { register, control, getValues, setValue } = useFormContext();
   const handleProfilePicture = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     setValue('profile_picture', e.target.files);
@@ -48,6 +48,7 @@ export default function BasicProfile() {
         <View style={styles.form}>
           <FileUploader
             {...register('profile_picture')}
+            value={getValues('profile_picture')}
             actionLabel={t('reuploadButton')}
             onChange={handleProfilePicture}
           />

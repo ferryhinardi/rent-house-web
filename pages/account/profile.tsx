@@ -158,6 +158,16 @@ export async function getServerSideProps(context: NextPageContext) {
   context.res?.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   const queryClient = new QueryClient();
   const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () => redirectIfUnauthenticated(context));
+  await queryClient.fetchQuery([QUERY_KEYS.DOCUMENT, user?.id], async () => {
+    const res = await fetchServer<{ data: UserDocument[] }>(
+      context.req as NextApiRequest,
+      context.res as NextApiResponse,
+      {
+        url: `/user-document/${user?.id}`,
+      }
+    );
+    return res.data;
+  });
   const emergencyContacts = await queryClient.fetchQuery([QUERY_KEYS.EMERGENCY_CONTACT, user?.id], () =>
     fetchServer<User>(context.req as NextApiRequest, context.res as NextApiResponse, {
       url: `/emergency-contact/${user?.id}`,

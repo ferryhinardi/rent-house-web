@@ -1,14 +1,17 @@
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { useQuery } from 'react-query';
+import { useController, useFormContext } from 'react-hook-form';
 import { Token } from 'core';
 import { CalendarInput, ErrorMessage, FileUploader, Input, SelectInput, Text } from 'core/base';
-import { genderOptions, MAX_FILE_SIZE, proofIncomeOptions } from 'core/constants';
-import React from 'react';
-import { useController, useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
-import { Option } from 'types';
+import { genderOptions, MAX_FILE_SIZE, proofIncomeOptions, QUERY_KEYS } from 'core/constants';
+import { getDocumentFile } from 'utils/getUserDocument';
+import { Option, UserDocument } from 'types';
 
 export default function PersonalInfoForm() {
-  const { register, control, setValue, setError, clearErrors, formState } = useFormContext();
+  const { register, control, setValue, getValues, setError, clearErrors, formState } = useFormContext();
+  const { data: userDocumentData } = useQuery<UserDocument[]>([QUERY_KEYS.DOCUMENT, getValues('id')]);
   const { t } = useTranslation();
   const handleUpload = (field: string) => async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -103,6 +106,7 @@ export default function PersonalInfoForm() {
               {...register('paystubs', {
                 required: t('paystubs.required') as string,
               })}
+              value={getDocumentFile(5, userDocumentData)}
               variant="input"
               actionLabel={t('paystubs')}
               onChange={handleUpload('paystubs')}
@@ -132,6 +136,7 @@ export default function PersonalInfoForm() {
                 {...register('guarantor_government_id', {
                   required: t('guarantor_government_id.required') as string,
                 })}
+                value={getDocumentFile(0, userDocumentData)}
                 variant="input"
                 actionLabel={t('guarantorGovermentId')}
                 onChange={handleUpload('guarantor_government_id')}
@@ -158,6 +163,7 @@ export default function PersonalInfoForm() {
                 {...register('guarantor_credit_report', {
                   required: t('guarantor_credit_report.required') as string,
                 })}
+                value={getDocumentFile(1, userDocumentData)}
                 variant="input"
                 actionLabel={t('guarantorCreditReport')}
                 onChange={handleUpload('guarantor_credit_report')}
@@ -183,6 +189,7 @@ export default function PersonalInfoForm() {
                 {...register('guarantor_paystubs', {
                   required: t('guarantor_paystubs.required') as string,
                 })}
+                value={getDocumentFile(2, userDocumentData)}
                 variant="input"
                 actionLabel={t('guarantorPaystubs')}
                 onChange={handleUpload('guarantor_paystubs')}
@@ -304,6 +311,7 @@ export default function PersonalInfoForm() {
             {...register('government_id', {
               required: t('government_id.required') as string,
             })}
+            value={getDocumentFile(3, userDocumentData)}
             variant="input"
             actionLabel={t('govermentId')}
             onChange={handleUpload('government_id')}
@@ -329,6 +337,7 @@ export default function PersonalInfoForm() {
             {...register('credit_report', {
               required: t('credit_report.required') as string,
             })}
+            value={getDocumentFile(4, userDocumentData)}
             variant="input"
             actionLabel={t('creditReport')}
             onChange={handleUpload('credit_report')}

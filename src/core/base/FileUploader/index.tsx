@@ -6,6 +6,7 @@ import React, { useRef, useState } from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import config from 'config';
 
 type ErrorStatus = 'LIMIT_SIZE';
 type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onError'> & {
@@ -30,7 +31,7 @@ export default function FileUploader({
 }: Props) {
   const fileRef = useRef<HTMLInputElement>();
   const [image, setImage] = useState<string | File>();
-  const val = image || value;
+  let val = image;
   const onFileChangeCapture = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -44,10 +45,15 @@ export default function FileUploader({
       }
     }
   };
-
   const onPress = () => {
     fileRef.current?.click();
   };
+
+  if (variant === 'image-preview' && Boolean(value) && !Boolean(image)) {
+    val = `${config.imageHost}/${value}`;
+  } else if (variant === 'input' && Boolean(value)) {
+    val = { name: value } as File;
+  }
 
   return (
     <View>
