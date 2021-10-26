@@ -1,3 +1,5 @@
+import config from 'config';
+
 // temp use imported img later will upload to digital ocean
 const assets = {
   logo: require('./logo.png').default,
@@ -39,7 +41,7 @@ const assets = {
   supportMedia2: require('assets/support-media-2.png').default,
   supportMedia3: require('assets/support-media-3.png').default,
   // placeholder
-  placehoderImage: 'https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png',
+  placehoderImage: `${config.imageHost}/assets/placeholder.png`,
 };
 
 export default assets;
