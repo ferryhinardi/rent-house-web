@@ -6,10 +6,12 @@ import React, { useRef, useState } from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import config from 'config';
 
 type ErrorStatus = 'LIMIT_SIZE';
 type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onError'> & {
   variant?: 'input' | 'image-preview';
+  disabled?: boolean;
   value?: string | File;
   actionLabel?: string;
   maxFileSize?: number;
@@ -22,6 +24,7 @@ const imagePlaceholder = 'https://uploader-assets.s3.ap-south-1.amazonaws.com/co
 export default function FileUploader({
   value,
   variant = 'image-preview',
+  disabled = false,
   actionLabel,
   maxFileSize,
   onFileChange,
@@ -30,7 +33,7 @@ export default function FileUploader({
 }: Props) {
   const fileRef = useRef<HTMLInputElement>();
   const [image, setImage] = useState<string | File>();
-  const val = image || value;
+  let val = image;
   const onFileChangeCapture = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -44,20 +47,25 @@ export default function FileUploader({
       }
     }
   };
-
   const onPress = () => {
-    fileRef.current?.click();
+    if (!disabled) fileRef.current?.click();
   };
+
+  if (variant === 'image-preview' && Boolean(value) && !Boolean(image)) {
+    val = `${config.imageHost}/${value}`;
+  } else if (variant === 'input' && Boolean(value)) {
+    val = { name: value } as File;
+  }
 
   return (
     <View>
       {variant === 'input' ? (
-        <Pressable onPress={onPress} style={styles.wrapperInputUploader}>
+        <Pressable disabled={disabled} onPress={onPress} style={styles.wrapperInputUploader}>
           <TextInput
             editable={false}
             placeholder={actionLabel}
-            style={styles.inputUploader}
-            value={(value as File)?.name}
+            style={[styles.inputUploader, disabled ? styles.disabled : null]}
+            value={(val as File)?.name}
             underlineColorAndroid="transparent"
           />
           <View
@@ -93,7 +101,13 @@ export default function FileUploader({
               alt="image"
             />
           </View>
-          <Button variant="secondary" text={actionLabel} onPress={onPress} style={styles.uploadButton} />
+          <Button
+            variant="secondary"
+            disabled={disabled}
+            text={actionLabel}
+            onPress={onPress}
+            style={styles.uploadButton}
+          />
           <style jsx global>{`
             .avatar-image {
               border-radius: 8px;
@@ -136,5 +150,8 @@ const styles = StyleSheet.create({
   uploadButton: {
     marginTop: Token.spacing.l,
     alignSelf: 'flex-start',
+  },
+  disabled: {
+    backgroundColor: Token.colors.lightGrey,
   },
 });

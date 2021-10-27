@@ -24,6 +24,7 @@ import { User, ResponseItem, EmergencyContactType, UserDocument, ErrorHandling, 
 import createPayloadUpdateUser from 'utils/createPayloadUpdateUser';
 import createDefaultEmergencyContact from 'utils/createDefaultEmergencyContact';
 import { redirectIfUnauthenticated } from 'utils/auth';
+import clientUpload from 'core/fetcher/upload';
 
 type Props = {
   user: User;
@@ -49,10 +50,9 @@ export default function Profile({ user, emergencyContacts }: Props) {
         bodyFormProofIncomePaystubDataDoc,
       } = createPayloadUpdateUser(payload);
       const promiseRequest: Array<Promise<User> | Promise<EmergencyContactType[]> | Promise<UserDocument>> = [
-        fetcher<User>({
+        clientUpload<User>({
           method: 'PUT',
-          url: '/user/update',
-          params: { id: user.id },
+          url: `/user/${user.id}`,
           data: bodyFormDataUser,
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -68,83 +68,28 @@ export default function Profile({ user, emergencyContacts }: Props) {
         }),
       ];
 
-      if (bodyFormGovermentDataDoc) {
-        promiseRequest.push(
-          fetcher<UserDocument>({
-            method: 'POST',
-            url: `/user/user-document/`,
-            data: bodyFormGovermentDataDoc,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-        );
-      }
+      [
+        bodyFormGovermentDataDoc,
+        bodyFormCreditScoreDataDoc,
+        bodyFormProofIncomeGuarantorGovIdDataDoc,
+        bodyFormProofIncomeGuarantorCreditReportDataDoc,
+        bodyFormProofIncomeGuarantorPaystubDataDoc,
+        bodyFormProofIncomePaystubDataDoc,
+      ].forEach((bodyData) => {
+        if (bodyData) {
+          promiseRequest.push(
+            clientUpload<UserDocument>({
+              method: 'POST',
+              url: `/user-document/`,
+              data: bodyData,
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            })
+          );
+        }
+      });
 
-      if (bodyFormCreditScoreDataDoc) {
-        promiseRequest.push(
-          fetcher<UserDocument>({
-            method: 'POST',
-            url: `/user/user-document/`,
-            data: bodyFormCreditScoreDataDoc,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-        );
-      }
-
-      if (bodyFormProofIncomeGuarantorGovIdDataDoc) {
-        promiseRequest.push(
-          fetcher<UserDocument>({
-            method: 'POST',
-            url: `/user/user-document/`,
-            data: bodyFormProofIncomeGuarantorGovIdDataDoc,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-        );
-      }
-
-      if (bodyFormProofIncomeGuarantorCreditReportDataDoc) {
-        promiseRequest.push(
-          fetcher<UserDocument>({
-            method: 'POST',
-            url: `/user/user-document/`,
-            data: bodyFormProofIncomeGuarantorCreditReportDataDoc,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-        );
-      }
-
-      if (bodyFormProofIncomeGuarantorPaystubDataDoc) {
-        promiseRequest.push(
-          fetcher<UserDocument>({
-            method: 'POST',
-            url: `/user/user-document/`,
-            data: bodyFormProofIncomeGuarantorPaystubDataDoc,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-        );
-      }
-
-      if (bodyFormProofIncomePaystubDataDoc) {
-        promiseRequest.push(
-          fetcher<UserDocument>({
-            method: 'POST',
-            url: `/user/user-document/`,
-            data: bodyFormProofIncomePaystubDataDoc,
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-        );
-      }
       // @ts-ignore
       return Promise.all(promiseRequest);
     },
@@ -213,6 +158,16 @@ export async function getServerSideProps(context: NextPageContext) {
   context.res?.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   const queryClient = new QueryClient();
   const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () => redirectIfUnauthenticated(context));
+  await queryClient.fetchQuery([QUERY_KEYS.DOCUMENT, user?.id], async () => {
+    const res = await fetchServer<{ data: UserDocument[] }>(
+      context.req as NextApiRequest,
+      context.res as NextApiResponse,
+      {
+        url: `/user-document/${user?.id}`,
+      }
+    );
+    return res.data;
+  });
   const emergencyContacts = await queryClient.fetchQuery([QUERY_KEYS.EMERGENCY_CONTACT, user?.id], () =>
     fetchServer<User>(context.req as NextApiRequest, context.res as NextApiResponse, {
       url: `/emergency-contact/${user?.id}`,
