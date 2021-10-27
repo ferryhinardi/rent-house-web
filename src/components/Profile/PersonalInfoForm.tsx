@@ -106,7 +106,8 @@ export default function PersonalInfoForm() {
               {...register('paystubs', {
                 required: t('paystubs.required') as string,
               })}
-              value={getDocumentFile(5, userDocumentData)}
+              value={getDocumentFile(5, userDocumentData)?.name}
+              disabled={getDocumentFile(5, userDocumentData)?.isVerified}
               variant="input"
               actionLabel={t('paystubs')}
               onChange={handleUpload('paystubs')}
@@ -136,7 +137,8 @@ export default function PersonalInfoForm() {
                 {...register('guarantor_government_id', {
                   required: t('guarantor_government_id.required') as string,
                 })}
-                value={getDocumentFile(0, userDocumentData)}
+                value={getDocumentFile(0, userDocumentData)?.name}
+                disabled={getDocumentFile(0, userDocumentData)?.isVerified}
                 variant="input"
                 actionLabel={t('guarantorGovermentId')}
                 onChange={handleUpload('guarantor_government_id')}
@@ -163,7 +165,8 @@ export default function PersonalInfoForm() {
                 {...register('guarantor_credit_report', {
                   required: t('guarantor_credit_report.required') as string,
                 })}
-                value={getDocumentFile(1, userDocumentData)}
+                value={getDocumentFile(1, userDocumentData)?.name}
+                disabled={getDocumentFile(1, userDocumentData)?.isVerified}
                 variant="input"
                 actionLabel={t('guarantorCreditReport')}
                 onChange={handleUpload('guarantor_credit_report')}
@@ -189,7 +192,8 @@ export default function PersonalInfoForm() {
                 {...register('guarantor_paystubs', {
                   required: t('guarantor_paystubs.required') as string,
                 })}
-                value={getDocumentFile(2, userDocumentData)}
+                value={getDocumentFile(2, userDocumentData)?.name}
+                disabled={getDocumentFile(2, userDocumentData)?.isVerified}
                 variant="input"
                 actionLabel={t('guarantorPaystubs')}
                 onChange={handleUpload('guarantor_paystubs')}
@@ -311,7 +315,8 @@ export default function PersonalInfoForm() {
             {...register('government_id', {
               required: t('government_id.required') as string,
             })}
-            value={getDocumentFile(3, userDocumentData)}
+            value={getDocumentFile(3, userDocumentData)?.name}
+            disabled={getDocumentFile(3, userDocumentData)?.isVerified}
             variant="input"
             actionLabel={t('govermentId')}
             onChange={handleUpload('government_id')}
@@ -337,7 +342,8 @@ export default function PersonalInfoForm() {
             {...register('credit_report', {
               required: t('credit_report.required') as string,
             })}
-            value={getDocumentFile(4, userDocumentData)}
+            value={getDocumentFile(4, userDocumentData)?.name}
+            disabled={getDocumentFile(4, userDocumentData)?.isVerified}
             variant="input"
             actionLabel={t('creditReport')}
             onChange={handleUpload('credit_report')}

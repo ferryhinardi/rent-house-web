@@ -11,6 +11,7 @@ import config from 'config';
 type ErrorStatus = 'LIMIT_SIZE';
 type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onError'> & {
   variant?: 'input' | 'image-preview';
+  disabled?: boolean;
   value?: string | File;
   actionLabel?: string;
   maxFileSize?: number;
@@ -23,6 +24,7 @@ const imagePlaceholder = 'https://uploader-assets.s3.ap-south-1.amazonaws.com/co
 export default function FileUploader({
   value,
   variant = 'image-preview',
+  disabled = false,
   actionLabel,
   maxFileSize,
   onFileChange,
@@ -46,7 +48,7 @@ export default function FileUploader({
     }
   };
   const onPress = () => {
-    fileRef.current?.click();
+    if (!disabled) fileRef.current?.click();
   };
 
   if (variant === 'image-preview' && Boolean(value) && !Boolean(image)) {
@@ -58,11 +60,11 @@ export default function FileUploader({
   return (
     <View>
       {variant === 'input' ? (
-        <Pressable onPress={onPress} style={styles.wrapperInputUploader}>
+        <Pressable disabled={disabled} onPress={onPress} style={styles.wrapperInputUploader}>
           <TextInput
             editable={false}
             placeholder={actionLabel}
-            style={styles.inputUploader}
+            style={[styles.inputUploader, disabled ? styles.disabled : null]}
             value={(val as File)?.name}
             underlineColorAndroid="transparent"
           />
@@ -99,7 +101,13 @@ export default function FileUploader({
               alt="image"
             />
           </View>
-          <Button variant="secondary" text={actionLabel} onPress={onPress} style={styles.uploadButton} />
+          <Button
+            variant="secondary"
+            disabled={disabled}
+            text={actionLabel}
+            onPress={onPress}
+            style={styles.uploadButton}
+          />
           <style jsx global>{`
             .avatar-image {
               border-radius: 8px;
@@ -142,5 +150,8 @@ const styles = StyleSheet.create({
   uploadButton: {
     marginTop: Token.spacing.l,
     alignSelf: 'flex-start',
+  },
+  disabled: {
+    backgroundColor: Token.colors.lightGrey,
   },
 });
