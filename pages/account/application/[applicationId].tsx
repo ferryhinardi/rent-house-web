@@ -60,7 +60,7 @@ export default function ApplicationDetail() {
         <ApplicationDetailContent application={data} />
         {(data?.status as string) == 'submitted' && (
           <View>
-            <Button style={styles.button} variant="secondary" text={'Pay Deposit'} />
+            {/* <Button style={styles.button} variant="secondary" text={'Pay Deposit'} /> */}
             <Button
               style={styles.button}
               variant="secondary"
@@ -70,7 +70,7 @@ export default function ApplicationDetail() {
           </View>
         )}
         <View style={styles.separator} />
-        <DepositSection />
+        {/* <DepositSection /> */}
       </ContainerDesktop>
       <Footer />
     </div>
