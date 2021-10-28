@@ -212,7 +212,7 @@ export default function PersonalInfoForm() {
   return (
     <React.Fragment>
       <View style={styles.formContainer}>
-        <View style={[styles.formGroup, { zIndex: 1 }]}>
+        <View style={[styles.formGroup, { zIndex: 2 }]}>
           <Text variant="small" style={styles.label}>
             {t('gender')}
           </Text>
