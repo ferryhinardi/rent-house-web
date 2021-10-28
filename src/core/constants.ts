@@ -3,11 +3,11 @@ import assets from 'assets';
 
 export const menus = [
   { name: 'Homes', href: routePaths.home },
-  { name: 'Events', href: '/events' },
+  // { name: 'Events', href: '/events' },
   { name: 'About Us', href: '/about-us' },
   { name: 'Rental Homes', href: '/rental-homes' },
   { name: 'Partner With Us', href: '/partner-with-us' },
-  { name: 'Blog', href: '/blog' },
+  // { name: 'Blog', href: '/blog' },
 ];
 
 export const languageOptions = [

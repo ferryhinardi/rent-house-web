@@ -83,7 +83,7 @@ export default function ScheduleTourForm(props: Props) {
         <InputBorder label="Starts from" value={pricenih} />
         <InputBorder label="Availability" value="Ready" />
       </View>
-      <Button variant="secondary" text={t('scheduleTourButton')} style={styles.button} onPress={onScheduleTour} />
+      {/* <Button variant="secondary" text={t('scheduleTourButton')} style={styles.button} onPress={onScheduleTour} /> */}
       <Button text={t('startYourApplication')} style={styles.button} onPress={onNavigateHomeDetail} />
     </View>
   );

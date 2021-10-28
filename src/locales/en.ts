@@ -40,7 +40,7 @@ const en = {
   footerMenuTitle: 'Menus',
   footerContactUsTitle: 'Contact Us',
   contactUsEmail: 'hello@theryna.com',
-  contactUsTelp: 'Tel: +1 437-900-1839',
+  contactUsTelp: 'Tel: +1 647-370-1095',
   footerFollowUsTitle: 'Follow Us',
   copyRightCaption: 'Copyright @ 2020 Ryna. All right reserved.',
   basicProfile: 'Basic Profile',

@@ -49,12 +49,12 @@ function SettingCard({ title, subtitle, href }: SettingCardProps) {
         {title}
       </Text>
       <Text>{subtitle}</Text>
-      <ProgressBar
+      {/* <ProgressBar
         progress={0}
         color={Token.colors.rynaBlue}
         unfilledColor={'rgba(28,43,79,0.24)'} // Token.colors.rynaBlue with opacity
         style={styles.progressBar}
-      />
+      /> */}
       <View style={{ alignItems: 'flex-start' }}>
         <Button
           text={t('completeNow')}

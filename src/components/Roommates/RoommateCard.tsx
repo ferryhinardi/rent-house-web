@@ -36,6 +36,7 @@ export default function RoommateCard({ roomate }: RoommateCardProps) {
         <Image
           src={imgSource}
           blurDataURL={imgSource}
+          className="image-galery"
           loader={customImgLoader}
           placeholder="blur"
           width={240}
@@ -53,6 +54,11 @@ export default function RoommateCard({ roomate }: RoommateCardProps) {
 
         <Button text={t('roommatesViewButton')} onPress={onNavigateRoommateDetail} />
       </Card.Body>
+      <style jsx global>{`
+        .image-galery {
+          border-radius: 8px;
+        }
+      `}</style>
     </Card>
   );
 }

@@ -38,7 +38,7 @@ export default function ApplicationDetailContent(props: Props) {
           <Text style={styles.value}>{props.application?.status as string}</Text>
         </View>
 
-        <Text style={styles.field}>{'Deposit paid will be returned if the application is cancelled'}</Text>
+        {/* <Text style={styles.field}>{'Deposit paid will be returned if the application is cancelled'}</Text> */}
       </View>
       <Swiper
         innerContainerStyle={{
