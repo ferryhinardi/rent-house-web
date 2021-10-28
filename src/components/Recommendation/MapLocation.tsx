@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Text, ContainerDesktop } from 'core/base';
 import { fetcher, Token } from 'core';
-import MapWrapper from './MapWrapper';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import { House } from 'types';
@@ -51,9 +50,6 @@ const styles = StyleSheet.create({
   },
   description: {
     marginBottom: Token.spacing.xxl,
-  },
-  iframeStyle: {
-    height: 450,
   },
 });
 
