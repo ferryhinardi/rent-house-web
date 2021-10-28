@@ -3,15 +3,18 @@ import { View, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useSprings, animated } from 'react-spring';
 import { Element } from 'react-scroll';
+import { useTranslation } from 'react-i18next';
+
 import { fetcher } from 'core';
 import { Modal } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { ResponseItem, Question } from 'types';
+import { DevTool } from '@hookform/devtools';
+
 import { HeroBannerInitial, HeroBannerChooseDate, HeroBannerChooseBudget, HeroBannerDone } from 'components/HeroBanner';
 import Questionaire from 'components/Questionaire';
 import SignUpForm from 'components/SignUp';
 import { useForm, useFieldArray } from 'react-hook-form';
-import { DevTool } from '@hookform/devtools';
 
 export type HeroState = {
   name: string;
@@ -51,6 +54,7 @@ function Hero() {
   });
   const [isVisible, setIsVisible] = useState(false);
   const [stateIndex, setStateIndex] = useState(0);
+  const { t } = useTranslation();
 
   const herosSprings = useSprings(
     totalData,
@@ -100,6 +104,7 @@ function Hero() {
                     methods={fieldsArrayMethods}
                     index={stateIndex}
                     onSubmit={onSubmit}
+                    choiceLabel={t('choiceStatus')}
                   />
                 </View>
               </View>

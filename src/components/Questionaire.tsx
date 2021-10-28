@@ -17,9 +17,10 @@ type Props = {
   methods?: UseFieldArrayReturn<FormData>;
   index?: number;
   onSubmit?: () => void;
+  choiceLabel?: string;
 };
 
-function Questionaire({ loading, question, methods, index = 0, onSubmit }: Props) {
+function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceLabel }: Props) {
   const { t } = useTranslation();
   let QuestionContent;
 
@@ -85,12 +86,14 @@ function Questionaire({ loading, question, methods, index = 0, onSubmit }: Props
           textInputStyle={styles.textInput}
           value={choice}
           rightLabel={
-            <Text
-              style={{
-                color: methods?.fields[index]?.value === choice ? colors.rynaBlack : colors.textDarkGrey,
-              }}>
-              {t('choiceStatus')}
-            </Text>
+            choiceLabel ? (
+              <Text
+                style={{
+                  color: methods?.fields[index]?.value === choice ? colors.rynaBlack : colors.textDarkGrey,
+                }}>
+                {choice}
+              </Text>
+            ) : undefined
           }
           onFocus={() => {
             methods?.update(index, {
