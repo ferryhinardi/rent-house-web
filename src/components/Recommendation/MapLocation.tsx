@@ -9,6 +9,8 @@ import { useQuery } from 'react-query';
 import { House } from 'types';
 import { QUERY_KEYS } from 'core/constants';
 
+const mapSourcePattern = 'src="(.*?)"';
+
 function MapLocation() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -25,6 +27,8 @@ function MapLocation() {
     { enabled: homeID !== undefined }
   );
 
+  const mapSource = data?.embed_map.match(mapSourcePattern);
+
   return (
     <ContainerDesktop style={styles.container}>
       <Text variant="header-2" ink="primary" style={styles.title}>
@@ -33,11 +37,7 @@ function MapLocation() {
       <Text variant="caption" style={styles.description}>
         {t('mapLocationDescription')}
       </Text>
-
-      <MapWrapper
-        lat={data?.location_lat.Float64!}
-        lon={data?.location_lon.Float64!}
-      />
+      {mapSource && mapSource[1] ? <iframe src={mapSource[1]} style={{ borderWidth: 0 }} height="450"></iframe> : null}
     </ContainerDesktop>
   );
 }
@@ -51,6 +51,9 @@ const styles = StyleSheet.create({
   },
   description: {
     marginBottom: Token.spacing.xxl,
+  },
+  iframeStyle: {
+    height: 450,
   },
 });
 
