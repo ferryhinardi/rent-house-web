@@ -45,7 +45,7 @@ function SettingCard({ title, subtitle, href }: SettingCardProps) {
   const router = useRouter();
   return (
     <View style={styles.card}>
-      <Text variant="header-2" style={styles.cardTitle}>
+      <Text variant="header-4" style={styles.cardTitle}>
         {title}
       </Text>
       <Text>{subtitle}</Text>

@@ -1,12 +1,13 @@
 import React from 'react';
-import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+// @ts-ignore
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 import config from 'config';
 import assets from 'assets';
 import { Token } from 'core';
-import { Text } from 'core/base';
+import { Text, Image } from 'core/base';
 
 import { User } from 'types';
 
@@ -15,11 +16,11 @@ type RoommateProfileProps = {
 };
 export default function RoommateProfile({ user }: RoommateProfileProps) {
   const { t } = useTranslation();
-  const imgSource = user?.profile_picture ? `${config.imageHost}/${user.profile_picture}` : assets.profile;
+  const imgSource = user?.profile_picture ? `${config.imageHost}/${user.profile_picture}` : assets.placehoderImage;
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', marginBottom: Token.spacing.xxxl }}>
         <View style={styles.wrapperProfileInfo}>
           <Text variant="header-2" font="playfair" ink="primary">
             {user?.name}
@@ -27,7 +28,16 @@ export default function RoommateProfile({ user }: RoommateProfileProps) {
           <Text variant="caption">{user?.job}</Text>
         </View>
         <View style={styles.wrapperImage}>
-          <Image src={imgSource} blurDataURL={imgSource} alt="image" className="profileImage" placeholder="blur" />
+          <Image
+            width={'100%'}
+            height={'100%'}
+            src={imgSource}
+            blurDataURL={imgSource}
+            alt="image"
+            className="profileImage"
+            placeholder="blur"
+            layout="responsive"
+          />
         </View>
         <style jsx global>{`
           .profileImage {
@@ -45,6 +55,20 @@ export default function RoommateProfile({ user }: RoommateProfileProps) {
         <Text variant="caption" style={styles.shortbio}>
           {user?.bio}
         </Text>
+        <View style={styles.socialMediaContainer}>
+          <View style={styles.socialMediaRow}>
+            <Icon color={Token.colors.rynaBlue} size={20} name="instagram" />
+            <Text style={styles.socialMediaUrl}> Instagram url</Text>
+          </View>
+          <View style={styles.socialMediaRow}>
+            <Icon color={Token.colors.rynaBlue} size={20} name="twitter" />
+            <Text style={styles.socialMediaUrl}> Twitter url</Text>
+          </View>
+          <View style={styles.socialMediaRow}>
+            <Icon color={Token.colors.rynaBlue} size={20} name="facebook" />
+            <Text style={styles.socialMediaUrl}> Facebook url</Text>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -60,6 +84,8 @@ const styles = StyleSheet.create({
   },
   wrapperImage: {
     flex: 1,
+    width: '45vw',
+    height: 450,
   },
   separator: {
     marginBottom: Token.spacing.xxxxl,
@@ -68,5 +94,17 @@ const styles = StyleSheet.create({
   },
   shortbio: {
     marginTop: Token.spacing.m,
+  },
+  socialMediaRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  socialMediaUrl: {
+    marginLeft: Token.spacing.s,
+  },
+  socialMediaContainer: {
+    marginTop: Token.spacing.m,
+    alignItems: 'flex-start',
   },
 });

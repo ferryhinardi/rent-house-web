@@ -1,3 +1,5 @@
+import config from 'config';
+
 // temp use imported img later will upload to digital ocean
 const assets = {
   logo: require('./logo.png').default,
@@ -38,6 +40,8 @@ const assets = {
   supportMedia1: require('assets/support-media-1.png').default,
   supportMedia2: require('assets/support-media-2.png').default,
   supportMedia3: require('assets/support-media-3.png').default,
+  // placeholder
+  placehoderImage: `${config.imageHost}/assets/placeholder.png`,
 };
 
 export default assets;
