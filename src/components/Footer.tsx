@@ -75,23 +75,26 @@ function FollowUsList() {
       <Text
         accessibilityRole="link"
         // @ts-ignore
-        href={''}
+        href={'https://www.facebook.com/therynaofficial/'}
+        target="_blank"
         style={styles.followUsWrapper}
       >
         <Icon name="facebook-f" size={30} color={Token.colors.white} />
       </Text>
-      <Text
+      {/* <Text
         accessibilityRole="link"
         // @ts-ignore
         href={''}
+        target="_blank"
         style={styles.followUsWrapper}
       >
         <Icon name="twitter" size={30} color={Token.colors.white} />
-      </Text>
+      </Text> */}
       <Text
         accessibilityRole="link"
         // @ts-ignore
-        href={''}
+        href={'https://www.instagram.com/therynaofficial/'}
+        target="_blank"
         style={styles.followUsWrapper}
       >
         <Icon name="instagram" size={30} color={Token.colors.white} />
@@ -99,7 +102,8 @@ function FollowUsList() {
       <Text
         accessibilityRole="link"
         // @ts-ignore
-        href={''}
+        href={'https://www.linkedin.com/company/ryna/'}
+        target="_blank"
         style={styles.followUsWrapper}
       >
         <Icon name="linkedin" size={30} color={Token.colors.white} />
