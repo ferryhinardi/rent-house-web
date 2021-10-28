@@ -49,24 +49,45 @@ export default function RoommateProfile({ user }: RoommateProfileProps) {
 
       <View style={styles.separator} />
       <View>
-        <Text variant="header-2" font="playfair" ink="primary">
+        <Text variant="header-2" font="playfair" ink="primary" style={styles.profileHeader}>
           {t('shortBio')}
         </Text>
         <Text variant="caption" style={styles.shortbio}>
           {user?.bio}
         </Text>
+      </View>
+      <View style={styles.separator} />
+      <View>
         <View style={styles.socialMediaContainer}>
+          <Text variant="header-2" font="playfair" ink="primary" style={styles.profileHeader}>
+            {t('socialMedia')}
+          </Text>
           <View style={styles.socialMediaRow}>
             <Icon color={Token.colors.rynaBlue} size={20} name="instagram" />
-            <Text style={styles.socialMediaUrl}> Instagram url</Text>
+            <Text
+              accessibilityRole="link"
+              // @ts-ignore
+              href={user?.instagram_url}
+              target="_blank"
+              style={styles.socialMediaUrl}> Instagram url</Text>
           </View>
           <View style={styles.socialMediaRow}>
             <Icon color={Token.colors.rynaBlue} size={20} name="twitter" />
-            <Text style={styles.socialMediaUrl}> Twitter url</Text>
+            <Text
+              accessibilityRole="link"
+              // @ts-ignore
+              href={user?.twitter_url}
+              target="_blank"
+              style={styles.socialMediaUrl}> Twitter url</Text>
           </View>
           <View style={styles.socialMediaRow}>
             <Icon color={Token.colors.rynaBlue} size={20} name="facebook" />
-            <Text style={styles.socialMediaUrl}> Facebook url</Text>
+            <Text
+              accessibilityRole="link"
+              // @ts-ignore
+              href={user?.facebook_url}
+              target="_blank"
+              style={styles.socialMediaUrl}> Facebook url</Text>
           </View>
         </View>
       </View>
@@ -94,6 +115,7 @@ const styles = StyleSheet.create({
   },
   shortbio: {
     marginTop: Token.spacing.m,
+    marginBottom: Token.spacing.m,
   },
   socialMediaRow: {
     display: 'flex',
@@ -107,4 +129,7 @@ const styles = StyleSheet.create({
     marginTop: Token.spacing.m,
     alignItems: 'flex-start',
   },
+  profileHeader: {
+    marginBottom: Token.spacing.m,
+  }
 });
