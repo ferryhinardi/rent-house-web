@@ -1,18 +1,26 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
 import { Text, Button } from 'core/base';
 import assets from 'assets';
 import HeroBannerTemplate from './HeroBannerTemplate';
-
+import config from 'config';
 const hero = assets.hero0;
 
+const videoSrc = `${config.imageHost}/assets/home-banner.mp4`;
 function HeroBannerInitial() {
   const { t } = useTranslation();
   return (
     <HeroBannerTemplate
-      imageProps={{ ...hero, placeholder: 'blur' }}
+      video={
+        <View>
+          <View style={styles.overlay} />
+          <video muted autoPlay loop>
+            <source src={videoSrc} />
+          </video>
+        </View>
+      }
       DescriptionComponent={
         <>
           <Text font="playfair" variant="headline-1" ink="light">
@@ -35,6 +43,13 @@ HeroBannerInitial.height = hero.height;
 const styles = StyleSheet.create({
   heroSubtitle: {
     paddingVertical: Token.spacing.l,
+  },
+  overlay: {
+    backgroundColor: 'rgba(12, 27, 64, 0.5)',
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    zIndex: 10,
   },
 });
 
