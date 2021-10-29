@@ -57,12 +57,12 @@ export default function Account({ user }: Props) {
               {
                 name: 'account-settings',
                 label: t('accountSettings'),
-                IconRight: <Icon name="exclamation-triangle" size={20} color={Token.colors.red} />,
+                // IconRight: <Icon name="exclamation-triangle" size={20} color={Token.colors.red} />,
               },
               {
                 name: 'roommates',
                 label: t('roommates'),
-                IconRight: <Icon name="exclamation-triangle" size={20} color={Token.colors.red} />,
+                // IconRight: <Icon name="exclamation-triangle" size={20} color={Token.colors.red} />,
               },
             ]}
             onPress={onPressMenu}

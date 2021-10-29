@@ -33,7 +33,7 @@ function UserLoginHeader(props: Props) {
 
   return (
     <View style={styles.container}>
-      <Notification />
+      {/* <Notification /> */}
       <Pressable style={styles.button} onPress={onNavigateToAccount}>
         <Icon name="user" size={24} color={Token.colors.blue} />
       </Pressable>

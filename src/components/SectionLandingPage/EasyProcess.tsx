@@ -35,7 +35,7 @@ export default function EasyProcess() {
           </Text>
           <Text variant="caption">{t('subtitleEasyProcess')}</Text>
         </View>
-        <Button variant="secondary" text={t('moreButtonEasyProcess')} />
+        {/* <Button variant="secondary" text={t('moreButtonEasyProcess')} /> */}
       </View>
       {isLoading ? (
         <EasyProcessPlaceholder />
