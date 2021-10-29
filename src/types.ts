@@ -45,6 +45,7 @@ export type House = {
   location_lat: Location;
   location_lon: Location;
   tags: string[];
+  embed_map: string;
   created_at?: string;
   updated_at?: string;
 };
