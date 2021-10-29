@@ -34,7 +34,7 @@ export default function Roommates({ userId }: RoommatesProps) {
         <Text variant="header-3" ink="primary" style={styles.title}>
           {t('roommatesTitle')}
         </Text>
-        <Badge text="Need Action" variant="alert" />
+        {/* <Badge text="Need Action" variant="alert" /> */}
       </View>
       <Text variant="caption" style={styles.description}>
         {t('roommatesSubtitle')}

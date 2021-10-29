@@ -31,11 +31,11 @@ export default function Testimonial() {
         <Text variant="caption" style={styles.subtitle}>
           {t('subtitleTestimonial')}
         </Text>
-        <Button
+        {/* <Button
           variant="secondary"
           text={t('moreButtonTestimonial')}
           style={styles.moreButtton}
-        />
+        /> */}
       </View>
       <FlatList
         keyExtractor={(_, idx) => `${idx}`}

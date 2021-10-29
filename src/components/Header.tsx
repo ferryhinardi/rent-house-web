@@ -70,7 +70,7 @@ function Header() {
           );
         })}
       </View>
-      <LanguageSelection />
+      {/* <LanguageSelection /> */}
       {!isLoading && data?.name ? (
         <UserLoginHeader {...data} />
       ) : (

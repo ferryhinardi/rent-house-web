@@ -53,14 +53,14 @@ function Perks() {
           </Text>
           <Text variant="caption">{t('subtitlePerks')}</Text>
         </View>
-        <Button
+        {/* <Button
           variant="secondary"
           text={t('moreButtonPerks')}
           onPress={onNavigateToTopSection}
           style={{
             zIndex: 2,
           }}
-        />
+        /> */}
       </View>
 
       {isLoading ? (

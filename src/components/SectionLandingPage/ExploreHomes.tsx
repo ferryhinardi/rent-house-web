@@ -39,7 +39,7 @@ export default function ExploreHomes() {
           </Text>
           <Text variant="caption">{t('subtitleExploreHomes')}</Text>
         </View>
-        <Button variant="secondary" text={t('moreButtonExploreHomes')} />
+        {/* <Button variant="secondary" text={t('moreButtonExploreHomes')} /> */}
       </View>
 
       {isLoading ? (

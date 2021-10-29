@@ -16,7 +16,7 @@ export default function LinkedAccounts() {
           <Text variant="header-3" ink="primary" style={styles.title}>
             {t('linkedAccountsTitle')}
           </Text>
-          <Badge text="Need Action" variant="alert" />
+          {/* <Badge text="Need Action" variant="alert" /> */}
         </View>
         <Text variant="caption" style={styles.description}>
           {t('linkedAccountsDescription')}

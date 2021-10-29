@@ -28,7 +28,7 @@ export default function Banner() {
         <Text style={styles.descriptionText} ink="light" variant="caption">
           {t('preferenceBannerDescription')}
         </Text>
-        <Button variant="secondary" text={t('preferenceBannerButton')} />
+        {/* <Button variant="secondary" text={t('preferenceBannerButton')} /> */}
       </View>
     </View>
   );
