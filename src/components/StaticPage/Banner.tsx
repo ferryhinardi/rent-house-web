@@ -5,7 +5,6 @@ import { View, StyleSheet } from 'react-native';
 import OfficeBanner from 'assets/office-banner.jpg';
 
 import { Text } from 'core/base';
-import { Token } from 'core';
 
 type Props = {
   title?: string;
@@ -16,13 +15,7 @@ export default function Banner({ title }: Props) {
     <View style={styles.container}>
       <View style={styles.backgroundImage}>
         <View style={styles.backDrop} />
-        <Image
-          src={OfficeBanner}
-          alt="office banner"
-          loading="eager"
-          layout="responsive"
-          objectFit="cover"
-        />
+        <Image src={OfficeBanner} alt="office banner" loading="eager" layout="responsive" objectFit="cover" />
       </View>
       <View style={styles.textContainer}>
         <Text ink="light" font="playfair" variant="header-2">

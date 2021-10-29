@@ -25,16 +25,9 @@ function HeroTimeline({ states, onChange }: Props) {
         renderItem={({ item, index }) => {
           const PressWrapper = item.value ? Pressable : View;
           return (
-            <PressWrapper
-              style={styles.state}
-              onPress={() => onChange?.(index)}
-            >
+            <PressWrapper style={styles.state} onPress={() => onChange?.(index)}>
               {item.value ? (
-                <Icon
-                  name="check-circle"
-                  size={32}
-                  color={Token.colors.white}
-                />
+                <Icon name="check-circle" size={32} color={Token.colors.white} />
               ) : (
                 <Icon name="circle-thin" size={32} color={Token.colors.white} />
               )}
@@ -43,7 +36,7 @@ function HeroTimeline({ states, onChange }: Props) {
                   {item.name}
                 </Text>
                 {item.value && (
-                  <Text variant="tiny" ink="light">
+                  <Text variant="small" ink="light">
                     {item.value}
                   </Text>
                 )}

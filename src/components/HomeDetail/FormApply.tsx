@@ -60,7 +60,7 @@ export default function FormApply({ onSubmit }: Props) {
       </View>
       <View style={styles.formContainer}>
         <View style={styles.formGroup}>
-          <Text variant="tiny" style={styles.label}>
+          <Text variant="small" style={styles.label}>
             {t('fullName')}
           </Text>
           <Input
@@ -78,7 +78,7 @@ export default function FormApply({ onSubmit }: Props) {
           )}
         </View>
         <View style={styles.formGroup}>
-          <Text variant="tiny" style={styles.label}>
+          <Text variant="small" style={styles.label}>
             {t('dob')}
           </Text>
           <CalendarInput
@@ -95,7 +95,7 @@ export default function FormApply({ onSubmit }: Props) {
           )}
         </View>
         <View style={styles.formGroup}>
-          <Text variant="tiny" style={styles.label}>
+          <Text variant="small" style={styles.label}>
             {t('occupation')}
           </Text>
           <Input
@@ -112,7 +112,7 @@ export default function FormApply({ onSubmit }: Props) {
           )}
         </View>
         <View style={styles.formGroup}>
-          <Text variant="tiny" style={styles.label}>
+          <Text variant="small" style={styles.label}>
             {t('movingDate')}
           </Text>
           <CalendarInput

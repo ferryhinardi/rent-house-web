@@ -9,6 +9,11 @@ import { ApplicationData } from 'types';
 type Props = {
   application?: ApplicationData;
 };
+var formatter = new Intl.DateTimeFormat('default', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
 
 export default function ApplicationDetailContent(props: Props) {
   return (
@@ -24,14 +29,16 @@ export default function ApplicationDetailContent(props: Props) {
         </View>
         <View style={styles.row}>
           <Text style={styles.field}>{'Moving Date'}</Text>
-          <Text style={styles.value}>{props.application?.moving_date as string}</Text>
+          <Text style={styles.value}>
+            {props.application?.moving_date && formatter.format(Date.parse(props.application?.moving_date as string))}
+          </Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.field}>{'Application Status'}</Text>
           <Text style={styles.value}>{props.application?.status as string}</Text>
         </View>
 
-        <Text style={styles.field}>{'Deposit paid will be returned if the application is cancelled'}</Text>
+        {/* <Text style={styles.field}>{'Deposit paid will be returned if the application is cancelled'}</Text> */}
       </View>
       <Swiper
         innerContainerStyle={{

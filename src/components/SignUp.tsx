@@ -27,11 +27,7 @@ type Props = {
 
 function SignUpForm(props: Props) {
   const { t } = useTranslation();
-  const { isLoading, isError, error, mutate } = useMutation<
-    Login,
-    ErrorHandling,
-    Payload
-  >(
+  const { isLoading, isError, error, mutate } = useMutation<Login, ErrorHandling, Payload>(
     async (payload) =>
       fetcher<Login>({
         method: 'POST',
@@ -46,11 +42,7 @@ function SignUpForm(props: Props) {
     }
   );
 
-  const { mutate: mutateAnswer } = useMutation<
-    Login,
-    ErrorHandling,
-    UserAnswers
-  >(
+  const { mutate: mutateAnswer } = useMutation<Login, ErrorHandling, UserAnswers>(
     async (payload) =>
       fetcher<Login>({
         method: 'POST',
@@ -91,7 +83,7 @@ function SignUpForm(props: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image {...assets.loginCover} alt="login-cover" layout="responsive" />
+        <Image {...assets.loginCover} alt="login-cover" objectFit="cover" />
       </View>
 
       <View style={styles.formContainer}>
@@ -122,10 +114,7 @@ function SignUpForm(props: Props) {
                   containerStyle={styles.input}
                 />
                 {Boolean(fieldState.error) && (
-                  <ErrorMessage
-                    text={fieldState.error?.message!}
-                    errorMessageId={fieldState.error?.message}
-                  />
+                  <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
                 )}
               </>
             )}
@@ -148,10 +137,7 @@ function SignUpForm(props: Props) {
                   containerStyle={styles.input}
                 />
                 {Boolean(fieldState.error) && (
-                  <ErrorMessage
-                    text={fieldState.error?.message!}
-                    errorMessageId={fieldState.error?.message}
-                  />
+                  <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
                 )}
               </>
             )}
@@ -177,10 +163,7 @@ function SignUpForm(props: Props) {
                   containerStyle={styles.input}
                 />
                 {Boolean(fieldState.error) && (
-                  <ErrorMessage
-                    text={fieldState.error?.message!}
-                    errorMessageId={fieldState.error?.message}
-                  />
+                  <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
                 )}
               </>
             )}
@@ -207,23 +190,20 @@ function SignUpForm(props: Props) {
                   containerStyle={styles.input}
                 />
                 {Boolean(fieldState.error) && (
-                  <ErrorMessage
-                    text={fieldState.error?.message!}
-                    errorMessageId={fieldState.error?.message}
-                  />
+                  <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
                 )}
               </>
             )}
           />
           {isError && <ErrorMessage text={error?.message as string} />}
-         <DevTool control={control} />
+          <DevTool control={control} />
         </View>
       </View>
       <Pressable style={styles.submitButton} onPress={handleSubmit(onSubmit)}>
         {isLoading ? (
           <LoadingIndicator color={Token.colors.white} />
         ) : (
-          <Text style={styles.submitButtonText} ink="light">
+          <Text variant="button" ink="light">
             {t('submitSignUpForm')}
           </Text>
         )}
@@ -275,9 +255,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: Token.border.radius.default,
     borderTopRightRadius: Token.border.radius.default,
     overflow: 'hidden',
-  },
-  submitButtonText: {
-    fontWeight: '600',
+    maxHeight: 200,
   },
 });
 

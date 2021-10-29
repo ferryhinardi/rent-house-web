@@ -64,20 +64,10 @@ function Button({
     <Pressable
       {...restProps}
       disabled={disabled}
-      style={StyleSheet.flatten([
-        styles.container,
-        elevation && styles.elevation,
-        style,
-        buttonStyle,
-      ])}
-    >
+      style={StyleSheet.flatten([styles.container, elevation && styles.elevation, buttonStyle, style])}>
       {IconStart && (
         <View style={styles.wrapperIcon}>
-          {typeof IconStart === 'string' ? (
-            <Icon name={IconStart} size={16} />
-          ) : (
-            IconStart
-          )}
+          {typeof IconStart === 'string' ? <Icon name={IconStart} size={16} /> : IconStart}
         </View>
       )}
       {loading ? (

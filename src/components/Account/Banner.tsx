@@ -22,7 +22,7 @@ export default function Banner() {
         />
       </View>
       <View style={styles.textContainer}>
-        <Text ink="light" font="playfair" variant="header-2">
+        <Text ink="light" variant="header-2">
           {t('preferenceBannerTitle')}
         </Text>
         <Text style={styles.descriptionText} ink="light" variant="caption">

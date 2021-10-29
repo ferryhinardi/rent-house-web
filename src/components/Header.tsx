@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: Token.colors.gold,
     color: Token.colors.gold,
+    fontWeight: '600',
   },
 });
 

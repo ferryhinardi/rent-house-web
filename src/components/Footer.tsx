@@ -29,7 +29,7 @@ function Footer() {
           <Text ink="light">{t('footerTitle')}</Text>
         </View>
         <View style={styles.sectionMenu}>
-          <Text ink="light" variant="title-3" style={styles.listTitle}>
+          <Text ink="light" style={styles.listTitle}>
             {t('footerMenuTitle')}
           </Text>
           {menus.map((menu) => (
@@ -45,7 +45,7 @@ function Footer() {
           ))}
         </View>
         <View style={styles.sectionContactUs}>
-          <Text ink="light" variant="title-3" style={styles.listTitle}>
+          <Text ink="light" style={styles.listTitle}>
             {t('footerContactUsTitle')}
           </Text>
           <Text ink="light" style={styles.list}>
@@ -56,7 +56,7 @@ function Footer() {
           </Text>
         </View>
         <View style={styles.sectionFollowUs}>
-          <Text ink="light" variant="title-3">
+          <Text style={styles.listTitle} ink="light">
             {t('footerFollowUsTitle')}
           </Text>
           <FollowUsList />
@@ -75,23 +75,26 @@ function FollowUsList() {
       <Text
         accessibilityRole="link"
         // @ts-ignore
-        href={''}
+        href={'https://www.facebook.com/therynaofficial/'}
+        target="_blank"
         style={styles.followUsWrapper}
       >
         <Icon name="facebook-f" size={30} color={Token.colors.white} />
       </Text>
-      <Text
+      {/* <Text
         accessibilityRole="link"
         // @ts-ignore
         href={''}
+        target="_blank"
         style={styles.followUsWrapper}
       >
         <Icon name="twitter" size={30} color={Token.colors.white} />
-      </Text>
+      </Text> */}
       <Text
         accessibilityRole="link"
         // @ts-ignore
-        href={''}
+        href={'https://www.instagram.com/therynaofficial/'}
+        target="_blank"
         style={styles.followUsWrapper}
       >
         <Icon name="instagram" size={30} color={Token.colors.white} />
@@ -99,7 +102,8 @@ function FollowUsList() {
       <Text
         accessibilityRole="link"
         // @ts-ignore
-        href={''}
+        href={'https://www.linkedin.com/company/ryna/'}
+        target="_blank"
         style={styles.followUsWrapper}
       >
         <Icon name="linkedin" size={30} color={Token.colors.white} />
@@ -122,6 +126,7 @@ const styles = StyleSheet.create({
   },
   listTitle: {
     marginBottom: Token.spacing.xs,
+    fontWeight: '700',
   },
   list: {
     paddingTop: Token.spacing.m,

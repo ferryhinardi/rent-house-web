@@ -16,9 +16,11 @@ type Props = {
   question?: Question;
   methods?: UseFieldArrayReturn<FormData>;
   index?: number;
+  onSubmit?: () => void;
+  choiceLabel?: string;
 };
 
-function Questionaire({ loading, question, methods, index = 0 }: Props) {
+function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceLabel }: Props) {
   const { t } = useTranslation();
   let QuestionContent;
 
@@ -33,8 +35,9 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
         tag: question?.matching_tag,
         questionID: question?.id,
       });
+      onSubmit && onSubmit();
     },
-    [index, methods, question?.id, question?.matching_tag, question?.title]
+    [index, methods, question?.id, question?.matching_tag, question?.title, onSubmit]
   );
 
   const onRangeSlideComplete = useCallback(
@@ -83,12 +86,14 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
           textInputStyle={styles.textInput}
           value={choice}
           rightLabel={
-            <Text
-              style={{
-                color: methods?.fields[index]?.value === choice ? colors.rynaBlack : colors.textDarkGrey,
-              }}>
-              {t('choiceStatus')}
-            </Text>
+            choiceLabel ? (
+              <Text
+                style={{
+                  color: methods?.fields[index]?.value === choice ? colors.rynaBlack : colors.textDarkGrey,
+                }}>
+                {choice}
+              </Text>
+            ) : undefined
           }
           onFocus={() => {
             methods?.update(index, {
@@ -100,6 +105,7 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
                   : (question?.add_ons?.tags?.[idx] as string),
               questionID: question?.id,
             });
+            onSubmit && onSubmit();
           }}
         />
       ));
@@ -113,17 +119,7 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
     if (setChoice.current === question?.type) {
       return;
     }
-    console.log('masuk', question?.type, '===');
     switch (question?.type) {
-      case 'DATE':
-        onSelectedDateCallback(
-          new Intl.DateTimeFormat('default', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          }).format(new Date())
-        );
-        break;
       case 'RANGE_NUMBER':
         onRangeSlideComplete([minV!, maxV!]);
         break;
@@ -134,7 +130,7 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
   }, [maxV, minV, onRangeSlideComplete, onSelectedDateCallback, question?.type]);
 
   return (
-    <>
+    <View style={styles.container}>
       {loading ? (
         <LoadingIndicator />
       ) : (
@@ -151,27 +147,15 @@ function Questionaire({ loading, question, methods, index = 0 }: Props) {
           {QuestionContent}
         </>
       )}
-    </>
-  );
-}
 
-type QuestionaireCardProps = {
-  children: React.ReactNode;
-  onSubmit?: () => void;
-};
-
-export function QuestionaireCard({ children, onSubmit }: QuestionaireCardProps) {
-  const { t } = useTranslation();
-  return (
-    <View style={styles.container}>
-      {children}
-
-      <Button
-        style={styles.submitButton}
-        text={t('submitQuestionButton')}
-        onPress={onSubmit}
-        textStyle={styles.buttonText}
-      />
+      {question?.type === 'RANGE_NUMBER' && (
+        <Button
+          style={styles.submitButton}
+          text={t('submitQuestionButton')}
+          onPress={onSubmit}
+          textStyle={styles.buttonText}
+        />
+      )}
     </View>
   );
 }

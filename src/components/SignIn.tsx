@@ -17,11 +17,7 @@ type Payload = { email: string; password: string };
 
 function SignInForm() {
   const { t } = useTranslation();
-  const { isLoading, isError, error, mutate } = useMutation<
-    Login,
-    ErrorHandling,
-    Payload
-  >(
+  const { isLoading, isError, error, mutate } = useMutation<Login, ErrorHandling, Payload>(
     async (payload) =>
       fetcher<Login>({
         method: 'POST',
@@ -45,7 +41,9 @@ function SignInForm() {
 
   return (
     <View style={styles.container}>
-      <Image {...assets.loginCover} alt="login-cover" layout="responsive" />
+      <View style={styles.imageContainer}>
+        <Image {...assets.loginCover} alt="login-cover" objectFit="cover" />
+      </View>
       <View style={styles.formContainer}>
         <Text variant="header-2" style={styles.title}>
           {t('titleSignInForm')}
@@ -53,69 +51,65 @@ function SignInForm() {
         <Text variant="caption" style={styles.title}>
           {t('subtitleSignInForm')}
         </Text>
-        <GoogleButton onSuccessLogin={onSuccessLogin} />
-        <FacebookButton onSuccessLogin={onSuccessLogin} />
-        <Text style={styles.separator}>{t('separator')}</Text>
-        <Controller
-          name="email"
-          control={control}
-          rules={{
-            required: t('email.required') as string,
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: t('email.pattern'),
-            },
-          }}
-          render={({ field, fieldState }) => (
-            <>
-              <Input
-                {...field}
-                placeholder={t('emailAddress')}
-                textContentType="emailAddress"
-                error={Boolean(fieldState.error)}
-                errorMessageId={fieldState.error?.message}
-                containerStyle={styles.input}
-              />
-              {Boolean(fieldState.error) && (
-                <ErrorMessage
-                  text={fieldState.error?.message!}
+        <View style={styles.fieldSectionContainer}>
+          <GoogleButton onSuccessLogin={onSuccessLogin} />
+          <FacebookButton onSuccessLogin={onSuccessLogin} />
+          <Text style={styles.separator}>{t('separator')}</Text>
+          <Controller
+            name="email"
+            control={control}
+            rules={{
+              required: t('email.required') as string,
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: t('email.pattern'),
+              },
+            }}
+            render={({ field, fieldState }) => (
+              <>
+                <Input
+                  {...field}
+                  placeholder={t('emailAddress')}
+                  textContentType="emailAddress"
+                  error={Boolean(fieldState.error)}
                   errorMessageId={fieldState.error?.message}
+                  containerStyle={styles.input}
                 />
-              )}
-            </>
-          )}
-        />
-        <Controller
-          name="password"
-          control={control}
-          rules={{
-            required: t('password.required') as string,
-            minLength: {
-              value: 5,
-              message: t('password.minLength', { length: 5 }),
-            },
-          }}
-          render={({ field, fieldState }) => (
-            <>
-              <Input
-                {...field}
-                placeholder={t('password')}
-                textContentType="password"
-                secureTextEntry
-                error={Boolean(fieldState.error)}
-                errorMessageId={fieldState.error?.message}
-                containerStyle={styles.input}
-              />
-              {Boolean(fieldState.error) && (
-                <ErrorMessage
-                  text={fieldState.error?.message!}
+                {Boolean(fieldState.error) && (
+                  <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
+                )}
+              </>
+            )}
+          />
+          <Controller
+            name="password"
+            control={control}
+            rules={{
+              required: t('password.required') as string,
+              minLength: {
+                value: 5,
+                message: t('password.minLength', { length: 5 }),
+              },
+            }}
+            render={({ field, fieldState }) => (
+              <>
+                <Input
+                  {...field}
+                  placeholder={t('password')}
+                  textContentType="password"
+                  secureTextEntry
+                  error={Boolean(fieldState.error)}
                   errorMessageId={fieldState.error?.message}
+                  containerStyle={styles.input}
                 />
-              )}
-            </>
-          )}
-        />
-        {isError && <ErrorMessage text={error?.message as string} />}
+                {Boolean(fieldState.error) && (
+                  <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
+                )}
+              </>
+            )}
+          />
+          {isError && <ErrorMessage text={error?.message as string} />}
+        </View>
       </View>
       <Button
         loading={isLoading}
@@ -133,19 +127,14 @@ export function SignInButton() {
   const { t } = useTranslation();
   return (
     <>
-      <Button
-        variant="secondary"
-        text={t('signIn')}
-        onPress={() => onVisible(true)}
-        style={styles.signInButton}
-      />
+      <Button variant="secondary" text={t('signIn')} onPress={() => onVisible(true)} style={styles.signInButton} />
       <Modal
         animationType="fade"
         visible={isVisible}
         onRequestClose={() => onVisible(false)}
         onDismiss={() => onVisible(false)}
-        noPadding
-      >
+        modalContentStyle={styles.modalContentStyle}
+        noPadding>
         <SignInForm />
       </Modal>
     </>
@@ -154,16 +143,18 @@ export function SignInButton() {
 
 const styles = StyleSheet.create({
   container: {
-    width: 600,
+    width: 570,
     margin: 'auto',
   },
   title: { textAlign: 'center' },
   separator: {
     marginVertical: Token.spacing.ml,
+    maxWidth: '60%',
   },
   formContainer: {
-    padding: Token.spacing.m,
     alignItems: 'center',
+    paddingHorizontal: Token.spacing.m,
+    paddingVertical: Token.spacing.xl,
   },
   input: {
     marginBottom: Token.spacing.m,
@@ -175,9 +166,24 @@ const styles = StyleSheet.create({
     paddingVertical: Token.spacing.m,
     borderRadius: 0,
     alignItems: 'center',
+    height: 77,
   },
   signInButton: {
     height: 50,
+  },
+  imageContainer: {
+    borderTopLeftRadius: Token.border.radius.default,
+    borderTopRightRadius: Token.border.radius.default,
+    overflow: 'hidden',
+    maxHeight: 200,
+  },
+  fieldSectionContainer: {
+    paddingHorizontal: Token.spacing.l,
+    alignItems: 'center',
+    width: '100%',
+  },
+  modalContentStyle: {
+    marginVertical: 100,
   },
 });
 

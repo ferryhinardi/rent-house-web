@@ -2,27 +2,20 @@ import React from 'react';
 import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 
-import { SelectInput } from 'core/base';
+import { SelectInput, Text } from 'core/base';
+import { Token } from 'core';
 import { languageOptions as options } from 'core/constants';
 
 export default function LanguageSelection() {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image
-          src={options[0].icon}
-          blurDataURL={options[0].icon}
-          placeholder="blur"
-          alt="language-flag"
-          width={24}
-          height={12}
-        />
+        <Image src={options[0].icon} alt="language-flag" width={24} height={12} />
       </View>
-      <SelectInput
-        instanceId="language-selection"
-        defaultValue={options[0]}
-        options={options}
-      />
+      <Text style={styles.label} variant="body">
+        {options[0].label}
+      </Text>
+      {/* <SelectInput instanceId="language-selection" defaultValue={options[0]} /> */}
     </View>
   );
 }
@@ -34,5 +27,8 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     justifyContent: 'center',
+  },
+  label: {
+    marginHorizontal: Token.spacing.s,
   },
 });

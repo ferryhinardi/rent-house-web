@@ -4,11 +4,7 @@ import { Pressable, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 // @ts-ignore
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import {
-  ReactFacebookLoginInfo,
-  ReactFacebookFailureResponse,
-  ReactFacebookLoginState,
-} from 'react-facebook-login';
+import { ReactFacebookLoginInfo, ReactFacebookFailureResponse, ReactFacebookLoginState } from 'react-facebook-login';
 import { useTranslation } from 'react-i18next';
 import config from 'config';
 import { Token, fetcher } from 'core';
@@ -22,8 +18,7 @@ type RenderProps = ReactFacebookLoginState & {
 };
 
 const responseFacebook =
-  (callback: () => void) =>
-  (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => {
+  (callback: () => void) => (response: ReactFacebookLoginInfo | ReactFacebookFailureResponse) => {
     const { accessToken } = response as ReactFacebookLoginInfo;
 
     fetcher<Login>({
@@ -67,13 +62,9 @@ function FacebookButton(props: Props) {
       size="medium"
       render={({ onClick, isDisabled, isProcessing }: RenderProps) => {
         return (
-          <Pressable
-            style={styles.button}
-            onPress={onClick}
-            disabled={isDisabled || isProcessing}
-          >
+          <Pressable style={styles.button} onPress={onClick} disabled={isDisabled || isProcessing}>
             <Icon name="facebook-f" size={20} color={Token.colors.fb} />
-            <Text style={styles.text}>{t('facebook')}</Text>
+            <Text variant="body" style={styles.text}>{t('signInFacebook')}</Text>
           </Pressable>
         );
       }}

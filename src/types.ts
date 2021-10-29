@@ -33,14 +33,7 @@ export type House = {
   city: string;
   description: string;
   amenities: {
-    icon:
-      | 'rooftop'
-      | 'gym'
-      | 'pool'
-      | 'laundry'
-      | 'bedroom'
-      | 'bathroom'
-      | 'diningroom';
+    icon: 'rooftop' | 'gym' | 'pool' | 'laundry' | 'bedroom' | 'bathroom' | 'diningroom';
     name: string;
   }[];
   minimum_term_length: string;
@@ -52,6 +45,7 @@ export type House = {
   location_lat: Location;
   location_lon: Location;
   tags: string[];
+  embed_map: string;
   created_at?: string;
   updated_at?: string;
 };
@@ -160,15 +154,24 @@ export type EmergencyContactType = {
 
 export type PayloadUpdateUser = User & {
   dob: string;
-  gender: Gender;
+  gender: Option;
   government_id: FileList;
-  profile_picture: FileList;
+  credit_report: FileList;
+  profile_picture: string | FileList;
   document_type: string;
   document_files: FileList;
+  facebook_url?: string;
+  twitter_url?: string;
+  instagram_url?: string;
+  proof_of_income_type: Option;
+  paystubs?: FileList;
+  guarantor_paystubs?: FileList;
+  guarantor_government_id?: FileList;
+  guarantor_credit_report?: FileList;
   emergencyContacts: EmergencyContactType[];
 };
 
-type Gender = { label: string; value: number }
+export type Option = { label: string; value: number };
 
 export type ApplicationData = {
   id: number;
@@ -184,4 +187,13 @@ export type ApplicationData = {
   is_approved: boolean;
   is_completed: boolean;
   is_canceled: boolean;
-}
+};
+
+export type Roomate = {
+  roomates: User[];
+  roommate_ids: number[];
+  to_match: boolean;
+  room_id: number;
+  house_id: number;
+  tags: string[];
+} & User;

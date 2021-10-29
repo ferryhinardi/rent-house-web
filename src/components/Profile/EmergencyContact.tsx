@@ -32,7 +32,7 @@ export default function EmergencyContact() {
             }}
             render={({ field, fieldState }) => (
               <View style={styles.formGroup}>
-                <Text variant="tiny" style={styles.label}>
+                <Text variant="small" style={styles.label}>
                   {t('emergencyName')}
                 </Text>
                 <Input
@@ -43,10 +43,7 @@ export default function EmergencyContact() {
                   errorMessageId={fieldState.error?.message}
                 />
                 {Boolean(fieldState.error) && (
-                  <ErrorMessage
-                    text={fieldState.error?.message!}
-                    errorMessageId={fieldState.error?.message}
-                  />
+                  <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
                 )}
               </View>
             )}
@@ -59,7 +56,7 @@ export default function EmergencyContact() {
             }}
             render={({ field, fieldState }) => (
               <View style={styles.formGroup}>
-                <Text variant="tiny" style={styles.label}>
+                <Text variant="small" style={styles.label}>
                   {t('emergencyRelationship')}
                 </Text>
                 <Input
@@ -70,10 +67,7 @@ export default function EmergencyContact() {
                   errorMessageId={fieldState.error?.message}
                 />
                 {Boolean(fieldState.error) && (
-                  <ErrorMessage
-                    text={fieldState.error?.message!}
-                    errorMessageId={fieldState.error?.message}
-                  />
+                  <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
                 )}
               </View>
             )}
@@ -86,7 +80,7 @@ export default function EmergencyContact() {
             }}
             render={({ field, fieldState }) => (
               <View style={styles.formGroup}>
-                <Text variant="tiny" style={styles.label}>
+                <Text variant="small" style={styles.label}>
                   {t('emergencyEmail')}
                 </Text>
                 <Input
@@ -97,10 +91,7 @@ export default function EmergencyContact() {
                   errorMessageId={fieldState.error?.message}
                 />
                 {Boolean(fieldState.error) && (
-                  <ErrorMessage
-                    text={fieldState.error?.message!}
-                    errorMessageId={fieldState.error?.message}
-                  />
+                  <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
                 )}
               </View>
             )}
@@ -113,7 +104,7 @@ export default function EmergencyContact() {
             }}
             render={({ field, fieldState }) => (
               <View style={styles.formGroup}>
-                <Text variant="tiny" style={styles.label}>
+                <Text variant="small" style={styles.label}>
                   {t('emergencyPhone')}
                 </Text>
                 <Input
@@ -124,29 +115,25 @@ export default function EmergencyContact() {
                   errorMessageId={fieldState.error?.message}
                 />
                 {Boolean(fieldState.error) && (
-                  <ErrorMessage
-                    text={fieldState.error?.message!}
-                    errorMessageId={fieldState.error?.message}
-                  />
+                  <ErrorMessage text={fieldState.error?.message!} errorMessageId={fieldState.error?.message} />
                 )}
               </View>
             )}
           />
-          <Button
-            variant="empty"
-            IconStart="trash"
-            text={t('deleteContact')}
-            style={styles.deleteContact}
-            onPress={() => onDeleteContact(index)}
-          />
+          {index !== 0 && (
+            <Button
+              variant="empty"
+              IconStart="trash"
+              text={t('deleteContact')}
+              style={styles.deleteContact}
+              onPress={() => onDeleteContact(index)}
+            />
+          )}
         </View>
       ))}
-      <Button
-        variant="secondary"
-        text={t('addContact')}
-        onPress={onAddContact}
-        style={styles.submitButton}
-      />
+      <View style={{ marginTop: Token.spacing.l, marginBottom: Token.spacing.xxl, alignItems: 'flex-start' }}>
+        <Button variant="secondary" text={t('addContact')} onPress={onAddContact} />
+      </View>
     </View>
   );
 }
@@ -176,10 +163,5 @@ const styles = StyleSheet.create({
   },
   label: {
     marginBottom: Token.spacing.xs,
-  },
-  submitButton: {
-    marginTop: Token.spacing.l,
-    marginBottom: Token.spacing.xxl,
-    alignSelf: 'flex-start',
   },
 });

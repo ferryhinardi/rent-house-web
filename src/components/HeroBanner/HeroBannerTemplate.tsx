@@ -7,27 +7,28 @@ import { Token } from 'core';
 import { Text } from 'core/base';
 
 type Props = {
-  imageProps: ImageProps;
+  imageProps?: ImageProps;
   DescriptionComponent: React.ReactNode;
   footerNode: React.ReactNode;
+  video?: React.ReactNode;
 };
 
-function HeroBannerTemplate({
-  imageProps,
-  DescriptionComponent,
-  footerNode,
-}: Props) {
+function HeroBannerTemplate({ imageProps, DescriptionComponent, footerNode, video }: Props) {
   return (
     <View style={styles.heroImageWrapper}>
       <View style={styles.imageWrapper}>
-        <Image
-          {...imageProps}
-          layout="responsive"
-          objectFit="cover"
-          width="100%"
-          height="100%"
-          alt="hero-image"
-        />
+        {video
+          ? video
+          : imageProps && (
+              <Image
+                {...imageProps}
+                layout="responsive"
+                objectFit="cover"
+                width="100%"
+                height="100%"
+                alt="hero-image"
+              />
+            )}
       </View>
       <View style={styles.heroDescription}>{DescriptionComponent}</View>
       <View style={styles.footer}>

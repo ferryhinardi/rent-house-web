@@ -7,7 +7,6 @@ import { Button, ContainerDesktop } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { useMutation, useQuery } from 'react-query';
 import { ApplicationData, ErrorHandling } from 'types';
-import { useTranslation } from 'react-i18next';
 import Toast from 'react-native-toast-message';
 
 type ApplicationCancelRequest = {
@@ -16,8 +15,6 @@ type ApplicationCancelRequest = {
 export default function ApplicationDetail() {
   const router = useRouter();
   const { query } = router;
-  const { t } = useTranslation();
-
   const { data } = useQuery(
     [QUERY_KEYS.APPLICATION_DETAIL, query.applicationId],
     async () => {
@@ -38,7 +35,7 @@ export default function ApplicationDetail() {
         data: payload,
       }),
     {
-      onSuccess: (data) => {
+      onSuccess: () => {
         router.reload();
       },
       onError: () => {
@@ -63,7 +60,7 @@ export default function ApplicationDetail() {
         <ApplicationDetailContent application={data} />
         {(data?.status as string) == 'submitted' && (
           <View>
-            <Button style={styles.button} variant="secondary" text={'Pay Deposit'} />
+            {/* <Button style={styles.button} variant="secondary" text={'Pay Deposit'} /> */}
             <Button
               style={styles.button}
               variant="secondary"
@@ -73,7 +70,7 @@ export default function ApplicationDetail() {
           </View>
         )}
         <View style={styles.separator} />
-        <DepositSection />
+        {/* <DepositSection /> */}
       </ContainerDesktop>
       <Footer />
     </div>

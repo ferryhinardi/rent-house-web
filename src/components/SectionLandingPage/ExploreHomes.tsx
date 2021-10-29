@@ -15,23 +15,16 @@ import assets from 'assets';
 
 export default function ExploreHomes() {
   const { t } = useTranslation();
-  const { data, isLoading } = useQuery<ResponseItem<House>>(
-    QUERY_KEYS.HOUSE,
-    async () => {
-      const res = await fetcher<ResponseItem<House>>({
-        method: 'GET',
-        url: '/house',
-      });
-      return res;
-    }
-  );
+  const { data, isLoading } = useQuery<ResponseItem<House>>(QUERY_KEYS.HOUSE, async () => {
+    const res = await fetcher<ResponseItem<House>>({
+      method: 'GET',
+      url: '/house',
+    });
+    return res;
+  });
 
   const homeData = data?.data;
-  const [firstHome, secondHome, otherHomes] = [
-    homeData?.[0],
-    homeData?.[1],
-    homeData?.slice(2),
-  ];
+  const [firstHome, secondHome, otherHomes] = [homeData?.[0], homeData?.[1], homeData?.slice(2)];
 
   return (
     <ContainerDesktop style={styles.container}>
@@ -41,7 +34,7 @@ export default function ExploreHomes() {
       </View>
       <View style={styles.header}>
         <View>
-          <Text font="playfair" variant="header-2" style={styles.headerTitle}>
+          <Text variant="header-2" style={styles.headerTitle}>
             {t('titleExploreHomes')}
           </Text>
           <Text variant="caption">{t('subtitleExploreHomes')}</Text>
@@ -72,7 +65,7 @@ export default function ExploreHomes() {
                 imageContainerStyle={styles.cardImage}
                 style={styles.cardContainer}
               />
-              <Text font="playfair" variant="header-2" style={styles.cardTitle}>
+              <Text variant="header-2" style={styles.cardTitle}>
                 {firstHome?.name}
               </Text>
             </View>
@@ -97,11 +90,7 @@ export default function ExploreHomes() {
                   }}
                   imageContainerStyle={styles.cardImage}
                 />
-                <Text
-                  font="playfair"
-                  variant="header-2"
-                  style={styles.cardTitle}
-                >
+                <Text variant="header-2" style={styles.cardTitle}>
                   {secondHome?.name}
                 </Text>
                 <Text variant="caption">{secondHome?.name}</Text>
@@ -117,8 +106,7 @@ export default function ExploreHomes() {
                     {
                       marginRight: index === 0 ? Token.spacing.xxxxl : 0,
                     },
-                  ]}
-                >
+                  ]}>
                   <Card
                     orientation="portrait"
                     imageProps={{
@@ -135,11 +123,7 @@ export default function ExploreHomes() {
                     }}
                     imageContainerStyle={styles.cardImage}
                   />
-                  <Text
-                    font="playfair"
-                    variant="header-2"
-                    style={styles.cardTitle}
-                  >
+                  <Text font="playfair" variant="header-2" style={styles.cardTitle}>
                     {item.name}
                   </Text>
                   <Text variant="caption">{item.name}</Text>

@@ -1,6 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import config from 'config';
+import Cookie from 'js-cookie';
 import curlirize from 'utils/axiosCurl';
 
 export const instance = axios.create({
@@ -9,9 +9,8 @@ export const instance = axios.create({
 
 if (__DEV__) curlirize(instance);
 
-async function fetcherServer<T>(req: NextApiRequest, res: NextApiResponse<T>, options: AxiosRequestConfig) {
-  const cookies = req?.cookies;
-  const authentication = cookies?.['token'];
+async function clientUpload<T>(options: AxiosRequestConfig) {
+  const authentication = Cookie.get('token');
   const headers = {
     ...options.headers,
     Authorization: `Bearer ${authentication}`,
@@ -29,4 +28,4 @@ async function fetcherServer<T>(req: NextApiRequest, res: NextApiResponse<T>, op
   return response?.data;
 }
 
-export default fetcherServer;
+export default clientUpload;

@@ -57,24 +57,12 @@ export default function Account({ user }: Props) {
               {
                 name: 'account-settings',
                 label: t('accountSettings'),
-                IconRight: (
-                  <Icon
-                    name="exclamation-triangle"
-                    size={20}
-                    color={Token.colors.red}
-                  />
-                ),
+                IconRight: <Icon name="exclamation-triangle" size={20} color={Token.colors.red} />,
               },
               {
                 name: 'roommates',
                 label: t('roommates'),
-                IconRight: (
-                  <Icon
-                    name="exclamation-triangle"
-                    size={20}
-                    color={Token.colors.red}
-                  />
-                ),
+                IconRight: <Icon name="exclamation-triangle" size={20} color={Token.colors.red} />,
               },
             ]}
             onPress={onPressMenu}
@@ -90,7 +78,7 @@ export default function Account({ user }: Props) {
             <View style={styles.separator} />
             <AccountSettings />
             <View style={styles.separator} />
-            <AccountRoommates />
+            <AccountRoommates userId={user.id} />
           </View>
         </View>
       </ContainerDesktop>
@@ -109,14 +97,9 @@ export async function getServerSideProps(context: NextPageContext) {
   // In the background, a revalidation request will be made to populate the cache
   // with a fresh value. If you refresh the page, you will see the new value.
   // https://nextjs.org/docs/going-to-production#caching
-  context.res?.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  );
+  context.res?.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   const queryClient = new QueryClient();
-  const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () =>
-    redirectIfUnauthenticated(context)
-  );
+  const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () => redirectIfUnauthenticated(context));
 
   await queryClient.prefetchQuery([QUERY_KEYS.HOUSE_MATCH, user?.id], () =>
     fetchServer<ResponseItem<House>>(

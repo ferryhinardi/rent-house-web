@@ -3,11 +3,11 @@ import assets from 'assets';
 
 export const menus = [
   { name: 'Homes', href: routePaths.home },
-  { name: 'Events', href: '/events' },
+  // { name: 'Events', href: '/events' },
   { name: 'About Us', href: '/about-us' },
   { name: 'Rental Homes', href: '/rental-homes' },
   { name: 'Partner With Us', href: '/partner-with-us' },
-  { name: 'Blog', href: '/blog' },
+  // { name: 'Blog', href: '/blog' },
 ];
 
 export const languageOptions = [
@@ -20,6 +20,11 @@ export const genderOptions = [
   { value: 0, label: 'Male' },
   { value: 1, label: 'Female' },
   { value: 2, label: 'Others' },
+];
+
+export const proofIncomeOptions = [
+  { value: 0, label: 'Paystub' },
+  { value: 1, label: 'Guarantor' },
 ];
 
 export const QUERY_KEYS = {
@@ -39,4 +44,9 @@ export const QUERY_KEYS = {
   HOME_ROOM: 'HOME_ROOM',
   APPLICATION_DETAIL: 'APPLICATION_DETAIL',
   USER_APPLICATIONS: 'USER_APPLICATIONS',
+  ROOMMATES: 'ROOMMATES',
+  USER: 'USER',
+  DOCUMENT: 'DOCUMENT',
 };
+
+export const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 MB

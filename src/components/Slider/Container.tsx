@@ -17,8 +17,8 @@ const SliderContext = React.createContext<{ min?: number; max?: number }>({
 export const SliderConsumer = SliderContext.Consumer;
 
 function ContainerSlider({ children }: Props) {
-  const [min, setMin] = React.useState<number>(MinRange);
-  const [max, setMax] = React.useState<number>(MaxRange);
+  const [min] = React.useState<number>(MinRange);
+  const [max] = React.useState<number>(MaxRange);
 
   return (
     <SliderContext.Provider value={{ min, max }}>
@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   children: { flex: 1, paddingHorizontal: Token.spacing.xs },
-  input: { width: '15%' },
 });
 
 export default ContainerSlider;
