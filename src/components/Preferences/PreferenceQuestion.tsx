@@ -10,14 +10,7 @@ import { fetcher, Token } from 'core';
 import { Button, Text } from 'core/base';
 import ProgressBar from 'components/Progress/Bar';
 import Questionaire from 'components/Questionaire';
-import {
-  Answer,
-  ErrorHandling,
-  Login,
-  Question,
-  PreferenceQuestionState,
-  QuestionState,
-} from 'types';
+import { Answer, ErrorHandling, Login, Question, PreferenceQuestionState, QuestionState } from 'types';
 
 type Props = {
   stateIndex: number;
@@ -112,10 +105,10 @@ export default function PreferenceQuestion(props: Props) {
             <AnimatedView
               key={`${idx}`}
               // @ts-ignore
-              style={animateStyle}
-            >
+              style={animateStyle}>
               <View>
                 <Questionaire
+                  onSubmit={onTouchNext}
                   loading={false}
                   question={props.questions[idx]}
                   index={idx}
