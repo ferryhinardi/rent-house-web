@@ -74,9 +74,9 @@ function Calendar({ onChange, ...restProps }: Props) {
               className="ryna-calendar"
               onChange={onChangeCalendar}
               value={value}
-              nextLabel={null}
+              nextLabel={<Icon name="chevron-right" color={Token.colors.rynaLink} />}
               next2Label={null}
-              prevLabel={null}
+              prevLabel={<Icon name="chevron-left" color={Token.colors.rynaLink} />}
               prev2Label={null}
               tileClassName="ryna-calendar-tile"
               navigationLabel={(props) => {

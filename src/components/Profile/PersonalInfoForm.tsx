@@ -8,6 +8,7 @@ import { CalendarInput, ErrorMessage, FileUploader, Input, SelectInput, Text } f
 import { genderOptions, MAX_FILE_SIZE, proofIncomeOptions, QUERY_KEYS } from 'core/constants';
 import { getDocumentFile } from 'utils/getUserDocument';
 import { Option, UserDocument } from 'types';
+import { parseUnixTime } from 'core/utils/parseunix';
 
 export default function PersonalInfoForm() {
   const { register, control, setValue, getValues, setError, clearErrors, formState } = useFormContext();
@@ -30,6 +31,7 @@ export default function PersonalInfoForm() {
     rules: {
       required: t('dob.required') as string,
     },
+    defaultValue: parseUnixTime(new Date()),
   });
   const { field: phoneNumberField, fieldState: phoneNumberFieldState } = useController({
     name: 'phone',
