@@ -4,24 +4,19 @@ import { useRouter } from 'next/router';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useSprings, animated, config } from 'react-spring';
-import { fetcher, Token } from 'core';
+import { Token } from 'core';
 import { menus, QUERY_KEYS } from 'core/constants';
 import { User } from 'types';
 import assets from 'assets';
 import { routePaths } from 'routePaths';
-import { SignInButton } from './SignIn';
-import UserLoginHeader from './UserLoginHeader';
+import { SignInButton } from 'components/SignIn';
+import UserLoginHeader from 'components/UserLoginHeader';
 
 const AnimatedView = animated(View);
 
 function Header() {
   const router = useRouter();
-  const { data, isLoading } = useQuery<User>(QUERY_KEYS.CURRENT_USER, () =>
-    fetcher<User>({
-      method: 'POST',
-      url: '/user/current-user',
-    })
-  );
+  const { data, isLoading } = useQuery<User>(QUERY_KEYS.CURRENT_USER);
   const menuAnimations = useSprings(
     menus.length,
     // all animations
