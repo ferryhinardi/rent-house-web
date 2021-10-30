@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import assets from 'assets';
 
-import { Text, Button } from 'core/base';
+import { Text } from 'core/base';
 import { Token } from 'core';
 
 export default function Banner() {

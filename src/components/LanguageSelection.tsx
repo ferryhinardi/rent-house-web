@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 
-import { SelectInput, Text } from 'core/base';
+import { Text } from 'core/base';
 import { Token } from 'core';
 import { languageOptions as options } from 'core/constants';
 

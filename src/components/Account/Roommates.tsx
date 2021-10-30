@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
 import { Token, fetcher } from 'core';
-import { Text, Badge } from 'core/base';
+import { Text } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import RoommateCard from 'components/Roommates/RoommateCard';
 
