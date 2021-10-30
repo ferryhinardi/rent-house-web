@@ -29,14 +29,14 @@ class RynaDocument extends Document {
 
   render() {
     return (
-      <Html style={{ height: '100%' }}>
+      <Html>
         <Head>
           <link
             href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=optional"
             rel="stylesheet"
           />
         </Head>
-        <body style={{ height: '100%', overflow: 'hidden' }}>
+        <body>
           <Main />
           <NextScript />
         </body>
