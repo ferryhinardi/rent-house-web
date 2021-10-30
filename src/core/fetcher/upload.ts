@@ -13,7 +13,7 @@ async function clientUpload<T>(options: AxiosRequestConfig) {
   const authentication = Cookie.get('token');
   const headers = {
     ...options.headers,
-    Authorization: `Bearer ${authentication}`,
+    ...(authentication ? { Authorization: `Bearer ${authentication}` } : {}),
   };
   // Remove host to solve issue:
   // ErrorCode: [ERR_TLS_CERT_ALTNAME_INVALID]:

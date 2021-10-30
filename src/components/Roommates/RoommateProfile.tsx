@@ -1,21 +1,34 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
+import { useQuery } from 'react-query';
 import { useTranslation } from 'react-i18next';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 import config from 'config';
 import assets from 'assets';
-import { Token } from 'core';
+import { Token, fetcher } from 'core';
 import { Text, Image } from 'core/base';
-
+import { QUERY_KEYS } from 'core/constants';
 import { User } from 'types';
 
-type RoommateProfileProps = {
-  user?: User;
-};
-export default function RoommateProfile({ user }: RoommateProfileProps) {
+export default function RoommateProfile() {
+  const router = useRouter();
+  const { userId } = router.query;
   const { t } = useTranslation();
+  const { data: user } = useQuery<User>(
+    QUERY_KEYS.USER,
+    async () => {
+      const res = await fetcher<User>({
+        method: 'GET',
+        url: `/user/${userId}`,
+      });
+      return res;
+    },
+    { enabled: userId !== undefined }
+  );
+
   const imgSource = user?.profile_picture ? `${config.imageHost}/${user.profile_picture}` : assets.placehoderImage;
 
   return (

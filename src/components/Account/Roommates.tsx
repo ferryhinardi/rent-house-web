@@ -3,12 +3,10 @@ import { View, StyleSheet } from 'react-native';
 import { Element } from 'react-scroll';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
-
 import { Token, fetcher } from 'core';
 import { Text } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import RoommateCard from 'components/Roommates/RoommateCard';
-
 import { Roomate } from 'types';
 
 type RoommatesProps = {
@@ -17,8 +15,7 @@ type RoommatesProps = {
 
 export default function Roommates({ userId }: RoommatesProps) {
   const { t } = useTranslation();
-
-  const { data } = useQuery<Roomate>(QUERY_KEYS.ROOMMATES, async () => {
+  const { data } = useQuery<Roomate>([QUERY_KEYS.ROOMMATES, userId], async () => {
     const res = await fetcher<Roomate>({
       method: 'GET',
       url: `/user/${userId}`,
@@ -28,13 +25,14 @@ export default function Roommates({ userId }: RoommatesProps) {
 
   const roomates = data?.roomates;
 
+  if (!Boolean(roomates)) return null;
+
   return (
     <Element name="roommates">
       <View style={styles.titleWrapper}>
         <Text variant="header-3" ink="primary" style={styles.title}>
           {t('roommatesTitle')}
         </Text>
-        {/* <Badge text="Need Action" variant="alert" /> */}
       </View>
       <Text variant="caption" style={styles.description}>
         {t('roommatesSubtitle')}

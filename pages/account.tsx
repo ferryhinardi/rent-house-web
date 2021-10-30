@@ -18,7 +18,7 @@ import {
 import { Token, fetchServer } from 'core';
 import { ContainerDesktop, Text } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
-import { User, House, ResponseItem } from 'types';
+import { User, House, Roomate, ResponseItem } from 'types';
 import { redirectIfUnauthenticated } from 'utils/auth';
 
 type Props = {
@@ -87,19 +87,21 @@ export default function Account({ user }: Props) {
 }
 
 export async function getServerSideProps(context: NextPageContext) {
-  // This value is considered fresh for ten seconds (s-maxage=10).
-  // If a request is repeated within the next 10 seconds, the previously
-  // cached value will still be fresh. If the request is repeated before 59 seconds,
-  // the cached value will be stale but still render (stale-while-revalidate=59).
-  //
-  // In the background, a revalidation request will be made to populate the cache
-  // with a fresh value. If you refresh the page, you will see the new value.
-  // https://nextjs.org/docs/going-to-production#caching
-  context.res?.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   const queryClient = new QueryClient();
-  const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () => redirectIfUnauthenticated(context));
+  const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () => 
+    redirectIfUnauthenticated(context)
+  );
 
-  await queryClient.prefetchQuery([QUERY_KEYS.HOUSE_MATCH, user?.id], () =>
+  if (user === null) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/"
+      }
+    }
+  }
+
+  await queryClient.fetchQuery([QUERY_KEYS.HOUSE_MATCH, user?.id], () =>
     fetchServer<ResponseItem<House>>(
       context.req as NextApiRequest,
       context.res as NextApiResponse,
@@ -108,6 +110,14 @@ export async function getServerSideProps(context: NextPageContext) {
       // { url: `/match-property/preferences/11` }
     )
   );
+
+  await queryClient.fetchQuery([QUERY_KEYS.ROOMMATES, user?.id], async () =>
+    fetchServer<Roomate>(
+      context.req as NextApiRequest,
+      context.res as NextApiResponse,
+      { url: `/user/${user?.id}` })
+  );
+
   return {
     props: {
       user,

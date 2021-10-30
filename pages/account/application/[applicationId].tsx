@@ -1,4 +1,5 @@
 import React from 'react';
+import { NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
 import { Head, HeaderMenu, HeaderNavigation, ApplicationDetailContent, Footer } from 'components';
@@ -8,6 +9,7 @@ import { QUERY_KEYS } from 'core/constants';
 import { useMutation, useQuery } from 'react-query';
 import { ApplicationData, ErrorHandling } from 'types';
 import Toast from 'react-native-toast-message';
+import { redirectIfUnauthenticated } from 'utils/auth';
 
 type ApplicationCancelRequest = {
   status: string;
@@ -60,7 +62,6 @@ export default function ApplicationDetail() {
         <ApplicationDetailContent application={data} />
         {(data?.status as string) == 'submitted' && (
           <View>
-            {/* <Button style={styles.button} variant="secondary" text={'Pay Deposit'} /> */}
             <Button
               style={styles.button}
               variant="secondary"
@@ -70,7 +71,6 @@ export default function ApplicationDetail() {
           </View>
         )}
         <View style={styles.separator} />
-        {/* <DepositSection /> */}
       </ContainerDesktop>
       <Footer />
     </div>
@@ -88,3 +88,16 @@ const styles = StyleSheet.create({
     marginBottom: Token.spacing.l,
   },
 });
+
+export async function getServerSideProps(context: NextPageContext) {
+  const user = redirectIfUnauthenticated(context);
+
+  if (user === null) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/"
+      }
+    }
+  }
+}

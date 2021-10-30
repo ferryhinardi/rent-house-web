@@ -6,7 +6,6 @@ import { Login, User } from 'types';
 
 export const login = ({ token }: Login) => {
   cookie.set('token', token, { expires: 1 });
-  // Redirect to homepage
 };
 
 export const redirectIfUnauthenticated = async ({
@@ -14,6 +13,10 @@ export const redirectIfUnauthenticated = async ({
   res,
   pathname,
 }: NextPageContext) => {
+  if (!Boolean((req as NextApiRequest)?.cookies?.token)) {
+    return null;
+  }
+
   try {
     const user = await fetchServer<User>(
       req as NextApiRequest,
@@ -25,12 +28,10 @@ export const redirectIfUnauthenticated = async ({
     return user;
   } catch (err) {
     if ((err as AxiosError).response?.status == 401 && pathname !== undefined) {
-      (res as NextApiResponse).writeHead(301, { Location: '/' });
-      (res as NextApiResponse).end();
       return null;
     }
 
-    return null;
+    return undefined;
   }
 };
 
