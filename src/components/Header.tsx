@@ -1,10 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Cookie from 'js-cookie';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useSprings, animated, config } from 'react-spring';
-import { Token } from 'core';
+import { fetcher, Token } from 'core';
 import { menus, QUERY_KEYS } from 'core/constants';
 import { User } from 'types';
 import assets from 'assets';
@@ -16,7 +17,13 @@ const AnimatedView = animated(View);
 
 function Header() {
   const router = useRouter();
-  const { data, isLoading } = useQuery<User>(QUERY_KEYS.CURRENT_USER);
+  const { data, isLoading } = useQuery<User>(QUERY_KEYS.CURRENT_USER, () =>
+    fetcher<User>({
+      method: 'POST',
+      url: '/user/current-user',
+    }),
+    { enabled: Boolean(Cookie.get('token')) }
+  );
   const menuAnimations = useSprings(
     menus.length,
     // all animations
