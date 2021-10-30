@@ -14,7 +14,7 @@ async function fetcherServer<T>(req: NextApiRequest, res: NextApiResponse<T>, op
   const authentication = cookies?.['token'];
   const headers = {
     ...options.headers,
-    Authorization: `Bearer ${authentication}`,
+    ...(authentication ? { Authorization: `Bearer ${authentication}` } : {}),
   };
   // Remove host to solve issue:
   // ErrorCode: [ERR_TLS_CERT_ALTNAME_INVALID]:
