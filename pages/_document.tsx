@@ -13,7 +13,8 @@ const normalizeNextElements = `
 `
 
 class RynaDocument extends Document {
-  static async getInitialProps({ renderPage }: NextPageContext & { renderPage: () => void }) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static async getInitialProps({ renderPage }: NextPageContext & { renderPage: any }) {
     AppRegistry.registerComponent(config.name, () => Main)
     // @ts-ignore
     const { getStyleElement } = AppRegistry.getApplication(config.name)
