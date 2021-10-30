@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Cookie from 'js-cookie';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useSprings, animated, config } from 'react-spring';
@@ -9,8 +10,8 @@ import { menus, QUERY_KEYS } from 'core/constants';
 import { User } from 'types';
 import assets from 'assets';
 import { routePaths } from 'routePaths';
-import { SignInButton } from './SignIn';
-import UserLoginHeader from './UserLoginHeader';
+import { SignInButton } from 'components/SignIn';
+import UserLoginHeader from 'components/UserLoginHeader';
 
 const AnimatedView = animated(View);
 
@@ -20,7 +21,8 @@ function Header() {
     fetcher<User>({
       method: 'POST',
       url: '/user/current-user',
-    })
+    }),
+    { enabled: Boolean(Cookie.get('token')) }
   );
   const menuAnimations = useSprings(
     menus.length,
