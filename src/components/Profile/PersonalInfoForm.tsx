@@ -378,7 +378,8 @@ export default function PersonalInfoForm() {
           </Text>
           <SelectInput
             {...proofIncomeField}
-            onChange={onChangeProofOfIncome as any}
+            // @ts-ignore
+            onChange={onChangeProofOfIncome}
             value={proofIncomeOptions.find((x) => x.value === proofIncomeField.value)}
             instanceId="proofIncome"
             variant="primary"

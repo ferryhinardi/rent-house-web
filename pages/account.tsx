@@ -4,8 +4,6 @@ import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
 import { useTranslation } from 'react-i18next';
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
-// @ts-ignore
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {
   Head,
   HeaderMenu,

@@ -4,7 +4,7 @@ import { Element } from 'react-scroll';
 import { useTranslation } from 'react-i18next';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import { Text, Button, Badge } from 'core/base';
+import { Text, Button } from 'core/base';
 import { Token } from 'core';
 
 export default function LinkedAccounts() {

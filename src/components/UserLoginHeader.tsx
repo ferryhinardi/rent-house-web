@@ -10,7 +10,6 @@ import { useClickOutside } from 'core/hooks';
 import { User } from 'types';
 import { logout } from 'utils/auth';
 import { routePaths } from 'routePaths';
-import Notification from './Notification';
 
 type Props = User;
 

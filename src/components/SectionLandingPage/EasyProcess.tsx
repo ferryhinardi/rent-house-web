@@ -7,7 +7,7 @@ import { useQuery } from 'react-query';
 import config from 'config';
 import { Token, fetcher } from 'core';
 import { QUERY_KEYS } from 'core/constants';
-import { Text, Button } from 'core/base';
+import { Text } from 'core/base';
 import { EasyProcessPlaceholder } from 'components/Placeholder';
 import { Process, ResponseItem } from 'types';
 

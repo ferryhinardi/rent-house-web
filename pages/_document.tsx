@@ -1,4 +1,5 @@
 import { Children } from 'react';
+import { NextPageContext } from 'next';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { AppRegistry } from 'react-native';
 import config from '../app.json';
@@ -12,13 +13,13 @@ const normalizeNextElements = `
 `
 
 class RynaDocument extends Document {
-  static async getInitialProps({ renderPage }: any) {
+  static async getInitialProps({ renderPage }: NextPageContext & { renderPage: () => void }) {
     AppRegistry.registerComponent(config.name, () => Main)
     // @ts-ignore
     const { getStyleElement } = AppRegistry.getApplication(config.name)
     const page = await renderPage()
     const styles = [
-      <style dangerouslySetInnerHTML={{ __html: normalizeNextElements }} />,
+      <style key={Math.random()} dangerouslySetInnerHTML={{ __html: normalizeNextElements }} />,
       getStyleElement(),
     ]
     return { ...page, styles: Children.toArray(styles) }

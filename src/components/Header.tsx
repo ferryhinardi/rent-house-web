@@ -9,7 +9,6 @@ import { menus, QUERY_KEYS } from 'core/constants';
 import { User } from 'types';
 import assets from 'assets';
 import { routePaths } from 'routePaths';
-import LanguageSelection from './LanguageSelection';
 import { SignInButton } from './SignIn';
 import UserLoginHeader from './UserLoginHeader';
 

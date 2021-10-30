@@ -51,10 +51,6 @@ export default function ScheduleTourForm(props: Props) {
     mutateApplication(apppl);
   };
 
-  const onScheduleTour = () => {
-    window.open(props.external_url);
-  };
-
   const { data } = useQuery([QUERY_KEYS.HOME_ROOM, homeID], async () => {
     const res = await fetcher<ResponseItem<Room>>({
       method: 'GET',
