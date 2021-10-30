@@ -18,7 +18,7 @@ import {
 import { Token, fetchServer } from 'core';
 import { ContainerDesktop, Text } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
-import { User, House, ResponseItem } from 'types';
+import { User, House, Roomate, ResponseItem } from 'types';
 import { redirectIfUnauthenticated } from 'utils/auth';
 
 type Props = {
@@ -101,7 +101,7 @@ export async function getServerSideProps(context: NextPageContext) {
     }
   }
 
-  await queryClient.prefetchQuery([QUERY_KEYS.HOUSE_MATCH, user?.id], () =>
+  await queryClient.fetchQuery([QUERY_KEYS.HOUSE_MATCH, user?.id], () =>
     fetchServer<ResponseItem<House>>(
       context.req as NextApiRequest,
       context.res as NextApiResponse,
@@ -110,6 +110,14 @@ export async function getServerSideProps(context: NextPageContext) {
       // { url: `/match-property/preferences/11` }
     )
   );
+
+  await queryClient.fetchQuery([QUERY_KEYS.ROOMMATES, user?.id], async () =>
+    fetchServer<Roomate>(
+      context.req as NextApiRequest,
+      context.res as NextApiResponse,
+      { url: `/user/${user?.id}` })
+  );
+
   return {
     props: {
       user,
