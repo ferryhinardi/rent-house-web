@@ -16,7 +16,7 @@ export const redirectIfUnauthenticated = async ({
   if (!Boolean((req as NextApiRequest)?.cookies?.token)) {
     return null;
   }
-console.log('token....', (req as NextApiRequest)?.cookies?.token);
+
   try {
     const user = await fetchServer<User>(
       req as NextApiRequest,
