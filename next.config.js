@@ -36,7 +36,7 @@ module.exports = withSentryConfig(
     trailingSlash: true,
     reactStrictMode: true,
     images: {
-      domains: ['theryna.sgp1.cdn.digitaloceanspaces.com', 'uploader-assets.s3.ap-south-1.amazonaws.com'],
+      domains: ['theryna.sgp1.cdn.digitaloceanspaces.com', 'cyclops.sfo3.cdn.digitaloceanspaces.com'],
     },
     webpack: (config, { dev, isServer, webpack }) => {
       config.plugins.push(

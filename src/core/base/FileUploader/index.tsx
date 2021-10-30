@@ -6,6 +6,7 @@ import React, { useRef, useState } from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import assets from 'assets';
 import config from 'config';
 
 type ErrorStatus = 'LIMIT_SIZE';
@@ -18,8 +19,6 @@ type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onError'> & {
   onFileChange?: () => void;
   onError?: (error: { status: string | ErrorStatus; message?: string }) => void;
 };
-
-const imagePlaceholder = 'https://uploader-assets.s3.ap-south-1.amazonaws.com/codepen-default-placeholder.png';
 
 export default function FileUploader({
   value,
@@ -92,8 +91,8 @@ export default function FileUploader({
             }}>
             <Image
               className="uploader-image"
-              src={(val as string) || imagePlaceholder}
-              blurDataURL={(val as string) || imagePlaceholder}
+              src={(val as string) || assets.placehoderImage}
+              blurDataURL={(val as string) || assets.placehoderImage}
               loader={customImgLoader}
               placeholder="blur"
               width={240}
