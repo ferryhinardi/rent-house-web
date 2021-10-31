@@ -15,16 +15,13 @@ import assets from 'assets';
 
 export default function EasyProcess() {
   const { t } = useTranslation();
-  const { data, isLoading } = useQuery<ResponseItem<Process>>(
-    QUERY_KEYS.PROCESS,
-    async () => {
-      const res = await fetcher<ResponseItem<Process>>({
-        method: 'GET',
-        url: '/process',
-      });
-      return res;
-    }
-  );
+  const { data, isLoading } = useQuery<ResponseItem<Process>>(QUERY_KEYS.PROCESS, async () => {
+    const res = await fetcher<ResponseItem<Process>>({
+      method: 'GET',
+      url: '/process',
+    });
+    return res;
+  });
 
   return (
     <View style={styles.container}>
@@ -49,7 +46,7 @@ export default function EasyProcess() {
                   blurDataURL={`${config.imageHost}/${process.image}`}
                   placeholder="blur"
                   loading="lazy"
-                  width="100%"
+                  width={34}
                   height={34}
                   alt={process.title}
                 />
@@ -57,9 +54,7 @@ export default function EasyProcess() {
                   {process.title}
                 </Text>
               </View>
-              <Text style={styles.processDescription}>
-                {process.description}
-              </Text>
+              <Text style={styles.processDescription}>{process.description}</Text>
             </View>
           ))}
         </View>
