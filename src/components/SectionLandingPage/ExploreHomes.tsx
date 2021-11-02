@@ -83,7 +83,7 @@ export default function ExploreHomes() {
                     layout: 'responsive',
                     height: '100%',
                     width: '100%',
-                    alt: 'hause explore image',
+                    alt: 'house explore image',
                     objectFit: 'contain',
                     onError: () => console.error('error render image'),
                   }}
@@ -116,7 +116,7 @@ export default function ExploreHomes() {
                       height: '100%',
                       width: '100%',
                       layout: 'responsive',
-                      alt: 'hause explore image',
+                      alt: 'house explore image',
                       objectFit: 'contain',
                       onError: () => console.error('error render image'),
                     }}
