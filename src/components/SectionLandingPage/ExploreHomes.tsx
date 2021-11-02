@@ -7,7 +7,7 @@ import Image from 'next/image';
 import config from 'config';
 import { ResponseItem, House } from 'types';
 import { Token, fetcher } from 'core';
-import { Card, Text, Button, ContainerDesktop } from 'core/base';
+import { Card, Text, ContainerDesktop } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 
 import { ExploreHomePlaceholder } from 'components/Placeholder';
@@ -39,7 +39,6 @@ export default function ExploreHomes() {
           </Text>
           <Text variant="caption">{t('subtitleExploreHomes')}</Text>
         </View>
-        {/* <Button variant="secondary" text={t('moreButtonExploreHomes')} /> */}
       </View>
 
       {isLoading ? (

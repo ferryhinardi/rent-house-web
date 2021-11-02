@@ -1,6 +1,5 @@
-import ProgressBar from 'components/Progress/Bar';
 import { Token } from 'core';
-import { Badge, Button, Text } from 'core/base';
+import { Button, Text } from 'core/base';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -97,11 +96,6 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     marginVertical: Token.spacing.m,
-  },
-  progressBar: {
-    flex: 1,
-    alignSelf: 'center',
-    marginVertical: Token.spacing.l,
   },
   btnCompleted: {
     marginVertical: Token.spacing.m,

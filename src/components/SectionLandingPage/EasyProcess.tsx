@@ -7,7 +7,7 @@ import { useQuery } from 'react-query';
 import config from 'config';
 import { Token, fetcher } from 'core';
 import { QUERY_KEYS } from 'core/constants';
-import { Text, Button } from 'core/base';
+import { Text } from 'core/base';
 import { EasyProcessPlaceholder } from 'components/Placeholder';
 import { Process, ResponseItem } from 'types';
 
@@ -15,16 +15,13 @@ import assets from 'assets';
 
 export default function EasyProcess() {
   const { t } = useTranslation();
-  const { data, isLoading } = useQuery<ResponseItem<Process>>(
-    QUERY_KEYS.PROCESS,
-    async () => {
-      const res = await fetcher<ResponseItem<Process>>({
-        method: 'GET',
-        url: '/process',
-      });
-      return res;
-    }
-  );
+  const { data, isLoading } = useQuery<ResponseItem<Process>>(QUERY_KEYS.PROCESS, async () => {
+    const res = await fetcher<ResponseItem<Process>>({
+      method: 'GET',
+      url: '/process',
+    });
+    return res;
+  });
 
   return (
     <View style={styles.container}>
@@ -49,7 +46,7 @@ export default function EasyProcess() {
                   blurDataURL={`${config.imageHost}/${process.image}`}
                   placeholder="blur"
                   loading="lazy"
-                  width="100%"
+                  width={34}
                   height={34}
                   alt={process.title}
                 />
@@ -57,9 +54,7 @@ export default function EasyProcess() {
                   {process.title}
                 </Text>
               </View>
-              <Text style={styles.processDescription}>
-                {process.description}
-              </Text>
+              <Text style={styles.processDescription}>{process.description}</Text>
             </View>
           ))}
         </View>

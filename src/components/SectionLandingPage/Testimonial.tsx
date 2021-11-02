@@ -3,7 +3,7 @@ import { View, FlatList, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import config from 'config';
 import { fetcher, Token } from 'core';
-import { ContainerDesktop, Text, Button, Card } from 'core/base';
+import { ContainerDesktop, Text, Card } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { TestimonyPlaceholder } from 'components/Placeholder';
 import { ResponseItem, Testimony } from 'types';
@@ -95,9 +95,6 @@ const styles = StyleSheet.create({
   subtitle: {
     marginTop: Token.spacing.m,
     marginBottom: Token.spacing.xxl,
-  },
-  moreButtton: {
-    alignSelf: 'flex-start',
   },
   cardStyle: {
     flexGrow: 1,

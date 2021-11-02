@@ -1,35 +1,38 @@
 import React from 'react';
-import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
-
+import { NextPageContext } from 'next';
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 import { Head, HeaderMenu, RoommateProfile, Footer } from 'components';
-import { fetcher } from 'core';
-
-import { User } from 'types';
 import { QUERY_KEYS } from 'core/constants';
+import { redirectIfUnauthenticated } from 'utils/auth';
 
 export default function ProfileDetail() {
-  const router = useRouter();
-  const { query } = router;
-
-  const { data } = useQuery<User>(
-    QUERY_KEYS.USER,
-    async () => {
-      const res = await fetcher<User>({
-        method: 'GET',
-        url: `/user/${query.userId}`,
-      });
-      return res;
-    },
-    { enabled: query.userId !== undefined }
-  );
-
   return (
     <div>
       <Head />
       <HeaderMenu />
-      <RoommateProfile user={data} />
+      <RoommateProfile />
       <Footer />
     </div>
   );
+}
+
+export async function getServerSideProps(context: NextPageContext) {
+  const queryClient = new QueryClient();
+  const user = await queryClient.fetchQuery([QUERY_KEYS.CURRENT_USER, context.query.userId], () => redirectIfUnauthenticated(context));
+
+  if (user === null) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/"
+      }
+    }
+  }
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 }

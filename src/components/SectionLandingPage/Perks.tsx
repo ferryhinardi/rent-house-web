@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import config from 'config';
 
 import { fetcher, Token } from 'core';
-import { Card, Text, Button } from 'core/base';
+import { Card, Text } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { PerksPlaceholder } from 'components/Placeholder';
 import { Perk, ResponseItem } from 'types';
@@ -21,16 +21,6 @@ function Perks() {
     });
     return res;
   });
-
-  const onNavigateToTopSection = async () => {
-    const { scroller } = await import('react-scroll');
-    scroller.scrollTo('find-my-home', {
-      duration: 500,
-      delay: 100,
-      smooth: true,
-      offset: -50,
-    });
-  };
 
   const perks = data?.data;
   const [upperSection, bottomSection] = [perks?.slice(0, 2), perks?.slice(2)];
@@ -53,14 +43,6 @@ function Perks() {
           </Text>
           <Text variant="caption">{t('subtitlePerks')}</Text>
         </View>
-        {/* <Button
-          variant="secondary"
-          text={t('moreButtonPerks')}
-          onPress={onNavigateToTopSection}
-          style={{
-            zIndex: 2,
-          }}
-        /> */}
       </View>
 
       {isLoading ? (

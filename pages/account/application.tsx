@@ -57,24 +57,17 @@ export default function Application({ applications }: Props) {
 }
 
 export async function getServerSideProps(context: NextPageContext) {
-  // This value is considered fresh for ten seconds (s-maxage=10).
-  // If a request is repeated within the next 10 seconds, the previously
-  // cached value will still be fresh. If the request is repeated before 59 seconds,
-  // the cached value will be stale but still render (stale-while-revalidate=59).
-  //
-  // In the background, a revalidation request will be made to populate the cache
-  // with a fresh value. If you refresh the page, you will see the new value.
-  // https://nextjs.org/docs/going-to-production#caching
-  context.res?.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
   const queryClient = new QueryClient();
   const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () => redirectIfUnauthenticated(context));
 
-  // const applicationsa = await queryClient.fetchQuery([QUERY_KEYS.USER_APPLICATIONS, user?.id], () => {
-  //   fetcherServer<ResponseItem<ApplicationData>>(context.req as NextApiRequest, context.res as NextApiResponse, {
-  //     method: 'GET',
-  //     url: `/application/all?user_id=${user?.id}`,
-  //   });
-  // });
+  if (user === null) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/"
+      }
+    }
+  }
 
   const applications = await queryClient.fetchQuery([QUERY_KEYS.USER_APPLICATIONS, user?.id], () =>
     fetchServer<ResponseItem<ApplicationData>>(context.req as NextApiRequest, context.res as NextApiResponse, {
