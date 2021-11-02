@@ -16,16 +16,13 @@ function Footer() {
   const onNavigateMenu = (href: string) => {
     router.push(href);
   };
+  const year = new Date().getFullYear();
+
   return (
     <View style={styles.container}>
       <View style={styles.footer}>
         <View style={styles.sectionLogo}>
-          <Image
-            {...assets.logoWhite}
-            placeholder="blur"
-            layout="fixed"
-            alt="logo"
-          />
+          <Image {...assets.logoWhite} placeholder="blur" layout="fixed" alt="logo" />
           <Text ink="light">{t('footerTitle')}</Text>
         </View>
         <View style={styles.sectionMenu}>
@@ -38,8 +35,7 @@ function Footer() {
               ink="light"
               accessibilityRole="link"
               onPress={() => onNavigateMenu(menu.href)}
-              style={styles.list}
-            >
+              style={styles.list}>
               {menu.name}
             </Text>
           ))}
@@ -63,7 +59,7 @@ function Footer() {
         </View>
       </View>
       <Text ink="light" style={styles.copyRight}>
-        {t('copyRightCaption')}
+        {t('copyRightCaption', { year: year })}
       </Text>
     </View>
   );
@@ -77,8 +73,7 @@ function FollowUsList() {
         // @ts-ignore
         href={'https://www.facebook.com/therynaofficial/'}
         target="_blank"
-        style={styles.followUsWrapper}
-      >
+        style={styles.followUsWrapper}>
         <Icon name="facebook-f" size={30} color={Token.colors.white} />
       </Text>
       {/* <Text
@@ -95,8 +90,7 @@ function FollowUsList() {
         // @ts-ignore
         href={'https://www.instagram.com/therynaofficial/'}
         target="_blank"
-        style={styles.followUsWrapper}
-      >
+        style={styles.followUsWrapper}>
         <Icon name="instagram" size={30} color={Token.colors.white} />
       </Text>
       <Text
@@ -104,8 +98,7 @@ function FollowUsList() {
         // @ts-ignore
         href={'https://www.linkedin.com/company/ryna/'}
         target="_blank"
-        style={styles.followUsWrapper}
-      >
+        style={styles.followUsWrapper}>
         <Icon name="linkedin" size={30} color={Token.colors.white} />
       </Text>
     </View>
