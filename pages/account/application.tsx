@@ -64,9 +64,9 @@ export async function getServerSideProps(context: NextPageContext) {
     return {
       redirect: {
         permanent: false,
-        destination: "/"
-      }
-    }
+        destination: '/',
+      },
+    };
   }
 
   const applications = await queryClient.fetchQuery([QUERY_KEYS.USER_APPLICATIONS, user?.id], () =>

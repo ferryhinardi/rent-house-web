@@ -16,6 +16,7 @@ type Props = {
   stateIndex: number;
   stateIndexSetter: React.Dispatch<React.SetStateAction<number>>;
   questions: Question[];
+  answers?: Answer[];
   methods?: UseFieldArrayReturn<PreferenceQuestionState>;
 };
 
@@ -97,10 +98,42 @@ export default function PreferenceQuestion(props: Props) {
     setProgressIndex(Number((answered / props.questions.length).toFixed(1)));
   }, [props.methods?.fields, props.questions.length]);
 
+  questionSprings.map((animateStyle, idx) => {
+    var existsAnswer = props.answers?.find(function (o1) {
+      if (o1.question_id === props.questions[idx].id) {
+        return o1;
+      }
+    });
+
+    if (props.methods?.fields[idx] === undefined && existsAnswer) {
+      // set exists answer as default value
+      props.methods?.update(idx, {
+        name: props.questions[idx]?.title,
+        value: existsAnswer.value,
+        tag: props.questions[idx]?.matching_tag,
+        questionID: props.questions[idx]?.id,
+      });
+    }
+  });
+
   return (
     <View>
       <View style={styles.content}>
         {questionSprings.map((animateStyle, idx) => {
+          var existsAnswer = props.answers?.find(function (o1) {
+            if (o1.question_id === props.questions[idx].id) {
+              return o1;
+            }
+          });
+          if ((props.methods?.fields[idx]?.value?.length as number) === 0 && existsAnswer) {
+            // set exists answer as default value
+            props.methods?.update(idx, {
+              name: props.questions[idx]?.title,
+              value: existsAnswer.value,
+              tag: props.questions[idx]?.matching_tag,
+              questionID: props.questions[idx]?.id,
+            });
+          }
           return (
             <AnimatedView
               key={`${idx}`}
@@ -111,8 +144,14 @@ export default function PreferenceQuestion(props: Props) {
                   onSubmit={onTouchNext}
                   loading={false}
                   question={props.questions[idx]}
+                  answer={props.answers?.find(function (o1) {
+                    if (o1.question_id === props.questions[idx].id) {
+                      return o1;
+                    }
+                  })}
                   index={idx}
                   methods={props.methods}
+                  preferencePage={true}
                 />
               </View>
             </AnimatedView>
