@@ -10,9 +10,10 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 type Props = Omit<React.ComponentProps<typeof Input>, 'onChange'> & {
   onChange?: (value: string) => void;
+  customInitial?: string;
 };
 
-function DirectCalendar({ onChange }: Props) {
+function DirectCalendar({ onChange, customInitial }: Props) {
   const formatter = useStable(
     () =>
       new Intl.DateTimeFormat('default', {
@@ -21,7 +22,7 @@ function DirectCalendar({ onChange }: Props) {
         day: 'numeric',
       })
   );
-  const [value, setValue] = React.useState(new Date());
+  const [value, setValue] = React.useState(customInitial ? new Date(customInitial) : new Date());
 
   const onChangeCalendar: OnChangeDateCallback = (value: Date) => {
     setValue(value);

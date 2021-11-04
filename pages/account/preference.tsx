@@ -7,9 +7,14 @@ import { fetchServer } from 'core';
 import { ContainerDesktop } from 'core/base';
 import { dehydrate } from 'react-query/hydration';
 import { QUERY_KEYS } from 'core/constants';
-import { Question, ResponseItem } from 'types';
+import { Answer, Question, ResponseItem } from 'types';
+import { redirectIfUnauthenticated } from 'utils/auth';
 
-export default function Preference() {
+type Props = {
+  answers?: Answer[];
+};
+
+export default function Preference({ answers }: Props) {
   const { t } = useTranslation();
   return (
     <div>
@@ -17,23 +22,42 @@ export default function Preference() {
       <HeaderMenu />
       <ContainerDesktop>
         <HeaderNavigation title={t('preference')} />
-        <PreferenceContent />
+        <PreferenceContent answers={answers} />
       </ContainerDesktop>
       <Footer />
     </div>
   );
 }
 
-export async function getServerSideProps({ res, req }: NextPageContext) {
+export async function getServerSideProps(context: NextPageContext) {
   const queryClient = new QueryClient();
-  await queryClient.fetchQuery(QUERY_KEYS.QUESTION_USER_PREFERENCES, () =>
-    fetchServer<ResponseItem<Question>>(req as NextApiRequest, res as NextApiResponse, {
+  const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () => redirectIfUnauthenticated(context));
+
+  if (user === null) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    };
+  }
+
+  await queryClient.fetchQuery(QUERY_KEYS.QUESTION_ALL, () =>
+    fetchServer<ResponseItem<Question>>(context.req as NextApiRequest, context.res as NextApiResponse, {
       url: '/question/all',
-      params: { section: 'user_preferences' },
     })
   );
+
+  const answersRes = await queryClient.fetchQuery([QUERY_KEYS.ANSWER, user?.id], () =>
+    fetchServer<ResponseItem<Answer>>(context.req as NextApiRequest, context.res as NextApiResponse, {
+      method: 'GET',
+      url: `/answers/${user?.id}`,
+    })
+  );
+
   return {
     props: {
+      answers: answersRes.data,
       dehydratedState: dehydrate(queryClient),
     },
   };

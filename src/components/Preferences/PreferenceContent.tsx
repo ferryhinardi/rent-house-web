@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token, fetcher } from 'core';
 import { Text } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
-import { Question, QuestionState, ResponseItem } from 'types';
+import { Answer, Question, QuestionState, ResponseItem } from 'types';
 import SideBar from '../SideBar';
 import PreferenceQuestion from './PreferenceQuestion';
 
@@ -16,13 +16,16 @@ type PreferenceQuestionState = {
   states: QuestionState[];
 };
 
-export default function PreferenceContent() {
+type Props = {
+  answers?: Answer[];
+};
+
+export default function PreferenceContent({ answers }: Props) {
   const [stateIndex, setStateIndex] = React.useState(0);
-  const { data, isLoading } = useQuery(QUERY_KEYS.QUESTION_USER_PREFERENCES, async () => {
+  const { data, isLoading } = useQuery(QUERY_KEYS.QUESTION_ALL, async () => {
     const res = await fetcher<ResponseItem<Question>>({
       method: 'GET',
       url: '/question',
-      params: { section: 'user_preferences' },
     });
     return res;
   });
@@ -32,6 +35,7 @@ export default function PreferenceContent() {
     control,
     name: 'states',
   });
+
   const qMap = new Map<string, Question[]>(getQuestionMap(questions));
   const sideBarMenu = new Array<{
     name: string;
@@ -77,6 +81,7 @@ export default function PreferenceContent() {
           stateIndex={stateIndex}
           stateIndexSetter={setStateIndex}
           questions={questions}
+          answers={answers}
           methods={fieldsArrayMethods}
         />
       </View>
