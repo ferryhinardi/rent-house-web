@@ -1,7 +1,7 @@
 import { Token } from 'core';
 import { Input, Text } from 'core/base';
 import { useClickOutside, useStable } from 'core/hooks';
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import ReactCalendar, { OnChangeDateCallback } from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { StyleSheet, TextInput, View } from 'react-native';
@@ -9,14 +9,16 @@ import { StyleSheet, TextInput, View } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { animated, useSpring } from 'react-spring';
 import { parseUnixTime } from '../../utils/parseunix';
+import { parseDateFormat } from '../../utils/parseDateFormat';
 
 const AnimatedView = animated(View);
 
 type Props = Omit<React.ComponentProps<typeof Input>, 'onChange'> & {
-  onChange?: (value: number | Date) => void;
+  onChange?: (value: number | Date | string) => void;
+  formatted?: boolean; // means use yyyy-mm-dd format
 };
 
-function Calendar({ onChange, ...restProps }: Props) {
+function Calendar({ onChange, formatted = false, ...restProps }: Props) {
   const formatter = useStable(
     () =>
       new Intl.DateTimeFormat('default', {
@@ -29,6 +31,12 @@ function Calendar({ onChange, ...restProps }: Props) {
   const [isConstruct, setIsContruct] = React.useState(false);
   const [value, setValue] = React.useState(new Date());
   const calendarInputRef = useRef<TextInput>();
+
+  useEffect(() => {
+    if (restProps.value) {
+      setValue(new Date(restProps.value));
+    }
+  }, [restProps.value]);
 
   const calendarAnimateStyle = useSpring({
     opacity: isVisibile ? 1 : 0,
@@ -46,7 +54,11 @@ function Calendar({ onChange, ...restProps }: Props) {
 
   const onChangeCalendar: OnChangeDateCallback = (value: Date) => {
     setValue(value);
-    onChange?.(parseUnixTime(value));
+    if (formatted) {
+      onChange?.(parseDateFormat(value));
+    } else {
+      onChange?.(parseUnixTime(value));
+    }
     onHide();
   };
 
