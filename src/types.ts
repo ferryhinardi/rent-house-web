@@ -153,7 +153,7 @@ export type EmergencyContactType = {
 };
 
 export type PayloadUpdateUser = User & {
-  dob: string;
+  dob: number;
   gender: Option;
   government_id: FileList;
   credit_report: FileList;

@@ -12,6 +12,7 @@ export default function createPayloadUpdateUser(payload: PayloadUpdateUser) {
     bodyFormGovermentDataDoc,
     bodyFormCreditScoreDataDoc;
   const bodyFormDataUser = new FormData();
+
   bodyFormDataUser.set('name', payload.name);
   bodyFormDataUser.set('address', payload.address);
   bodyFormDataUser.set('bio', payload.bio);
@@ -19,7 +20,17 @@ export default function createPayloadUpdateUser(payload: PayloadUpdateUser) {
   bodyFormDataUser.set('annual_income', payload.annual_income?.toString());
   bodyFormDataUser.set('credit_score', payload.credit_score?.toString());
   bodyFormDataUser.set('gender', payload.gender.value?.toString());
-  bodyFormDataUser.set('birth_date', payload.dob);
+
+  const birthDay = new Date(payload.dob * 1000);
+  const birthMonth = birthDay.getMonth() + 1;
+  const birthDate = birthDay.getDate();
+
+  // yyyy-mm-dd
+  bodyFormDataUser.set(
+    'birth_date',
+    `${birthDay.getFullYear()}-${birthMonth < 10 ? '0' : ''}${birthMonth}-${birthDate < 10 ? '0' : ''}${birthDate}`
+  );
+
   bodyFormDataUser.set('phone', payload.phone);
   bodyFormDataUser.set('proof_of_income_type', proofOfIncomeType?.toString());
   if (payload.facebook_url) bodyFormDataUser.set('facebook_url', payload.facebook_url);
