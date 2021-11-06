@@ -6,7 +6,7 @@ import { Token } from 'core';
 import { Text, Button, Input, LoadingIndicator } from 'core/base';
 import Slider from 'components/Slider';
 import Container, { MinRange, MaxRange } from 'components/Slider/Container';
-import { Question } from 'types';
+import { Answer, Question } from 'types';
 import { FormData } from 'components/SectionLandingPage/Hero';
 import { colors, fontSize } from 'core/base/Token';
 import DirectCalendar from 'core/base/Calendar/DirectCalendar';
@@ -18,14 +18,28 @@ type Props = {
   index?: number;
   onSubmit?: () => void;
   choiceLabel?: string;
+  preferencePage?: boolean;
+  answer?: Answer;
 };
 
-function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceLabel }: Props) {
+function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceLabel, preferencePage, answer }: Props) {
   const { t } = useTranslation();
   let QuestionContent;
 
-  const minV = question?.add_ons?.range_number_min ?? MinRange;
-  const maxV = question?.add_ons?.range_number_max ?? MaxRange;
+  let minV = question?.add_ons?.range_number_min ?? MinRange;
+  let maxV = question?.add_ons?.range_number_max ?? MaxRange;
+  var initValueMin = minV;
+  var initValueMax = maxV;
+
+  if (answer && (methods?.fields[index]?.value?.length as number) === 0) {
+    // set exists answer as default value
+    methods?.update(index, {
+      name: question?.title,
+      value: answer.value,
+      tag: question?.matching_tag,
+      questionID: question?.id,
+    });
+  }
 
   const onSelectedDateCallback = useCallback(
     (value: string) => {
@@ -57,17 +71,30 @@ function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceL
     case 'DATE':
       QuestionContent = (
         <View style={styles.alignCenterContainer}>
-          <DirectCalendar onChange={onSelectedDateCallback} placeholder={t('placeholderCalendar')} />
+          {(answer?.value as unknown) instanceof Date ? (
+            <DirectCalendar
+              onChange={onSelectedDateCallback}
+              customInitial={answer?.value}
+              placeholder={t('placeholderCalendar')}
+            />
+          ) : (
+            <Input key={answer?.value} editable={false} textInputStyle={styles.textInput} value={answer?.value} />
+          )}
         </View>
       );
       break;
     case 'RANGE_NUMBER':
+      if (answer && answer?.value.split('-').length > 1) {
+        var range = answer?.value.split('-');
+        initValueMin = parseInt(range[0].replace('$', ''));
+        initValueMax = parseInt(range[1].replace('$', ''));
+      }
       QuestionContent = (
         <Container>
           <Slider
             trackColor={'rgba(28,43,79,0.3)'} // Token.colors.rynaBlue with opacity
             trackHighlightColor={Token.colors.blue}
-            value={[minV!, maxV!]}
+            value={[initValueMin!, initValueMax!]}
             step={50}
             minimumValue={minV}
             maximumValue={maxV}
@@ -82,7 +109,11 @@ function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceL
         <Input
           key={choice}
           editable={false}
-          containerStyle={methods?.fields[index]?.value === choice ? styles.selectedChoice : styles.containerTextInput}
+          containerStyle={
+            methods?.fields[index]?.value === choice || answer?.value === choice
+              ? styles.selectedChoice
+              : styles.containerTextInput
+          }
           textInputStyle={styles.textInput}
           value={choice}
           rightLabel={
@@ -121,13 +152,13 @@ function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceL
     }
     switch (question?.type) {
       case 'RANGE_NUMBER':
-        onRangeSlideComplete([minV!, maxV!]);
+        onRangeSlideComplete([initValueMin!, initValueMax!]);
         break;
       default:
         break;
     }
     setChoice.current = question?.type ?? '';
-  }, [maxV, minV, onRangeSlideComplete, onSelectedDateCallback, question?.type]);
+  }, [maxV, minV, initValueMin, initValueMax, onRangeSlideComplete, onSelectedDateCallback, question?.type]);
 
   return (
     <View style={styles.container}>
@@ -148,7 +179,7 @@ function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceL
         </>
       )}
 
-      {question?.type === 'RANGE_NUMBER' && (
+      {question?.type === 'RANGE_NUMBER' && !preferencePage && (
         <Button
           style={styles.submitButton}
           text={t('submitQuestionButton')}

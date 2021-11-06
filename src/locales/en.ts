@@ -1,6 +1,6 @@
 const en = {
   metaTitle: 'Ryna Web',
-  metaDescription: 'Rent hause with partner',
+  metaDescription: 'Rent house with partner',
   bannerTitle: 'Homes to Empower Women',
   bannerSubtitle: 'Young, working hard, and want those killer city views? We’ve got properties – unique to your needs.',
   supportingMediaTitle: 'See who’s talking about us',
@@ -42,7 +42,7 @@ const en = {
   contactUsEmail: 'hello@theryna.com',
   contactUsTelp: 'Tel: +1 647-370-1095',
   footerFollowUsTitle: 'Follow Us',
-  copyRightCaption: 'Copyright @ 2020 Ryna. All right reserved.',
+  copyRightCaption: 'Copyright @ {{year}} Ryna. All right reserved.',
   basicProfile: 'Basic Profile',
   accountSettings: 'Account Settings',
   recommendation: 'Recommendation',
@@ -58,8 +58,7 @@ const en = {
   applicationDescription: 'Your house applications.',
   completeNow: 'Complete Now',
   recommendationTitle: 'Home Recommendation',
-  recommendationDescription:
-    'Your house recommendations.',
+  recommendationDescription: 'Your house recommendations.',
   roommatesTitle: 'Your Roommates',
   roommatesSubtitle: 'Your roommate profile will showed up here once we found you a match.',
   roommatesViewButton: 'View Detail',
@@ -196,6 +195,9 @@ const en = {
   aboutUs: 'About Us',
   partnerUs: 'Partner with Us',
   shortBio: 'Short Bio',
+
+  // header
+  myProfile: 'My Profile',
 };
 
 export default en;

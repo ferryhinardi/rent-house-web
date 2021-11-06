@@ -31,13 +31,13 @@ export default function FileUploader({
   ...restProps
 }: Props) {
   const fileRef = useRef<HTMLInputElement>();
-  const [image, setImage] = useState<string | File>();
-  let val = image;
+  const [file, setFile] = useState<string | File>();
+  let val;
   const onFileChangeCapture = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-      if (variant === 'image-preview') setImage(URL.createObjectURL(file));
-      else setImage(event.target.files[0]);
+      if (variant === 'image-preview') setFile(URL.createObjectURL(file));
+      else setFile(file);
 
       onFileChange?.();
 
@@ -50,10 +50,10 @@ export default function FileUploader({
     if (!disabled) fileRef.current?.click();
   };
 
-  if (variant === 'image-preview' && Boolean(value) && !Boolean(image)) {
+  if (variant === 'image-preview' && Boolean(value) && !Boolean(file)) {
     val = `${config.imageHost}/${value}`;
   } else if (variant === 'input' && Boolean(value)) {
-    val = { name: value } as File;
+    val = file || ({ name: value } as File);
   }
 
   return (

@@ -8,7 +8,7 @@ import { CalendarInput, ErrorMessage, FileUploader, Input, SelectInput, Text } f
 import { genderOptions, MAX_FILE_SIZE, proofIncomeOptions, QUERY_KEYS } from 'core/constants';
 import { getDocumentFile } from 'utils/getUserDocument';
 import { Option, UserDocument } from 'types';
-import { parseUnixTime } from 'core/utils/parseunix';
+import { parseDateFormat } from 'core/utils/parseDateFormat';
 
 export default function PersonalInfoForm() {
   const { register, control, setValue, getValues, setError, clearErrors, formState } = useFormContext();
@@ -26,12 +26,12 @@ export default function PersonalInfoForm() {
     },
   });
   const { field: dobField, fieldState: dobFieldState } = useController({
-    name: 'dob',
+    name: 'birth_date',
     control,
     rules: {
       required: t('dob.required') as string,
     },
-    defaultValue: parseUnixTime(new Date()),
+    defaultValue: parseDateFormat(new Date()),
   });
   const { field: phoneNumberField, fieldState: phoneNumberFieldState } = useController({
     name: 'phone',
@@ -257,6 +257,7 @@ export default function PersonalInfoForm() {
           </Text>
           <CalendarInput
             {...dobField}
+            formatted
             placeholder={t('dob')}
             error={Boolean(dobFieldState.error)}
             errorMessageId={dobFieldState.error?.message}

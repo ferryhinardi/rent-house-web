@@ -22,20 +22,24 @@ import { ContainerDesktop, Button, ErrorMessage } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { User, ResponseItem, EmergencyContactType, UserDocument, ErrorHandling, PayloadUpdateUser } from 'types';
 import createPayloadUpdateUser from 'utils/createPayloadUpdateUser';
-import createDefaultEmergencyContact from 'utils/createDefaultEmergencyContact';
+import { createDefaultEmergencyContact, createDefaultDocument } from 'utils/createDefaultForm';
 import { redirectIfUnauthenticated } from 'utils/auth';
 import clientUpload from 'core/fetcher/upload';
 
 type Props = {
   user: User;
+  documents: UserDocument[];
   emergencyContacts: ResponseItem<EmergencyContactType>;
 };
 type PromiseResult = Array<User | EmergencyContactType[] | UserDocument>;
 
-export default function Profile({ user, emergencyContacts }: Props) {
+export default function Profile({ user, documents, emergencyContacts }: Props) {
   const forms = useForm<PayloadUpdateUser>({
-    // @ts-ignore
-    defaultValues: { ...user, emergencyContacts: createDefaultEmergencyContact(emergencyContacts.data) },
+    defaultValues: {
+      ...user,
+      ...createDefaultDocument(documents),
+      emergencyContacts: createDefaultEmergencyContact(emergencyContacts.data),
+    },
   });
   const { t } = useTranslation();
   const { isLoading, isError, error, mutate } = useMutation<PromiseResult, ErrorHandling, PayloadUpdateUser>(
@@ -154,12 +158,12 @@ export async function getServerSideProps(context: NextPageContext) {
     return {
       redirect: {
         permanent: false,
-        destination: "/"
-      }
-    }
+        destination: '/',
+      },
+    };
   }
 
-  await queryClient.fetchQuery([QUERY_KEYS.DOCUMENT, user?.id], async () => {
+  const documents = await queryClient.fetchQuery([QUERY_KEYS.DOCUMENT, user?.id], async () => {
     const res = await fetchServer<{ data: UserDocument[] }>(
       context.req as NextApiRequest,
       context.res as NextApiResponse,
@@ -177,6 +181,7 @@ export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
       user,
+      documents,
       emergencyContacts,
       dehydratedState: dehydrate(queryClient),
     },

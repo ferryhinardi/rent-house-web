@@ -13,6 +13,15 @@ export const getDocumentFile = (
     : undefined;
 };
 
+export const DocumentMap: { [key: number]: string } = {
+  0: 'guarantor_government_id',
+  1: 'guarantor_credit_report',
+  2: 'guarantor_paystubs',
+  3: 'government_id',
+  4: 'credit_report',
+  5: 'paystubs',
+};
+
 function getDocumentNameByPath(path: string): string {
   const paths = path.split('/');
   return paths[paths.length - 1];
