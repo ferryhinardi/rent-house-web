@@ -195,6 +195,9 @@ const en = {
   aboutUs: 'About Us',
   partnerUs: 'Partner with Us',
   shortBio: 'Short Bio',
+
+  // header
+  myProfile: 'My Profile',
 };
 
 export default en;

@@ -58,6 +58,12 @@ type TooltipContentProps = {
    * Automated testID
    */
   testID?: string;
+
+  /**
+   * Determine arrow position for bottom tooltip
+   * @default middle
+   */
+  arrowPosition?: 'right' | 'middle';
 };
 
 type Props = {
@@ -82,21 +88,14 @@ export default function Tooltip(props: Props) {
       style={containerStyle}
       ref={parentRef as React.MutableRefObject<View>}
       {...hoverEventBindings}
-      {...baseLayoutBindings}
-    >
+      {...baseLayoutBindings}>
       {children}
-      <TooltipContent
-        show={shouldShowContent}
-        {...tooltipContentProps}
-        baseWidth={baseLayout.width}
-      />
+      <TooltipContent show={shouldShowContent} {...tooltipContentProps} baseWidth={baseLayout.width} />
     </View>
   );
 }
 
-function TooltipContent(
-  props: { show: boolean; baseWidth: number } & TooltipContentProps
-) {
+function TooltipContent(props: { show: boolean; baseWidth: number } & TooltipContentProps) {
   const {
     content,
     variant = 'normal',
@@ -107,11 +106,11 @@ function TooltipContent(
     show,
     baseWidth,
     testID,
+    arrowPosition = 'middle',
   } = props;
   const contentWidth = width === 'stretchToChild' ? baseWidth : width;
   const variantColor = getVariantColor(variant);
-  const [wrapperStyle, arrowStyle, cardOffsetStyle] =
-    getPositionVariantStyle(position);
+  const [wrapperStyle, arrowStyle, cardOffsetStyle] = getPositionVariantStyle(position);
 
   return (
     <View
@@ -125,16 +124,16 @@ function TooltipContent(
         calculateOffset(position, offset, show),
         wrapperStyle,
         getAbsoluteStyle(position, contentZIndex),
-      ]}
-    >
-      <View style={[styles.arrow, arrowStyle, { borderColor: variantColor }]} />
+      ]}>
       <View
         style={[
-          styles.tooltipCard,
-          cardOffsetStyle,
-          { backgroundColor: variantColor },
+          styles.arrow,
+          arrowStyle,
+          { borderColor: variantColor },
+          arrowPosition === 'right' && styles.arrowAlignRight,
         ]}
-      >
+      />
+      <View style={[styles.tooltipCard, cardOffsetStyle, { backgroundColor: variantColor }]}>
         {isReactText(content) && (
           <Text ink="light" style={styles.tooltipText}>
             {content}
@@ -161,11 +160,7 @@ function isReactText(content: React.ReactNode): content is React.ReactText {
 // Determine the transformation styling should be used in
 // animating the tooltip when shown or hidden (slide value).
 // takes the position variant, the offset (distance from an edge).
-function calculateOffset(
-  position: Position,
-  offset: Props['offset'],
-  show: boolean
-) {
+function calculateOffset(position: Position, offset: Props['offset'], show: boolean) {
   const translate = { x: 0, y: 0 };
   const visibilityOffset = show ? 0 : Token.spacing.m;
   const defaultDistance = Token.spacing.xxs + visibilityOffset;
@@ -189,10 +184,7 @@ function calculateOffset(
   const { x = 0, y = 0 } = offset || {};
 
   return {
-    transform: [
-      { translateX: translate.x + x },
-      { translateY: translate.y - y },
-    ],
+    transform: [{ translateX: translate.x + x }, { translateY: translate.y - y }],
   };
 }
 
@@ -237,11 +229,7 @@ function getPositionVariantStyle(position: Position): ViewStyle[] {
     case 'right':
       return [styles.wrapperRight, styles.arrowRight, styles.cardOffsetRight];
     case 'bottom':
-      return [
-        styles.wrapperBottom,
-        styles.arrowBottom,
-        styles.cardOffsetBottom,
-      ];
+      return [styles.wrapperBottom, styles.arrowBottom, styles.cardOffsetBottom];
     case 'left':
     default:
       return [styles.wrapperLeft, styles.arrowLeft, styles.cardOffsetLeft];
@@ -327,5 +315,8 @@ const styles = StyleSheet.create({
   },
   tooltipText: {
     textAlign: 'center',
+  },
+  arrowAlignRight: {
+    left: 20,
   },
 });

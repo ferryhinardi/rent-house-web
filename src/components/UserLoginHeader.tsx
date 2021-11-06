@@ -33,25 +33,28 @@ function UserLoginHeader(props: Props) {
   return (
     <View style={styles.container}>
       {/* <Notification /> */}
-      <Pressable style={styles.button} onPress={onNavigateToAccount}>
-        <Icon name="user" size={24} color={Token.colors.blue} />
-      </Pressable>
       <Tooltip
         show={isVisibile}
         position="bottom"
         width="stretchToChild"
+        arrowPosition="right"
         content={
-          <Pressable style={{ alignItems: 'center' }} onPress={onLogout}>
-            <Text ink="light">{t('logout')}</Text>
-          </Pressable>
-        }
-      >
-        <Pressable
-          ref={profileMenuRef}
-          style={styles.button}
-          onPress={() => setIsVisible((prev) => !prev)}
-        >
-          <Text ink="primary">{props.name}</Text>
+          <View>
+            <Pressable style={styles.dropDownMenu} onPress={onNavigateToAccount}>
+              <Text ink="light">{t('myProfile')}</Text>
+            </Pressable>
+            <Pressable style={{ alignItems: 'flex-start' }} onPress={onLogout}>
+              <Text ink="light">{t('logout')}</Text>
+            </Pressable>
+          </View>
+        }>
+        <Pressable style={styles.section} ref={profileMenuRef} onPress={() => setIsVisible((prev) => !prev)}>
+          <View style={styles.button}>
+            <Icon name="user" size={24} color={Token.colors.blue} />
+          </View>
+          <View style={styles.button}>
+            <Text ink="primary">{props.name}</Text>
+          </View>
         </Pressable>
       </Tooltip>
     </View>
@@ -64,6 +67,16 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: Token.spacing.m,
+  },
+  section: {
+    flexDirection: 'row',
+  },
+  dropDownMenu: {
+    alignItems: 'flex-start',
+    paddingBottom: Token.spacing.xxs,
+    marginBottom: Token.spacing.xxs,
+    borderBottomWidth: 1,
+    borderBottomColor: Token.colors.white,
   },
 });
 
