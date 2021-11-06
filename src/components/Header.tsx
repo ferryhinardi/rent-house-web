@@ -17,11 +17,13 @@ const AnimatedView = animated(View);
 
 function Header() {
   const router = useRouter();
-  const { data, isLoading } = useQuery<User>(QUERY_KEYS.CURRENT_USER, () =>
-    fetcher<User>({
-      method: 'POST',
-      url: '/user/current-user',
-    }),
+  const { data, isLoading } = useQuery<User>(
+    QUERY_KEYS.CURRENT_USER,
+    () =>
+      fetcher<User>({
+        method: 'POST',
+        url: '/user/current-user',
+      }),
     { enabled: Boolean(Cookie.get('token')) }
   );
   const menuAnimations = useSprings(
@@ -52,19 +54,16 @@ function Header() {
         </Pressable>
         {menuAnimations.map((animateStyle, idx) => {
           const { name, href } = menus[idx];
-          const isActiveMenu =
-            href.replace('/', '') === router.pathname.split('/')[1];
+          const isActiveMenu = href.replace('/', '') === router.pathname.split('/')[1];
           return (
             <AnimatedView
               key={name}
               // @ts-ignore
-              style={{ ...animateStyle }}
-            >
+              style={{ ...animateStyle }}>
               <Text
                 accessibilityRole="link"
                 onPress={() => onNavigateMenu(href)}
-                style={[styles.menu, isActiveMenu && styles.activeMenu]}
-              >
+                style={[styles.menu, isActiveMenu && styles.activeMenu]}>
                 {name}
               </Text>
             </AnimatedView>
@@ -72,11 +71,7 @@ function Header() {
         })}
       </View>
       {/* <LanguageSelection /> */}
-      {!isLoading && data?.name ? (
-        <UserLoginHeader {...data} />
-      ) : (
-        <SignInButton />
-      )}
+      {!isLoading && data?.name ? <UserLoginHeader {...data} /> : <SignInButton />}
     </View>
   );
 }
