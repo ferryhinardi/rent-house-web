@@ -52,7 +52,7 @@ export default function FileUploader({
 
   if (variant === 'image-preview' && Boolean(value) && !Boolean(file)) {
     val = `${config.imageHost}/${value}`;
-  } else if (variant === 'input' && Boolean(value)) {
+  } else if (variant === 'input') {
     val = file || ({ name: value } as File);
   }
 
