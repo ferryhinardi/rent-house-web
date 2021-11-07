@@ -83,18 +83,18 @@ export default function PersonalInfoForm() {
   };
   function onChangeProofOfIncome(proofOfIncome: Option) {
     if (proofOfIncome.value === 0) {
-      fieldGuarantorGovermentId.inputRef.current?.reset(getDocumentFile(0, userDocumentData)?.name);
-      fieldGuarantorCreditReport.inputRef.current?.reset(getDocumentFile(1, userDocumentData)?.name);
-      fieldGuarantorPaystubs.inputRef.current?.reset(getDocumentFile(2, userDocumentData)?.name);
+      fieldGuarantorGovermentId.inputRef.current?.reset();
+      fieldGuarantorCreditReport.inputRef.current?.reset();
+      fieldGuarantorPaystubs.inputRef.current?.reset();
       reset({
         ...getValues(),
-        guarantor_government_id: getDocumentFile(0, userDocumentData)?.name,
-        guarantor_credit_report: getDocumentFile(1, userDocumentData)?.name,
-        guarantor_paystubs: getDocumentFile(2, userDocumentData)?.name,
+        guarantor_government_id: undefined,
+        guarantor_credit_report: undefined,
+        guarantor_paystubs: undefined,
       });
     } else if (proofOfIncome.value === 1) {
-      fieldPaystub.inputRef.current?.reset(getDocumentFile(5, userDocumentData)?.name);
-      reset({ ...getValues(), paystubs: getDocumentFile(5, userDocumentData)?.name });
+      fieldPaystub.inputRef.current?.reset();
+      reset({ ...getValues(), paystubs: undefined });
     }
     proofIncomeField.onChange(proofOfIncome.value);
   }
