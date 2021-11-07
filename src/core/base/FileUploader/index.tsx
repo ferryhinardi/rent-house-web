@@ -1,9 +1,9 @@
+import React, { useRef, useState, useImperativeHandle } from 'react';
+import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+import Image from 'next/image';
 import { Token } from 'core';
 import { Button, Text } from 'core/base';
 import customImgLoader from 'core/utils/customImgLoader';
-import Image from 'next/image';
-import React, { useRef, useState } from 'react';
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import assets from 'assets';
@@ -19,17 +19,23 @@ type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onError'> & {
   onFileChange?: () => void;
   onError?: (error: { status: string | ErrorStatus; message?: string }) => void;
 };
+export type Handler = {
+  reset: (value?: string) => void;
+};
 
-export default function FileUploader({
-  value,
-  variant = 'image-preview',
-  disabled = false,
-  actionLabel,
-  maxFileSize,
-  onFileChange,
-  onError,
-  ...restProps
-}: Props) {
+export default React.forwardRef(function FileUploader(
+  {
+    value,
+    variant = 'image-preview',
+    disabled = false,
+    actionLabel,
+    maxFileSize,
+    onFileChange,
+    onError,
+    ...restProps
+  }: Props,
+  ref: React.Ref<Handler>
+) {
   const fileRef = useRef<HTMLInputElement>();
   const [file, setFile] = useState<string | File>();
   let val;
@@ -53,8 +59,19 @@ export default function FileUploader({
   if (variant === 'image-preview' && Boolean(value) && !Boolean(file)) {
     val = `${config.imageHost}/${value}`;
   } else if (variant === 'input') {
-    val = file || ({ name: value } as File);
+    val = file || ({ name: value || '' } as File);
   }
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      reset: (value?: string) => {
+        setFile(value);
+        onFileChange?.();
+      },
+    }),
+    [setFile, onFileChange]
+  );
 
   return (
     <View>
@@ -126,7 +143,7 @@ export default function FileUploader({
       />
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   wrapperInputUploader: {
