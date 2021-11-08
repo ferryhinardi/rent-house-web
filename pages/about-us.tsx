@@ -1,15 +1,17 @@
 import { Head, HeaderMenu } from 'components';
-import Image from 'next/image';
 import { StyleSheet, Text, View } from 'react-native';
-import { ParallaxProvider, Parallax } from 'react-scroll-parallax';
 import { Token } from 'core';
 import assets from 'assets';
+// @ts-ignore
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 export default function AboutUs() {
   return (
-    <ParallaxProvider>
+    <div>
       <Head />
-      <HeaderMenu />
+      <View style={styles.wrapperHeader}>
+        <HeaderMenu />
+      </View>
       <View style={styles.container}>
         <View style={[styles.column, { backgroundColor: 'rgba(255, 255, 254, 0.74)' }]}>
           <View
@@ -44,12 +46,47 @@ export default function AboutUs() {
           </View>
         </View>
         <View style={styles.column}>
-          <Parallax className="custom-class" y={[0, 20]} tagOuter="figure">
-            <Image className="splashImage" {...assets.splashScreenImage} placeholder="blur" objectFit="fill" />
-          </Parallax>
+          <div className="splashParalax"></div>
         </View>
       </View>
-    </ParallaxProvider>
+
+      <View style={styles.footer}>
+        <View style={styles.socialMediaRow}>
+          <a target="_blank" href="https://www.instagram.com/therynaofficial" rel="noopener noreferrer">
+            <Icon name="instagram" size={42} />
+          </a>
+          <a target="_blank" href="https://www.facebook.com/therynaofficial" rel="noopener noreferrer">
+            <Icon name="facebook" size={42} />
+          </a>
+          <a target="_blank" href="https://www.linkedin.com/company/ryna" rel="noopener noreferrer">
+            <Icon name="linkedin" size={42} />
+          </a>
+        </View>
+        <Text style={styles.copyRight}>{`© ${new Date().getFullYear()} by Ryna Living`}</Text>
+        <Text style={styles.contactUs}>
+          <a href="mailto:Hello@theRyna.com" role="normal" rel="noopener noreferrer">
+            {'Hello@theRyna.com'}
+          </a>
+          {'   |  Tel: +1 647 370 1095'}
+        </Text>
+      </View>
+
+      <style jsx>{`
+        .splashParalax {
+          width: 100%;
+          height: 100%;
+          background-image: url(${assets.splashScreenImage.src});
+          /* Set a specific height */
+          min-height: 500px;
+
+          /* Create the parallax scrolling effect */
+          background-attachment: fixed;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+      `}</style>
+    </div>
   );
 }
 
@@ -57,23 +94,54 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    marginTop: 160,
   },
   column: {
     flex: 1,
     minHeight: 'auto',
   },
+  wrapperHeader: {
+    // @ts-ignore
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+    backgroundColor: Token.colors.white,
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.25)',
+  },
   header: {
     paddingVertical: Token.spacing.xxxxxl,
     letterSpacing: 0.5,
-    verticalAlign: 'baseline',
     fontFamily: 'lato-light,lato,sans-serif',
     color: '#1C2B4F',
     fontSize: 41,
     lineHeight: 0,
+    fontWeight: 'bold',
   },
   content: {
     fontFamily: 'futura-lt-w01-book,futura-lt-w05-book,sans-serif',
     color: '#1C2B4F',
+    lineHeight: 28,
     fontSize: 19,
+    fontWeight: '500',
+  },
+  footer: {
+    paddingTop: Token.spacing.ml,
+    alignItems: 'center',
+  },
+  socialMediaRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    // @ts-ignore
+    gap: Token.spacing.ml,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  copyRight: {
+    paddingVertical: Token.spacing.xs,
+  },
+  contactUs: {
+    paddingBottom: Token.spacing.xxl,
   },
 });

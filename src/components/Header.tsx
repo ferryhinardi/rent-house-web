@@ -83,8 +83,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: Token.spacing.xxl,
-    paddingTop: Token.spacing.xxxl,
-    paddingBottom: Token.spacing.xxxxxl,
+    paddingVertical: Token.spacing.xxxl,
     zIndex: 1,
   },
   menuWrapper: {

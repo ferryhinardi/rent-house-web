@@ -43,7 +43,7 @@ const assets = {
   // placeholder
   placehoderImage: `${config.imageHost}/assets/placeholder.png`,
   // AboutUS
-  splashScreenImage: require('assets/nsplsh_about_us.webp').default,
+  splashScreenImage: require('assets/nsplsh_about_us.jpeg').default,
 };
 
 export default assets;
