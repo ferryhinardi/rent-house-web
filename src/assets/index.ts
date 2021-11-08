@@ -42,6 +42,8 @@ const assets = {
   supportMedia3: require('assets/support-media-3.png').default,
   // placeholder
   placehoderImage: `${config.imageHost}/assets/placeholder.png`,
+  // AboutUS
+  splashScreenImage: require('assets/nsplsh_about_us.jpeg').default,
 };
 
 export default assets;
