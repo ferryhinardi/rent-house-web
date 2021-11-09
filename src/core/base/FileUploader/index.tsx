@@ -56,8 +56,12 @@ export default React.forwardRef(function FileUploader(
     if (!disabled) fileRef.current?.click();
   };
 
-  if (variant === 'image-preview' && Boolean(value) && !Boolean(file)) {
-    val = `${config.imageHost}/${value}`;
+  if (variant === 'image-preview') {
+    if (Boolean(file)) {
+      val = file;
+    } else if (Boolean(value)) {
+      val = `${config.imageHost}/${value}`;
+    }
   } else if (variant === 'input') {
     val = file || ({ name: value || '' } as File);
   }
