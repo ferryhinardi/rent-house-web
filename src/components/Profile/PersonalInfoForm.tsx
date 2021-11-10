@@ -15,10 +15,13 @@ export default function PersonalInfoForm() {
   const { register, control, setValue, getValues, setError, clearErrors, formState, reset } = useFormContext();
   const { data: userDocumentData } = useQuery<UserDocument[]>([QUERY_KEYS.DOCUMENT, getValues('id')]);
   const { t } = useTranslation();
-  const fieldPaystub = useRegisterDynamicForm('paystubs');
-  const fieldGuarantorGovermentId = useRegisterDynamicForm('guarantor_government_id');
-  const fieldGuarantorCreditReport = useRegisterDynamicForm('guarantor_credit_report');
-  const fieldGuarantorPaystubs = useRegisterDynamicForm('guarantor_paystubs');
+  const { setFieldFormRegistery: setFieldPaystub, inputRef: inputRefPaystub } = useRegisterDynamicForm('paystubs');
+  const { setFieldFormRegistery: setFieldGuarantorGovermentId, inputRef: inputRefGuarantorGovermentId } =
+    useRegisterDynamicForm('guarantor_government_id');
+  const { setFieldFormRegistery: setFieldGuarantorCreditReport, inputRef: inputRefGuarantorCreditReport } =
+    useRegisterDynamicForm('guarantor_credit_report');
+  const { setFieldFormRegistery: setFieldGuarantorPaystubs, inputRef: inputRefGuarantorPaystubs } =
+    useRegisterDynamicForm('guarantor_paystubs');
   const handleUpload = (field: string) => async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     setValue(field, e.target.files);
@@ -83,9 +86,9 @@ export default function PersonalInfoForm() {
   };
   function onChangeProofOfIncome(proofOfIncome: Option) {
     if (proofOfIncome.value === 0) {
-      fieldGuarantorGovermentId.inputRef.current?.reset();
-      fieldGuarantorCreditReport.inputRef.current?.reset();
-      fieldGuarantorPaystubs.inputRef.current?.reset();
+      inputRefGuarantorGovermentId.current?.reset();
+      inputRefGuarantorCreditReport.current?.reset();
+      inputRefGuarantorPaystubs.current?.reset();
       reset({
         ...getValues(),
         guarantor_government_id: undefined,
@@ -93,7 +96,7 @@ export default function PersonalInfoForm() {
         guarantor_paystubs: undefined,
       });
     } else if (proofOfIncome.value === 1) {
-      fieldPaystub.inputRef.current?.reset();
+      inputRefPaystub.current?.reset();
       reset({ ...getValues(), paystubs: undefined });
     }
     proofIncomeField.onChange(proofOfIncome.value);
@@ -117,7 +120,7 @@ export default function PersonalInfoForm() {
               )}
             </View>
             <FileUploader
-              {...fieldPaystub}
+              {...setFieldPaystub()}
               value={getDocumentFile(5, userDocumentData)?.name}
               disabled={getDocumentFile(5, userDocumentData)?.isVerified}
               variant="input"
@@ -146,7 +149,7 @@ export default function PersonalInfoForm() {
                 )}
               </View>
               <FileUploader
-                {...fieldGuarantorGovermentId}
+                {...setFieldGuarantorGovermentId()}
                 value={getDocumentFile(0, userDocumentData)?.name}
                 disabled={getDocumentFile(0, userDocumentData)?.isVerified}
                 variant="input"
@@ -172,7 +175,7 @@ export default function PersonalInfoForm() {
                 )}
               </View>
               <FileUploader
-                {...fieldGuarantorCreditReport}
+                {...setFieldGuarantorCreditReport()}
                 value={getDocumentFile(1, userDocumentData)?.name}
                 disabled={getDocumentFile(1, userDocumentData)?.isVerified}
                 variant="input"
@@ -197,7 +200,7 @@ export default function PersonalInfoForm() {
                 )}
               </View>
               <FileUploader
-                {...fieldGuarantorPaystubs}
+                {...setFieldGuarantorPaystubs()}
                 value={getDocumentFile(2, userDocumentData)?.name}
                 disabled={getDocumentFile(2, userDocumentData)?.isVerified}
                 variant="input"
