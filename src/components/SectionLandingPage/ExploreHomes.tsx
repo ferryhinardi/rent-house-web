@@ -122,7 +122,7 @@ export default function ExploreHomes() {
                     }}
                     imageContainerStyle={styles.cardImage}
                   />
-                  <Text font="playfair" variant="header-2" style={styles.cardTitle}>
+                  <Text variant="large-cursive" style={styles.cardTitle}>
                     {item.name}
                   </Text>
                   <Text variant="caption">{item.name}</Text>

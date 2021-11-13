@@ -96,7 +96,7 @@ function Perks() {
                     onError: () => console.error('error render image'),
                   }}>
                   <Card.Body>
-                    <Card.Title variant="header-3">{item.title}</Card.Title>
+                    <Card.Title variant="large-cursive">{item.title}</Card.Title>
                     <Text variant="caption" style={{ marginTop: Token.spacing.m }}>
                       {item.description}
                     </Text>
