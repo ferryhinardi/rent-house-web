@@ -100,7 +100,7 @@ function SignUpForm(props: Props) {
         <View style={styles.fieldSectionContainer}>
           <GoogleButton onSuccessLogin={onSuccessLogin} />
           <FacebookButton onSuccessLogin={onSuccessLogin} />
-          <Text variant="paragraph-n" style={styles.separator}>
+          <Text variant="paragraph" style={styles.separator}>
             {t('separator')}
           </Text>
           <Controller
@@ -209,7 +209,7 @@ function SignUpForm(props: Props) {
         {isLoading ? (
           <LoadingIndicator color={Token.colors.white} />
         ) : (
-          <Text variant="paragraph-n" ink="light">
+          <Text variant="paragraph" ink="light">
             {t('submitSignUpForm')}
           </Text>
         )}

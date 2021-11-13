@@ -99,7 +99,7 @@ const FileUploader = React.forwardRef(
                 backgroundColor: 'rgba(57, 59, 67, 0.1)',
               }}>
               <Icon name="upload" size={16} />
-              <Text variant="small-n" ink="dark" style={{ marginLeft: Token.spacing.xs }}>
+              <Text variant="small" ink="dark" style={{ marginLeft: Token.spacing.xs }}>
                 {'Upload File (in PDF, jpeg/png)'}
               </Text>
             </View>

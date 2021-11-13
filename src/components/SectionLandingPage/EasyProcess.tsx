@@ -54,7 +54,7 @@ export default function EasyProcess() {
                   {process.title}
                 </Text>
               </View>
-              <Text variant="paragraph-n" style={styles.processDescription}>
+              <Text variant="paragraph" style={styles.processDescription}>
                 {process.description}
               </Text>
             </View>

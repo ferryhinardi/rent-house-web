@@ -115,7 +115,7 @@ function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceL
           rightLabel={
             choiceLabel ? (
               <Text
-                variant="small-n"
+                variant="small"
                 style={{
                   color: methods?.fields[index]?.value === choice ? colors.rynaBlack : colors.textDarkGrey,
                 }}>

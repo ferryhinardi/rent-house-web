@@ -54,7 +54,7 @@ function SignInForm() {
         <View style={styles.fieldSectionContainer}>
           <GoogleButton onSuccessLogin={onSuccessLogin} />
           <FacebookButton onSuccessLogin={onSuccessLogin} />
-          <Text variant="paragraph-n" style={styles.separator}>
+          <Text variant="paragraph" style={styles.separator}>
             {t('separator')}
           </Text>
           <Controller

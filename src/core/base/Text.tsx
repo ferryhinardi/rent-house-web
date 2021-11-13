@@ -11,13 +11,10 @@ interface Props extends TextProps {
     | 'header-3'
     | 'header-4'
     | 'header-5'
-    | 'body'
-    | 'large'
-    | 'small'
     // new design system
     // will remove others after changes
-    | 'small-n'
-    | 'paragraph-n'
+    | 'small'
+    | 'paragraph'
     | 'caption'
     | 'large-cursive';
   ink?: 'normal' | 'light' | 'primary' | 'secondary' | 'caption' | 'neutral' | 'dark' | 'alert' | 'link';
@@ -56,22 +53,13 @@ function Text({ children, variant = 'caption', ink = 'normal', style, font, ...r
     case 'header-5':
       variantStyle = StyleSheet.flatten([variantStyle, styles.header5]);
       break;
-    case 'large':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.large]);
-      break;
-    case 'body':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.body]);
-      break;
-    case 'small':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.small]);
-      break;
     case 'caption':
       variantStyle = StyleSheet.flatten([variantStyle, styles.captionNew]);
       break;
-    case 'small-n':
+    case 'small':
       variantStyle = StyleSheet.flatten([variantStyle, styles.smallNew]);
       break;
-    case 'paragraph-n':
+    case 'paragraph':
       variantStyle = StyleSheet.flatten([variantStyle, styles.paragraphNew]);
       break;
     case 'large-cursive':
@@ -159,20 +147,9 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     fontWeight: '600',
   },
-  body: {
-    fontSize: fontSize.medium,
-    lineHeight: 28,
-  },
   baseline: {
     fontSize: fontSize.medium,
     lineHeight: 24,
-  },
-  large: {
-    fontSize: fontSize.large,
-    fontWeight: '400',
-  },
-  small: {
-    fontSize: fontSize.tiny,
   },
   dark: {
     color: colors.rynaBlack,

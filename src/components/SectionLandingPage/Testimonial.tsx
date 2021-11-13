@@ -61,7 +61,7 @@ export default function Testimonial() {
                 <Text variant="large-cursive" style={styles.cardTitle}>
                   {item.user.name + ' | ' + item.user.job}
                 </Text>
-                <Text variant="paragraph-n" style={{ marginTop: Token.spacing.m }}>
+                <Text variant="paragraph" style={{ marginTop: Token.spacing.m }}>
                   {item.testimony_text}
                 </Text>
               </Card.Body>

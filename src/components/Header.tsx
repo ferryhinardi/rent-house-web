@@ -63,7 +63,7 @@ function Header() {
               // @ts-ignore
               style={{ ...animateStyle }}>
               <Text
-                variant={'paragraph-n'}
+                variant={'paragraph'}
                 accessibilityRole="link"
                 onPress={() => onNavigateMenu(href)}
                 style={[styles.menu, isActiveMenu && styles.activeMenu]}>

@@ -53,7 +53,7 @@ function UserLoginHeader(props: Props) {
             <Icon name="user" size={24} color={Token.colors.blue} />
           </View>
           <View style={styles.button}>
-            <Text variant="paragraph-n" ink="primary">
+            <Text variant="paragraph" ink="primary">
               {props.name}
             </Text>
           </View>
