@@ -6,14 +6,22 @@ import { useController, useFormContext } from 'react-hook-form';
 import { Token } from 'core';
 import { CalendarInput, ErrorMessage, FileUploader, Input, SelectInput, Text } from 'core/base';
 import { genderOptions, MAX_FILE_SIZE, proofIncomeOptions, QUERY_KEYS } from 'core/constants';
+import { parseDateFormat } from 'core/utils/parseDateFormat';
+import useRegisterDynamicForm from 'hooks/useRegisterDynamicForm';
 import { getDocumentFile } from 'utils/getUserDocument';
 import { Option, UserDocument } from 'types';
-import { parseDateFormat } from 'core/utils/parseDateFormat';
 
 export default function PersonalInfoForm() {
-  const { register, control, setValue, getValues, setError, clearErrors, formState } = useFormContext();
+  const { register, control, setValue, getValues, setError, clearErrors, formState, reset } = useFormContext();
   const { data: userDocumentData } = useQuery<UserDocument[]>([QUERY_KEYS.DOCUMENT, getValues('id')]);
   const { t } = useTranslation();
+  const { setFieldFormRegistery: setFieldPaystub, inputRef: inputRefPaystub } = useRegisterDynamicForm('paystubs');
+  const { setFieldFormRegistery: setFieldGuarantorGovermentId, inputRef: inputRefGuarantorGovermentId } =
+    useRegisterDynamicForm('guarantor_government_id');
+  const { setFieldFormRegistery: setFieldGuarantorCreditReport, inputRef: inputRefGuarantorCreditReport } =
+    useRegisterDynamicForm('guarantor_credit_report');
+  const { setFieldFormRegistery: setFieldGuarantorPaystubs, inputRef: inputRefGuarantorPaystubs } =
+    useRegisterDynamicForm('guarantor_paystubs');
   const handleUpload = (field: string) => async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     setValue(field, e.target.files);
@@ -78,11 +86,18 @@ export default function PersonalInfoForm() {
   };
   function onChangeProofOfIncome(proofOfIncome: Option) {
     if (proofOfIncome.value === 0) {
-      setValue('guarantor_government_id', undefined);
-      setValue('guarantor_credit_report', undefined);
-      setValue('guarantor_paystubs', undefined);
+      inputRefGuarantorGovermentId.current?.reset();
+      inputRefGuarantorCreditReport.current?.reset();
+      inputRefGuarantorPaystubs.current?.reset();
+      reset({
+        ...getValues(),
+        guarantor_government_id: undefined,
+        guarantor_credit_report: undefined,
+        guarantor_paystubs: undefined,
+      });
     } else if (proofOfIncome.value === 1) {
-      setValue('paystubs', undefined);
+      inputRefPaystub.current?.reset();
+      reset({ ...getValues(), paystubs: undefined });
     }
     proofIncomeField.onChange(proofOfIncome.value);
   }
@@ -105,9 +120,7 @@ export default function PersonalInfoForm() {
               )}
             </View>
             <FileUploader
-              {...register('paystubs', {
-                required: t('paystubs.required') as string,
-              })}
+              {...setFieldPaystub()}
               value={getDocumentFile(5, userDocumentData)?.name}
               disabled={getDocumentFile(5, userDocumentData)?.isVerified}
               variant="input"
@@ -136,9 +149,7 @@ export default function PersonalInfoForm() {
                 )}
               </View>
               <FileUploader
-                {...register('guarantor_government_id', {
-                  required: t('guarantor_government_id.required') as string,
-                })}
+                {...setFieldGuarantorGovermentId()}
                 value={getDocumentFile(0, userDocumentData)?.name}
                 disabled={getDocumentFile(0, userDocumentData)?.isVerified}
                 variant="input"
@@ -164,9 +175,7 @@ export default function PersonalInfoForm() {
                 )}
               </View>
               <FileUploader
-                {...register('guarantor_credit_report', {
-                  required: t('guarantor_credit_report.required') as string,
-                })}
+                {...setFieldGuarantorCreditReport()}
                 value={getDocumentFile(1, userDocumentData)?.name}
                 disabled={getDocumentFile(1, userDocumentData)?.isVerified}
                 variant="input"
@@ -191,9 +200,7 @@ export default function PersonalInfoForm() {
                 )}
               </View>
               <FileUploader
-                {...register('guarantor_paystubs', {
-                  required: t('guarantor_paystubs.required') as string,
-                })}
+                {...setFieldGuarantorPaystubs()}
                 value={getDocumentFile(2, userDocumentData)?.name}
                 disabled={getDocumentFile(2, userDocumentData)?.isVerified}
                 variant="input"
@@ -438,5 +445,6 @@ const styles = StyleSheet.create({
     marginVertical: Token.spacing.xxl,
     borderBottomWidth: 4,
     borderBottomColor: Token.colors.rynaGray,
+    zIndex: -1,
   },
 });

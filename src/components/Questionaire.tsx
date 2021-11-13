@@ -71,15 +71,11 @@ function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceL
     case 'DATE':
       QuestionContent = (
         <View style={styles.alignCenterContainer}>
-          {(answer?.value as unknown) instanceof Date ? (
-            <DirectCalendar
-              onChange={onSelectedDateCallback}
-              customInitial={answer?.value}
-              placeholder={t('placeholderCalendar')}
-            />
-          ) : (
-            <Input key={answer?.value} editable={false} textInputStyle={styles.textInput} value={answer?.value} />
-          )}
+          <DirectCalendar
+            onChange={onSelectedDateCallback}
+            customInitial={answer?.value}
+            placeholder={t('placeholderCalendar')}
+          />
         </View>
       );
       break;

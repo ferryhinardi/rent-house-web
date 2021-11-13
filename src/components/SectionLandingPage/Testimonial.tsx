@@ -11,16 +11,13 @@ import { useQuery } from 'react-query';
 
 export default function Testimonial() {
   const { t } = useTranslation();
-  const { data, isLoading } = useQuery<ResponseItem<Testimony>>(
-    QUERY_KEYS.TESTIMONY,
-    async () => {
-      const res = await fetcher<ResponseItem<Testimony>>({
-        method: 'GET',
-        url: '/testimony',
-      });
-      return res;
-    }
-  );
+  const { data, isLoading } = useQuery<ResponseItem<Testimony>>(QUERY_KEYS.TESTIMONY, async () => {
+    const res = await fetcher<ResponseItem<Testimony>>({
+      method: 'GET',
+      url: '/testimony',
+    });
+    return res;
+  });
 
   if (isLoading) return <TestimonyPlaceholder />;
 
@@ -59,15 +56,12 @@ export default function Testimonial() {
                 onError: () => console.error('error render image'),
               }}
               imageContainerStyle={styles.cardImage}
-              roundedCorner={['topLeft', 'bottomRight']}
-            >
+              roundedCorner={['topLeft', 'bottomRight']}>
               <Card.Body style={{ width: 400 }}>
                 <Text variant="header-4" font="playfair">
                   {item.user.name + ' | ' + item.user.job}
                 </Text>
-                <Text style={{ marginTop: Token.spacing.m }}>
-                  {item.testimony_text}
-                </Text>
+                <Text style={{ marginTop: Token.spacing.m }}>{item.testimony_text}</Text>
               </Card.Body>
             </Card>
           );
@@ -81,6 +75,7 @@ const styles = StyleSheet.create({
   container: {
     padding: Token.spacing.xl,
     flexDirection: 'row',
+    flexWrap: 'wrap',
     height: 400,
     backgroundColor: Token.colors.lightGrey,
   },

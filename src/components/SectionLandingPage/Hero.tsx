@@ -4,12 +4,15 @@ import { useQuery } from 'react-query';
 import { useSprings, animated } from 'react-spring';
 import { Element } from 'react-scroll';
 import { useTranslation } from 'react-i18next';
+import Cookie from 'js-cookie';
+import { useRouter } from 'next/router';
 
 import { fetcher } from 'core';
 import { Modal } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
-import { ResponseItem, Question } from 'types';
+import { ResponseItem, Question, User } from 'types';
 import { DevTool } from '@hookform/devtools';
+import { routePaths } from 'routePaths';
 
 import { HeroBannerInitial, HeroBannerChooseDate, HeroBannerChooseBudget, HeroBannerDone } from 'components/HeroBanner';
 import Questionaire from 'components/Questionaire';
@@ -38,6 +41,16 @@ function Hero() {
     });
     return res;
   });
+  const { data: userData } = useQuery<User>(
+    QUERY_KEYS.CURRENT_USER,
+    () =>
+      fetcher<User>({
+        method: 'POST',
+        url: '/user/current-user',
+      }),
+    { enabled: Boolean(Cookie.get('token')) }
+  );
+
   const totalData = data?.count || heros.length;
   const defaultValues = {
     states: Array(totalData)
@@ -55,6 +68,7 @@ function Hero() {
   const [isVisible, setIsVisible] = useState(false);
   const [stateIndex, setStateIndex] = useState(0);
   const { t } = useTranslation();
+  const router = useRouter();
 
   const herosSprings = useSprings(
     totalData,
@@ -80,8 +94,13 @@ function Hero() {
     if (stateIndex < totalData - 1) {
       setStateIndex((prev) => prev + 1);
     } else {
-      // Do register
-      setIsVisible(true);
+      // redirect to profile if already sign in
+      if (userData?.name) {
+        router.push(routePaths.account);
+      } else {
+        // Do register
+        setIsVisible(true);
+      }
     }
   };
 

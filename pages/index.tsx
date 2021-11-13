@@ -55,7 +55,7 @@ export async function getServerSideProps(context: NextPageContext) {
   );
   await queryClient.fetchQuery(QUERY_KEYS.HOUSE, () =>
     fetchServer<ResponseItem<House>>(context.req as NextApiRequest, context.res as NextApiResponse, {
-      url: '/house/all',
+      url: '/house/one-house-per-city',
       params: { size: 4 },
     })
   );

@@ -11,20 +11,20 @@ const normalizeNextElements = `
     height: 100%;
     overflow: auto;
   }
-`
+`;
 
 class RynaDocument extends Document {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static async getInitialProps({ renderPage }: NextPageContext & { renderPage: any }) {
-    AppRegistry.registerComponent(config.name, () => Main)
+    AppRegistry.registerComponent(config.name, () => Main);
     // @ts-ignore
-    const { getStyleElement } = AppRegistry.getApplication(config.name)
-    const page = await renderPage()
+    const { getStyleElement } = AppRegistry.getApplication(config.name);
+    const page = await renderPage();
     const styles = [
       <style key={Math.random()} dangerouslySetInnerHTML={{ __html: normalizeNextElements }} />,
       getStyleElement(),
-    ]
-    return { ...page, styles: Children.toArray(styles) }
+    ];
+    return { ...page, styles: Children.toArray(styles) };
   }
 
   render() {
@@ -35,6 +35,7 @@ class RynaDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=optional"
             rel="stylesheet"
           />
+          <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
         </Head>
         <body>
           <Main />

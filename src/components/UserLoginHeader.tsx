@@ -66,10 +66,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   button: {
-    padding: Token.spacing.m,
+    paddingHorizontal: Token.spacing.xs,
   },
   section: {
     flexDirection: 'row',
+    alignItems: 'center',
+    padding: Token.spacing.m,
+    borderWidth: Token.border.width.thin,
+    borderColor: Token.colors.rynaBlue,
+    borderRadius: Token.border.radius.extra,
   },
   dropDownMenu: {
     alignItems: 'flex-start',
