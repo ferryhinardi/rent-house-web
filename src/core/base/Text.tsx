@@ -220,6 +220,7 @@ const styles = StyleSheet.create({
   smallNew: {
     ...typography.abelFont,
     fontSize: fontSize.tiny,
+    lineHeight: 15,
   },
 
   largeCursive: {
