@@ -15,7 +15,16 @@ interface Props extends TextProps {
     | 'button'
     | 'large'
     | 'small'
-    | 'caption';
+    // | 'caption'
+    // new design system
+    // will remove others after changes
+    | 'small-n'
+    | 'paragraph-n'
+    | 'caption'
+    | 'headline-4-n'
+    | 'headline-2-n'
+    | 'headline-1-n'
+    | 'large-cursive';
   ink?: 'normal' | 'light' | 'primary' | 'secondary' | 'caption' | 'neutral' | 'dark' | 'alert' | 'link';
   font?: 'standard' | 'playfair';
 }
@@ -65,7 +74,25 @@ function Text({ children, variant = 'caption', ink = 'normal', style, font, ...r
       variantStyle = StyleSheet.flatten([variantStyle, styles.small]);
       break;
     case 'caption':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.caption]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.captionNew]);
+      break;
+    case 'small-n':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.smallNew]);
+      break;
+    case 'paragraph-n':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.paragraphNew]);
+      break;
+    case 'headline-1-n':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.headline1n]);
+      break;
+    case 'headline-2-n':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.headline2n]);
+      break;
+    case 'headline-4-n':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.headline4n]);
+      break;
+    case 'large-cursive':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.largeCursive]);
       break;
     default:
       variantStyle = StyleSheet.flatten([variantStyle, styles.baseline]);
@@ -204,6 +231,41 @@ const styles = StyleSheet.create({
   defaultFont: {},
   playfair: {
     ...typography.Baseline,
+  },
+
+  // new variant style
+  headline1n: {
+    ...typography.playfairFont,
+    fontSize: fontSize.gigantic,
+    fontWeight: '700',
+    lineHeight: 80,
+  },
+  headline2n: {
+    ...typography.playfairFont,
+    fontSize: 34,
+  },
+  headline4n: {
+    ...typography.playfairFont,
+    fontSize: fontSize.jumbo,
+  },
+  captionNew: {
+    ...typography.abelFont,
+    fontSize: fontSize.jumbo,
+    lineHeight: 32,
+  },
+  paragraphNew: {
+    ...typography.abelFont,
+    fontSize: fontSize.medium,
+  },
+  smallNew: {
+    ...typography.abelFont,
+    fontSize: fontSize.tiny,
+  },
+
+  largeCursive: {
+    ...typography.playball,
+    fontSize: fontSize.xlarge,
+    lineHeight: 45,
   },
 });
 

@@ -199,6 +199,9 @@ const en = {
 
   // header
   myProfile: 'My Profile',
+
+  // partner:
+  ourPartners: 'Our Partners',
 };
 
 export default en;

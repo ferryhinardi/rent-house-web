@@ -27,7 +27,7 @@ export default function EasyProcess() {
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
-          <Text ink="primary" variant="header-2" style={styles.headerTitle}>
+          <Text ink="primary" variant="large-cursive" style={styles.headerTitle}>
             {t('titleEasyProcess')}
           </Text>
           <Text variant="caption">{t('subtitleEasyProcess')}</Text>
@@ -54,7 +54,9 @@ export default function EasyProcess() {
                   {process.title}
                 </Text>
               </View>
-              <Text style={styles.processDescription}>{process.description}</Text>
+              <Text variant="paragraph-n" style={styles.processDescription}>
+                {process.description}
+              </Text>
             </View>
           ))}
         </View>

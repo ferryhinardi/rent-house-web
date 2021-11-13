@@ -31,11 +31,11 @@ class RynaDocument extends Document {
     return (
       <Html>
         <Head>
-          <link
-            href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=optional"
-            rel="stylesheet"
-          />
           <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+          {/* new font */}
+          <link
+            href="https://fonts.googleapis.com/css2?family=Abel&family=Playball&family=Playfair+Display:wght@400;600;700&family=Tenor+Sans&display=swap"
+            rel="stylesheet"></link>
         </Head>
         <body>
           <Main />
