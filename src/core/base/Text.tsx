@@ -12,18 +12,13 @@ interface Props extends TextProps {
     | 'header-4'
     | 'header-5'
     | 'body'
-    | 'button'
     | 'large'
     | 'small'
-    // | 'caption'
     // new design system
     // will remove others after changes
     | 'small-n'
     | 'paragraph-n'
     | 'caption'
-    | 'headline-4-n'
-    | 'headline-2-n'
-    | 'headline-1-n'
     | 'large-cursive';
   ink?: 'normal' | 'light' | 'primary' | 'secondary' | 'caption' | 'neutral' | 'dark' | 'alert' | 'link';
   font?: 'standard' | 'playfair';
@@ -67,9 +62,6 @@ function Text({ children, variant = 'caption', ink = 'normal', style, font, ...r
     case 'body':
       variantStyle = StyleSheet.flatten([variantStyle, styles.body]);
       break;
-    case 'button':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.button]);
-      break;
     case 'small':
       variantStyle = StyleSheet.flatten([variantStyle, styles.small]);
       break;
@@ -81,15 +73,6 @@ function Text({ children, variant = 'caption', ink = 'normal', style, font, ...r
       break;
     case 'paragraph-n':
       variantStyle = StyleSheet.flatten([variantStyle, styles.paragraphNew]);
-      break;
-    case 'headline-1-n':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.headline1n]);
-      break;
-    case 'headline-2-n':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.headline2n]);
-      break;
-    case 'headline-4-n':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.headline4n]);
       break;
     case 'large-cursive':
       variantStyle = StyleSheet.flatten([variantStyle, styles.largeCursive]);
@@ -180,16 +163,6 @@ const styles = StyleSheet.create({
     fontSize: fontSize.medium,
     lineHeight: 28,
   },
-  button: {
-    fontSize: fontSize.medium,
-    lineHeight: 16,
-    fontWeight: '600',
-  },
-  caption: {
-    fontSize: fontSize.jumbo,
-    fontWeight: '400',
-    lineHeight: 32,
-  },
   baseline: {
     fontSize: fontSize.medium,
     lineHeight: 24,
@@ -234,20 +207,6 @@ const styles = StyleSheet.create({
   },
 
   // new variant style
-  headline1n: {
-    ...typography.playfairFont,
-    fontSize: fontSize.gigantic,
-    fontWeight: '700',
-    lineHeight: 80,
-  },
-  headline2n: {
-    ...typography.playfairFont,
-    fontSize: 34,
-  },
-  headline4n: {
-    ...typography.playfairFont,
-    fontSize: fontSize.jumbo,
-  },
   captionNew: {
     ...typography.abelFont,
     fontSize: fontSize.jumbo,
