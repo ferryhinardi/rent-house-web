@@ -44,6 +44,11 @@ const assets = {
   placehoderImage: `${config.imageHost}/assets/placeholder.png`,
   // AboutUS
   splashScreenImage: require('assets/nsplsh_about_us.jpeg').default,
+  // Partner With Us
+  partnerWithUsImage1: require('assets/partner-withus-1.jpeg').default,
+  partnerWithUsImage2: require('assets/partner-withus-2.jpeg').default,
+  partnerWithUsImage3: require('assets/partner-withus-3.jpeg').default,
+  partnerWithUsImage4: require('assets/partner-withus-4.jpeg').default,
 };
 
 export default assets;
