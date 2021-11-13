@@ -4,18 +4,18 @@ import { fontSize, colors, typography } from './Token';
 
 interface Props extends TextProps {
   children: React.ReactNode;
-  variant?:
-    | 'headline-1'
+  variant?: // playfair
+  | 'headline-1'
     | 'header-1'
     | 'header-2'
     | 'header-3'
     | 'header-4'
-    | 'header-5'
     // new design system
-    // will remove others after changes
+    // abel
     | 'small'
     | 'paragraph'
     | 'caption'
+    // playball
     | 'large-cursive';
   ink?: 'normal' | 'light' | 'primary' | 'secondary' | 'caption' | 'neutral' | 'dark' | 'alert' | 'link';
   font?: 'standard' | 'playfair';
@@ -50,9 +50,6 @@ function Text({ children, variant = 'caption', ink = 'normal', style, font, ...r
     case 'header-4':
       variantStyle = StyleSheet.flatten([variantStyle, styles.header4]);
       break;
-    case 'header-5':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.header5]);
-      break;
     case 'caption':
       variantStyle = StyleSheet.flatten([variantStyle, styles.captionNew]);
       break;
@@ -66,7 +63,7 @@ function Text({ children, variant = 'caption', ink = 'normal', style, font, ...r
       variantStyle = StyleSheet.flatten([variantStyle, styles.largeCursive]);
       break;
     default:
-      variantStyle = StyleSheet.flatten([variantStyle, styles.baseline]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.paragraphNew]);
       break;
   }
 
@@ -140,16 +137,6 @@ const styles = StyleSheet.create({
     fontSize: fontSize.big,
     lineHeight: 40,
     fontWeight: '700',
-  },
-  header5: {
-    ...typography.Baseline,
-    fontSize: fontSize.jumbo,
-    lineHeight: 18,
-    fontWeight: '600',
-  },
-  baseline: {
-    fontSize: fontSize.medium,
-    lineHeight: 24,
   },
   dark: {
     color: colors.rynaBlack,
