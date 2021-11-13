@@ -21,7 +21,6 @@ const assets = {
   hero2: require('./hero-2.png').default,
   hero3: require('./hero-3.png').default,
   // Partner Logo
-  parnerLogo: require('assets/partner-logo.png').default,
   mintoLogo: require('assets/partner-minto.png').default,
   kingsetLogo: require('assets/partner-kingset.png').default,
   bentallGreenOakLogo: require('assets/partner-bentallGreenOak.png').default,
