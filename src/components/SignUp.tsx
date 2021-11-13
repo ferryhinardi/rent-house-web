@@ -91,7 +91,7 @@ function SignUpForm(props: Props) {
       </View>
 
       <View style={styles.formContainer}>
-        <Text variant="header-2" font="playfair" style={styles.title}>
+        <Text variant="large-cursive" style={styles.title}>
           {t('titleSignInForm')}
         </Text>
         <Text variant="caption" style={[styles.title, styles.subtitle]}>
@@ -100,7 +100,9 @@ function SignUpForm(props: Props) {
         <View style={styles.fieldSectionContainer}>
           <GoogleButton onSuccessLogin={onSuccessLogin} />
           <FacebookButton onSuccessLogin={onSuccessLogin} />
-          <Text style={styles.separator}>{t('separator')}</Text>
+          <Text variant="paragraph-n" style={styles.separator}>
+            {t('separator')}
+          </Text>
           <Controller
             name="name"
             control={control}
@@ -207,7 +209,7 @@ function SignUpForm(props: Props) {
         {isLoading ? (
           <LoadingIndicator color={Token.colors.white} />
         ) : (
-          <Text variant="button" ink="light">
+          <Text variant="paragraph-n" ink="light">
             {t('submitSignUpForm')}
           </Text>
         )}

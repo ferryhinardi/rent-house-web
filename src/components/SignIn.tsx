@@ -45,7 +45,7 @@ function SignInForm() {
         <Image {...assets.loginCover} alt="login-cover" objectFit="cover" />
       </View>
       <View style={styles.formContainer}>
-        <Text variant="header-2" style={styles.title}>
+        <Text variant="large-cursive" style={styles.title}>
           {t('titleSignInForm')}
         </Text>
         <Text variant="caption" style={styles.title}>
@@ -54,7 +54,9 @@ function SignInForm() {
         <View style={styles.fieldSectionContainer}>
           <GoogleButton onSuccessLogin={onSuccessLogin} />
           <FacebookButton onSuccessLogin={onSuccessLogin} />
-          <Text style={styles.separator}>{t('separator')}</Text>
+          <Text variant="paragraph-n" style={styles.separator}>
+            {t('separator')}
+          </Text>
           <Controller
             name="email"
             control={control}

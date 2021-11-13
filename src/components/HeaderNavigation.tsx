@@ -13,11 +13,7 @@ type Props = {
   subtitle?: string;
 };
 
-export default function HeaderNavigation({
-  withBack = true,
-  title,
-  subtitle,
-}: Props) {
+export default function HeaderNavigation({ withBack = true, title, subtitle }: Props) {
   return (
     <View>
       <Breadcrumb />

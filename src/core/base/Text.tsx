@@ -256,6 +256,7 @@ const styles = StyleSheet.create({
   paragraphNew: {
     ...typography.abelFont,
     fontSize: fontSize.medium,
+    lineHeight: 20,
   },
   smallNew: {
     ...typography.abelFont,

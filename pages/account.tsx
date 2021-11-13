@@ -88,17 +88,15 @@ export default function Account({ user }: Props) {
 
 export async function getServerSideProps(context: NextPageContext) {
   const queryClient = new QueryClient();
-  const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () => 
-    redirectIfUnauthenticated(context)
-  );
+  const user = await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () => redirectIfUnauthenticated(context));
 
   if (user === null) {
     return {
       redirect: {
         permanent: false,
-        destination: "/"
-      }
-    }
+        destination: '/',
+      },
+    };
   }
 
   await queryClient.fetchQuery([QUERY_KEYS.HOUSE_MATCH, user?.id], () =>
@@ -112,10 +110,7 @@ export async function getServerSideProps(context: NextPageContext) {
   );
 
   await queryClient.fetchQuery([QUERY_KEYS.ROOMMATES, user?.id], async () =>
-    fetchServer<Roomate>(
-      context.req as NextApiRequest,
-      context.res as NextApiResponse,
-      { url: `/user/${user?.id}` })
+    fetchServer<Roomate>(context.req as NextApiRequest, context.res as NextApiResponse, { url: `/user/${user?.id}` })
   );
 
   return {
