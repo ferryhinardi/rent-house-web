@@ -1,11 +1,12 @@
 import React from 'react';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Image from 'next/image';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from 'react-query';
 import { useForm, Controller } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
+
 import { Token, fetcher } from 'core';
 import { login } from 'utils/auth';
 import { Input, Text, LoadingIndicator, ErrorMessage } from 'core/base';
@@ -13,6 +14,7 @@ import { FacebookButton, GoogleButton } from 'components';
 import { Login, ErrorHandling, UserAnswers } from 'types';
 import assets from 'assets';
 import { HeroState } from 'components/SectionLandingPage/Hero';
+import { routePaths } from 'routePaths';
 
 type Payload = {
   name: string;
@@ -27,6 +29,8 @@ type Props = {
 
 function SignUpForm(props: Props) {
   const { t } = useTranslation();
+  const router = useRouter();
+
   const { isLoading, isError, error, mutate } = useMutation<Login, ErrorHandling, Payload>(
     async (payload) =>
       fetcher<Login>({
@@ -51,7 +55,7 @@ function SignUpForm(props: Props) {
       }),
     {
       onSuccess: () => {
-        Router.reload();
+        router.push(routePaths.account);
       },
       onError: () => {
         Router.reload();
@@ -73,7 +77,7 @@ function SignUpForm(props: Props) {
 
       mutateAnswer(answers);
     } else {
-      Router.reload();
+      router.push(routePaths.account);
     }
   };
   const onSubmit = (data: Payload) => {
