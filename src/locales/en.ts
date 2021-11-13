@@ -91,7 +91,7 @@ const en = {
   account: 'Account',
   profile: 'Personal Info',
   preference: 'My Prefences',
-  application: 'My Applications',
+  application: 'My Application',
   emptyApplicationPlaceholder:
     '<i>No applications yet. Please completed the your account settings to start a new rent request.</i>',
   emptyNotification: 'Empty Notification',
@@ -137,7 +137,7 @@ const en = {
   confirmApplyTitle: 'Thank You for Applying',
   confirmApplySubtitle: 'to Kingset Apartement',
   confirmApplyContent: 'Thank you for applying! You’re now in waiting confirmation status.',
-  confirmApplyActionLabel: 'Back to My Applications',
+  confirmApplyActionLabel: 'Back to My Application',
   logout: 'Sign Out',
   socialMedia: 'Social Media',
   creditReport: 'Credit Report',
