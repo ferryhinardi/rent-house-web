@@ -25,7 +25,7 @@ export default function PrivateAmenities() {
 
   return (
     <ContainerDesktop>
-      <Text variant="header-2" ink="primary">
+      <Text variant="large-cursive" ink="primary">
         {'Private Amenities'}
       </Text>
       <Text variant="caption" style={styles.description}>

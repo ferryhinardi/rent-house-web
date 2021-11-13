@@ -48,15 +48,11 @@ export async function getServerSideProps({ res, req, query }: NextPageContext) {
     })
   );
   await queryClient.fetchQuery([QUERY_KEYS.HOME_ROOM, query.homeID], () =>
-    fetchServer<ResponseItem<Room>>(
-      req as NextApiRequest,
-      res as NextApiResponse,
-      {
-        method: 'GET',
-        url: '/room/all',
-        params: { house_id: query.homeID },
-      }
-    )
+    fetchServer<ResponseItem<Room>>(req as NextApiRequest, res as NextApiResponse, {
+      method: 'GET',
+      url: '/room/all',
+      params: { house_id: query.homeID },
+    })
   );
   return {
     props: {
