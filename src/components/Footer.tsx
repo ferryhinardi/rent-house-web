@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token } from 'core';
@@ -44,12 +45,16 @@ function Footer() {
           <Text ink="light" style={styles.listTitle}>
             {t('footerContactUsTitle')}
           </Text>
-          <Text ink="light" style={styles.list}>
-            {t('contactUsEmail')}
-          </Text>
-          <Text ink="light" style={styles.list}>
-            {t('contactUsTelp')}
-          </Text>
+          <View style={styles.list}>
+            <a rel="noopener noreferrer" href={'mailto:hello@theryna.com'} target="_blank">
+              <Text ink="light">{t('contactUsEmail')}</Text>
+            </a>
+          </View>
+          <View style={styles.list}>
+            <a href={'tel:' + t('telephoneNum')}>
+              <Text ink="light">{t('contactUsTelp')}</Text>
+            </a>
+          </View>
         </View>
         <View style={styles.sectionFollowUs}>
           <Text style={styles.listTitle} ink="light">
@@ -68,39 +73,35 @@ function Footer() {
 function FollowUsList() {
   return (
     <View style={styles.followUsContainer}>
-      <Text
-        accessibilityRole="link"
-        // @ts-ignore
-        href={'https://www.facebook.com/therynaofficial/'}
-        target="_blank"
-        style={styles.followUsWrapper}>
-        <Icon name="facebook-f" size={30} color={Token.colors.white} />
-      </Text>
+      <View style={styles.followUsWrapper}>
+        <a href={'https://www.facebook.com/therynaofficial/'} target="_blank" rel="noopener noreferrer">
+          <Text accessibilityRole="link">
+            <Icon name="facebook-f" size={18} color={Token.colors.white} />
+          </Text>
+        </a>
+      </View>
       {/* <Text
         accessibilityRole="link"
         // @ts-ignore
         href={''}
         target="_blank"
-        style={styles.followUsWrapper}
       >
-        <Icon name="twitter" size={30} color={Token.colors.white} />
+        <Icon name="twitter" size={18} color={Token.colors.white} />
       </Text> */}
-      <Text
-        accessibilityRole="link"
-        // @ts-ignore
-        href={'https://www.instagram.com/therynaofficial/'}
-        target="_blank"
-        style={styles.followUsWrapper}>
-        <Icon name="instagram" size={30} color={Token.colors.white} />
-      </Text>
-      <Text
-        accessibilityRole="link"
-        // @ts-ignore
-        href={'https://www.linkedin.com/company/ryna/'}
-        target="_blank"
-        style={styles.followUsWrapper}>
-        <Icon name="linkedin" size={30} color={Token.colors.white} />
-      </Text>
+      <View style={styles.followUsWrapper}>
+        <a href={'https://www.instagram.com/therynaofficial/'} target="_blank" rel="noopener noreferrer">
+          <Text accessibilityRole="link">
+            <Icon name="instagram" size={18} color={Token.colors.white} />
+          </Text>
+        </a>
+      </View>
+      <View style={styles.followUsWrapper}>
+        <a href={'https://www.linkedin.com/company/ryna/'} target="_blank" rel="noopener noreferrer">
+          <Text accessibilityRole="link">
+            <Icon name="linkedin" size={18} color={Token.colors.white} />
+          </Text>
+        </a>
+      </View>
     </View>
   );
 }

@@ -14,9 +14,9 @@ function HeroBannerInitial() {
   return (
     <HeroBannerTemplate
       video={
-        <View>
+        <View style={styles.videoContainer}>
           <View style={styles.overlay} />
-          <video muted autoPlay loop>
+          <video style={{ objectFit: 'cover', width: 1120, height: 720 }} muted autoPlay loop>
             <source src={videoSrc} />
           </video>
         </View>
@@ -50,6 +50,10 @@ const styles = StyleSheet.create({
     height: '100%',
     position: 'absolute',
     zIndex: 10,
+  },
+  videoContainer: {
+    borderBottomRightRadius: 40,
+    overflow: 'hidden',
   },
 });
 

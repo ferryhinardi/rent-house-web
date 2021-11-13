@@ -41,6 +41,7 @@ const en = {
   footerContactUsTitle: 'Contact Us',
   contactUsEmail: 'hello@theryna.com',
   contactUsTelp: 'Tel: +1 647-370-1095',
+  telephoneNum: '+1647-370-1095',
   footerFollowUsTitle: 'Follow Us',
   copyRightCaption: 'Copyright @ {{year}} Ryna. All right reserved.',
   basicProfile: 'Basic Profile',
