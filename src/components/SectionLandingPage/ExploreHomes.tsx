@@ -18,7 +18,7 @@ export default function ExploreHomes() {
   const { data, isLoading } = useQuery<ResponseItem<House>>(QUERY_KEYS.HOUSE, async () => {
     const res = await fetcher<ResponseItem<House>>({
       method: 'GET',
-      url: '/house',
+      url: '/house/one-house-per-city',
     });
     return res;
   });
