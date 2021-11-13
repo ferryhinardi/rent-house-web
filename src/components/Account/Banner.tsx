@@ -14,15 +14,10 @@ export default function Banner() {
     <View style={styles.container}>
       <View style={styles.backgroundImage}>
         <View style={styles.backDrop} />
-        <Image
-          {...assets.preferenceBanner}
-          alt="preference banner"
-          placeholder="blur"
-          objectFit="cover"
-        />
+        <Image {...assets.preferenceBanner} alt="preference banner" placeholder="blur" objectFit="cover" />
       </View>
       <View style={styles.textContainer}>
-        <Text ink="light" variant="header-2">
+        <Text ink="light" variant="large-cursive">
           {t('preferenceBannerTitle')}
         </Text>
         <Text style={styles.descriptionText} ink="light" variant="caption">

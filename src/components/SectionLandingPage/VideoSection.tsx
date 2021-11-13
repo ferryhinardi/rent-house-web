@@ -16,7 +16,7 @@ export default function VideoSection() {
       <View style={styles.overlay} />
       <Image {...assets.videoSection} placeholder="blur" alt="video-section" />
       <View style={styles.textContainer}>
-        <Text font="playfair" variant="headline-1" ink="light">
+        <Text style={styles.titleText} variant="large-cursive" ink="light">
           {t('bannerTitle')}
         </Text>
         <Text variant="caption" ink="light" style={styles.heroSubtitle}>
@@ -46,5 +46,10 @@ const styles = StyleSheet.create({
     marginLeft: Token.spacing.xl,
     zIndex: 3,
     top: '30%',
+  },
+  titleText: {
+    // only used once
+    fontSize: 40,
+    lineHeight: 50,
   },
 });

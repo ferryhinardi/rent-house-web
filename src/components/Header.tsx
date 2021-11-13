@@ -2,9 +2,10 @@ import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import Cookie from 'js-cookie';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Pressable, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useSprings, animated, config } from 'react-spring';
+
 import { fetcher, Token } from 'core';
 import { menus, QUERY_KEYS } from 'core/constants';
 import { User } from 'types';
@@ -12,6 +13,7 @@ import assets from 'assets';
 import { routePaths } from 'routePaths';
 import { SignInButton } from 'components/SignIn';
 import UserLoginHeader from 'components/UserLoginHeader';
+import { Text } from 'core/base';
 
 const AnimatedView = animated(View);
 
@@ -61,6 +63,7 @@ function Header() {
               // @ts-ignore
               style={{ ...animateStyle }}>
               <Text
+                variant={'paragraph'}
                 accessibilityRole="link"
                 onPress={() => onNavigateMenu(href)}
                 style={[styles.menu, isActiveMenu && styles.activeMenu]}>

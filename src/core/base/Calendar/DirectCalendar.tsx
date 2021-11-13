@@ -22,7 +22,9 @@ function DirectCalendar({ onChange, customInitial }: Props) {
         day: 'numeric',
       })
   );
-  const [value, setValue] = React.useState(customInitial ? new Date(customInitial) : new Date());
+  const [value, setValue] = React.useState(
+    customInitial && String(new Date(customInitial)) !== 'Invalid Date' ? new Date(customInitial) : new Date()
+  );
 
   const onChangeCalendar: OnChangeDateCallback = (value: Date) => {
     setValue(value);

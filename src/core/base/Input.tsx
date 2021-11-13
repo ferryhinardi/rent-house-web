@@ -1,9 +1,4 @@
-import React, {
-  forwardRef,
-  MutableRefObject,
-  useImperativeHandle,
-  useRef,
-} from 'react';
+import React, { forwardRef, MutableRefObject, useImperativeHandle, useRef } from 'react';
 import {
   View,
   TextInput,
@@ -75,9 +70,7 @@ function Input(props: Props) {
     ...textInputProps
   } = props;
   const EnforcedIconLeft = iconLeft ? enforceIconSizingLeft(iconLeft) : null;
-  const EnforcedIconRight = iconRight
-    ? enforceIconSizingRight(iconRight)
-    : null;
+  const EnforcedIconRight = iconRight ? enforceIconSizingRight(iconRight) : null;
 
   const EnforcePostLabel = !!rightLabel;
 
@@ -86,16 +79,12 @@ function Input(props: Props) {
     hoverEventHandlers,
     focusEventHandlers,
     style: backdropStyle,
-  } = useBackdropStyle(
-    variant,
-    disabled ? 'disabled' : error ? 'error' : 'normal',
-    {
-      onMouseEnter,
-      onMouseOut,
-      onFocus,
-      onBlur,
-    }
-  );
+  } = useBackdropStyle(variant, disabled ? 'disabled' : error ? 'error' : 'normal', {
+    onMouseEnter,
+    onMouseOut,
+    onFocus,
+    onBlur,
+  });
   const hoverHandlers = !disabled ? hoverEventHandlers : {};
   const focusHandlers = !disabled ? focusEventHandlers : {};
   const handleChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -112,21 +101,12 @@ function Input(props: Props) {
 
   return (
     // @ts-ignore: adding `focusable={false}` to not add `tabIndex=0`
-    <TouchableWithoutFeedback
-      onPress={() => textInputRef.current && textInputRef.current.focus()}
-    >
+    <TouchableWithoutFeedback onPress={() => textInputRef.current && textInputRef.current.focus()}>
       <View
-        style={[
-          styles.boxDefaults,
-          variant === 'minimal' ? styles.boxMinimal : styles.boxFormal,
-          containerStyle,
-        ]}
-        {...hoverHandlers}
-      >
+        style={[styles.boxDefaults, variant === 'minimal' ? styles.boxMinimal : styles.boxFormal, containerStyle]}
+        {...hoverHandlers}>
         <View style={[styles.backdrop, backdropStyle]} />
-        {EnforcedIconLeft && (
-          <View style={styles.iconLeft}>{EnforcedIconLeft}</View>
-        )}
+        {EnforcedIconLeft && <View style={styles.iconLeft}>{EnforcedIconLeft}</View>}
         <TextInput
           {...textInputProps}
           {...focusHandlers}
@@ -138,16 +118,10 @@ function Input(props: Props) {
           aria-errormessage={error ? errorMessageId : undefined}
           editable={!(disabled || !editable)}
           accessible={!disabled}
-          style={[
-            styles.input,
-            textInputStyle,
-            { color: disabled ? colors.grey : colors.dark },
-          ]}
+          style={[styles.input, textInputStyle, { color: disabled ? colors.grey : colors.dark }]}
           placeholderTextColor={colors.grey}
         />
-        {EnforcedIconRight && (
-          <View style={styles.iconRight}>{EnforcedIconRight}</View>
-        )}
+        {EnforcedIconRight && <View style={styles.iconRight}>{EnforcedIconRight}</View>}
         {EnforcePostLabel && rightLabel}
       </View>
     </TouchableWithoutFeedback>
@@ -215,18 +189,12 @@ export function useBackdropStyle(
   valueState: ValueState,
   customHandlers: HoverFocusEventHandlers
 ) {
-  const borderColorKey =
-    variant === 'minimal' ? 'borderBottomColor' : 'borderColor';
-  const borderWidthKey =
-    variant === 'minimal' ? 'borderBottomWidth' : 'borderWidth';
+  const borderColorKey = variant === 'minimal' ? 'borderBottomColor' : 'borderColor';
+  const borderWidthKey = variant === 'minimal' ? 'borderBottomWidth' : 'borderWidth';
 
   const styleBehaviorMap: HoverFocusBehaviorStyleMap = {
-    width:
-      variant === 'minimal' ? backdropWidthMapMinimal : backdropWidthMapFormal,
-    height:
-      variant === 'minimal'
-        ? backdropHeightMapMinimal
-        : backdropHeightMapFormal,
+    width: variant === 'minimal' ? backdropWidthMapMinimal : backdropWidthMapFormal,
+    height: variant === 'minimal' ? backdropHeightMapMinimal : backdropHeightMapFormal,
     [borderColorKey]: {
       normal: colors.blue,
       hovered: colors.gold,
@@ -234,15 +202,16 @@ export function useBackdropStyle(
       error: colors.red,
       disabled: colors.grey,
     },
-    [borderWidthKey]:
-      variant === 'minimal'
-        ? backdropBorderWidthMapMinimal
-        : backdropBorderWidthMapFormal,
+    [borderWidthKey]: variant === 'minimal' ? backdropBorderWidthMapMinimal : backdropBorderWidthMapFormal,
   };
   let borderRadius: number = 0;
 
-  const { hoverEventHandlers, focusEventHandlers, isFocused, style } =
-    useCSSHoverFocusTransition(styleBehaviorMap, 'normal', {}, customHandlers);
+  const { hoverEventHandlers, focusEventHandlers, isFocused, style } = useCSSHoverFocusTransition(
+    styleBehaviorMap,
+    'normal',
+    {},
+    customHandlers
+  );
 
   if (variant === 'formal') {
     borderRadius = border.radius.extra;
@@ -267,10 +236,7 @@ export function useBackdropStyle(
           : variant === 'minimal'
           ? backdropHeightMapMinimal.normal
           : backdropHeightMapFormal.normal,
-      [borderWidthKey]:
-        valueState === 'normal' || isFocused
-          ? style[borderWidthKey]
-          : border.width.thin,
+      [borderWidthKey]: valueState === 'normal' || isFocused ? style[borderWidthKey] : border.width.thin,
       [borderColorKey]:
         valueState === 'disabled'
           ? colors.blue // color.lightNeutral
@@ -322,6 +288,7 @@ const styles = StyleSheet.create({
     outlineWidth: 0,
     outlineStyle: 'none',
     minWidth: 0,
+    ...typography.abelFont,
   },
   iconLeft: {
     marginRight: spacing.xs,

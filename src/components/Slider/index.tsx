@@ -19,13 +19,7 @@ import {
 import { Token as R } from 'core';
 import { Text } from 'core/base';
 
-import {
-  Props,
-  styles,
-  defaultProps,
-  Rect,
-  DEFAULT_ANIMATION_CONFIGS,
-} from './const';
+import { Props, styles, defaultProps, Rect, DEFAULT_ANIMATION_CONFIGS } from './const';
 import { prepareValuesFromProps } from './utils';
 
 type Size = { width: number; height: number };
@@ -91,11 +85,7 @@ class Slider extends Component<Props, State> {
       onPanResponderTerminate: this._handlePanResponderEnd,
     });
     this.interpolatedThumbValues = [50, 179];
-    const values = prepareValuesFromProps(
-      props.value! as number,
-      props.maximumValue!,
-      props.minimumValue!
-    ) as number[];
+    const values = prepareValuesFromProps(props.value! as number, props.maximumValue!, props.minimumValue!) as number[];
 
     this.isMultiThumb = values.length > 1;
     this.state = {
@@ -143,17 +133,14 @@ class Slider extends Component<Props, State> {
 
   _onAnimatedValueChange = () => {
     if (this.state.value.length > 1) {
-      const flatValues = this.interpolatedThumbValues.map((x: any) =>
-        x.__getValue()
-      );
+      const flatValues = this.interpolatedThumbValues.map((x: any) => x.__getValue());
 
       this.state.minThumbValue.setValue(Math.min(...flatValues));
       this.state.maxThumbValue.setValue(Math.max(...flatValues));
     }
   };
 
-  _handleStartShouldSetPanResponder = (event: GestureResponderEvent) =>
-    this._thumbHitTest(event) !== -1;
+  _handleStartShouldSetPanResponder = (event: GestureResponderEvent) => this._thumbHitTest(event) !== -1;
   _handleMoveShouldSetPanResponder = () => false;
   _handlePanResponderGrant = (event: GestureResponderEvent) => {
     event.preventDefault();
@@ -171,10 +158,7 @@ class Slider extends Component<Props, State> {
 
     this._fireChangeEvent('onSlidingStart');
   };
-  _handlePanResponderMove = (
-    event: GestureResponderEvent,
-    gestureState: PanResponderGestureState
-  ) => {
+  _handlePanResponderMove = (event: GestureResponderEvent, gestureState: PanResponderGestureState) => {
     if (this.props.disabled) {
       return;
     }
@@ -214,14 +198,9 @@ class Slider extends Component<Props, State> {
 
   _setCurrentValueAnimated = (value: number, i: number) => {
     const animationType = this.props.animationType;
-    const animationConfig = Object.assign(
-      {},
-      DEFAULT_ANIMATION_CONFIGS[animationType!],
-      this.props.animationConfig,
-      {
-        toValue: value,
-      }
-    );
+    const animationConfig = Object.assign({}, DEFAULT_ANIMATION_CONFIGS[animationType!], this.props.animationConfig, {
+      toValue: value,
+    });
 
     Animated[animationType!](this.state.value[i], animationConfig).start();
   };
@@ -255,17 +234,13 @@ class Slider extends Component<Props, State> {
 
   _getThumbValue = (i: number) => (this.state.value[i] as any).__getValue();
   _getRatio = (value: number) =>
-    (value - this.props.minimumValue!) /
-    (this.props.maximumValue! - this.props.minimumValue!);
+    (value - this.props.minimumValue!) / (this.props.maximumValue! - this.props.minimumValue!);
   _getThumb = (value: number) => {
     const nonRtlRatio = this._getRatio(value);
     const ratio = I18nManager.isRTL ? 1 - nonRtlRatio : nonRtlRatio;
     return ratio * this.state.valueRailLength;
   };
-  _getValue = (
-    value: Props['value'],
-    gestureState: PanResponderGestureState
-  ) => {
+  _getValue = (value: Props['value'], gestureState: PanResponderGestureState) => {
     const length = this.state.valueRailLength;
     const thumb = (value as number) + gestureState.dx;
 
@@ -273,12 +248,8 @@ class Slider extends Component<Props, State> {
     const ratio = I18nManager.isRTL ? 1 - nonRtlRatio : nonRtlRatio;
     const { step = 1, minimumValue, maximumValue } = this.props;
 
-    const normalizedValue =
-      Math.round((ratio * (maximumValue! - minimumValue!)) / step) * step;
-    return Math.max(
-      minimumValue!,
-      Math.min(maximumValue!, minimumValue! + normalizedValue)
-    );
+    const normalizedValue = Math.round((ratio * (maximumValue! - minimumValue!)) / step) * step;
+    return Math.max(minimumValue!, Math.min(maximumValue!, minimumValue! + normalizedValue));
   };
   _getTouchOverflowSize = () => {
     const { allMeasured, thumbSize, containerSize } = this.state;
@@ -287,10 +258,7 @@ class Slider extends Component<Props, State> {
 
     if (allMeasured) {
       size.width = Math.max(0, thumbTouchSize?.width ?? 0 - thumbSize.width);
-      size.height = Math.max(
-        0,
-        thumbTouchSize?.height ?? 0 - containerSize.height
-      );
+      size.height = Math.max(0, thumbTouchSize?.height ?? 0 - containerSize.height);
     }
 
     return size;
@@ -301,11 +269,8 @@ class Slider extends Component<Props, State> {
     const touchOverflowSize = this._getTouchOverflowSize();
 
     return new Rect(
-      (touchOverflowSize.width ?? 0) / 2 +
-        (thumbLocation as any) +
-        (thumbSize.width - thumbTouchSize?.width!) / 2,
-      (touchOverflowSize.height ?? 0) / 2 +
-        (containerSize.height - thumbTouchSize?.height!) / 2,
+      (touchOverflowSize.width ?? 0) / 2 + (thumbLocation as any) + (thumbSize.width - thumbTouchSize?.width!) / 2,
+      (touchOverflowSize.height ?? 0) / 2 + (containerSize.height - thumbTouchSize?.height!) / 2,
       thumbTouchSize?.width ?? 0,
       thumbTouchSize?.height ?? 0
     );
@@ -356,9 +321,7 @@ class Slider extends Component<Props, State> {
       const thumb = this._getThumb(this._getThumbValue(i)) + offset;
       const thumbRect = this._getThumbTouchRect(thumb);
 
-      if (
-        thumbRect.containsPoint(nativeEvent.locationX, nativeEvent.locationY)
-      ) {
+      if (thumbRect.containsPoint(nativeEvent.locationX, nativeEvent.locationY)) {
         hitIndex = i;
         break;
       }
@@ -386,10 +349,7 @@ class Slider extends Component<Props, State> {
    * - Visual rail: Container width.
    *
    */
-  _handleMeasure = (
-    name: 'thumbSize' | 'containerSize',
-    event: LayoutChangeEvent
-  ) => {
+  _handleMeasure = (name: 'thumbSize' | 'containerSize', event: LayoutChangeEvent) => {
     const { width, height } = event.nativeEvent.layout;
     const size = { width, height };
 
@@ -397,11 +357,7 @@ class Slider extends Component<Props, State> {
     // @ts-ignore
     const currentSize = this[storeName];
 
-    if (
-      currentSize &&
-      width === currentSize.width &&
-      height === currentSize.height
-    ) {
+    if (currentSize && width === currentSize.width && height === currentSize.height) {
       return;
     }
 
@@ -416,8 +372,7 @@ class Slider extends Component<Props, State> {
       };
 
       if (this.isMultiThumb) {
-        const valueRailLength =
-          this._containerSize.width - 2 * this._thumbSize.width;
+        const valueRailLength = this._containerSize.width - 2 * this._thumbSize.width;
         const visualRailLength = valueRailLength + 2 * R.spacing.xxs;
         const thumbOffset = this._thumbSize.width / 2;
         // @ts-ignore
@@ -448,18 +403,11 @@ class Slider extends Component<Props, State> {
     if (thumbView) return thumbView;
 
     if (Array.isArray(thumbImage)) {
-      return (
-        <Image
-          source={thumbImage[thumbIndex]}
-          style={{ width: '100%', height: '100%' }}
-        />
-      );
+      return <Image source={thumbImage[thumbIndex]} style={{ width: '100%', height: '100%' }} />;
     }
   };
 
-  _renderDebugThumbTouchRect = (
-    thumbLeft: number | Animated.AnimatedAddition
-  ) => {
+  _renderDebugThumbTouchRect = (thumbLeft: number | Animated.AnimatedAddition) => {
     const thumbTouchRect = this._getThumbTouchRect(thumbLeft);
     const positionStyle = {
       left: thumbLeft,
@@ -469,10 +417,7 @@ class Slider extends Component<Props, State> {
     };
 
     return (
-      <Animated.View
-        style={StyleSheet.flatten([styles.debugThumbTouchArea, positionStyle])}
-        pointerEvents="none"
-      />
+      <Animated.View style={StyleSheet.flatten([styles.debugThumbTouchArea, positionStyle])} pointerEvents="none" />
     );
   };
 
@@ -490,14 +435,7 @@ class Slider extends Component<Props, State> {
       trackColor,
     } = this.props;
 
-    const {
-      containerSize,
-      valueRailLength,
-      visualRailLength,
-      thumbOffset,
-      thumbSize,
-      value,
-    } = this.state;
+    const { containerSize, valueRailLength, visualRailLength, thumbOffset, thumbSize, value } = this.state;
 
     let { minThumbValue, maxThumbValue } = this.state;
 
@@ -506,31 +444,21 @@ class Slider extends Component<Props, State> {
     const thumbValues = (this.interpolatedThumbValues = value.map((v) =>
       v.interpolate({
         inputRange: [minimumValue!, maximumValue!],
-        outputRange: I18nManager.isRTL
-          ? [0, -valueRailLength]
-          : [0, valueRailLength],
+        outputRange: I18nManager.isRTL ? [0, -valueRailLength] : [0, valueRailLength],
       })
     ) as Animated.AnimatedValue[]);
     const children = [];
     let trackHighlightStyle: StyleProp<ViewStyle>;
 
     if (this.isMultiThumb) {
-      const sortedThumbValues = thumbValues.sort((value: any) =>
-        value.__getValue()
-      );
+      const sortedThumbValues = thumbValues.sort((value: any) => value.__getValue());
       minThumbValue = sortedThumbValues[0];
       maxThumbValue = sortedThumbValues[sortedThumbValues.length - 1];
 
       trackHighlightStyle = {
         position: 'absolute',
-        left: Animated.add(
-          minThumbValue,
-          thumbSize.width / 2 + thumbOffset
-        ) as any,
-        width: Animated.add(
-          Animated.multiply(minThumbValue, -1),
-          maxThumbValue
-        ) as any,
+        left: Animated.add(minThumbValue, thumbSize.width / 2 + thumbOffset) as any,
+        width: Animated.add(Animated.multiply(minThumbValue, -1), maxThumbValue) as any,
         marginTop: 0,
         backgroundColor: minimumTrackTintColor || trackHighlightColor,
         ...valueVisibleStyle,
@@ -573,12 +501,8 @@ class Slider extends Component<Props, State> {
               transform: [{ translateX: position }],
               ...valueVisibleStyle,
             },
-          ])}
-        >
-          <Text
-            style={{ position: 'absolute', top: -20, textAlign: 'center' }}
-            variant="small"
-          >
+          ])}>
+          <Text style={{ position: 'absolute', top: -20, textAlign: 'center' }} variant="small">
             {/* @ts-ignore */}
             {thumbValues[i] ? thumbValues[i]['_parent']['_value'] : ''}
           </Text>
@@ -591,8 +515,7 @@ class Slider extends Component<Props, State> {
           key={`panhandlers_${i}`}
           renderToHardwareTextureAndroid
           style={StyleSheet.flatten([styles.touchArea, touchOverflowStyle])}
-          {...this._panResponder.panHandlers}
-        >
+          {...this._panResponder.panHandlers}>
           {debugTouchArea && this._renderDebugThumbTouchRect(position)}
         </View>
       );
@@ -603,8 +526,7 @@ class Slider extends Component<Props, State> {
     return (
       <View
         style={StyleSheet.flatten([styles.container, style])}
-        onLayout={(event) => this._handleMeasure('containerSize', event)}
-      >
+        onLayout={(event) => this._handleMeasure('containerSize', event)}>
         <View
           renderToHardwareTextureAndroid
           style={StyleSheet.flatten([

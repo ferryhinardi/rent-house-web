@@ -115,10 +115,11 @@ function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceL
           rightLabel={
             choiceLabel ? (
               <Text
+                variant="small"
                 style={{
                   color: methods?.fields[index]?.value === choice ? colors.rynaBlack : colors.textDarkGrey,
                 }}>
-                {choice}
+                {choiceLabel}
               </Text>
             ) : undefined
           }
@@ -163,14 +164,13 @@ function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceL
       ) : (
         <>
           {question?.title && (
-            <Text font="playfair" variant="header-2" ink="primary" style={styles.title}>
+            <Text variant="large-cursive" ink="primary" style={styles.title}>
               {question?.title}
             </Text>
           )}
           <Text variant="caption" style={styles.subtitle}>
             {question?.question_text}
           </Text>
-
           {QuestionContent}
         </>
       )}

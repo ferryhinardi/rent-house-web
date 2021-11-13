@@ -18,7 +18,7 @@ function Breadcrumbs() {
         <ol>
           <li>
             <Link href="/" passHref>
-              <Text accessibilityRole="link" ink="primary" variant="small">
+              <Text accessibilityRole="link" ink="primary" variant="paragraph">
                 {t('homepage')}
               </Text>
             </Link>
@@ -28,16 +28,12 @@ function Breadcrumbs() {
             const hrefPath = listPath.slice(0, idx + 1);
             return (
               <li key={path}>
-                <Link
-                  href={isActiveMenu ? '' : `/${hrefPath.join('/')}`}
-                  passHref
-                >
+                <Link href={isActiveMenu ? '' : `/${hrefPath.join('/')}`} passHref>
                   <Text
                     accessibilityRole="link"
                     ink={isActiveMenu ? 'normal' : 'primary'}
-                    variant="small"
-                    style={[isActiveMenu ? styles.active : {}]}
-                  >
+                    variant="paragraph"
+                    style={[isActiveMenu ? styles.active : {}]}>
                     {t(`${path}`)}
                   </Text>
                 </Link>

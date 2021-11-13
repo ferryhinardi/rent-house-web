@@ -24,7 +24,7 @@ export default function Testimonial() {
   return (
     <ContainerDesktop style={styles.container}>
       <View style={styles.itemWrapperStyle}>
-        <Text variant="header-2">{t('titleTestimonial')}</Text>
+        <Text variant="large-cursive">{t('titleTestimonial')}</Text>
         <Text variant="caption" style={styles.subtitle}>
           {t('subtitleTestimonial')}
         </Text>
@@ -58,10 +58,12 @@ export default function Testimonial() {
               imageContainerStyle={styles.cardImage}
               roundedCorner={['topLeft', 'bottomRight']}>
               <Card.Body style={{ width: 400 }}>
-                <Text variant="header-4" font="playfair">
+                <Text variant="large-cursive" style={styles.cardTitle}>
                   {item.user.name + ' | ' + item.user.job}
                 </Text>
-                <Text style={{ marginTop: Token.spacing.m }}>{item.testimony_text}</Text>
+                <Text variant="paragraph" style={{ marginTop: Token.spacing.m }}>
+                  {item.testimony_text}
+                </Text>
               </Card.Body>
             </Card>
           );
@@ -81,6 +83,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     padding: Token.spacing.m,
+    width: '60%',
   },
   itemWrapperStyle: {
     paddingHorizontal: Token.spacing.l,
@@ -108,5 +111,10 @@ const styles = StyleSheet.create({
     width: 200,
     borderTopLeftRadius: Token.border.radius.extra,
     overflow: 'hidden',
+  },
+  cardTitle: {
+    // only used once
+    fontSize: Token.fontSize.jumbo,
+    lineHeight: 22,
   },
 });

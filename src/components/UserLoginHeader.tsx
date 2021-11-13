@@ -53,7 +53,9 @@ function UserLoginHeader(props: Props) {
             <Icon name="user" size={24} color={Token.colors.blue} />
           </View>
           <View style={styles.button}>
-            <Text ink="primary">{props.name}</Text>
+            <Text variant="paragraph" ink="primary">
+              {props.name}
+            </Text>
           </View>
         </Pressable>
       </Tooltip>
@@ -75,6 +77,7 @@ const styles = StyleSheet.create({
     borderWidth: Token.border.width.thin,
     borderColor: Token.colors.rynaBlue,
     borderRadius: Token.border.radius.extra,
+    height: 56,
   },
   dropDownMenu: {
     alignItems: 'flex-start',

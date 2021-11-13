@@ -44,7 +44,9 @@ function GoogleButton(props: Props) {
   return (
     <Pressable style={styles.button} onPress={signIn} disabled={!loaded}>
       <Image {...assets.GoogleLogo} alt="Google" width={20} height={20} />
-      <Text variant="body" style={styles.text}>{t('signInGoogle')}</Text>
+      <Text variant="paragraph" style={styles.text}>
+        {t('signInGoogle')}
+      </Text>
     </Pressable>
   );
 }

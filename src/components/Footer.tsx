@@ -24,7 +24,9 @@ function Footer() {
       <View style={styles.footer}>
         <View style={styles.sectionLogo}>
           <Image {...assets.logoWhite} placeholder="blur" layout="fixed" alt="logo" />
-          <Text ink="light">{t('footerTitle')}</Text>
+          <Text style={styles.logoTitle} ink="light">
+            {t('footerTitle')}
+          </Text>
         </View>
         <View style={styles.sectionMenu}>
           <Text ink="light" style={styles.listTitle}>
@@ -76,7 +78,7 @@ function FollowUsList() {
       <View style={styles.followUsWrapper}>
         <a href={'https://www.facebook.com/therynaofficial/'} target="_blank" rel="noopener noreferrer">
           <Text accessibilityRole="link">
-            <Icon name="facebook-f" size={18} color={Token.colors.white} />
+            <Icon name="facebook-f" size={14} color={Token.colors.white} />
           </Text>
         </a>
       </View>
@@ -86,19 +88,19 @@ function FollowUsList() {
         href={''}
         target="_blank"
       >
-        <Icon name="twitter" size={18} color={Token.colors.white} />
+        <Icon name="twitter" size={14} color={Token.colors.white} />
       </Text> */}
       <View style={styles.followUsWrapper}>
         <a href={'https://www.instagram.com/therynaofficial/'} target="_blank" rel="noopener noreferrer">
           <Text accessibilityRole="link">
-            <Icon name="instagram" size={18} color={Token.colors.white} />
+            <Icon name="instagram" size={14} color={Token.colors.white} />
           </Text>
         </a>
       </View>
       <View style={styles.followUsWrapper}>
         <a href={'https://www.linkedin.com/company/ryna/'} target="_blank" rel="noopener noreferrer">
           <Text accessibilityRole="link">
-            <Icon name="linkedin" size={18} color={Token.colors.white} />
+            <Icon name="linkedin" size={14} color={Token.colors.white} />
           </Text>
         </a>
       </View>
@@ -147,7 +149,7 @@ const styles = StyleSheet.create({
   },
   followUsContainer: {
     flexDirection: 'row',
-    marginTop: Token.spacing.l,
+    marginTop: Token.spacing.m,
   },
   followUsWrapper: {
     flex: 1,
@@ -155,6 +157,12 @@ const styles = StyleSheet.create({
   copyRight: {
     paddingTop: Token.spacing.xxxxxl,
     alignSelf: 'center',
+  },
+  logoTitle: {
+    // only use once
+    ...Token.typography.tenorSans,
+    fontSize: Token.fontSize.large,
+    lineHeight: 28,
   },
 });
 

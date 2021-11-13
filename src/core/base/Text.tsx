@@ -4,18 +4,19 @@ import { fontSize, colors, typography } from './Token';
 
 interface Props extends TextProps {
   children: React.ReactNode;
-  variant?:
-    | 'headline-1'
+  variant?: // playfair
+  | 'headline-1'
     | 'header-1'
     | 'header-2'
     | 'header-3'
     | 'header-4'
-    | 'header-5'
-    | 'body'
-    | 'button'
-    | 'large'
+    // new design system
+    // abel
     | 'small'
-    | 'caption';
+    | 'paragraph'
+    | 'caption'
+    // playball
+    | 'large-cursive';
   ink?: 'normal' | 'light' | 'primary' | 'secondary' | 'caption' | 'neutral' | 'dark' | 'alert' | 'link';
   font?: 'standard' | 'playfair';
 }
@@ -49,26 +50,20 @@ function Text({ children, variant = 'caption', ink = 'normal', style, font, ...r
     case 'header-4':
       variantStyle = StyleSheet.flatten([variantStyle, styles.header4]);
       break;
-    case 'header-5':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.header5]);
-      break;
-    case 'large':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.large]);
-      break;
-    case 'body':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.body]);
-      break;
-    case 'button':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.button]);
+    case 'caption':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.captionNew]);
       break;
     case 'small':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.small]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.smallNew]);
       break;
-    case 'caption':
-      variantStyle = StyleSheet.flatten([variantStyle, styles.caption]);
+    case 'paragraph':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.paragraphNew]);
+      break;
+    case 'large-cursive':
+      variantStyle = StyleSheet.flatten([variantStyle, styles.largeCursive]);
       break;
     default:
-      variantStyle = StyleSheet.flatten([variantStyle, styles.baseline]);
+      variantStyle = StyleSheet.flatten([variantStyle, styles.paragraphNew]);
       break;
   }
 
@@ -143,37 +138,6 @@ const styles = StyleSheet.create({
     lineHeight: 40,
     fontWeight: '700',
   },
-  header5: {
-    ...typography.Baseline,
-    fontSize: fontSize.jumbo,
-    lineHeight: 18,
-    fontWeight: '600',
-  },
-  body: {
-    fontSize: fontSize.medium,
-    lineHeight: 28,
-  },
-  button: {
-    fontSize: fontSize.medium,
-    lineHeight: 16,
-    fontWeight: '600',
-  },
-  caption: {
-    fontSize: fontSize.jumbo,
-    fontWeight: '400',
-    lineHeight: 32,
-  },
-  baseline: {
-    fontSize: fontSize.medium,
-    lineHeight: 24,
-  },
-  large: {
-    fontSize: fontSize.large,
-    fontWeight: '400',
-  },
-  small: {
-    fontSize: fontSize.tiny,
-  },
   dark: {
     color: colors.rynaBlack,
   },
@@ -204,6 +168,29 @@ const styles = StyleSheet.create({
   defaultFont: {},
   playfair: {
     ...typography.Baseline,
+  },
+
+  // new variant style
+  captionNew: {
+    ...typography.abelFont,
+    fontSize: fontSize.jumbo,
+    lineHeight: 32,
+  },
+  paragraphNew: {
+    ...typography.abelFont,
+    fontSize: fontSize.medium,
+    lineHeight: 20,
+  },
+  smallNew: {
+    ...typography.abelFont,
+    fontSize: fontSize.tiny,
+    lineHeight: 15,
+  },
+
+  largeCursive: {
+    ...typography.playball,
+    fontSize: fontSize.xlarge,
+    lineHeight: 45,
   },
 });
 

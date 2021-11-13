@@ -28,19 +28,14 @@ export default function FloorPlan() {
 
   return (
     <ContainerDesktop>
-      <Text variant="header-2" ink="primary" style={styles.title}>
+      <Text variant="large-cursive" ink="primary" style={styles.title}>
         {t('floorPlanTitle')}
       </Text>
       <Text variant="caption" style={styles.description}>
         {t('floorPlanDescription')}
       </Text>
       <View style={styles.imageWrapper}>
-        <Image
-          src={`${config.imageHost}/${data?.floor_plan_image}`}
-          alt="floor plan"
-          width="530"
-          height="610"
-        />
+        <Image src={`${config.imageHost}/${data?.floor_plan_image}`} alt="floor plan" width="530" height="610" />
       </View>
     </ContainerDesktop>
   );

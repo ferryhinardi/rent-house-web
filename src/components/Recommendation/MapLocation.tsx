@@ -30,7 +30,7 @@ function MapLocation() {
 
   return (
     <ContainerDesktop style={styles.container}>
-      <Text variant="header-2" ink="primary" style={styles.title}>
+      <Text variant="large-cursive" ink="primary" style={styles.title}>
         {t('mapLocationTitle')}
       </Text>
       <Text variant="caption" style={styles.description}>

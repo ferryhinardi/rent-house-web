@@ -66,7 +66,7 @@ export default function PreferenceContent({ answers }: Props) {
         result.length === value.length ? (
           <Icon name="check-circle" size={20} color={Token.colors.rynaBlue} />
         ) : (
-          <Text variant="button" ink="primary">
+          <Text variant="paragraph" ink="primary">
             {result.length + `/` + value.length}
           </Text>
         ),

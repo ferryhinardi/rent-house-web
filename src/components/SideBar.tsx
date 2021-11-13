@@ -24,10 +24,16 @@ function SideBar({ menus, onPress, style }: Props) {
             setActiveMenu(idx);
             onPress?.(menu.name);
           }}
-          style={styles.menuWrapper}
-        >
-          <Text variant="button" ink="primary" style={styles.menu}>
-            {activeMenu === idx && <View style={styles.activeMenu} />}
+          style={styles.menuWrapper}>
+          <Text variant="paragraph" ink="primary" style={styles.menu}>
+            <View
+              style={[
+                styles.activeMenu,
+                activeMenu === idx && {
+                  backgroundColor: Token.colors.rynaYellow,
+                },
+              ]}
+            />
             {menu.label}
           </Text>
           {menu.IconRight}
@@ -52,7 +58,7 @@ const styles = StyleSheet.create({
     width: 4,
     height: 16,
     borderRadius: Token.border.radius.default,
-    backgroundColor: Token.colors.rynaYellow,
+
     marginRight: Token.spacing.xs,
   },
   menuWrapper: {

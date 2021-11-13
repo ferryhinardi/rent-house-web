@@ -1,12 +1,6 @@
 import React, { useContext } from 'react';
 import Image, { ImageProps } from 'next/image';
-import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  ViewProps,
-  ViewStyle,
-} from 'react-native';
+import { View, TouchableOpacity, StyleSheet, ViewProps, ViewStyle } from 'react-native';
 import { colors, border, spacing } from './Token';
 import Text from './Text';
 
@@ -74,20 +68,12 @@ function Card({
           noShadow ? {} : styles.shadowContainer,
           cornerStyle,
           style,
-          orientation === 'landscape'
-            ? { flexDirection: 'row' }
-            : { flexDirection: 'column' },
+          orientation === 'landscape' ? { flexDirection: 'row' } : { flexDirection: 'column' },
         ]}
-        onPress={onPress}
-      >
+        onPress={onPress}>
         {imageProps && (
           <View style={[styles.imageContainer, imageContainerStyle]}>
-            <Image
-              {...imageProps}
-              className="banner-card"
-              objectFit="cover"
-              alt="image card"
-            />
+            <Image {...imageProps} className="banner-card" objectFit="cover" alt="image card" />
           </View>
         )}
         {children}
@@ -102,23 +88,13 @@ function Card({
 }
 
 function CardTitle(props: React.ComponentProps<typeof Text>) {
-  return <Text {...props} variant="header-2" />;
+  return <Text variant="header-2" {...props} />;
 }
 
-function CardBody(
-  props: React.ComponentProps<typeof View> & { children: React.ReactNode }
-) {
+function CardBody(props: React.ComponentProps<typeof View> & { children: React.ReactNode }) {
   const { orientation } = useContext(CardContext);
 
-  return (
-    <View
-      {...props}
-      style={[
-        props.style,
-        orientation ? { padding: spacing.xl } : { padding: spacing.l },
-      ]}
-    />
-  );
+  return <View {...props} style={[props.style, orientation ? { padding: spacing.xl } : { padding: spacing.l }]} />;
 }
 
 const styles = StyleSheet.create({
