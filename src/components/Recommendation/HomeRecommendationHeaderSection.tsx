@@ -11,7 +11,11 @@ import config from 'config';
 import { QUERY_KEYS } from 'core/constants';
 import PreviewImageButtonModal from './PreviewImageButtonModal';
 
-export default function HomeRecommendationHeaderSection() {
+type Props = {
+  allowApplicant?: boolean;
+};
+
+export default function HomeRecommendationHeaderSection(props: Props) {
   const router = useRouter();
   const { homeID } = router.query;
   const { data } = useQuery(
@@ -34,7 +38,11 @@ export default function HomeRecommendationHeaderSection() {
         <Text variant="caption" style={styles.homeInfoDescription}>
           {data?.description}
         </Text>
-        <ScheduleTourForm house_id={data?.id as number} external_url={data?.external_url} />
+        <ScheduleTourForm
+          house_id={data?.id as number}
+          external_url={data?.external_url}
+          allowApplicant={props.allowApplicant}
+        />
       </View>
 
       <View>
