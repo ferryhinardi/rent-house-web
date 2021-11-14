@@ -12,6 +12,7 @@ import Toast from 'react-native-toast-message';
 type Props = {
   house_id: number;
   external_url?: string;
+  allowApplicant?: boolean;
 };
 
 type ApplicationRequest = {
@@ -80,7 +81,9 @@ export default function ScheduleTourForm(props: Props) {
         <InputBorder label="Availability" value="Ready" />
       </View>
       {/* <Button variant="secondary" text={t('scheduleTourButton')} style={styles.button} onPress={onScheduleTour} /> */}
-      <Button text={t('startYourApplication')} style={styles.button} onPress={onNavigateHomeDetail} />
+      {props.allowApplicant && (
+        <Button text={t('startYourApplication')} style={styles.button} onPress={onNavigateHomeDetail} />
+      )}
     </View>
   );
 }

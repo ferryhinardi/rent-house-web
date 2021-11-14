@@ -2,32 +2,22 @@ import React from 'react';
 import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
 import { View, StyleSheet } from 'react-native';
 import { fetchServer, Token } from 'core';
-import {
-  Head,
-  HeaderMenu,
-  HomeRecommendationHeaderSection,
-  PrivateAmenities,
-  FloorPlan,
-  MapLocation,
-  Footer,
-} from 'components';
+import { Head, HeaderMenu, HomeRecommendationHeaderSection, PrivateAmenities, FloorPlan, Footer } from 'components';
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 import { House, ResponseItem, Room } from 'types';
 import { QUERY_KEYS } from 'core/constants';
 
-export default function HouseRecommendation() {
+export default function HouseDetail() {
   return (
     <>
       <Head />
       <HeaderMenu />
-      <HomeRecommendationHeaderSection allowApplicant={true} />
+      <HomeRecommendationHeaderSection />
       <View style={styles.separator} />
       <PrivateAmenities />
       <View style={styles.separator} />
       <FloorPlan />
-      <View style={styles.separator} />
-      <MapLocation />
       <Footer />
     </>
   );
