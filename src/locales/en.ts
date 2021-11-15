@@ -62,7 +62,7 @@ const en = {
   recommendationDescription: 'Your house recommendations.',
   roommatesTitle: 'Your Roommates',
   roommatesSubtitle: 'Your roommate profile will showed up here once we found you a match.',
-  roommatesViewButton: 'View Detail',
+  roommatesViewButton: 'View Details',
   linkedAccountsTitle: 'Linked Accounts',
   linkedAccountsDescription: 'We link your profile and help you to populate your profile.',
   instagramConnect: 'Connect to Instagram',

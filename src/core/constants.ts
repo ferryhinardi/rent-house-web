@@ -2,7 +2,7 @@ import { routePaths } from 'routePaths';
 import assets from 'assets';
 
 export const menus = [
-  { name: 'Homes', href: routePaths.home },
+  { name: 'Home', href: routePaths.home },
   // { name: 'Events', href: '/events' },
   { name: 'About Us', href: '/about-us' },
   { name: 'Rental Homes', href: '/rental-homes' },
