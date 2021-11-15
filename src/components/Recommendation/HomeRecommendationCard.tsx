@@ -13,17 +13,11 @@ type CardProps = House & {
   onViewDetail?: () => void;
 };
 
-export default function HomeRecommendationCard({
-  name,
-  description,
-  amenities,
-  galleries,
-  onViewDetail,
-}: CardProps) {
+export default function HomeRecommendationCard({ name, description, amenities, galleries, onViewDetail }: CardProps) {
   const { t } = useTranslation();
   return (
     <Card style={styles.containerCard}>
-      <Card.Body>
+      <Card.Body style={{ flex: 1 }}>
         <Swiper
           containerStyle={{ flex: 1 }}
           innerContainerStyle={{
@@ -69,8 +63,7 @@ export default function HomeRecommendationCard({
                 }}
               />
             ),
-          }}
-        >
+          }}>
           {galleries.map((galery, idx) => (
             <Image
               key={`${galery}-${idx}`}
@@ -103,11 +96,7 @@ export default function HomeRecommendationCard({
             );
           })}
         </View>
-        <Button
-          text={t('homeRecommendationViewButton')}
-          style={styles.viewDetail}
-          onPress={onViewDetail}
-        />
+        <Button text={t('homeRecommendationViewButton')} style={styles.viewDetail} onPress={onViewDetail} />
       </Card.Body>
       <style jsx global>{`
         .image-galery {
@@ -130,6 +119,7 @@ const styles = StyleSheet.create({
   title: { marginTop: Token.spacing.xl },
   description: { marginTop: Token.spacing.l },
   facilityContainer: {
+    flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: Token.spacing.xs,
