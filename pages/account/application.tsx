@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Head, HeaderMenu, HeaderNavigation, ApplicationContainer, ApplicationCard, Footer } from 'components';
+import { LineSharedPage } from 'components/LineBackground';
 import { fetchServer, Token } from 'core';
 import { Text, ContainerDesktop } from 'core/base';
 import htmr from 'htmr';
@@ -26,6 +27,7 @@ export default function Application({ applications }: Props) {
     <div>
       <Head />
       <HeaderMenu />
+      <LineSharedPage />
       <ContainerDesktop>
         <HeaderNavigation title={t('application')} subtitle={t('applicationDescription')} />
         {applications && applications.data.length === 0 ? (

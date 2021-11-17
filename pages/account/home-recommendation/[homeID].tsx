@@ -11,6 +11,7 @@ import {
   MapLocation,
   Footer,
 } from 'components';
+import { LineHomeRecommendation } from 'components/LineBackground';
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 import { House, ResponseItem, Room } from 'types';
@@ -21,6 +22,7 @@ export default function HouseRecommendation() {
     <>
       <Head />
       <HeaderMenu />
+      <LineHomeRecommendation />
       <HomeRecommendationHeaderSection allowApplicant={true} />
       <View style={styles.separator} />
       <PrivateAmenities />

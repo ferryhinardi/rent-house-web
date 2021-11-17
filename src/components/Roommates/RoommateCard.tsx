@@ -39,6 +39,7 @@ export default function RoommateCard({ roomate }: RoommateCardProps) {
           className="image-galery"
           loader={customImgLoader}
           placeholder="blur"
+          objectFit="cover"
           width={240}
           height={240}
           alt="image"

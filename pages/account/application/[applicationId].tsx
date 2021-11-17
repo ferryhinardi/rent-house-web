@@ -3,6 +3,7 @@ import { NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
 import { Head, HeaderMenu, HeaderNavigation, ApplicationDetailContent, Footer } from 'components';
+import { LineSharedPage } from 'components/LineBackground';
 import { fetcher, Token } from 'core';
 import { Button, ContainerDesktop } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
@@ -57,6 +58,7 @@ export default function ApplicationDetail() {
     <div>
       <Head />
       <HeaderMenu />
+      <LineSharedPage />
       <ContainerDesktop>
         <HeaderNavigation title={data?.house.name as string} />
         <ApplicationDetailContent application={data} />
@@ -96,12 +98,12 @@ export async function getServerSideProps(context: NextPageContext) {
     return {
       redirect: {
         permanent: false,
-        destination: "/"
-      }
-    }
+        destination: '/',
+      },
+    };
   }
 
   return {
-    props: {}
+    props: {},
   };
 }

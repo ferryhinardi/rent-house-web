@@ -9,12 +9,15 @@ const assets = {
   GoogleLogo: require('./G__Logo.png').default,
   videoSection: require('./video-section.png').default,
   preferenceBanner: require('./preference-banner.png').default,
-  // wavy line on homepage
+  // wavy line
   homeLineHorizontal: require('./line-horizontal.png'),
   homeLineHorizontal2: require('./line-2.png'),
   homeLineHorizontal3: require('./line-3.png'),
   homeLineHorizontal4: require('./line-4.png'),
   homeLineHorizontal5: require('./line-5.png'),
+  accountLine: require('./line-account.png'),
+  homeRecommendationLine1: require('./line-home-recommendation-1.png'),
+  homeRecommendationLine2: require('./line-home-recommendation-2.png'),
   // Hero Banner
   hero0: require('./hero-0.png').default,
   hero1: require('./hero-1.png').default,
