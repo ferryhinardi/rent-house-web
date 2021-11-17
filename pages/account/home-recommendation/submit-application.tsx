@@ -1,13 +1,8 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
-import {
-  Head,
-  HeaderMenu,
-  HeaderNavigation,
-  HomeDetailContent,
-  Footer,
-} from 'components';
+import { Head, HeaderMenu, HeaderNavigation, HomeDetailContent, Footer } from 'components';
+import { LineSharedPage } from 'components/LineBackground';
 import { ContainerDesktop } from 'core/base';
 
 export default function HomeDetail() {
@@ -18,6 +13,7 @@ export default function HomeDetail() {
     <div>
       <Head />
       <HeaderMenu />
+      <LineSharedPage />
       <ContainerDesktop>
         <HeaderNavigation title={title} subtitle={t('homeDetailSubtitle')} />
         <HomeDetailContent />

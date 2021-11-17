@@ -3,6 +3,7 @@ import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
 import { useTranslation } from 'react-i18next';
 import { QueryClient } from 'react-query';
 import { Head, HeaderMenu, HeaderNavigation, PreferenceContent, Footer } from 'components';
+import { LineSharedPage } from 'components/LineBackground';
 import { fetchServer } from 'core';
 import { ContainerDesktop } from 'core/base';
 import { dehydrate } from 'react-query/hydration';
@@ -20,6 +21,7 @@ export default function Preference({ answers }: Props) {
     <div>
       <Head />
       <HeaderMenu />
+      <LineSharedPage />
       <ContainerDesktop>
         <HeaderNavigation title={t('preference')} />
         <PreferenceContent answers={answers} />

@@ -17,6 +17,7 @@ import {
   EmergencyContact,
   Footer,
 } from 'components';
+import { LineSharedPage } from 'components/LineBackground';
 import { Token, fetcher, fetchServer } from 'core';
 import { ContainerDesktop, Button, ErrorMessage } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
@@ -120,6 +121,7 @@ export default function Profile({ user, documents, emergencyContacts }: Props) {
     <div>
       <Head />
       <HeaderMenu />
+      <LineSharedPage />
       <ContainerDesktop>
         <HeaderNavigation title={t('profile')} />
         {/* @ts-ignore */}

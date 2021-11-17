@@ -15,6 +15,7 @@ import {
   PreferenceBanner,
   Footer,
 } from 'components';
+import { LineSharedPage } from 'components/LineBackground';
 import { Token, fetchServer } from 'core';
 import { ContainerDesktop, Text } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
@@ -42,6 +43,7 @@ export default function Account({ user }: Props) {
     <div>
       <Head />
       <HeaderMenu />
+      <LineSharedPage />
       <ContainerDesktop>
         <HeaderNavigation title={t('account')} />
         <View style={styles.separator} />
