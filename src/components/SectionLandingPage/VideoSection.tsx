@@ -16,7 +16,7 @@ export default function VideoSection() {
       <View style={styles.overlay} />
       <Image {...assets.videoSection} placeholder="blur" alt="video-section" />
       <View style={styles.textContainer}>
-        <Text style={styles.titleText} variant="large-cursive" ink="light">
+        <Text style={styles.titleText} font="playfair" variant="headline-1" ink="light">
           {t('bannerTitle')}
         </Text>
         <Text variant="caption" ink="light" style={styles.heroSubtitle}>

@@ -20,7 +20,7 @@ const en = {
   submitSignInForm: 'Sign In',
   submitSignUpForm: 'View My Recommendation',
   saveForm: 'Save',
-  signIn: 'Sign In',
+  signIn: 'Sign in',
   signInFacebook: 'Sign in with Facebook',
   signInGoogle: 'Sign in with Google',
   submitQuestionButton: 'Find My Home',

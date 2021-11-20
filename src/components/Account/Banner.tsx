@@ -17,7 +17,7 @@ export default function Banner() {
         <Image {...assets.preferenceBanner} alt="preference banner" placeholder="blur" objectFit="cover" />
       </View>
       <View style={styles.textContainer}>
-        <Text ink="light" variant="large-cursive">
+        <Text ink="light" variant="header-2">
           {t('preferenceBannerTitle')}
         </Text>
         <Text style={styles.descriptionText} ink="light" variant="caption">

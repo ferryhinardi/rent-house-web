@@ -78,7 +78,7 @@ function FollowUsList() {
       <View style={styles.followUsWrapper}>
         <a href={'https://www.facebook.com/therynaofficial/'} target="_blank" rel="noopener noreferrer">
           <Text accessibilityRole="link">
-            <Icon name="facebook-f" size={14} color={Token.colors.white} />
+            <Icon name="facebook-f" size={18} color={Token.colors.white} />
           </Text>
         </a>
       </View>
@@ -88,19 +88,19 @@ function FollowUsList() {
         href={''}
         target="_blank"
       >
-        <Icon name="twitter" size={14} color={Token.colors.white} />
+        <Icon name="twitter" size={18} color={Token.colors.white} />
       </Text> */}
       <View style={styles.followUsWrapper}>
         <a href={'https://www.instagram.com/therynaofficial/'} target="_blank" rel="noopener noreferrer">
           <Text accessibilityRole="link">
-            <Icon name="instagram" size={14} color={Token.colors.white} />
+            <Icon name="instagram" size={18} color={Token.colors.white} />
           </Text>
         </a>
       </View>
       <View style={styles.followUsWrapper}>
         <a href={'https://www.linkedin.com/company/ryna/'} target="_blank" rel="noopener noreferrer">
           <Text accessibilityRole="link">
-            <Icon name="linkedin" size={14} color={Token.colors.white} />
+            <Icon name="linkedin" size={18} color={Token.colors.white} />
           </Text>
         </a>
       </View>
@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
   followUsContainer: {
     flexDirection: 'row',
     marginTop: Token.spacing.m,
+    width: '80%',
   },
   followUsWrapper: {
     flex: 1,
@@ -159,8 +160,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   logoTitle: {
-    // only use once
-    ...Token.typography.tenorSans,
     fontSize: Token.fontSize.large,
     lineHeight: 28,
   },

@@ -45,18 +45,16 @@ function SignInForm() {
         <Image {...assets.loginCover} alt="login-cover" objectFit="cover" />
       </View>
       <View style={styles.formContainer}>
-        <Text variant="large-cursive" style={styles.title}>
+        <Text variant="header-2" style={styles.title}>
           {t('titleSignInForm')}
         </Text>
-        <Text variant="caption" style={styles.title}>
+        <Text variant="caption" style={[styles.title, styles.subTitle]}>
           {t('subtitleSignInForm')}
         </Text>
         <View style={styles.fieldSectionContainer}>
           <GoogleButton onSuccessLogin={onSuccessLogin} />
           <FacebookButton onSuccessLogin={onSuccessLogin} />
-          <Text variant="paragraph" style={styles.separator}>
-            {t('separator')}
-          </Text>
+          <Text style={styles.separator}>{t('separator')}</Text>
           <Controller
             name="email"
             control={control}
@@ -129,7 +127,13 @@ export function SignInButton() {
   const { t } = useTranslation();
   return (
     <>
-      <Button variant="secondary" text={t('signIn')} onPress={() => onVisible(true)} style={styles.signInButton} />
+      <Button
+        textStyle={{ fontWeight: '500' }}
+        variant="secondary"
+        text={t('signIn')}
+        onPress={() => onVisible(true)}
+        style={styles.signInButton}
+      />
       <Modal
         animationType="fade"
         visible={isVisible}
@@ -149,6 +153,10 @@ const styles = StyleSheet.create({
     margin: 'auto',
   },
   title: { textAlign: 'center' },
+  subTitle: {
+    marginTop: Token.spacing.m,
+    width: '80%',
+  },
   separator: {
     marginVertical: Token.spacing.ml,
     maxWidth: '60%',

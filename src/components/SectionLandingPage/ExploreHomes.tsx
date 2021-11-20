@@ -34,7 +34,7 @@ export default function ExploreHomes() {
       </View>
       <View style={styles.header}>
         <View>
-          <Text variant="large-cursive" style={styles.headerTitle}>
+          <Text ink="primary" variant="header-2" style={styles.headerTitle}>
             {t('titleExploreHomes')}
           </Text>
           <Text variant="caption">{t('subtitleExploreHomes')}</Text>
@@ -64,7 +64,7 @@ export default function ExploreHomes() {
                 imageContainerStyle={styles.cardImage}
                 style={styles.cardContainer}
               />
-              <Text variant="large-cursive" style={styles.cardTitle}>
+              <Text variant="header-2" style={styles.cardTitle}>
                 {firstHome?.city}
               </Text>
             </View>
@@ -89,7 +89,7 @@ export default function ExploreHomes() {
                   }}
                   imageContainerStyle={styles.cardImage}
                 />
-                <Text variant="large-cursive" style={styles.cardTitle}>
+                <Text variant="header-2" style={styles.cardTitle}>
                   {secondHome?.city}
                 </Text>
                 <Text variant="caption">{secondHome?.name}</Text>
@@ -122,7 +122,7 @@ export default function ExploreHomes() {
                     }}
                     imageContainerStyle={styles.cardImage}
                   />
-                  <Text variant="large-cursive" style={styles.cardTitle}>
+                  <Text variant="header-2" style={styles.cardTitle}>
                     {item.city}
                   </Text>
                   <Text variant="caption">{item.name}</Text>

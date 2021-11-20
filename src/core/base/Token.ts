@@ -87,22 +87,11 @@ export const typography = {
     lineHeight: 24,
     ...textWeightRegularStyle,
   },
-  abelFont: {
-    // used for button, paragraph, caption
-    fontFamily: 'Abel',
-  },
   playfairFont: {
     // used for headline
     fontFamily: 'Playfair Display',
   },
-
-  playball: {
-    // used for special headline (cursive)
-    fontFamily: 'Playball',
-  },
-
-  tenorSans: {
-    // used in footer
-    fontFamily: 'Tenor Sans',
+  openSauceSans: {
+    fontFamily: 'Open Sauce Sans',
   },
 };

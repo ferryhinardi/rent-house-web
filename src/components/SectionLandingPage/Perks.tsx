@@ -38,7 +38,7 @@ function Perks() {
       {/* Header */}
       <View style={styles.header}>
         <View>
-          <Text variant="large-cursive" style={styles.headerTitle}>
+          <Text ink="primary" variant="header-2" style={styles.headerTitle}>
             {t('titlePerks')}
           </Text>
           <Text variant="caption">{t('subtitlePerks')}</Text>
@@ -69,7 +69,7 @@ function Perks() {
                     onError: () => console.error('error render image'),
                   }}>
                   <Card.Body>
-                    <Card.Title variant="large-cursive">{item.title}</Card.Title>
+                    <Card.Title variant="header-2">{item.title}</Card.Title>
                     <Text variant="caption" style={{ marginTop: Token.spacing.m }}>
                       {item.description}
                     </Text>
@@ -96,7 +96,7 @@ function Perks() {
                     onError: () => console.error('error render image'),
                   }}>
                   <Card.Body>
-                    <Card.Title variant="large-cursive">{item.title}</Card.Title>
+                    <Card.Title variant="header-3">{item.title}</Card.Title>
                     <Text variant="caption" style={{ marginTop: Token.spacing.m }}>
                       {item.description}
                     </Text>

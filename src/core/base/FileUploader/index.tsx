@@ -170,7 +170,6 @@ const styles = StyleSheet.create({
     outlineWidth: 0,
     outlineStyle: 'none',
     minWidth: 0,
-    ...Token.typography.abelFont,
   },
   uploadButton: {
     marginTop: Token.spacing.l,

@@ -164,7 +164,7 @@ function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceL
       ) : (
         <>
           {question?.title && (
-            <Text variant="large-cursive" ink="primary" style={styles.title}>
+            <Text variant="header-2" ink="primary" style={styles.title}>
               {question?.title}
             </Text>
           )}

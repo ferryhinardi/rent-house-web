@@ -28,7 +28,7 @@ export default function FloorPlan() {
 
   return (
     <ContainerDesktop>
-      <Text variant="large-cursive" ink="primary" style={styles.title}>
+      <Text variant="header-2" ink="primary" style={styles.title}>
         {t('floorPlanTitle')}
       </Text>
       <Text variant="caption" style={styles.description}>
