@@ -25,7 +25,7 @@ function SideBar({ menus, onPress, style }: Props) {
             onPress?.(menu.name);
           }}
           style={styles.menuWrapper}>
-          <Text variant="paragraph" ink="primary" style={styles.menu}>
+          <Text variant="button" ink="primary" style={styles.menu}>
             <View
               style={[
                 styles.activeMenu,

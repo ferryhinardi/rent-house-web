@@ -24,7 +24,7 @@ export default function Testimonial() {
   return (
     <ContainerDesktop style={styles.container}>
       <View style={styles.itemWrapperStyle}>
-        <Text variant="large-cursive">{t('titleTestimonial')}</Text>
+        <Text variant="header-2">{t('titleTestimonial')}</Text>
         <Text variant="caption" style={styles.subtitle}>
           {t('subtitleTestimonial')}
         </Text>
@@ -58,12 +58,10 @@ export default function Testimonial() {
               imageContainerStyle={styles.cardImage}
               roundedCorner={['topLeft', 'bottomRight']}>
               <Card.Body style={{ width: 400 }}>
-                <Text variant="large-cursive" style={styles.cardTitle}>
+                <Text variant="header-4" font="playfair" style={styles.cardTitle}>
                   {item.user.name + ' | ' + item.user.job}
                 </Text>
-                <Text variant="paragraph" style={{ marginTop: Token.spacing.m }}>
-                  {item.testimony_text}
-                </Text>
+                <Text style={{ marginTop: Token.spacing.m }}>{item.testimony_text}</Text>
               </Card.Body>
             </Card>
           );

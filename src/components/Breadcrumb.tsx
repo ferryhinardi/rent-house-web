@@ -18,7 +18,7 @@ function Breadcrumbs() {
         <ol>
           <li>
             <Link href="/" passHref>
-              <Text accessibilityRole="link" ink="primary" variant="paragraph">
+              <Text accessibilityRole="link" ink="primary" variant="small">
                 {t('homepage')}
               </Text>
             </Link>
@@ -32,7 +32,7 @@ function Breadcrumbs() {
                   <Text
                     accessibilityRole="link"
                     ink={isActiveMenu ? 'normal' : 'primary'}
-                    variant="paragraph"
+                    variant="small"
                     style={[isActiveMenu ? styles.active : {}]}>
                     {t(`${path}`)}
                   </Text>

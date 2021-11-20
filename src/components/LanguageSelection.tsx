@@ -12,7 +12,7 @@ export default function LanguageSelection() {
       <View style={styles.imageContainer}>
         <Image src={options[0].icon} alt="language-flag" width={24} height={12} />
       </View>
-      <Text style={styles.label} variant="paragraph">
+      <Text style={styles.label} variant="body">
         {options[0].label}
       </Text>
       {/* <SelectInput instanceId="language-selection" defaultValue={options[0]} /> */}

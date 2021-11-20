@@ -44,11 +44,9 @@ export default function ApplicationCard({ application, onPress }: Props) {
         <Text ink="dark" variant="header-4" style={styles.title}>
           {application.house.name}
         </Text>
-        <Text variant="paragraph">{application.city}</Text>
-        <Text variant="paragraph" style={styles.amount}>
-          {application.budget}
-        </Text>
-        <Text variant="paragraph">{`Moving Date: ${formatter.format(Date.parse(application.moving_date))}`}</Text>
+        <Text>{application.city}</Text>
+        <Text style={styles.amount}>{application.budget}</Text>
+        <Text>{`Moving Date: ${formatter.format(Date.parse(application.moving_date))}`}</Text>
       </Card.Body>
     </Card>
   );

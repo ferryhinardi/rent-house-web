@@ -11,7 +11,7 @@ export default function Partners() {
   const { t } = useTranslation();
   return (
     <View style={styles.container}>
-      <Text variant="large-cursive">{t('ourPartners')}</Text>
+      <Text variant="header-2">{t('ourPartners')}</Text>
       <Image {...assets.mintoLogo} placeholder="blur" alt="minto-logo" />
       <Image {...assets.kingsetLogo} placeholder="blur" alt="kingset-logo" />
       <Image {...assets.bentallGreenOakLogo} placeholder="blur" alt="bentallGreenOak-logo" />

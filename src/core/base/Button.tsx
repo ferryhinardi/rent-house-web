@@ -73,7 +73,7 @@ function Button({
       {loading ? (
         <LoadingIndicator color={colors.white} />
       ) : (
-        <Text variant="paragraph" style={textStyle} ink={textInk}>
+        <Text style={textStyle} ink={textInk}>
           {text}
         </Text>
       )}
