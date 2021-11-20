@@ -29,7 +29,6 @@ function HeroBannerInitial() {
           <Text variant="caption" ink="light" style={styles.heroSubtitle}>
             {t('bannerSubtitle')}
           </Text>
-          <Button variant="secondary" text="Learn More" />
         </>
       }
       footerNode={'Liberty Village, Toronto'}
