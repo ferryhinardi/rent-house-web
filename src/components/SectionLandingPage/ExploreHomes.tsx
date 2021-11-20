@@ -65,7 +65,7 @@ export default function ExploreHomes() {
                 style={styles.cardContainer}
               />
               <Text variant="header-2" style={styles.cardTitle}>
-                {firstHome?.name}
+                {firstHome?.city}
               </Text>
             </View>
           )}
@@ -90,7 +90,7 @@ export default function ExploreHomes() {
                   imageContainerStyle={styles.cardImage}
                 />
                 <Text variant="header-2" style={styles.cardTitle}>
-                  {secondHome?.name}
+                  {secondHome?.city}
                 </Text>
                 <Text variant="caption">{secondHome?.name}</Text>
               </View>
@@ -123,7 +123,7 @@ export default function ExploreHomes() {
                     imageContainerStyle={styles.cardImage}
                   />
                   <Text variant="header-2" style={styles.cardTitle}>
-                    {item.name}
+                    {item.city}
                   </Text>
                   <Text variant="caption">{item.name}</Text>
                 </View>
