@@ -142,6 +142,7 @@ export type UserDocument = {
   user_id: number;
   document_type: number;
   document_path: string;
+  document_status: number;
   is_verified: boolean;
 };
 

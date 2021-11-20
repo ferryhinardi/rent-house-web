@@ -1,4 +1,5 @@
 import { UserDocument } from 'types';
+import { DOCUMENT_STATUS } from '../core/constants';
 
 export const getDocumentFile = (
   documentType: number,
@@ -8,7 +9,7 @@ export const getDocumentFile = (
   return document?.document_path
     ? {
         name: getDocumentNameByPath(document.document_path),
-        isVerified: document.is_verified,
+        isVerified: document.document_status === DOCUMENT_STATUS.APPROVED,
       }
     : undefined;
 };

@@ -52,3 +52,9 @@ export const QUERY_KEYS = {
 };
 
 export const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 MB
+
+export const DOCUMENT_STATUS = {
+  PENDING: 0,
+  APPROVED: 1,
+  REJECTED: 2,
+};
