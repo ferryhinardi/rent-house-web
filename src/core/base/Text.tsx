@@ -20,7 +20,7 @@ interface Props extends TextProps {
   font?: 'standard' | 'playfair';
 }
 
-function Text({ children, variant = 'caption', ink = 'normal', style, font, ...restProps }: Props) {
+function Text({ children, variant = 'body', ink = 'normal', style, font, ...restProps }: Props) {
   let variantStyle = {};
 
   switch (font) {
@@ -201,7 +201,9 @@ const styles = StyleSheet.create({
   captionInk: {
     color: colors.lightGrey,
   },
-  defaultFont: {},
+  defaultFont: {
+    ...typography.openSauceSans,
+  },
   playfair: {
     ...typography.Baseline,
   },

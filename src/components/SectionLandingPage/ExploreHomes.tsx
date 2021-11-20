@@ -34,7 +34,7 @@ export default function ExploreHomes() {
       </View>
       <View style={styles.header}>
         <View>
-          <Text variant="header-2" style={styles.headerTitle}>
+          <Text ink="primary" variant="header-2" style={styles.headerTitle}>
             {t('titleExploreHomes')}
           </Text>
           <Text variant="caption">{t('subtitleExploreHomes')}</Text>

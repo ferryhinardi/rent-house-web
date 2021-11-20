@@ -91,4 +91,7 @@ export const typography = {
     // used for headline
     fontFamily: 'Playfair Display',
   },
+  openSauceSans: {
+    fontFamily: 'Open Sauce Sans',
+  },
 };

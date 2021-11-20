@@ -127,7 +127,13 @@ export function SignInButton() {
   const { t } = useTranslation();
   return (
     <>
-      <Button variant="secondary" text={t('signIn')} onPress={() => onVisible(true)} style={styles.signInButton} />
+      <Button
+        textStyle={{ fontWeight: '500' }}
+        variant="secondary"
+        text={t('signIn')}
+        onPress={() => onVisible(true)}
+        style={styles.signInButton}
+      />
       <Modal
         animationType="fade"
         visible={isVisible}
