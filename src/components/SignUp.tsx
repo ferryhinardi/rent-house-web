@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   subtitle: {
-    maxWidth: '60%',
+    maxWidth: '80%',
     marginVertical: Token.spacing.m,
   },
   separator: {
