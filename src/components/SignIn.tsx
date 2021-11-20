@@ -48,7 +48,7 @@ function SignInForm() {
         <Text variant="header-2" style={styles.title}>
           {t('titleSignInForm')}
         </Text>
-        <Text variant="caption" style={styles.title}>
+        <Text variant="caption" style={[styles.title, styles.subTitle]}>
           {t('subtitleSignInForm')}
         </Text>
         <View style={styles.fieldSectionContainer}>
@@ -153,6 +153,10 @@ const styles = StyleSheet.create({
     margin: 'auto',
   },
   title: { textAlign: 'center' },
+  subTitle: {
+    marginTop: Token.spacing.m,
+    width: '80%',
+  },
   separator: {
     marginVertical: Token.spacing.ml,
     maxWidth: '60%',
