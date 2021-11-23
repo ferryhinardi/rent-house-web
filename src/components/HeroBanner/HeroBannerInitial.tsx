@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Token } from 'core';
-import { Text, Button } from 'core/base';
+import tailwind from 'tailwind-rn';
+import { Text } from 'core/base';
 import assets from 'assets';
 import HeroBannerTemplate from './HeroBannerTemplate';
 import config from 'config';
@@ -14,34 +14,34 @@ function HeroBannerInitial() {
   return (
     <HeroBannerTemplate
       video={
-        <View style={styles.videoContainer}>
-          <View style={styles.overlay} />
-          <video style={{ objectFit: 'cover', width: 1120, height: 720 }} muted autoPlay loop>
+        <View style={tailwind('w-screen')}>
+          <View style={[styles.overlay, styles.assetContainer]} />
+          <video style={tailwind('object-cover w-auto rounded-br-3xl')} muted autoPlay loop>
             <source src={videoSrc} />
           </video>
         </View>
       }
       DescriptionComponent={
         <>
-          <Text font="playfair" variant="headline-1" ink="light">
+          <Text font="playfair" variant="headline-1" ink="light" style={tailwind('flex-wrap')}>
             {t('bannerTitle')}
           </Text>
-          <Text variant="caption" ink="light" style={styles.heroSubtitle}>
+          <Text variant="caption" ink="light" style={tailwind('py-5')}>
             {t('bannerSubtitle')}
           </Text>
         </>
       }
       footerNode={'Liberty Village, Toronto'}
+      width={hero.width}
+      height={hero.height}
     />
   );
 }
 
-HeroBannerInitial.width = hero.width;
-HeroBannerInitial.height = hero.height;
-
 const styles = StyleSheet.create({
-  heroSubtitle: {
-    paddingVertical: Token.spacing.l,
+  assetContainer: {
+    borderBottomRightRadius: 40,
+    overflow: 'hidden',
   },
   overlay: {
     backgroundColor: 'rgba(12, 27, 64, 0.5)',
@@ -49,10 +49,6 @@ const styles = StyleSheet.create({
     height: '100%',
     position: 'absolute',
     zIndex: 10,
-  },
-  videoContainer: {
-    borderBottomRightRadius: 40,
-    overflow: 'hidden',
   },
 });
 

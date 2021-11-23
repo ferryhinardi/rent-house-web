@@ -32,12 +32,11 @@ function HeroBannerChooseDate({ states, onChange }: Props) {
         </>
       }
       footerNode={'Liberty Village, Toronto'}
+      width={hero.width}
+      height={hero.height}
     />
   );
 }
-
-HeroBannerChooseDate.width = hero.width;
-HeroBannerChooseDate.height = hero.height;
 
 const styles = StyleSheet.create({
   heroSubtitle: {

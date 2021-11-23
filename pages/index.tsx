@@ -28,7 +28,7 @@ export default function Home() {
       <Head />
       <HeaderMenu />
       <Hero />
-      {/* <PartnersSection /> */}
+      <PartnersSection />
       {/* <ExploreHomesSection /> */}
       {/* <VideoSection /> */}
       {/* <Perks /> */}

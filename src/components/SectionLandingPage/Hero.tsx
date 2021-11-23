@@ -2,22 +2,25 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useSprings, animated } from 'react-spring';
+import NoSSR from 'react-no-ssr';
 import { Element } from 'react-scroll';
 import { useTranslation } from 'react-i18next';
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/router';
+import { useForm, useFieldArray } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
+import tailwind from 'tailwind-rn';
 
 import { fetcher } from 'core';
 import { Modal } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { ResponseItem, Question, User } from 'types';
-import { DevTool } from '@hookform/devtools';
 import { routePaths } from 'routePaths';
 
 import { HeroBannerInitial, HeroBannerChooseDate, HeroBannerChooseBudget, HeroBannerDone } from 'components/HeroBanner';
 import Questionaire from 'components/Questionaire';
 import SignUpForm from 'components/SignUp';
-import { useForm, useFieldArray } from 'react-hook-form';
+import useTailwind from 'hooks/useTailwind';
 
 export type HeroState = {
   name: string;
@@ -69,15 +72,14 @@ function Hero() {
   const [stateIndex, setStateIndex] = useState(0);
   const { t } = useTranslation();
   const router = useRouter();
-
+  const { tailwindResponsive, md } = useTailwind();
   const herosSprings = useSprings(
     totalData,
-    heros.map((item, index) =>
+    heros.map((_, index) =>
       index === stateIndex
         ? {
+            flex: 0,
             opacity: 1,
-            width: item.width,
-            height: item.height,
             position: 'relative',
             zIndex: 1,
           }
@@ -106,62 +108,50 @@ function Hero() {
 
   return (
     <Element name="find-my-home">
-      <View style={styles.container}>
-        {herosSprings.map((animateStyle, idx) => {
-          const HeroDescription = heros[idx];
-          return (
-            <AnimatedView
-              key={`${idx}`}
-              // @ts-ignore
-              style={animateStyle}>
-              <View style={styles.wrapper}>
-                <HeroDescription states={watch('states')} onChange={onChangeTimelineBanner} />
-                <View style={styles.containerSignUpForm}>
-                  <Questionaire
-                    loading={isLoading}
-                    question={data?.data?.[stateIndex]}
-                    methods={fieldsArrayMethods}
-                    index={stateIndex}
-                    onSubmit={onSubmit}
-                    choiceLabel={t('choiceStatus')}
-                  />
+      <NoSSR>
+        <View style={tailwind('flex flex-row')}>
+          {herosSprings.map((animateStyle, idx) => {
+            const HeroDescription = heros[idx];
+            return (
+              <AnimatedView
+                key={`${idx}`}
+                // @ts-ignore
+                style={animateStyle}>
+                <View style={tailwindResponsive('flex flex-1 flex-row items-center', { md: 'flex-col' }, { md })}>
+                  <HeroDescription states={watch('states')} onChange={onChangeTimelineBanner} />
+                  <View style={tailwindResponsive('w-96', { md: 'ml-0 w-screen self-start' }, { md })}>
+                    <Questionaire
+                      loading={isLoading}
+                      question={data?.data?.[stateIndex]}
+                      methods={fieldsArrayMethods}
+                      index={stateIndex}
+                      onSubmit={onSubmit}
+                      choiceLabel={t('choiceStatus')}
+                    />
+                  </View>
                 </View>
-              </View>
-            </AnimatedView>
-          );
-        })}
-        {stateIndex === totalData - 1 && (
-          <Modal
-            animationType="fade"
-            visible={isVisible}
-            onRequestClose={() => setIsVisible(false)}
-            onDismiss={() => setIsVisible(false)}
-            noPadding
-            modalContentStyle={styles.modalContentStyle}>
-            <SignUpForm landingPageAnswers={fieldsArrayMethods.fields} />
-          </Modal>
-        )}
-      </View>
+              </AnimatedView>
+            );
+          })}
+          {stateIndex === totalData - 1 && (
+            <Modal
+              animationType="fade"
+              visible={isVisible}
+              onRequestClose={() => setIsVisible(false)}
+              onDismiss={() => setIsVisible(false)}
+              noPadding
+              modalContentStyle={styles.modalContentStyle}>
+              <SignUpForm landingPageAnswers={fieldsArrayMethods.fields} />
+            </Modal>
+          )}
+        </View>
+      </NoSSR>
       <DevTool control={control} />
     </Element>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  wrapper: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  containerSignUpForm: {
-    marginLeft: '-25%',
-    width: '50%',
-  },
   modalContentStyle: {
     marginVertical: 100,
   },

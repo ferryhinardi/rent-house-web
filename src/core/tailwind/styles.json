@@ -1,0 +1,15 @@
+{
+  "purge": [],
+  "darkMode": false,
+  "theme": {
+    "extend": {
+      "width": {
+        "w-three-quarters-screen": "75vw"
+      }
+    }
+  },
+  "variants": {
+    "extend": {}
+  },
+  "plugins": []
+}
