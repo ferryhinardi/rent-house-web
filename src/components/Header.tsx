@@ -34,6 +34,7 @@ function Header() {
   const onNavigateMenu = (href: string) => {
     router.push(href);
   };
+
   return (
     <View style={tailwind('min-h-full')}>
       <Disclosure as="nav" style={tailwind('bg-white shadow-lg')}>
@@ -47,11 +48,7 @@ function Header() {
                     <Image {...assets.logo} alt="logo" />
                   </Pressable>
                   {/* Primary Navbar items */}
-                  <View style={tailwindResponsive(
-                    "hidden",
-                    { lg: "flex" },
-                    { lg }
-                  )}>
+                  <View style={tailwindResponsive("hidden", { lg: "flex" }, { lg })}>
                     <View style={tailwind('ml-10 flex-row flex-wrap flex items-center space-x-4')}>
                       {menus.map(({ name, href }) => {
                         const isActiveMenu = href.replace('/', '') === router.pathname.split('/')[1];
