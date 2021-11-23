@@ -1,11 +1,14 @@
 import React from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import tailwind from 'tailwind-rn';
+import { Disclosure } from '@headlessui/react';
 import Cookie from 'js-cookie';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
-import { useSprings, animated, config } from 'react-spring';
 
+// @ts-ignore
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { fetcher, Token } from 'core';
 import { menus, QUERY_KEYS } from 'core/constants';
 import { User } from 'types';
@@ -14,8 +17,7 @@ import { routePaths } from 'routePaths';
 import { SignInButton } from 'components/SignIn';
 import UserLoginHeader from 'components/UserLoginHeader';
 import { Text } from 'core/base';
-
-const AnimatedView = animated(View);
+import useTailwind from 'hooks/useTailwind';
 
 function Header() {
   const router = useRouter();
@@ -28,78 +30,104 @@ function Header() {
       }),
     { enabled: Boolean(Cookie.get('token')) }
   );
-  const menuAnimations = useSprings(
-    menus.length,
-    // all animations
-    menus.map(() => ({
-      from: {
-        opacity: 0,
-      },
-      to: {
-        opacity: 1,
-      },
-      config: {
-        ...config.molasses,
-        duration: 1000,
-      },
-    }))
-  );
+  const { tailwindResponsive, lg } = useTailwind();
   const onNavigateMenu = (href: string) => {
     router.push(href);
   };
-
   return (
-    <View style={styles.container}>
-      <View style={styles.menuWrapper}>
-        <Pressable onPress={() => router.push(routePaths.home)}>
-          <Image {...assets.logo} alt="logo" />
-        </Pressable>
-        {menuAnimations.map((animateStyle, idx) => {
-          const { name, href } = menus[idx];
-          const isActiveMenu = href.replace('/', '') === router.pathname.split('/')[1];
-          return (
-            <AnimatedView
-              key={name}
-              // @ts-ignore
-              style={{ ...animateStyle }}>
-              <Text
-                accessibilityRole="link"
-                onPress={() => onNavigateMenu(href)}
-                style={[styles.menu, isActiveMenu && styles.activeMenu]}>
-                {name}
-              </Text>
-            </AnimatedView>
-          );
-        })}
-      </View>
-      {/* <LanguageSelection /> */}
-      {!isLoading && data?.name ? <UserLoginHeader {...data} /> : <SignInButton />}
+    <View style={tailwind('min-h-full')}>
+      <Disclosure as="nav" style={tailwind('bg-white shadow-lg')}>
+        {({ open }) => (
+          <>
+            <View style={tailwind('max-w-8xl mx-auto px-4 py-10')}>
+              <View style={tailwind('flex flex-row items-center justify-between h-16')}>
+                <View style={tailwind('flex flex-row self-start items-center')}>
+                  {/* Website Logo */}
+                  <Pressable onPress={() => router.push(routePaths.home)} style={tailwind('flex-shrink-0')}>
+                    <Image {...assets.logo} alt="logo" />
+                  </Pressable>
+                  {/* Primary Navbar items */}
+                  <View style={tailwindResponsive(
+                    "hidden",
+                    { lg: "flex" },
+                    { lg }
+                  )}>
+                    <View style={tailwind('ml-10 flex-row flex-wrap flex items-center space-x-4')}>
+                      {menus.map(({ name, href }) => {
+                        const isActiveMenu = href.replace('/', '') === router.pathname.split('/')[1];
+                        return (
+                          <Text
+                            key={name}
+                            accessibilityRole="link"
+                            onPress={() => onNavigateMenu(href)}
+                            style={[styles.menu, isActiveMenu && [styles.activeMenu, {borderBottomWidth: 1, borderBottomColor: Token.colors.gold }]]}>
+                            {name}
+                          </Text>
+                        );
+                      })}
+                    </View>
+                  </View>
+                </View>
+                {/* Secondary Navbar items */}
+                <View style={tailwindResponsive('hidden items-end space-x-3', { lg: "flex" }, { lg })}>
+                  {!isLoading && data?.name ? <UserLoginHeader {...data} /> : <SignInButton />}
+                </View>
+                {/* Mobile menu button */}
+                <View style={tailwindResponsive('-mr-2 flex', { lg: "hidden" }, { lg })}>
+                  <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                    {open ? (
+                      <Icon name="times" size={24} color={Token.colors.blue} />
+                    ) : (
+                      <Icon name="bars" size={24} color={Token.colors.blue} />
+                    )}
+                  </Disclosure.Button>
+                </View>
+              </View>
+            </View>
+
+            <Disclosure.Panel className="md:hidden">
+              <View style={tailwind('px-2 pt-2 pb-3 space-y-1 sm:px-3')}>
+                {/* mobile menu */}
+                {menus.map(({ name, href }) => {
+                  const isActiveMenu = href.replace('/', '') === router.pathname.split('/')[1];
+                  return (
+                    <Disclosure.Button
+                      key={name}
+                      as="a"
+                      href={href}
+                      style={tailwind(classNames(
+                        isActiveMenu ? 'border-b border-t-0 border-l-0 border-r-0 border-solid border-yellow-500' : '',
+                        'block px-3 py-2'
+                      ))}
+                      aria-current={isActiveMenu ? 'page' : undefined}
+                    >
+                      <Text
+                        onPress={() => onNavigateMenu(href)}
+                        style={[styles.menu, isActiveMenu && styles.activeMenu]}>
+                        {name}
+                      </Text>
+                    </Disclosure.Button>
+                  );
+                })}
+              </View>
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
     </View>
   );
 }
 
+function classNames(...classes: any[]) {
+  return classes.filter(Boolean).join(' ')
+}
+
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: Token.spacing.xxl,
-    paddingVertical: Token.spacing.xxxl,
-    zIndex: 1,
-  },
-  menuWrapper: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-  },
   menu: {
     paddingVertical: Token.spacing.xs,
     paddingHorizontal: Token.spacing.m,
   },
   activeMenu: {
-    borderBottomWidth: 1,
-    borderBottomColor: Token.colors.gold,
     color: Token.colors.gold,
     fontWeight: '600',
   },

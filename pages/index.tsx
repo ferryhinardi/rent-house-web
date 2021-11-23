@@ -1,4 +1,6 @@
 import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
+import { View } from 'react-native';
+import tailwind from 'tailwind-rn';
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 import {
@@ -22,25 +24,25 @@ import { redirectIfUnauthenticated } from 'utils/auth';
 
 export default function Home() {
   return (
-    <div>
+    <View style={tailwind('h-full')}>
       <Head />
       <HeaderMenu />
       <Hero />
-      <PartnersSection />
-      <ExploreHomesSection />
-      <VideoSection />
-      <Perks />
-      <EasyProcessSection />
-      <TestimonialSection />
-      <SupportingMediaSection />
-      <PreferenceBanner />
-      <Footer />
+      {/* <PartnersSection /> */}
+      {/* <ExploreHomesSection /> */}
+      {/* <VideoSection /> */}
+      {/* <Perks /> */}
+      {/* <EasyProcessSection /> */}
+      {/* <TestimonialSection /> */}
+      {/* <SupportingMediaSection /> */}
+      {/* <PreferenceBanner /> */}
+      {/* <Footer /> */}
       <style jsx global>{`
         #__next {
           overflow-x: hidden;
         }
       `}</style>
-    </div>
+    </View>
   );
 }
 
