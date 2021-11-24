@@ -4,6 +4,7 @@ import { View, Pressable, FlatList, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token } from 'core';
 import { Text } from 'core/base';
+import useTailwind from 'hooks/useTailwind';
 
 type State = {
   name: string;
@@ -16,11 +17,12 @@ type Props = {
 };
 
 function HeroTimeline({ states, onChange }: Props) {
+  const { md } = useTailwind();
   return (
     <View style={styles.container}>
       <FlatList
         keyExtractor={(_, idx) => `${idx}`}
-        horizontal
+        horizontal={!md}
         data={states}
         renderItem={({ item, index }) => {
           const PressWrapper = item.value ? Pressable : View;
@@ -44,7 +46,7 @@ function HeroTimeline({ states, onChange }: Props) {
             </PressWrapper>
           );
         }}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        ItemSeparatorComponent={() => (md ? <React.Fragment /> : <View style={styles.separator} />)}
       />
     </View>
   );

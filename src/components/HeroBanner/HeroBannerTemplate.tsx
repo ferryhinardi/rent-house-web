@@ -11,7 +11,7 @@ import useTailwind from 'hooks/useTailwind';
 type Props = {
   imageProps?: ImageProps;
   DescriptionComponent: React.ReactNode;
-  footerNode: React.ReactNode;
+  footerNode?: React.ReactNode;
   video?: React.ReactNode;
   width?: number;
   height?: number;
@@ -19,12 +19,11 @@ type Props = {
 
 function HeroBannerTemplate({ imageProps, DescriptionComponent, footerNode, video, width, height }: Props) {
   const { tailwindResponsive, md } = useTailwind();
-  console.log('responsive', tailwindResponsive('object-cover absolute top-0 w-three-quarters-screen', { md: 'w-screen' }, { md }));
   return (
     <View style={tailwind('justify-around')}>
-      <View style={tailwindResponsive('object-cover absolute top-0 w-three-quarters-screen', { md: 'w-screen' }, { md })}>
-        {video ?? (
-          imageProps && (
+      <View style={{ ...tailwind('absolute top-0 bottom-0 left-0 right-0'), ...(md ? { width: '100vw' } : {}) }}>
+        {video ??
+          (imageProps && (
             <Image
               {...imageProps}
               layout="responsive"
@@ -33,17 +32,22 @@ function HeroBannerTemplate({ imageProps, DescriptionComponent, footerNode, vide
               height={imageProps.height as number}
               alt="hero-image"
             />
-          )
-        )}
+          ))}
       </View>
-      <View style={[{ width, height }, tailwindResponsive('flex flex-col flex-auto items-start justify-evenly', { md: 'w-0' }, { md })]}>
+      <View
+        style={[
+          { width, height },
+          tailwindResponsive('flex flex-col flex-auto items-start justify-evenly', { md: 'w-0' }, { md }),
+        ]}>
         <View style={tailwind('pl-10 items-start')}>{DescriptionComponent}</View>
-        <View style={tailwind('pl-10 py-8 flex-row')}>
-          <Icon name="map-marker" size={24} color={Token.colors.white} />
-          <Text ink="light" style={tailwind('ml-2')}>
-            {footerNode}
-          </Text>
-        </View>
+        {footerNode && (
+          <View style={tailwind('pl-10 py-8 flex-row')}>
+            <Icon name="map-marker" size={24} color={Token.colors.white} />
+            <Text ink="light" style={tailwind('ml-2')}>
+              {footerNode}
+            </Text>
+          </View>
+        )}
       </View>
     </View>
   );

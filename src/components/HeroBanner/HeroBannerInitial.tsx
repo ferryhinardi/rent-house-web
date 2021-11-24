@@ -14,9 +14,13 @@ function HeroBannerInitial() {
   return (
     <HeroBannerTemplate
       video={
-        <View style={tailwind('w-screen')}>
+        <View style={styles.container}>
           <View style={[styles.overlay, styles.assetContainer]} />
-          <video style={tailwind('object-cover w-auto rounded-br-3xl')} muted autoPlay loop>
+          <video
+            style={{ ...tailwind('rounded-br-3xl'), ...{}, height: hero.height, objectFit: 'cover' }}
+            muted
+            autoPlay
+            loop>
             <source src={videoSrc} />
           </video>
         </View>
@@ -39,6 +43,9 @@ function HeroBannerInitial() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+  },
   assetContainer: {
     borderBottomRightRadius: 40,
     overflow: 'hidden',

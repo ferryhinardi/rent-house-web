@@ -119,7 +119,11 @@ function Hero() {
                 style={animateStyle}>
                 <View style={tailwindResponsive('flex flex-1 flex-row items-center', { md: 'flex-col' }, { md })}>
                   <HeroDescription states={watch('states')} onChange={onChangeTimelineBanner} />
-                  <View style={[tailwindResponsive('w-96', { md: 'ml-0 self-start' }, { md }), md && { width: '100vw' }]}>
+                  <View
+                    style={[
+                      tailwindResponsive('w-96 -ml-48 items-center', { md: 'ml-0 self-start' }, { md }),
+                      md && { width: '100vw' },
+                    ]}>
                     <Questionaire
                       loading={isLoading}
                       question={data?.data?.[stateIndex]}
