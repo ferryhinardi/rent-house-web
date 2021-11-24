@@ -20,7 +20,7 @@ function HeroBannerTemplate({ imageProps, DescriptionComponent, footerNode, vide
   const { tailwind, tailwindResponsive, md } = useTailwind();
   return (
     <View style={tailwind('justify-around')}>
-      <View style={{ ...tailwind('absolute top-0 bottom-0 left-0 right-0'), ...(md ? { width: '100vw' } : {}) }}>
+      <View style={tailwindResponsive('absolute top-0 bottom-0 left-0 right-0', { md: 'w-screen' }, { md })}>
         {video ??
           (imageProps && (
             <Image

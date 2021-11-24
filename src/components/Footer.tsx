@@ -10,6 +10,7 @@ import { Token } from 'core';
 import { Text } from 'core/base';
 import { menus } from 'core/constants';
 import assets from 'assets';
+import useTailwind from 'hooks/useTailwind';
 
 function Footer() {
   const { t } = useTranslation();
@@ -17,11 +18,12 @@ function Footer() {
   const onNavigateMenu = (href: string) => {
     router.push(href);
   };
+  const { tailwindResponsive, md } = useTailwind();
   const year = new Date().getFullYear();
 
   return (
     <View style={styles.container}>
-      <View style={styles.footer}>
+      <View style={tailwindResponsive('flex flex-full flex-row', { md: 'flex-col flex-gap-4' }, { md })}>
         <View style={styles.sectionLogo}>
           <Image {...assets.logoWhite} placeholder="blur" layout="fixed" alt="logo" />
           <Text style={styles.logoTitle} ink="light">
@@ -112,13 +114,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Token.colors.blue,
     padding: Token.spacing.xxxxl,
-  },
-  footer: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: '100%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
   },
   listTitle: {
     marginBottom: Token.spacing.xs,

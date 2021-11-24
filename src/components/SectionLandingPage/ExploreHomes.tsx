@@ -17,7 +17,7 @@ import useTailwind from 'hooks/useTailwind';
 
 export default function ExploreHomes() {
   const { t } = useTranslation();
-  const { md } = useTailwind();
+  const { tailwindResponsive, md } = useTailwind();
   const { data, isLoading } = useQuery<ResponseItem<House>>(QUERY_KEYS.HOUSE, async () => {
     const res = await fetcher<ResponseItem<House>>({
       method: 'GET',
@@ -48,7 +48,12 @@ export default function ExploreHomes() {
         {isLoading ? (
           <ExploreHomePlaceholder />
         ) : (
-          <View style={md ? styles.containerHousesMobile : styles.containerHouses}>
+          <View
+            style={tailwindResponsive(
+              'mt-10 grid grid-cols-custom grid-cols-gap-3 h-3/4-screen',
+              { md: 'flex flex-gap-3 h-full' },
+              { md }
+            )}>
             {firstHome && (
               <View>
                 <Card
@@ -156,20 +161,6 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     marginBottom: Token.spacing.xs,
-  },
-  containerHouses: {
-    marginTop: Token.spacing.xxl,
-    /* @ts-ignore */
-    display: 'grid',
-    gridTemplateColumns: `1fr 1.5fr`,
-    columnGap: Token.spacing.xxxxxl,
-    height: '73vh',
-  },
-  containerHousesMobile: {
-    marginTop: Token.spacing.xxl,
-    display: 'flex',
-    /* @ts-ignore */
-    gap: Token.spacing.xxxxxl,
   },
   layout2: {
     display: 'flex',

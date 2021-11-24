@@ -1,7 +1,6 @@
 import { Dimensions } from 'react-native';
 import { useMediaQuery } from 'react-responsive';
-import tailwind from 'tailwind-rn';
-// import tailwind from 'core/tailwind';
+import tailwind from 'core/tailwind';
 
 const window = Dimensions.get('window');
 const widthMap = {
