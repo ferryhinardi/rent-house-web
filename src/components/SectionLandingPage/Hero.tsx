@@ -9,7 +9,6 @@ import Cookie from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
-import tailwind from 'tailwind-rn';
 
 import { fetcher } from 'core';
 import { Modal } from 'core/base';
@@ -72,7 +71,7 @@ function Hero() {
   const [stateIndex, setStateIndex] = useState(0);
   const { t } = useTranslation();
   const router = useRouter();
-  const { tailwindResponsive, md } = useTailwind();
+  const { tailwind, tailwindResponsive, md } = useTailwind();
   const herosSprings = useSprings(
     totalData,
     heros.map((_, index) =>

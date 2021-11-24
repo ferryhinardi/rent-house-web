@@ -2,7 +2,6 @@ import React from 'react';
 import NoSSR from 'react-no-ssr';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import tailwind from 'tailwind-rn';
 import { Disclosure } from '@headlessui/react';
 import Cookie from 'js-cookie';
 import { View, Pressable, StyleSheet } from 'react-native';
@@ -31,7 +30,7 @@ function Header() {
       }),
     { enabled: Boolean(Cookie.get('token')) }
   );
-  const { tailwindResponsive, md } = useTailwind();
+  const { tailwind, tailwindResponsive, md } = useTailwind();
   const onNavigateMenu = (href: string) => {
     router.push(href);
   };
@@ -50,7 +49,7 @@ function Header() {
                       <Image {...assets.logo} alt="logo" />
                     </Pressable>
                     {/* Primary Navbar items */}
-                    <View style={tailwindResponsive("flex", { md: "hidden" }, { md })}>
+                    <View style={tailwindResponsive('flex', { md: 'hidden' }, { md })}>
                       <View style={tailwind('ml-10 flex-row flex-wrap flex items-center space-x-4')}>
                         {menus.map(({ name, href }) => {
                           const isActiveMenu = href.replace('/', '') === router.pathname.split('/')[1];
@@ -59,7 +58,13 @@ function Header() {
                               key={name}
                               accessibilityRole="link"
                               onPress={() => onNavigateMenu(href)}
-                              style={[styles.menu, isActiveMenu && [styles.activeMenu, {borderBottomWidth: 1, borderBottomColor: Token.colors.gold }]]}>
+                              style={[
+                                styles.menu,
+                                isActiveMenu && [
+                                  styles.activeMenu,
+                                  { borderBottomWidth: 1, borderBottomColor: Token.colors.gold },
+                                ],
+                              ]}>
                               {name}
                             </Text>
                           );
@@ -68,11 +73,11 @@ function Header() {
                     </View>
                   </View>
                   {/* Secondary Navbar items */}
-                  <View style={tailwindResponsive('flex items-end space-x-3', { md: "hidden" }, { md })}>
+                  <View style={tailwindResponsive('flex items-end space-x-3', { md: 'hidden' }, { md })}>
                     {!isLoading && data?.name ? <UserLoginHeader {...data} /> : <SignInButton />}
                   </View>
                   {/* Mobile menu button */}
-                  <View style={tailwindResponsive('-mr-2 hidden', { md: "flex" }, { md })}>
+                  <View style={tailwindResponsive('-mr-2 hidden', { md: 'flex' }, { md })}>
                     <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                       {open ? (
                         <Icon name="times" size={24} color={Token.colors.blue} />
@@ -94,12 +99,15 @@ function Header() {
                         key={name}
                         as="a"
                         href={href}
-                        style={tailwind(classNames(
-                          isActiveMenu ? 'border-b border-t-0 border-l-0 border-r-0 border-solid border-yellow-500' : '',
-                          'block px-3 py-2'
-                        ))}
-                        aria-current={isActiveMenu ? 'page' : undefined}
-                      >
+                        style={tailwind(
+                          classNames(
+                            isActiveMenu
+                              ? 'border-b border-t-0 border-l-0 border-r-0 border-solid border-yellow-500'
+                              : '',
+                            'block px-3 py-2'
+                          )
+                        )}
+                        aria-current={isActiveMenu ? 'page' : undefined}>
                         <Text
                           onPress={() => onNavigateMenu(href)}
                           style={[styles.menu, isActiveMenu && styles.activeMenu]}>
@@ -119,7 +127,7 @@ function Header() {
 }
 
 function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ');
 }
 
 const styles = StyleSheet.create({

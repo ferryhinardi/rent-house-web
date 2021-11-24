@@ -1,5 +1,5 @@
 import { Dimensions } from 'react-native';
-import { useMediaQuery } from "react-responsive";
+import { useMediaQuery } from 'react-responsive';
 import tailwind from 'tailwind-rn';
 // import tailwind from 'core/tailwind';
 
@@ -11,23 +11,23 @@ const widthMap = {
   xl: 1280,
 };
 
+function useIsAtLeastSm() {
+  return useMediaQuery({ maxWidth: widthMap.sm }) || window.width < widthMap.sm;
+}
+
+function useIsAtLeastMd() {
+  return useMediaQuery({ maxWidth: widthMap.md }) || window.width < widthMap.md;
+}
+
+function useIsAtLeastLg() {
+  return useMediaQuery({ maxWidth: widthMap.lg }) || window.width < widthMap.lg;
+}
+
+function useIsAtLeastXl() {
+  return useMediaQuery({ maxWidth: widthMap.xl }) || window.width < widthMap.xl;
+}
+
 export default function useTailwind() {
-  function useIsAtLeastSm() {
-    return useMediaQuery({ maxWidth: widthMap.sm }) || window.width < widthMap.sm;
-  }
-
-  function useIsAtLeastMd() {
-    return useMediaQuery({ maxWidth: widthMap.md }) || window.width < widthMap.md;
-  }
-
-  function useIsAtLeastLg() {
-    return useMediaQuery({ maxWidth: widthMap.lg }) || window.width < widthMap.lg;
-  }
-
-  function useIsAtLeastXl() {
-    return useMediaQuery({ maxWidth: widthMap.xl }) || window.width < widthMap.xl;
-  }
-
   const sm = useIsAtLeastSm();
   const md = useIsAtLeastMd();
   const lg = useIsAtLeastLg();
@@ -48,12 +48,8 @@ export default function useTailwind() {
       xl?: boolean;
     }
   ) {
-    return tailwind(
-      [always, applySm && sm, applyMd && md, applyLg && lg, applyXl && xl]
-        .filter(Boolean)
-        .join(" ")
-    );
+    return tailwind([always, applySm && sm, applyMd && md, applyLg && lg, applyXl && xl].filter(Boolean).join(' '));
   }
 
-  return { tailwindResponsive, sm, md, lg, xl };
+  return { tailwind, tailwindResponsive, sm, md, lg, xl };
 }

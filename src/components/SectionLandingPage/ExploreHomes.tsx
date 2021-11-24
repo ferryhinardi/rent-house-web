@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import NoSSR from 'react-no-ssr';
 import Image from 'next/image';
 
 import config from 'config';
@@ -12,9 +13,11 @@ import { QUERY_KEYS } from 'core/constants';
 
 import { ExploreHomePlaceholder } from 'components/Placeholder';
 import assets from 'assets';
+import useTailwind from 'hooks/useTailwind';
 
 export default function ExploreHomes() {
   const { t } = useTranslation();
+  const { md } = useTailwind();
   const { data, isLoading } = useQuery<ResponseItem<House>>(QUERY_KEYS.HOUSE, async () => {
     const res = await fetcher<ResponseItem<House>>({
       method: 'GET',
@@ -27,95 +30,63 @@ export default function ExploreHomes() {
   const [firstHome, secondHome, otherHomes] = [homeData?.[0], homeData?.[1], homeData?.slice(2)];
 
   return (
-    <ContainerDesktop style={styles.container}>
-      {/* pink line */}
-      <View style={styles.horizontalLineContainer}>
-        <Image src={assets.homeLineHorizontal} />
-      </View>
-      <View style={styles.header}>
-        <View>
-          <Text ink="primary" variant="header-2" style={styles.headerTitle}>
-            {t('titleExploreHomes')}
-          </Text>
-          <Text variant="caption">{t('subtitleExploreHomes')}</Text>
+    <NoSSR>
+      <ContainerDesktop style={styles.container}>
+        {/* pink line */}
+        <View style={styles.horizontalLineContainer}>
+          <Image src={assets.homeLineHorizontal} />
         </View>
-      </View>
+        <View style={styles.header}>
+          <View>
+            <Text ink="primary" variant="header-2" style={styles.headerTitle}>
+              {t('titleExploreHomes')}
+            </Text>
+            <Text variant="caption">{t('subtitleExploreHomes')}</Text>
+          </View>
+        </View>
 
-      {isLoading ? (
-        <ExploreHomePlaceholder />
-      ) : (
-        <View style={styles.containerHouses}>
-          {firstHome && (
-            <View>
-              <Card
-                noShadow
-                activeOpacity={1}
-                orientation="portrait"
-                imageProps={{
-                  src: `${config.imageHost}/${firstHome?.lead_media}`,
-                  blurDataURL: `${config.imageHost}/${firstHome?.lead_media}`,
-                  placeholder: 'blur',
-                  loading: 'lazy',
-                  alt: 'house explore image',
-                  layout: 'fill',
-                  objectFit: 'contain',
-                  onError: () => console.error('error render image'),
-                }}
-                imageContainerStyle={styles.cardImage}
-                style={styles.cardContainer}
-              />
-              <Text variant="header-2" style={styles.cardTitle}>
-                {firstHome?.city}
-              </Text>
-            </View>
-          )}
-
-          <View style={styles.rightContainer}>
-            {secondHome && (
-              <View style={styles.secondCardContainer}>
+        {isLoading ? (
+          <ExploreHomePlaceholder />
+        ) : (
+          <View style={md ? styles.containerHousesMobile : styles.containerHouses}>
+            {firstHome && (
+              <View>
                 <Card
+                  noShadow
+                  activeOpacity={1}
                   orientation="portrait"
                   imageProps={{
-                    src: `${config.imageHost}/${secondHome?.lead_media}`,
-                    blurDataURL: `${config.imageHost}/${secondHome?.lead_media}`,
+                    src: `${config.imageHost}/${firstHome?.lead_media}`,
+                    blurDataURL: `${config.imageHost}/${firstHome?.lead_media}`,
                     placeholder: 'blur',
                     loading: 'lazy',
-                    layout: 'responsive',
-                    height: '100%',
-                    width: '100%',
                     alt: 'house explore image',
+                    layout: 'fill',
                     objectFit: 'contain',
                     onError: () => console.error('error render image'),
                   }}
                   imageContainerStyle={styles.cardImage}
+                  style={styles.cardContainer}
                 />
                 <Text variant="header-2" style={styles.cardTitle}>
-                  {secondHome?.city}
+                  {firstHome?.city}
                 </Text>
-                <Text variant="caption">{secondHome?.name}</Text>
               </View>
             )}
 
-            <View style={styles.layout2}>
-              {otherHomes?.map((item, index) => (
-                <View
-                  key={item.id}
-                  style={[
-                    styles.otherHomeCardContainer,
-                    {
-                      marginRight: index === 0 ? Token.spacing.xxxxl : 0,
-                    },
-                  ]}>
+            <View style={styles.rightContainer}>
+              {secondHome && (
+                <View style={styles.secondCardContainer}>
                   <Card
                     orientation="portrait"
                     imageProps={{
-                      src: `${config.imageHost}/${item.lead_media}`,
-                      blurDataURL: `${config.imageHost}/${item.lead_media}`,
+                      src: `${config.imageHost}/${secondHome?.lead_media}`,
+                      blurDataURL: `${config.imageHost}/${secondHome?.lead_media}`,
                       placeholder: 'blur',
                       loading: 'lazy',
+                      layout: 'responsive',
                       height: '100%',
                       width: '100%',
-                      layout: 'responsive',
                       alt: 'house explore image',
                       objectFit: 'contain',
                       onError: () => console.error('error render image'),
@@ -123,16 +94,50 @@ export default function ExploreHomes() {
                     imageContainerStyle={styles.cardImage}
                   />
                   <Text variant="header-2" style={styles.cardTitle}>
-                    {item.city}
+                    {secondHome?.city}
                   </Text>
-                  <Text variant="caption">{item.name}</Text>
+                  <Text variant="caption">{secondHome?.name}</Text>
                 </View>
-              ))}
+              )}
+
+              <View style={styles.layout2}>
+                {otherHomes?.map((item, index) => (
+                  <View
+                    key={item.id}
+                    style={[
+                      styles.otherHomeCardContainer,
+                      {
+                        marginRight: index === 0 ? Token.spacing.xxxxl : 0,
+                      },
+                    ]}>
+                    <Card
+                      orientation="portrait"
+                      imageProps={{
+                        src: `${config.imageHost}/${item.lead_media}`,
+                        blurDataURL: `${config.imageHost}/${item.lead_media}`,
+                        placeholder: 'blur',
+                        loading: 'lazy',
+                        height: '100%',
+                        width: '100%',
+                        layout: 'responsive',
+                        alt: 'house explore image',
+                        objectFit: 'contain',
+                        onError: () => console.error('error render image'),
+                      }}
+                      imageContainerStyle={styles.cardImage}
+                    />
+                    <Text variant="header-2" style={styles.cardTitle}>
+                      {item.city}
+                    </Text>
+                    <Text variant="caption">{item.name}</Text>
+                  </View>
+                ))}
+              </View>
             </View>
           </View>
-        </View>
-      )}
-    </ContainerDesktop>
+        )}
+      </ContainerDesktop>
+    </NoSSR>
   );
 }
 
@@ -159,6 +164,12 @@ const styles = StyleSheet.create({
     gridTemplateColumns: `1fr 1.5fr`,
     columnGap: Token.spacing.xxxxxl,
     height: '73vh',
+  },
+  containerHousesMobile: {
+    marginTop: Token.spacing.xxl,
+    display: 'flex',
+    /* @ts-ignore */
+    gap: Token.spacing.xxxxxl,
   },
   layout2: {
     display: 'flex',

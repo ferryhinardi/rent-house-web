@@ -1,7 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 import Image, { ImageProps } from 'next/image';
-import tailwind from 'tailwind-rn';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { Token } from 'core';
@@ -18,7 +17,7 @@ type Props = {
 };
 
 function HeroBannerTemplate({ imageProps, DescriptionComponent, footerNode, video, width, height }: Props) {
-  const { tailwindResponsive, md } = useTailwind();
+  const { tailwind, tailwindResponsive, md } = useTailwind();
   return (
     <View style={tailwind('justify-around')}>
       <View style={{ ...tailwind('absolute top-0 bottom-0 left-0 right-0'), ...(md ? { width: '100vw' } : {}) }}>

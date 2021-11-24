@@ -16,11 +16,7 @@ function HeroBannerInitial() {
       video={
         <View style={styles.container}>
           <View style={[styles.overlay, styles.assetContainer]} />
-          <video
-            style={{ ...tailwind('rounded-br-3xl'), ...{}, height: hero.height, objectFit: 'cover' }}
-            muted
-            autoPlay
-            loop>
+          <video style={{ ...tailwind('rounded-br-3xl'), height: hero.height, objectFit: 'cover' }} muted autoPlay loop>
             <source src={videoSrc} />
           </video>
         </View>

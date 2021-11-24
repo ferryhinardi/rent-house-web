@@ -29,14 +29,14 @@ export default function Home() {
       <HeaderMenu />
       <Hero />
       <PartnersSection />
-      {/* <ExploreHomesSection /> */}
-      {/* <VideoSection /> */}
-      {/* <Perks /> */}
-      {/* <EasyProcessSection /> */}
-      {/* <TestimonialSection /> */}
-      {/* <SupportingMediaSection /> */}
-      {/* <PreferenceBanner /> */}
-      {/* <Footer /> */}
+      <ExploreHomesSection />
+      <VideoSection />
+      <Perks />
+      <EasyProcessSection />
+      <TestimonialSection />
+      <SupportingMediaSection />
+      <PreferenceBanner />
+      <Footer />
       <style jsx global>{`
         #__next {
           overflow-x: hidden;
