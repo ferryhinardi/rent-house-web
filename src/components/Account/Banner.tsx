@@ -7,23 +7,24 @@ import assets from 'assets';
 
 import { Text } from 'core/base';
 import { Token } from 'core';
+import useTailwind from 'hooks/useTailwind';
 
 export default function Banner() {
   const { t } = useTranslation();
+  const { tailwindResponsive, md } = useTailwind();
   return (
     <View style={styles.container}>
       <View style={styles.backgroundImage}>
         <View style={styles.backDrop} />
         <Image {...assets.preferenceBanner} alt="preference banner" placeholder="blur" objectFit="cover" />
       </View>
-      <View style={styles.textContainer}>
+      <View style={tailwindResponsive('z-10 m-auto items-center text-center w-1/2-full', { md: 'w-full' }, { md })}>
         <Text ink="light" variant="header-2">
           {t('preferenceBannerTitle')}
         </Text>
         <Text style={styles.descriptionText} ink="light" variant="caption">
           {t('preferenceBannerDescription')}
         </Text>
-        {/* <Button variant="secondary" text={t('preferenceBannerButton')} /> */}
       </View>
     </View>
   );
@@ -37,8 +38,8 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     position: 'absolute',
+    top: 0,
     bottom: 0,
-    height: PreferenceBannerHeight,
     width: '100vw',
   },
   backDrop: {
@@ -50,15 +51,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(12, 27, 64, 0.6)',
     zIndex: 1,
   },
-  textContainer: {
-    zIndex: 2,
-    display: 'flex',
-    alignItems: 'center',
-    margin: 'auto',
-    maxWidth: '40%',
-  },
   descriptionText: {
     marginVertical: Token.spacing.m,
+    paddingHorizontal: Token.spacing.m,
     textAlign: 'center',
   },
 });

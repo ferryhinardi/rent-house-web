@@ -15,7 +15,7 @@ import useTailwind from 'hooks/useTailwind';
 
 function Perks() {
   const { t } = useTranslation();
-  const { md } = useTailwind();
+  const { tailwind, md } = useTailwind();
   const { data, isLoading } = useQuery<ResponseItem<Perk>>(QUERY_KEYS.PERKS, async () => {
     const res = await fetcher<ResponseItem<Perk>>({
       method: 'GET',
@@ -38,7 +38,7 @@ function Perks() {
       </View>
 
       {/* Header */}
-      <View style={styles.header}>
+      <View style={tailwind('w-full flex-col')}>
         <View>
           <Text ink="primary" variant="header-2" style={styles.headerTitle}>
             {t('titlePerks')}
@@ -154,13 +154,6 @@ const styles = StyleSheet.create({
     gap: Token.spacing.m,
     justifyContent: 'space-between',
     marginTop: Token.spacing.xxl,
-  },
-  header: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: Token.spacing.xxl,
   },
   headerTitle: {
     marginBottom: Token.spacing.xs,
