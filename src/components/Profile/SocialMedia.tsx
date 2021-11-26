@@ -1,9 +1,9 @@
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { useController, useFormContext } from 'react-hook-form';
 import { Token } from 'core';
 import { ErrorMessage, Input, Text } from 'core/base';
-import React from 'react';
-import { useController, useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { StyleSheet, View } from 'react-native';
 
 export default function SocialMedia() {
   const { control } = useFormContext();
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     marginTop: Token.spacing.xxl,
   },
   formGroup: {
-    flexGrow: 0,
+    flexGrow: 1,
     flexShrink: 1,
     flexBasis: '48%',
   },

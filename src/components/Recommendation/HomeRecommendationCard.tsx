@@ -8,6 +8,7 @@ import { Card, Text, Button } from 'core/base';
 import Swiper from '../Swiper';
 import FacilityIcon from './FacilityIcon';
 import { House } from 'types';
+import useTailwind from 'hooks/useTailwind';
 
 type CardProps = House & {
   onViewDetail?: () => void;
@@ -15,8 +16,9 @@ type CardProps = House & {
 
 export default function HomeRecommendationCard({ name, description, amenities, galleries, onViewDetail }: CardProps) {
   const { t } = useTranslation();
+  const { tailwindResponsive, md } = useTailwind();
   return (
-    <Card style={styles.containerCard}>
+    <Card style={tailwindResponsive('overflow-hidden flex-1/2 flex-grow-0', { md: 'flex-grow' }, { md })}>
       <Card.Body style={{ flex: 1 }}>
         <Swiper
           containerStyle={{ flex: 1 }}
@@ -109,7 +111,7 @@ export default function HomeRecommendationCard({ name, description, amenities, g
 
 const styles = StyleSheet.create({
   containerCard: {
-    flexGrow: 0,
+    flexGrow: 1,
     flexShrink: 1,
     flexBasis: '48%',
     overflow: 'hidden',

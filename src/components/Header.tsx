@@ -37,7 +37,7 @@ function Header() {
 
   return (
     <NoSSR>
-      <View style={tailwind('min-h-full')}>
+      <View style={tailwind('min-h-full z-50')}>
         <Disclosure as="nav" style={tailwind('bg-white shadow-lg')}>
           {({ open }) => (
             <>
