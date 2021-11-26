@@ -19,6 +19,11 @@ import Questionaire from 'components/Questionaire';
 import SignUpForm from 'components/SignUp';
 import { useForm, useFieldArray } from 'react-hook-form';
 
+import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
+import { redirectIfUnauthenticated } from 'utils/auth';
+
 export type HeroState = {
   name: string;
   value?: string;
@@ -116,16 +121,18 @@ function Hero() {
               style={animateStyle}>
               <View style={styles.wrapper}>
                 <HeroDescription states={watch('states')} onChange={onChangeTimelineBanner} />
-                <View style={styles.containerSignUpForm}>
-                  <Questionaire
-                    loading={isLoading}
-                    question={data?.data?.[stateIndex]}
-                    methods={fieldsArrayMethods}
-                    index={stateIndex}
-                    onSubmit={onSubmit}
-                    choiceLabel={t('choiceStatus')}
-                  />
-                </View>
+                {!userData && (
+                  <View style={styles.containerSignUpForm}>
+                    <Questionaire
+                      loading={isLoading}
+                      question={data?.data?.[stateIndex]}
+                      methods={fieldsArrayMethods}
+                      index={stateIndex}
+                      onSubmit={onSubmit}
+                      choiceLabel={t('choiceStatus')}
+                    />
+                  </View>
+                )}
               </View>
             </AnimatedView>
           );
