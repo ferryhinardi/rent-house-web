@@ -71,7 +71,7 @@ function Hero() {
   const [stateIndex, setStateIndex] = useState(0);
   const { t } = useTranslation();
   const router = useRouter();
-  const { tailwind, tailwindResponsive, md } = useTailwind();
+  const { tailwind, tailwindResponsive, xl } = useTailwind();
   const herosSprings = useSprings(
     totalData,
     heros.map((_, index) =>
@@ -116,13 +116,12 @@ function Hero() {
                 key={`${idx}`}
                 // @ts-ignore
                 style={animateStyle}>
-                <View style={tailwindResponsive('flex flex-1 flex-row items-center', { md: 'flex-col' }, { md })}>
+                <View style={tailwindResponsive('flex flex-1 flex-row items-center', { xl: 'flex-col' }, { xl })}>
                   <HeroDescription states={watch('states')} onChange={onChangeTimelineBanner} />
                   <View
-                    style={[
-                      tailwindResponsive('w-96 -ml-48 items-center', { md: 'ml-0 self-start' }, { md }),
-                      md && { width: '100vw' },
-                    ]}>
+                    style={
+                      tailwindResponsive('w-96 -ml-48 items-center', { xl: 'ml-0 self-start w-screen' }, { xl })
+                    }>
                     <Questionaire
                       loading={isLoading}
                       question={data?.data?.[stateIndex]}

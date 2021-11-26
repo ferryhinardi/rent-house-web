@@ -17,10 +17,10 @@ type Props = {
 };
 
 function HeroBannerTemplate({ imageProps, DescriptionComponent, footerNode, video, width, height }: Props) {
-  const { tailwind, tailwindResponsive, md } = useTailwind();
+  const { tailwind, tailwindResponsive, xl } = useTailwind();
   return (
     <View style={tailwind('justify-around')}>
-      <View style={tailwindResponsive('absolute top-0 bottom-0 left-0 right-0', { md: 'w-screen' }, { md })}>
+      <View style={tailwindResponsive('absolute top-0 bottom-0 left-0 right-0 z--1', { xl: 'w-screen' }, { xl })}>
         {video ??
           (imageProps && (
             <Image
@@ -36,7 +36,7 @@ function HeroBannerTemplate({ imageProps, DescriptionComponent, footerNode, vide
       <View
         style={[
           { width, height },
-          tailwindResponsive('flex flex-col flex-auto items-start justify-evenly', { md: 'w-0' }, { md }),
+          tailwindResponsive('flex flex-col flex-auto items-start justify-evenly', { xl: 'w-0' }, { xl }),
         ]}>
         <View style={tailwind('pl-10 items-start')}>{DescriptionComponent}</View>
         {footerNode && (

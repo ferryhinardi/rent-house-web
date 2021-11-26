@@ -3889,6 +3889,9 @@
 	"w-screen": {
 		"width": "100vw"
 	},
+	"z--1": {
+		"zIndex": -1
+	},
 	"z-0": {
 		"zIndex": 0
 	},
