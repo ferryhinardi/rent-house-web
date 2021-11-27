@@ -15,6 +15,8 @@ import { ExploreHomePlaceholder } from 'components/Placeholder';
 import assets from 'assets';
 import useTailwind from 'hooks/useTailwind';
 
+const allCityList = ['toronto', 'montreal', 'ottawa', 'vancouver'];
+
 export default function ExploreHomes() {
   const { t } = useTranslation();
   const { tailwind, tailwindResponsive, md } = useTailwind();
@@ -25,8 +27,43 @@ export default function ExploreHomes() {
     });
     return res;
   });
-
   const homeData = data?.data;
+
+  // mitigate if the data from API doesn't contain all required cities
+  const fillWithDummyHouses = () => {
+    const cityList = homeData?.map((h) => h.city.toLowerCase());
+    const cityNotExistInAPI = allCityList.filter((item) => !cityList?.includes(item));
+    
+    cityNotExistInAPI.map((city) => {
+      var randomNumber = Math.floor(Math.random() * (9999 - 1234 + 1)) + 1234;
+      const h: House = {
+        city: city,
+        name: 'Coming Soon',
+        lead_media: config.comingSoonImage,
+        id: randomNumber,
+        partner_id: 0,
+        address: '',
+        minimum_term_length: '',
+        galleries: [],
+        floor_plan_image: '',
+        location_lat: {
+          Float64: 0,
+          Valid: false,
+        },
+        location_lon: {
+          Float64: 0,
+          Valid: false,
+        },
+        tags: [],
+        embed_map: '',
+        description: '',
+        amenities: [],
+      };
+      homeData?.push(h);
+    });
+  };
+
+  fillWithDummyHouses();
   const [firstHome, secondHome, otherHomes] = [homeData?.[0], homeData?.[1], homeData?.slice(2)];
   console.log('homeData', homeData);
   return (
@@ -196,6 +233,7 @@ const styles = StyleSheet.create({
     marginBottom: Token.spacing.s,
     marginTop: Token.spacing.m,
     alignItems: 'center',
+    textTransform: 'capitalize',
   },
   cardContainer: {
     backgroundColor: 'transparent',
