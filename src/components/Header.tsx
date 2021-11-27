@@ -117,6 +117,10 @@ function Header() {
                     );
                   })}
                 </View>
+                <View style={styles.separator} />
+                <View style={tailwind('flex flex-1 items-center pb-10')}>
+                  {!isLoading && data?.name ? <UserLoginHeader {...data} /> : <SignInButton />}
+                </View>
               </Disclosure.Panel>
             </>
           )}
@@ -138,6 +142,11 @@ const styles = StyleSheet.create({
   activeMenu: {
     color: Token.colors.gold,
     fontWeight: '600',
+  },
+  separator: {
+    marginBottom: Token.spacing.xxl,
+    borderBottomWidth: 1,
+    borderBottomColor: Token.colors.rynaGray,
   },
 });
 
