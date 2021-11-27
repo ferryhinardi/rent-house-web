@@ -1,16 +1,17 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import tailwind from 'tailwind-rn';
 import { Text } from 'core/base';
 import assets from 'assets';
 import HeroBannerTemplate from './HeroBannerTemplate';
 import config from 'config';
-const hero = assets.hero0;
+import useTailwind from 'hooks/useTailwind';
 
+const hero = assets.hero0;
 const videoSrc = `${config.imageHost}/assets/home-banner.mp4`;
 function HeroBannerInitial() {
   const { t } = useTranslation();
+  const { tailwind } = useTailwind();
   return (
     <HeroBannerTemplate
       video={

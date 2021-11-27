@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { View, StyleSheet } from 'react-native';
 import { useQuery } from 'react-query';
 import { useSprings, animated } from 'react-spring';
@@ -11,7 +12,6 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 
 import { fetcher } from 'core';
-import { Modal } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { ResponseItem, Question, User } from 'types';
 import { routePaths } from 'routePaths';
@@ -20,6 +20,8 @@ import { HeroBannerInitial, HeroBannerChooseDate, HeroBannerChooseBudget, HeroBa
 import Questionaire from 'components/Questionaire';
 import SignUpForm from 'components/SignUp';
 import useTailwind from 'hooks/useTailwind';
+
+const Modal = dynamic(import(/* webpackChunkName: "Modal" */ 'core/base/Modal'), { ssr: false });
 
 export type HeroState = {
   name: string;
@@ -43,15 +45,7 @@ function Hero() {
     });
     return res;
   });
-  const { data: userData } = useQuery<User>(
-    QUERY_KEYS.CURRENT_USER,
-    () =>
-      fetcher<User>({
-        method: 'POST',
-        url: '/user/current-user',
-      }),
-    { enabled: Boolean(Cookie.get('token')) }
-  );
+  const { data: userData } = useQuery<User>(QUERY_KEYS.CURRENT_USER);
 
   const totalData = data?.count || heros.length;
   const defaultValues = {
@@ -118,19 +112,23 @@ function Hero() {
                 style={animateStyle}>
                 <View style={tailwindResponsive('flex flex-1 flex-row items-center', { xl: 'flex-col' }, { xl })}>
                   <HeroDescription states={watch('states')} onChange={onChangeTimelineBanner} />
-                  <View
-                    style={
-                      tailwindResponsive('w-96 -ml-48 items-center', { xl: 'ml-0 self-start w-screen' }, { xl })
-                    }>
-                    <Questionaire
-                      loading={isLoading}
-                      question={data?.data?.[stateIndex]}
-                      methods={fieldsArrayMethods}
-                      index={stateIndex}
-                      onSubmit={onSubmit}
-                      choiceLabel={t('choiceStatus')}
-                    />
-                  </View>
+                  {!userData && (
+                    <View
+                      style={tailwindResponsive(
+                        'w-1/4-screen -ml-48 items-center',
+                        { xl: 'ml-0 self-start w-screen' },
+                        { xl }
+                      )}>
+                      <Questionaire
+                        loading={isLoading}
+                        question={data?.data?.[stateIndex]}
+                        methods={fieldsArrayMethods}
+                        index={stateIndex}
+                        onSubmit={onSubmit}
+                        choiceLabel={t('choiceStatus')}
+                      />
+                    </View>
+                  )}
                 </View>
               </AnimatedView>
             );

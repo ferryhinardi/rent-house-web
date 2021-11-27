@@ -17,7 +17,7 @@ import useTailwind from 'hooks/useTailwind';
 
 export default function ExploreHomes() {
   const { t } = useTranslation();
-  const { tailwindResponsive, md } = useTailwind();
+  const { tailwind, tailwindResponsive, md } = useTailwind();
   const { data, isLoading } = useQuery<ResponseItem<House>>(QUERY_KEYS.HOUSE, async () => {
     const res = await fetcher<ResponseItem<House>>({
       method: 'GET',
@@ -36,7 +36,7 @@ export default function ExploreHomes() {
         <View style={styles.horizontalLineContainer}>
           <Image src={assets.homeLineHorizontal} />
         </View>
-        <View style={styles.header}>
+        <View style={tailwind('w-full flex-col')}>
           <View>
             <Text ink="primary" variant="header-2" style={styles.headerTitle}>
               {t('titleExploreHomes')}
@@ -151,13 +151,6 @@ const styles = StyleSheet.create({
     paddingVertical: Token.spacing.xxxxl,
     backgroundColor: Token.colors.lightGrey,
     zIndex: -1,
-  },
-  header: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    paddingVertical: Token.spacing.m,
   },
   headerTitle: {
     marginBottom: Token.spacing.xs,

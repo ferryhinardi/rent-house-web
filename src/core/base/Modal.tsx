@@ -1,11 +1,5 @@
 import React, { useRef } from 'react';
-import {
-  StyleSheet,
-  Modal as RNModal,
-  View,
-  ScrollView,
-  ViewStyle,
-} from 'react-native';
+import { StyleSheet, Modal as RNModal, View, ScrollView, ViewStyle } from 'react-native';
 
 import { useClickOutside } from 'core/hooks';
 
@@ -17,13 +11,7 @@ type Props = React.ComponentProps<typeof RNModal> & {
   modalContentStyle?: ViewStyle;
 };
 
-export default function Modal({
-  children,
-  onDismiss,
-  noPadding,
-  modalContentStyle,
-  ...restProps
-}: Props) {
+export default function Modal({ children, onDismiss, noPadding, modalContentStyle, ...restProps }: Props) {
   const modalContent = useRef<View>();
 
   useClickOutside(modalContent as any, () => {
@@ -40,8 +28,7 @@ export default function Modal({
             ref={(ref) => {
               modalContent.current = ref as View;
             }}
-            style={[styles.modalContent, paddingContent, modalContentStyle]}
-          >
+            style={[styles.modalContent, paddingContent, modalContentStyle]}>
             {children}
           </View>
         </ScrollView>

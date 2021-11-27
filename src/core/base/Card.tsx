@@ -55,7 +55,7 @@ function Card({
       }
     });
   } else {
-    cornerStyle.borderTopRightRadius = border.radius.extra;
+    cornerStyle.borderRadius = border.radius.default;
   }
 
   return (

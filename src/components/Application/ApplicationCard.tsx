@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import NoSSR from 'react-no-ssr';
 import { Card, Badge, Text } from 'core/base';
 import { Token } from 'core';
 import { ApplicationData } from 'types';
+import useTailwind from 'hooks/useTailwind';
 
 type Props = {
   application: ApplicationData;
@@ -53,17 +55,17 @@ export default function ApplicationCard({ application, onPress }: Props) {
 }
 
 export function ApplicationContainer({ children }: { children: React.ReactNode }) {
-  return <View style={styles.container}>{children}</View>;
+  const { tailwindResponsive, md } = useTailwind();
+  return (
+    <NoSSR>
+      <View style={tailwindResponsive('flex-1 flex-row flex-wrap flex-gap-10 my-10', { md: 'flex-col' }, { md })}>
+        {children}
+      </View>
+    </NoSSR>
+  );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: Token.spacing.xxl,
-    marginVertical: Token.spacing.xxl,
-  },
   cardContainer: {
     flexGrow: 0,
     flexShrink: 1,

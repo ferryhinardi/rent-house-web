@@ -8,9 +8,11 @@ import { QUERY_KEYS } from 'core/constants';
 import { TestimonyPlaceholder } from 'components/Placeholder';
 import { ResponseItem, Testimony } from 'types';
 import { useQuery } from 'react-query';
+import useTailwind from 'hooks/useTailwind';
 
 export default function Testimonial() {
   const { t } = useTranslation();
+  const { tailwind } = useTailwind();
   const { data, isLoading } = useQuery<ResponseItem<Testimony>>(QUERY_KEYS.TESTIMONY, async () => {
     const res = await fetcher<ResponseItem<Testimony>>({
       method: 'GET',
@@ -23,16 +25,11 @@ export default function Testimonial() {
 
   return (
     <ContainerDesktop style={styles.container}>
-      <View style={styles.itemWrapperStyle}>
+      <View style={tailwind('w-full flex-col')}>
         <Text variant="header-2">{t('titleTestimonial')}</Text>
         <Text variant="caption" style={styles.subtitle}>
           {t('subtitleTestimonial')}
         </Text>
-        {/* <Button
-          variant="secondary"
-          text={t('moreButtonTestimonial')}
-          style={styles.moreButtton}
-        /> */}
       </View>
       <FlatList
         keyExtractor={(_, idx) => `${idx}`}
@@ -84,11 +81,6 @@ const styles = StyleSheet.create({
   listContainer: {
     padding: Token.spacing.m,
     width: '60%',
-  },
-  itemWrapperStyle: {
-    paddingHorizontal: Token.spacing.l,
-    alignSelf: 'center',
-    justifyContent: 'space-between',
   },
   subtitle: {
     marginTop: Token.spacing.m,

@@ -1056,6 +1056,12 @@
 	"border-opacity-100": {
 		"--border-opacity": 1
 	},
+	"shadow-lg": {
+		"--shadow-opacity": 0.3,
+		"--shadow-radius": "5px",
+		"--shadow-color": "rgba(0, 0, 0, var(--shadow-opacity))",
+		"boxShadow": "0 -5px 30px -5px var(--shadow-color)"
+	},
 	"rounded-none": {
 		"borderTopLeftRadius": 0,
 		"borderTopRightRadius": 0,
@@ -1504,6 +1510,11 @@
 		"flexShrink": 1,
 		"flexBasis": "100%"
 	},
+	"flex-1/2": {
+		"flexGrow": 1,
+		"flexShrink": 1,
+		"flexBasis": "50%"
+	},
 	"flex-grow-0": {
 		"flexGrow": 0
 	},
@@ -1515,6 +1526,9 @@
 	},
 	"flex-shrink": {
 		"flexShrink": 1
+	},
+	"flex-gap-0": {
+		"gap": 0
 	},
 	"flex-gap-1": {
 		"gap": 4
@@ -1529,10 +1543,46 @@
 		"gap": 16
 	},
 	"flex-gap-5": {
-		"gap": 32
+		"gap": 20
 	},
 	"flex-gap-6": {
+		"gap": 24
+	},
+	"flex-gap-8": {
+		"gap": 32
+	},
+	"flex-gap-10": {
+		"gap": 40
+	},
+	"flex-gap-12": {
+		"gap": 48
+	},
+	"flex-gap-14": {
+		"gap": 56
+	},
+	"flex-gap-16": {
 		"gap": 64
+	},
+	"flex-gap-20": {
+		"gap": 80
+	},
+	"flex-gap-24": {
+		"gap": 96
+	},
+	"flex-gap-32": {
+		"gap": 128
+	},
+	"flex-gap-40": {
+		"gap": 160
+	},
+	"flex-gap-48": {
+		"gap": 192
+	},
+	"flex-gap-56": {
+		"gap": 224
+	},
+	"flex-gap-64": {
+		"gap": 256
 	},
 	"font-hairline": {
 		"fontWeight": "100"
@@ -1680,6 +1730,9 @@
 	},
 	"leading-10": {
 		"lineHeight": 40
+	},
+	"m-auto": {
+		"margin": "auto"
 	},
 	"m-0": {
 		"marginTop": 0,
@@ -2842,6 +2895,12 @@
 		"paddingBottom": 48,
 		"paddingLeft": 48
 	},
+	"p-14": {
+		"paddingTop": 56,
+		"paddingRight": 56,
+		"paddingBottom": 56,
+		"paddingLeft": 56
+	},
 	"p-16": {
 		"paddingTop": 64,
 		"paddingRight": 64,
@@ -3802,6 +3861,9 @@
 	"w-64": {
 		"width": 256
 	},
+	"w-96": {
+		"width": 384
+	},
 	"w-px": {
 		"width": 1
 	},
@@ -3883,8 +3945,26 @@
 	"w-11/12": {
 		"width": "91.666667%"
 	},
+	"w-1/4-full": {
+		"width": "25%"
+	},
+	"w-1/2-full": {
+		"width": "50%"
+	},
+	"w-3/4-full": {
+		"width": "75%"
+	},
 	"w-full": {
 		"width": "100%"
+	},
+	"w-1/4-screen": {
+		"width": "25vw"
+	},
+	"w-1/2-screen": {
+		"width": "50vw"
+	},
+	"w-3/4-screen": {
+		"width": "75vw"
 	},
 	"w-screen": {
 		"width": "100vw"
@@ -3918,5 +3998,8 @@
 	},
 	"no-underline": {
 		"textDecorationLine": "none"
+	},
+	"rounded-br-3xl": {
+		"borderBottomRightRadius": "1.5rem"
 	}
 }
