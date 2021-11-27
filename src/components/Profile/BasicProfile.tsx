@@ -1,13 +1,15 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import NoSSR from 'react-no-ssr';
 import { useFormContext, useController } from 'react-hook-form';
-import { Element } from 'react-scroll';
 import { Text, Input, ErrorMessage, FileUploader } from 'core/base';
 import { Token } from 'core';
+import useTailwind from 'hooks/useTailwind';
 
 export default function BasicProfile() {
   const { t } = useTranslation();
+  const { tailwindResponsive, md } = useTailwind();
   const { register, control, getValues, setValue } = useFormContext();
   const handleProfilePicture = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -43,98 +45,89 @@ export default function BasicProfile() {
     control,
   });
   return (
-    <Element name="basic-profile">
-      <View style={styles.container}>
-        <View style={styles.form}>
-          <FileUploader
-            {...register('profile_picture')}
-            value={getValues('profile_picture')}
-            actionLabel={t('reuploadButton')}
-            onChange={handleProfilePicture}
-          />
-          <View style={styles.formContainer}>
-            <View style={styles.formGroupHalfWidth}>
-              <Text variant="small" style={styles.label}>
-                {t('fullName')}
-              </Text>
-              <Input
-                {...nameField}
-                placeholder={t('name')}
-                textContentType="name"
-                error={Boolean(nameFieldState.error)}
-                errorMessageId={nameFieldState.error?.message}
-                containerStyle={styles.input}
-              />
-              {Boolean(nameFieldState.error) && (
-                <ErrorMessage text={nameFieldState.error?.message!} errorMessageId={nameFieldState.error?.message} />
-              )}
-            </View>
-            <View style={styles.formGroupHalfWidth}>
-              <Text variant="small" style={styles.label}>
-                {t('jobTitle')}
-              </Text>
-              <Input
-                {...jobField}
-                placeholder={t('jobTitle')}
-                textContentType="jobTitle"
-                error={Boolean(jobFieldState.error)}
-                errorMessageId={jobFieldState.error?.message}
-                containerStyle={styles.input}
-              />
-              {Boolean(jobFieldState.error) && (
-                <ErrorMessage text={jobFieldState.error?.message!} errorMessageId={jobFieldState.error?.message} />
-              )}
-            </View>
-            <View style={styles.formGroupFullWidth}>
-              <Text variant="small" style={styles.label}>
-                {t('emailAddress')}
-              </Text>
-              <Input
-                {...emailField}
-                placeholder={t('emailAddress')}
-                textContentType="emailAddress"
-                disabled={true} // should not be able to update email from this form
-                error={Boolean(emailFieldState.error)}
-                errorMessageId={emailFieldState.error?.message}
-                containerStyle={styles.input}
-              />
-              {Boolean(emailFieldState.error) && (
-                <ErrorMessage text={emailFieldState.error?.message!} errorMessageId={emailFieldState.error?.message} />
-              )}
-            </View>
-            <View style={styles.formGroupFullWidth}>
-              <Text variant="small" style={styles.label}>
-                {t('biodata')}
-              </Text>
-              <Input
-                {...bioField}
-                variant="text-area"
-                multiline
-                placeholder={t('biodata')}
-                textContentType="none"
-                error={Boolean(bioFieldState.error)}
-                errorMessageId={bioFieldState.error?.message}
-                containerStyle={styles.textArea}
-              />
-              {Boolean(bioFieldState.error) && (
-                <ErrorMessage text={bioFieldState.error?.message!} errorMessageId={bioFieldState.error?.message} />
-              )}
-            </View>
+    <NoSSR>
+      <View style={tailwindResponsive('flex-row flex-wrap flex-gap-10 mt-10', { md: 'flex-col' }, { md })}>
+        <FileUploader
+          {...register('profile_picture')}
+          value={getValues('profile_picture')}
+          actionLabel={t('reuploadButton')}
+          onChange={handleProfilePicture}
+        />
+        <View style={styles.formContainer}>
+          <View style={styles.formGroupHalfWidth}>
+            <Text variant="small" style={styles.label}>
+              {t('fullName')}
+            </Text>
+            <Input
+              {...nameField}
+              placeholder={t('name')}
+              textContentType="name"
+              error={Boolean(nameFieldState.error)}
+              errorMessageId={nameFieldState.error?.message}
+              containerStyle={styles.input}
+            />
+            {Boolean(nameFieldState.error) && (
+              <ErrorMessage text={nameFieldState.error?.message!} errorMessageId={nameFieldState.error?.message} />
+            )}
+          </View>
+          <View style={styles.formGroupHalfWidth}>
+            <Text variant="small" style={styles.label}>
+              {t('jobTitle')}
+            </Text>
+            <Input
+              {...jobField}
+              placeholder={t('jobTitle')}
+              textContentType="jobTitle"
+              error={Boolean(jobFieldState.error)}
+              errorMessageId={jobFieldState.error?.message}
+              containerStyle={styles.input}
+            />
+            {Boolean(jobFieldState.error) && (
+              <ErrorMessage text={jobFieldState.error?.message!} errorMessageId={jobFieldState.error?.message} />
+            )}
+          </View>
+          <View style={styles.formGroupFullWidth}>
+            <Text variant="small" style={styles.label}>
+              {t('emailAddress')}
+            </Text>
+            <Input
+              {...emailField}
+              placeholder={t('emailAddress')}
+              textContentType="emailAddress"
+              disabled={true} // should not be able to update email from this form
+              error={Boolean(emailFieldState.error)}
+              errorMessageId={emailFieldState.error?.message}
+              containerStyle={styles.input}
+            />
+            {Boolean(emailFieldState.error) && (
+              <ErrorMessage text={emailFieldState.error?.message!} errorMessageId={emailFieldState.error?.message} />
+            )}
+          </View>
+          <View style={styles.formGroupFullWidth}>
+            <Text variant="small" style={styles.label}>
+              {t('biodata')}
+            </Text>
+            <Input
+              {...bioField}
+              variant="text-area"
+              multiline
+              placeholder={t('biodata')}
+              textContentType="none"
+              error={Boolean(bioFieldState.error)}
+              errorMessageId={bioFieldState.error?.message}
+              containerStyle={styles.textArea}
+            />
+            {Boolean(bioFieldState.error) && (
+              <ErrorMessage text={bioFieldState.error?.message!} errorMessageId={bioFieldState.error?.message} />
+            )}
           </View>
         </View>
       </View>
-    </Element>
+    </NoSSR>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {},
-  form: {
-    marginTop: Token.spacing.xxl,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: Token.spacing.xxl,
-  },
   formContainer: {
     flex: 1,
     flexDirection: 'row',

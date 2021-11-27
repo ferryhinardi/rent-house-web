@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import NoSSR from 'react-no-ssr';
 
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -10,6 +11,7 @@ import { Token } from 'core';
 import { Text } from 'core/base';
 import { menus } from 'core/constants';
 import assets from 'assets';
+import useTailwind from 'hooks/useTailwind';
 
 function Footer() {
   const { t } = useTranslation();
@@ -17,58 +19,61 @@ function Footer() {
   const onNavigateMenu = (href: string) => {
     router.push(href);
   };
+  const { tailwindResponsive, md } = useTailwind();
   const year = new Date().getFullYear();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.footer}>
-        <View style={styles.sectionLogo}>
-          <Image {...assets.logoWhite} placeholder="blur" layout="fixed" alt="logo" />
-          <Text style={styles.logoTitle} ink="light">
-            {t('footerTitle')}
-          </Text>
-        </View>
-        <View style={styles.sectionMenu}>
-          <Text ink="light" style={styles.listTitle}>
-            {t('footerMenuTitle')}
-          </Text>
-          {menus.map((menu) => (
-            <Text
-              key={menu.name}
-              ink="light"
-              accessibilityRole="link"
-              onPress={() => onNavigateMenu(menu.href)}
-              style={styles.list}>
-              {menu.name}
+    <NoSSR>
+      <View style={styles.container}>
+        <View style={tailwindResponsive('flex flex-full flex-row', { md: 'flex-col flex-gap-4' }, { md })}>
+          <View style={styles.sectionLogo}>
+            <Image {...assets.logoWhite} placeholder="blur" layout="fixed" alt="logo" />
+            <Text style={styles.logoTitle} ink="light">
+              {t('footerTitle')}
             </Text>
-          ))}
-        </View>
-        <View style={styles.sectionContactUs}>
-          <Text ink="light" style={styles.listTitle}>
-            {t('footerContactUsTitle')}
-          </Text>
-          <View style={styles.list}>
-            <a rel="noopener noreferrer" href={'mailto:hello@theryna.com'} target="_blank">
-              <Text ink="light">{t('contactUsEmail')}</Text>
-            </a>
           </View>
-          <View style={styles.list}>
-            <a href={'tel:' + t('telephoneNum')}>
-              <Text ink="light">{t('contactUsTelp')}</Text>
-            </a>
+          <View style={styles.sectionMenu}>
+            <Text ink="light" style={styles.listTitle}>
+              {t('footerMenuTitle')}
+            </Text>
+            {menus.map((menu) => (
+              <Text
+                key={menu.name}
+                ink="light"
+                accessibilityRole="link"
+                onPress={() => onNavigateMenu(menu.href)}
+                style={styles.list}>
+                {menu.name}
+              </Text>
+            ))}
+          </View>
+          <View style={styles.sectionContactUs}>
+            <Text ink="light" style={styles.listTitle}>
+              {t('footerContactUsTitle')}
+            </Text>
+            <View style={styles.list}>
+              <a rel="noopener noreferrer" href={'mailto:hello@theryna.com'} target="_blank">
+                <Text ink="light">{t('contactUsEmail')}</Text>
+              </a>
+            </View>
+            <View style={styles.list}>
+              <a href={'tel:' + t('telephoneNum')}>
+                <Text ink="light">{t('contactUsTelp')}</Text>
+              </a>
+            </View>
+          </View>
+          <View style={styles.sectionFollowUs}>
+            <Text style={styles.listTitle} ink="light">
+              {t('footerFollowUsTitle')}
+            </Text>
+            <FollowUsList />
           </View>
         </View>
-        <View style={styles.sectionFollowUs}>
-          <Text style={styles.listTitle} ink="light">
-            {t('footerFollowUsTitle')}
-          </Text>
-          <FollowUsList />
-        </View>
+        <Text ink="light" style={styles.copyRight}>
+          {t('copyRightCaption', { year: year })}
+        </Text>
       </View>
-      <Text ink="light" style={styles.copyRight}>
-        {t('copyRightCaption', { year: year })}
-      </Text>
-    </View>
+    </NoSSR>
   );
 }
 
@@ -112,13 +117,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Token.colors.blue,
     padding: Token.spacing.xxxxl,
-  },
-  footer: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: '100%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
   },
   listTitle: {
     marginBottom: Token.spacing.xs,

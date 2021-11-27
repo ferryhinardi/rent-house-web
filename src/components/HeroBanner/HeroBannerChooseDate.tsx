@@ -7,6 +7,7 @@ import assets from 'assets';
 import HeroBannerTemplate from './HeroBannerTemplate';
 import HeroTimeline from './HeroTimeline';
 import { HeroStates } from '../HeroBanner';
+import useTailwind from 'hooks/useTailwind';
 
 const hero = assets.hero1;
 
@@ -17,27 +18,31 @@ type Props = {
 
 function HeroBannerChooseDate({ states, onChange }: Props) {
   const { t } = useTranslation();
+  const { md } = useTailwind();
   return (
     <HeroBannerTemplate
       imageProps={{ ...hero, placeholder: 'blur' }}
       DescriptionComponent={
         <>
           <HeroTimeline states={states} onChange={onChange} />
-          <Text variant="headline-1" ink="light">
-            {t('bannerTitle')}
-          </Text>
-          <Text variant="caption" ink="light" style={styles.heroSubtitle}>
-            {t('bannerSubtitle')}
-          </Text>
+          {!md && (
+            <>
+              <Text variant="headline-1" ink="light">
+                {t('bannerTitle')}
+              </Text>
+              <Text variant="caption" ink="light" style={styles.heroSubtitle}>
+                {t('bannerSubtitle')}
+              </Text>
+            </>
+          )}
         </>
       }
-      footerNode={'Liberty Village, Toronto'}
+      footerNode={md ? undefined : 'Liberty Village, Toronto'}
+      width={hero.width}
+      height={md ? undefined : hero.height}
     />
   );
 }
-
-HeroBannerChooseDate.width = hero.width;
-HeroBannerChooseDate.height = hero.height;
 
 const styles = StyleSheet.create({
   heroSubtitle: {

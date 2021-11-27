@@ -1,20 +1,23 @@
-import { Footer, Head, HeaderMenu } from 'components';
-import { HomeRecommendationPlaceholder } from 'components/Placeholder';
-import HomeRecommendationCard from 'components/Recommendation/HomeRecommendationCard';
-import { fetcher, Token } from 'core';
-import { Text } from 'core/base';
-import { QUERY_KEYS } from 'core/constants';
 import { useRouter } from 'next/router';
 import { StyleSheet, View } from 'react-native';
 import { useQuery } from 'react-query';
-import { routePaths } from 'routePaths';
+import NoSSR from 'react-no-ssr';
+import { fetcher, Token } from 'core';
+import { Text } from 'core/base';
+import { QUERY_KEYS } from 'core/constants';
+import { Footer, Head, HeaderMenu } from 'components';
+import { HomeRecommendationPlaceholder } from 'components/Placeholder';
+import HomeRecommendationCard from 'components/Recommendation/HomeRecommendationCard';
 import { House, ResponseItem } from 'types';
+import { routePaths } from 'routePaths';
+import useTailwind from 'hooks/useTailwind';
 
 type HousesPerCity = {
   [key: string]: House[];
 };
 
 export default function RentalHomes() {
+  const { tailwindResponsive, md } = useTailwind();
   const router = useRouter();
   const { data, isLoading } = useQuery<HousesPerCity>(QUERY_KEYS.RENTAL_HOMES, async () => {
     const size = 50;
@@ -59,14 +62,14 @@ export default function RentalHomes() {
   });
 
   return (
-    <div>
+    <NoSSR>
       <Head />
       <HeaderMenu />
 
       <Text variant="header-2" style={styles.headerTitle}>
         Toronto
       </Text>
-      <View style={styles.container}>
+      <View style={tailwindResponsive('flex-initial flex-row flex-wrap flex-gap-6 p-10', { md: 'flex-col' }, { md })}>
         {isLoading ? (
           <HomeRecommendationPlaceholder />
         ) : (
@@ -95,7 +98,7 @@ export default function RentalHomes() {
       <Text variant="header-2" style={styles.headerTitle}>
         Ottawa
       </Text>
-      <View style={styles.container}>
+      <View style={tailwindResponsive('flex-row flex-wrap flex-gap-6 p-10', { md: 'flex-col' }, { md })}>
         {isLoading ? (
           <HomeRecommendationPlaceholder />
         ) : (
@@ -124,7 +127,7 @@ export default function RentalHomes() {
       <Text variant="header-2" style={styles.headerTitle}>
         Montreal
       </Text>
-      <View style={styles.container}>
+      <View style={tailwindResponsive('flex-row flex-wrap flex-gap-6 p-10', { md: 'flex-col' }, { md })}>
         {isLoading ? (
           <HomeRecommendationPlaceholder />
         ) : (
@@ -154,7 +157,7 @@ export default function RentalHomes() {
       <Text variant="header-2" style={styles.headerTitle}>
         Vancouver
       </Text>
-      <View style={styles.container}>
+      <View style={tailwindResponsive('flex-row flex-wrap flex-gap-6 p-10', { md: 'flex-col' }, { md })}>
         {isLoading ? (
           <HomeRecommendationPlaceholder />
         ) : (
@@ -181,20 +184,11 @@ export default function RentalHomes() {
         )}
       </View>
       <Footer />
-    </div>
+    </NoSSR>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    /* @ts-ignore */
-    display: 'grid',
-    gridTemplateColumns: `1fr 1fr 1fr`,
-    gap: Token.spacing.l,
-    padding: Token.spacing.xxxl,
-  },
   headerTitle: {
     paddingLeft: Token.spacing.xxxl,
   },

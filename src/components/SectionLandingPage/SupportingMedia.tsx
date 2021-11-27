@@ -1,43 +1,29 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
+import NoSSR from 'react-no-ssr';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
-import { Token } from 'core';
 import { Text } from 'core/base';
 import assets from 'assets';
+import useTailwind from 'hooks/useTailwind';
 
 const mediaAssets = [assets.supportMedia1, assets.supportMedia2, assets.supportMedia3];
 
 export default function SupportingMedia() {
   const { t } = useTranslation();
+  const { tailwind, tailwindResponsive, md } = useTailwind();
   return (
-    <View style={styles.container}>
-      <Text variant="header-2" ink="primary" style={styles.title}>
-        {t('supportingMediaTitle')}
-      </Text>
-      <View style={styles.imageWrapper}>
-        {mediaAssets.map((image, index) => (
-          <Image key={`${index}`} {...image} placeholder="blur" alt="media-1" />
-        ))}
+    <NoSSR>
+      <View style={tailwind('flex flex-1 justify-center items-center py-16 px-4 my-16')}>
+        <Text variant="header-2" ink="primary" style={tailwind('mb-16 text-center')}>
+          {t('supportingMediaTitle')}
+        </Text>
+        <View style={tailwindResponsive('flex-row flex-wrap flex-gap-4', { md: 'flex-col' }, { md })}>
+          {mediaAssets.map((image, index) => (
+            <Image key={`${index}`} {...image} placeholder="blur" alt="media-1" />
+          ))}
+        </View>
       </View>
-    </View>
+    </NoSSR>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: Token.spacing.xxxxl,
-    marginVertical: Token.spacing.xxxxl,
-  },
-  title: {
-    marginBottom: Token.spacing.xxxxl,
-  },
-  imageWrapper: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: Token.spacing.xxl,
-  },
-});

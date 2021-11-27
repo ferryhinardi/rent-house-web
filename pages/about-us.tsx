@@ -1,12 +1,13 @@
-import { Head, HeaderMenu } from 'components';
 import { StyleSheet, Text, View } from 'react-native';
+import NoSSR from 'react-no-ssr';
 import { Token } from 'core';
 import assets from 'assets';
+import { Head, HeaderMenu } from 'components';
 import Footer from 'components/StaticPage/Footer';
 
 export default function AboutUs() {
   return (
-    <div>
+    <NoSSR>
       <Head />
       <View style={styles.wrapperHeader}>
         <HeaderMenu />
@@ -66,7 +67,7 @@ export default function AboutUs() {
           background-size: cover;
         }
       `}</style>
-    </div>
+    </NoSSR>
   );
 }
 
@@ -96,7 +97,6 @@ const styles = StyleSheet.create({
     fontFamily: 'lato-light,lato,sans-serif',
     color: '#1C2B4F',
     fontSize: 41,
-    lineHeight: 0,
     fontWeight: 'bold',
   },
   content: {

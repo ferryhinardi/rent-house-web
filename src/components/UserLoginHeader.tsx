@@ -10,6 +10,7 @@ import { useClickOutside } from 'core/hooks';
 import { User } from 'types';
 import { logout } from 'utils/auth';
 import { routePaths } from 'routePaths';
+import useTailwind from 'hooks/useTailwind';
 
 type Props = User;
 
@@ -17,6 +18,7 @@ function UserLoginHeader(props: Props) {
   const profileMenuRef = useRef<HTMLElement>();
   const { t } = useTranslation();
   const router = useRouter();
+  const { tailwind, tailwindResponsive, md } = useTailwind();
   const [isVisibile, setIsVisible] = useState(false);
 
   const onLogout = () => {
@@ -31,40 +33,57 @@ function UserLoginHeader(props: Props) {
   useClickOutside(profileMenuRef, () => setIsVisible(false));
 
   return (
-    <View style={styles.container}>
+    <View style={tailwindResponsive('flex flex-row', { md: 'flex-col' }, { md })}>
       {/* <Notification /> */}
-      <Tooltip
-        show={isVisibile}
-        position="bottom"
-        width="stretchToChild"
-        arrowPosition="right"
-        content={
-          <View>
-            <Pressable style={styles.dropDownMenu} onPress={onNavigateToAccount}>
-              <Text ink="light">{t('myProfile')}</Text>
-            </Pressable>
-            <Pressable style={{ alignItems: 'flex-start' }} onPress={onLogout}>
-              <Text ink="light">{t('logout')}</Text>
-            </Pressable>
-          </View>
-        }>
-        <Pressable style={styles.section} ref={profileMenuRef} onPress={() => setIsVisible((prev) => !prev)}>
-          <View style={styles.button}>
-            <Icon name="user" size={24} color={Token.colors.blue} />
-          </View>
-          <View style={styles.button}>
-            <Text ink="primary">{props.name}</Text>
-          </View>
-        </Pressable>
-      </Tooltip>
+      {!md ? (
+        <Tooltip
+          show={isVisibile}
+          position="bottom"
+          width="stretchToChild"
+          arrowPosition="right"
+          content={
+            <View>
+              <Pressable style={styles.dropDownMenu} onPress={onNavigateToAccount}>
+                <Text ink="light">{t('myProfile')}</Text>
+              </Pressable>
+              <Pressable style={{ alignItems: 'flex-start' }} onPress={onLogout}>
+                <Text ink="light">{t('logout')}</Text>
+              </Pressable>
+            </View>
+          }>
+          <Pressable style={styles.section} ref={profileMenuRef} onPress={() => setIsVisible((prev) => !prev)}>
+            <View style={styles.button}>
+              <Icon name="user" size={24} color={Token.colors.blue} />
+            </View>
+            <View style={styles.button}>
+              <Text ink="primary">{props.name}</Text>
+            </View>
+          </Pressable>
+        </Tooltip>
+      ) : (
+        <View style={tailwind('flex flex-row flex-gap-4')}>
+          <Pressable
+            style={tailwind('flex flex-row flex-1 items-center p-4 border rounded-lg')}
+            onPress={onNavigateToAccount}>
+            <View style={styles.button}>
+              <Icon name="user" size={24} color={Token.colors.blue} />
+            </View>
+            <View style={styles.button}>
+              <Text ink="primary">{props.name}</Text>
+            </View>
+          </Pressable>
+          <Pressable style={tailwind('items-center p-4 border rounded-lg')} onPress={onLogout}>
+            <Text ink="primary" style={tailwind('text-center')}>
+              {t('logout')}
+            </Text>
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-  },
   button: {
     paddingHorizontal: Token.spacing.xs,
   },

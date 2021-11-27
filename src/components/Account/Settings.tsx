@@ -1,19 +1,22 @@
-import { Token } from 'core';
-import { Button, Text } from 'core/base';
-import { useRouter } from 'next/router';
 import React from 'react';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
+import NoSSR from 'react-no-ssr';
 import { StyleSheet, View } from 'react-native';
 import { Element } from 'react-scroll';
 import { routePaths } from 'routePaths';
+import { Token } from 'core';
+import { Button, Text } from 'core/base';
+import useTailwind from 'hooks/useTailwind';
 
 const settings = ['profile', 'preference', 'application'];
 
 export default function AccountSettings() {
   const { t } = useTranslation();
+  const { tailwindResponsive, md } = useTailwind();
   return (
     <Element name="account-settings">
-      <>
+      <NoSSR>
         <View style={styles.titleWrapper}>
           <Text variant="header-3" ink="primary" style={styles.title}>
             {t('accountSettingsTitle')}
@@ -23,12 +26,17 @@ export default function AccountSettings() {
         <Text variant="caption" style={styles.description}>
           {t('accountSettingsDescription')}
         </Text>
-        <View style={styles.cardContainer}>
+        <View
+          style={tailwindResponsive(
+            'flex-row flex-wrap justify-between flex-gap-10 mt-10',
+            { md: 'flex-col' },
+            { md }
+          )}>
           {settings.map((setting) => (
             <SettingCard key={setting} title={t(`${setting}`)} subtitle={t(`${setting}Description`)} href={setting} />
           ))}
         </View>
-      </>
+      </NoSSR>
     </Element>
   );
 }

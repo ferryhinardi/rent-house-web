@@ -1,4 +1,6 @@
 import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
+import { View } from 'react-native';
+import tailwind from 'tailwind-rn';
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 import {
@@ -22,7 +24,7 @@ import { redirectIfUnauthenticated } from 'utils/auth';
 
 export default function Home() {
   return (
-    <div>
+    <View style={tailwind('h-full')}>
       <Head />
       <HeaderMenu />
       <Hero />
@@ -40,7 +42,7 @@ export default function Home() {
           overflow-x: hidden;
         }
       `}</style>
-    </div>
+    </View>
   );
 }
 

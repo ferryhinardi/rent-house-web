@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import NoSSR from 'react-no-ssr';
 import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
 import { useSprings, animated } from 'react-spring';
@@ -11,6 +12,7 @@ import { Button, Text } from 'core/base';
 import ProgressBar from 'components/Progress/Bar';
 import Questionaire from 'components/Questionaire';
 import { Answer, ErrorHandling, Login, Question, PreferenceQuestionState, QuestionState } from 'types';
+import useTailwind from 'hooks/useTailwind';
 
 type Props = {
   stateIndex: number;
@@ -28,6 +30,7 @@ export default function PreferenceQuestion(props: Props) {
   const { t } = useTranslation();
   const AnimatedView = animated(View);
   const router = useRouter();
+  const { tailwindResponsive, md } = useTailwind();
   const [progressIndex, setProgressIndex] = React.useState(0);
   const questionSprings = useSprings(
     props.questions.length,
@@ -117,7 +120,7 @@ export default function PreferenceQuestion(props: Props) {
   });
 
   return (
-    <View>
+    <NoSSR>
       <View style={styles.content}>
         {questionSprings.map((animateStyle, idx) => {
           return (
@@ -144,7 +147,12 @@ export default function PreferenceQuestion(props: Props) {
           );
         })}
       </View>
-      <View style={styles.footer}>
+      <View
+        style={tailwindResponsive(
+          'flex-row flex-wrap flex-gap-4 items-center mt-10',
+          { md: 'flex-col items-start' },
+          { md }
+        )}>
         <Text variant="caption" ink="dark" style={styles.caption}>
           {t('completeness')}
         </Text>
@@ -188,16 +196,11 @@ export default function PreferenceQuestion(props: Props) {
           )}
         </View>
       </View>
-    </View>
+    </NoSSR>
   );
 }
 
 const styles = StyleSheet.create({
-  footer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: Token.spacing.xxl,
-  },
   caption: {
     marginRight: Token.spacing.xs,
   },

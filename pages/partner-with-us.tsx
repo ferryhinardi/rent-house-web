@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import NoSSR from 'react-no-ssr';
 import Image from 'next/image';
 import { Head, HeaderMenu } from 'components';
 import Footer from 'components/StaticPage/Footer';
@@ -7,10 +8,12 @@ import { ContainerDesktop } from 'core/base';
 import { Token } from 'core';
 import assets from 'assets';
 import NextSubject from 'assets/NextSubject.svg';
+import useTailwind from 'hooks/useTailwind';
 
-export default function Home() {
+export default function PartnerWithUs() {
+  const { tailwindResponsive, md } = useTailwind();
   return (
-    <div>
+    <NoSSR>
       <Head />
       <View style={styles.wrapperHeader}>
         <HeaderMenu />
@@ -19,7 +22,7 @@ export default function Home() {
         <View style={styles.containerTopContent}>
           <Text style={styles.header}>Achieve Higher Return With Us</Text>
 
-          <View style={styles.wrapperAchivePoint}>
+          <View style={tailwindResponsive('flex-row flex-wrap flex-gap-10', { md: 'flex-col' }, { md })}>
             <View style={styles.achivePointBullet}>
               <View style={styles.pointBullet}>
                 <Text style={styles.pointPercentage}>30%+</Text>
@@ -63,7 +66,7 @@ export default function Home() {
             How we partner
           </Text>
 
-          <View style={styles.processPartner}>
+          <View style={tailwindResponsive('flex-row flex-wrap flex-gap-5', { md: 'flex-col' }, { md })}>
             <View style={styles.wrapperProcessTitle}>
               <Text style={styles.processTitle}>Send us project information</Text>
               <Text style={styles.processDescription}>
@@ -97,7 +100,7 @@ export default function Home() {
             Your Ideal Partner
           </Text>
 
-          <View style={styles.partnerIdealWrapper}>
+          <View style={tailwindResponsive('flex-row flex-wrap flex-gap-5', { md: 'flex-col' }, { md })}>
             <View style={styles.partnerIdealTile}>
               <Text style={styles.partnerIdealTitle}>Reduced Vacancy & Increase NOI</Text>
               <Text style={styles.partnerIdealDescription}>
@@ -161,7 +164,7 @@ export default function Home() {
           margin-right: 24px;
         }
       `}</style>
-    </div>
+    </NoSSR>
   );
 }
 
@@ -190,15 +193,8 @@ const styles = StyleSheet.create({
     fontFamily: 'futura-lt-w01-book,sans-serif',
     color: '#1C2B4F',
     fontSize: 51,
-    lineHeight: 0,
     fontWeight: '700',
     textAlign: 'center',
-  },
-  wrapperAchivePoint: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    // @ts-ignore
-    gap: Token.spacing.xxl,
   },
   achivePointBullet: {
     flexGrow: 1,
@@ -248,12 +244,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: Token.spacing.xxxxl,
   },
-  processPartner: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-  },
   wrapperProcessTitle: {
-    width: 350,
+    maxWidth: 350,
     marginLeft: Token.spacing.m,
   },
   processTitle: {
@@ -270,10 +262,6 @@ const styles = StyleSheet.create({
     color: Token.colors.rynaBlue,
     fontFamily: 'futura-lt-w01-book,sans-serif',
     lineHeight: 24,
-  },
-  partnerIdealWrapper: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
   },
   partnerIdealTile: {
     flexGrow: 1,
