@@ -28,7 +28,7 @@ export default function ExploreHomes() {
 
   const homeData = data?.data;
   const [firstHome, secondHome, otherHomes] = [homeData?.[0], homeData?.[1], homeData?.slice(2)];
-
+  console.log('homeData', homeData);
   return (
     <NoSSR>
       <ContainerDesktop style={styles.container}>
@@ -54,39 +54,107 @@ export default function ExploreHomes() {
               { md: 'flex flex-gap-3 h-full' },
               { md }
             )}>
-            {firstHome && (
-              <View>
-                <Card
-                  noShadow
-                  activeOpacity={1}
-                  orientation="portrait"
-                  imageProps={{
-                    src: `${config.imageHost}/${firstHome?.lead_media}`,
-                    blurDataURL: `${config.imageHost}/${firstHome?.lead_media}`,
-                    placeholder: 'blur',
-                    loading: 'lazy',
-                    alt: 'house explore image',
-                    layout: 'fill',
-                    objectFit: 'contain',
-                    onError: () => console.error('error render image'),
-                  }}
-                  imageContainerStyle={styles.cardImage}
-                  style={styles.cardContainer}
-                />
-                <Text variant="header-2" style={styles.cardTitle}>
-                  {firstHome?.city}
-                </Text>
-              </View>
-            )}
+            {!md ? (
+              <>
+                {firstHome && (
+                  <View>
+                    <Card
+                      noShadow
+                      activeOpacity={1}
+                      orientation="portrait"
+                      imageProps={{
+                        src: `${config.imageHost}/${firstHome?.lead_media}`,
+                        blurDataURL: `${config.imageHost}/${firstHome?.lead_media}`,
+                        placeholder: 'blur',
+                        loading: 'lazy',
+                        alt: 'house explore image',
+                        layout: 'fill',
+                        objectFit: 'contain',
+                        onError: () => console.error('error render image'),
+                      }}
+                      imageContainerStyle={styles.cardImage}
+                      style={styles.cardContainer}
+                    />
+                    <Text variant="header-2" style={styles.cardTitle}>
+                      {firstHome?.city}
+                    </Text>
+                  </View>
+                )}
 
-            <View style={styles.rightContainer}>
-              {secondHome && (
-                <View style={styles.secondCardContainer}>
+                <View style={styles.rightContainer}>
+                  {secondHome && (
+                    <View style={styles.secondCardContainer}>
+                      <Card
+                        orientation="portrait"
+                        imageProps={{
+                          src: `${config.imageHost}/${secondHome?.lead_media}`,
+                          blurDataURL: `${config.imageHost}/${secondHome?.lead_media}`,
+                          placeholder: 'blur',
+                          loading: 'lazy',
+                          layout: 'responsive',
+                          height: '100%',
+                          width: '100%',
+                          alt: 'house explore image',
+                          objectFit: 'contain',
+                          onError: () => console.error('error render image'),
+                        }}
+                        imageContainerStyle={styles.cardImage}
+                      />
+                      <Text variant="header-2" style={styles.cardTitle}>
+                        {secondHome?.city}
+                      </Text>
+                      <Text variant="caption">{secondHome?.name}</Text>
+                    </View>
+                  )}
+
+                  <View style={styles.layout2}>
+                    {otherHomes?.map((item, index) => (
+                      <View
+                        key={item.id}
+                        style={[
+                          styles.otherHomeCardContainer,
+                          {
+                            marginRight: index === 0 ? Token.spacing.xxxxl : 0,
+                          },
+                        ]}>
+                        <Card
+                          orientation="portrait"
+                          imageProps={{
+                            src: `${config.imageHost}/${item.lead_media}`,
+                            blurDataURL: `${config.imageHost}/${item.lead_media}`,
+                            placeholder: 'blur',
+                            loading: 'lazy',
+                            height: '100%',
+                            width: '100%',
+                            layout: 'intrinsic',
+                            alt: 'house explore image',
+                            objectFit: 'contain',
+                            onError: () => console.error('error render image'),
+                          }}
+                          imageContainerStyle={styles.cardImage}
+                        />
+                        <Text variant="header-2" style={styles.cardTitle}>
+                          {item.city}
+                        </Text>
+                        <Text variant="caption">{item.name}</Text>
+                      </View>
+                    ))}
+                  </View>
+                </View>
+              </>
+            ) : (
+              homeData?.map((item) => (
+                <View key={item.name}>
+                  <Text variant="header-2" style={styles.cardTitle}>
+                    {item.city}
+                  </Text>
                   <Card
+                    noShadow
+                    activeOpacity={1}
                     orientation="portrait"
                     imageProps={{
-                      src: `${config.imageHost}/${secondHome?.lead_media}`,
-                      blurDataURL: `${config.imageHost}/${secondHome?.lead_media}`,
+                      src: `${config.imageHost}/${item.lead_media}`,
+                      blurDataURL: `${config.imageHost}/${item.lead_media}`,
                       placeholder: 'blur',
                       loading: 'lazy',
                       layout: 'responsive',
@@ -97,48 +165,11 @@ export default function ExploreHomes() {
                       onError: () => console.error('error render image'),
                     }}
                     imageContainerStyle={styles.cardImage}
+                    style={styles.cardContainer}
                   />
-                  <Text variant="header-2" style={styles.cardTitle}>
-                    {secondHome?.city}
-                  </Text>
-                  <Text variant="caption">{secondHome?.name}</Text>
                 </View>
-              )}
-
-              <View style={styles.layout2}>
-                {otherHomes?.map((item, index) => (
-                  <View
-                    key={item.id}
-                    style={[
-                      styles.otherHomeCardContainer,
-                      {
-                        marginRight: index === 0 ? Token.spacing.xxxxl : 0,
-                      },
-                    ]}>
-                    <Card
-                      orientation="portrait"
-                      imageProps={{
-                        src: `${config.imageHost}/${item.lead_media}`,
-                        blurDataURL: `${config.imageHost}/${item.lead_media}`,
-                        placeholder: 'blur',
-                        loading: 'lazy',
-                        height: '100%',
-                        width: '100%',
-                        layout: 'responsive',
-                        alt: 'house explore image',
-                        objectFit: 'contain',
-                        onError: () => console.error('error render image'),
-                      }}
-                      imageContainerStyle={styles.cardImage}
-                    />
-                    <Text variant="header-2" style={styles.cardTitle}>
-                      {item.city}
-                    </Text>
-                    <Text variant="caption">{item.name}</Text>
-                  </View>
-                ))}
-              </View>
-            </View>
+              ))
+            )}
           </View>
         )}
       </ContainerDesktop>
