@@ -23,6 +23,11 @@ import useTailwind from 'hooks/useTailwind';
 
 const Modal = dynamic(import(/* webpackChunkName: "Modal" */ 'core/base/Modal'), { ssr: false });
 
+import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
+import { redirectIfUnauthenticated } from 'utils/auth';
+
 export type HeroState = {
   name: string;
   value?: string;

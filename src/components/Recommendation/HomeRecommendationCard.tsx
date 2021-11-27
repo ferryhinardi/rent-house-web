@@ -26,6 +26,7 @@ export default function HomeRecommendationCard({ name, description, amenities, g
             flexBasis: '100%',
             flexGrow: 0,
             flexShrink: 1,
+            minHeight: '200px',
             height: '100%',
           }}
           minDistanceForAction={0.1}
@@ -89,7 +90,7 @@ export default function HomeRecommendationCard({ name, description, amenities, g
           {description}
         </Text>
         <View style={styles.facilityContainer}>
-          {(amenities || []).map((item, i) => {
+          {(amenities || []).slice(0, 6).map((item, i) => {
             return (
               <View key={i} style={styles.facility}>
                 <FacilityIcon name={item.icon} />
@@ -121,10 +122,11 @@ const styles = StyleSheet.create({
   title: { marginTop: Token.spacing.xl },
   description: { marginTop: Token.spacing.l },
   facilityContainer: {
-    flex: 1,
+    minHeight: '100px',
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: Token.spacing.xs,
+    overflow: 'hidden',
     marginTop: Token.spacing.xl,
   },
   facility: {
