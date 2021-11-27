@@ -1513,7 +1513,7 @@
 	"flex-1/2": {
 		"flexGrow": 1,
 		"flexShrink": 1,
-		"flexBasis": "50%"
+		"flexBasis": "48%"
 	},
 	"flex-grow-0": {
 		"flexGrow": 0

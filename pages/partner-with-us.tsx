@@ -100,7 +100,7 @@ export default function PartnerWithUs() {
             Your Ideal Partner
           </Text>
 
-          <View style={tailwindResponsive('flex-row flex-wrap flex-gap-5', { md: 'flex-col' }, { md })}>
+          <View style={tailwindResponsive('flex-row flex-wrap flex-gap-0', { md: 'flex-col flex-gap-4' }, { md })}>
             <View style={styles.partnerIdealTile}>
               <Text style={styles.partnerIdealTitle}>Reduced Vacancy & Increase NOI</Text>
               <Text style={styles.partnerIdealDescription}>
