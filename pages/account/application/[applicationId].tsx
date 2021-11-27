@@ -2,6 +2,7 @@ import React from 'react';
 import { NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
+import NoSSR from 'react-no-ssr';
 import { Head, HeaderMenu, HeaderNavigation, ApplicationDetailContent, Footer } from 'components';
 import { LineSharedPage } from 'components/LineBackground';
 import { fetcher, Token } from 'core';
@@ -11,11 +12,13 @@ import { useMutation, useQuery } from 'react-query';
 import { ApplicationData, ErrorHandling } from 'types';
 import Toast from 'react-native-toast-message';
 import { redirectIfUnauthenticated } from 'utils/auth';
+import useTailwind from 'hooks/useTailwind';
 
 type ApplicationCancelRequest = {
   status: string;
 };
 export default function ApplicationDetail() {
+  const { tailwindResponsive, md } = useTailwind();
   const router = useRouter();
   const { query } = router;
   const { data } = useQuery(
@@ -55,7 +58,7 @@ export default function ApplicationDetail() {
   };
 
   return (
-    <div>
+    <NoSSR>
       <Head />
       <HeaderMenu />
       <LineSharedPage />
@@ -63,33 +66,18 @@ export default function ApplicationDetail() {
         <HeaderNavigation title={data?.house.name as string} />
         <ApplicationDetailContent application={data} />
         {(data?.status as string) == 'submitted' && (
-          <View>
-            <Button
-              style={styles.button}
-              variant="secondary"
-              text={'Cancel Application'}
-              onPress={handleCancelApplication}
-            />
-          </View>
+          <Button
+            style={tailwindResponsive('mb-10 self-start', { md: 'self-auto' }, { md })}
+            variant="secondary"
+            text={'Cancel Application'}
+            onPress={handleCancelApplication}
+          />
         )}
-        <View style={styles.separator} />
       </ContainerDesktop>
       <Footer />
-    </div>
+    </NoSSR>
   );
 }
-
-const styles = StyleSheet.create({
-  separator: {
-    marginVertical: Token.spacing.xxl,
-    borderBottomWidth: 4,
-    borderBottomColor: Token.colors.rynaGray,
-  },
-  button: {
-    width: '20%',
-    marginBottom: Token.spacing.l,
-  },
-});
 
 export async function getServerSideProps(context: NextPageContext) {
   const user = redirectIfUnauthenticated(context);

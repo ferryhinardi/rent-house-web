@@ -10,12 +10,14 @@ import { House } from 'types';
 import config from 'config';
 import { QUERY_KEYS } from 'core/constants';
 import PreviewImageButtonModal from './PreviewImageButtonModal';
+import useTailwind from 'hooks/useTailwind';
 
 type Props = {
   allowApplicant?: boolean;
 };
 
 export default function HomeRecommendationHeaderSection(props: Props) {
+  const { tailwindResponsive, md } = useTailwind();
   const router = useRouter();
   const { homeID } = router.query;
   const { data } = useQuery(
@@ -45,39 +47,40 @@ export default function HomeRecommendationHeaderSection(props: Props) {
         />
       </View>
 
-      <View>
-        <View>
-          <Image
-            src={`${config.imageHost}/${data?.lead_media}`}
-            blurDataURL={`${config.imageHost}/${data?.lead_media}`}
-            placeholder="blur"
-            alt={`galery-1`}
-            className="galery-recommendation"
-            width={744}
-            height={378}
-            objectFit="cover"
-          />
-          <PreviewImageButtonModal
-            text={'Show All Photos'}
-            images={[data?.lead_media!, ...(data?.galleries || [])]}
-            style={styles.seeAllBtn}
-          />
-        </View>
-        <View style={styles.imageCollections}>
-          {(data?.galleries || []).map((item, i) => (
-            <Image
-              key={i}
-              src={`${config.imageHost}/${item}`}
-              blurDataURL={`${config.imageHost}/${item}`}
-              placeholder="blur"
-              alt={`galery-${i + 1}`}
-              className="galery-recommendation"
-              width={243}
-              height={205}
-              objectFit="cover"
-            />
-          ))}
-        </View>
+      <View style={{ flexGrow: 1, flexShrink: 1, flexBasis: '60%' }}>
+        <Image
+          src={`${config.imageHost}/${data?.lead_media}`}
+          blurDataURL={`${config.imageHost}/${data?.lead_media}`}
+          placeholder="blur"
+          alt={`galery-1`}
+          className="galery-recommendation"
+          // layout="fill"
+          width="100vw"
+          height={378}
+          objectFit="cover"
+        />
+        <PreviewImageButtonModal
+          text={'Show All Photos'}
+          images={[data?.lead_media!, ...(data?.galleries || [])]}
+          style={styles.seeAllBtn}
+        />
+        {!md && (
+          <View style={styles.imageCollections}>
+            {(data?.galleries || []).map((item, i) => (
+              <Image
+                key={i}
+                src={`${config.imageHost}/${item}`}
+                blurDataURL={`${config.imageHost}/${item}`}
+                placeholder="blur"
+                alt={`galery-${i + 1}`}
+                className="galery-recommendation"
+                width={243}
+                height={205}
+                objectFit="cover"
+              />
+            ))}
+          </View>
+        )}
       </View>
       <style jsx global>{`
         .galery-recommendation {

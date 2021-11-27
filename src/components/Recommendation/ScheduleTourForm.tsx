@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
+import NoSSR from 'react-no-ssr';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery } from 'react-query';
@@ -8,6 +9,7 @@ import { Button, Text } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { ApplicationData, ErrorHandling, ResponseItem, Room } from 'types';
 import Toast from 'react-native-toast-message';
+import useTailwind from 'hooks/useTailwind';
 
 type Props = {
   house_id: number;
@@ -20,6 +22,7 @@ type ApplicationRequest = {
 };
 
 export default function ScheduleTourForm(props: Props) {
+  const { tailwindResponsive, md } = useTailwind();
   const router = useRouter();
   const { homeID } = router.query;
   const { t } = useTranslation();
@@ -75,16 +78,21 @@ export default function ScheduleTourForm(props: Props) {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.wrapper}>
-        <InputBorder label="Starts from" value={pricenih} />
-        <InputBorder label="Availability" value="Ready" />
+    <NoSSR>
+      <View style={styles.container}>
+        <View style={styles.wrapper}>
+          <InputBorder label="Starts from" value={pricenih} />
+          <InputBorder label="Availability" value="Ready" />
+        </View>
+        {props.allowApplicant && (
+          <Button
+            text={t('startYourApplication')}
+            style={tailwindResponsive('mt-10 self-start', { md: 'self-auto' }, { md })}
+            onPress={onNavigateHomeDetail}
+          />
+        )}
       </View>
-      {/* <Button variant="secondary" text={t('scheduleTourButton')} style={styles.button} onPress={onScheduleTour} /> */}
-      {props.allowApplicant && (
-        <Button text={t('startYourApplication')} style={styles.button} onPress={onNavigateHomeDetail} />
-      )}
-    </View>
+    </NoSSR>
   );
 }
 
