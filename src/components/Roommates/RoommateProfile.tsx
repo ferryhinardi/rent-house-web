@@ -12,8 +12,10 @@ import { Token, fetcher } from 'core';
 import { Text, Image } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { User } from 'types';
+import useTailwind from 'hooks/useTailwind';
 
 export default function RoommateProfile() {
+  const { tailwind, tailwindResponsive, md } = useTailwind();
   const router = useRouter();
   const { userId } = router.query;
   const { t } = useTranslation();
@@ -32,15 +34,15 @@ export default function RoommateProfile() {
   const imgSource = user?.profile_picture ? `${config.imageHost}/${user.profile_picture}` : assets.placehoderImage;
 
   return (
-    <View style={styles.container}>
-      <View style={{ flexDirection: 'row', marginBottom: Token.spacing.xxxl }}>
+    <View style={tailwind('p-14')}>
+      <View style={tailwindResponsive('flex-row flex-wrap flex-gap-4 mb-10', { md: 'flex-col' }, { md })}>
         <View style={styles.wrapperProfileInfo}>
           <Text variant="header-2" font="playfair" ink="primary">
             {user?.name}
           </Text>
           <Text variant="caption">{user?.job}</Text>
         </View>
-        <View style={styles.wrapperImage}>
+        <View style={tailwindResponsive('flex-1 w-1/2-screen', { md: 'w-full' }, { md })}>
           <Image
             width={'100%'}
             height={'100%'}
@@ -82,7 +84,10 @@ export default function RoommateProfile() {
               // @ts-ignore
               href={user?.instagram_url}
               target="_blank"
-              style={styles.socialMediaUrl}> Instagram url</Text>
+              style={styles.socialMediaUrl}>
+              {' '}
+              Instagram url
+            </Text>
           </View>
           <View style={styles.socialMediaRow}>
             <Icon color={Token.colors.rynaBlue} size={20} name="twitter" />
@@ -91,7 +96,10 @@ export default function RoommateProfile() {
               // @ts-ignore
               href={user?.twitter_url}
               target="_blank"
-              style={styles.socialMediaUrl}> Twitter url</Text>
+              style={styles.socialMediaUrl}>
+              {' '}
+              Twitter url
+            </Text>
           </View>
           <View style={styles.socialMediaRow}>
             <Icon color={Token.colors.rynaBlue} size={20} name="facebook" />
@@ -100,7 +108,10 @@ export default function RoommateProfile() {
               // @ts-ignore
               href={user?.facebook_url}
               target="_blank"
-              style={styles.socialMediaUrl}> Facebook url</Text>
+              style={styles.socialMediaUrl}>
+              {' '}
+              Facebook url
+            </Text>
           </View>
         </View>
       </View>
@@ -109,17 +120,9 @@ export default function RoommateProfile() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    padding: Token.spacing.xxxxl,
-  },
   wrapperProfileInfo: {
     flex: 1,
     justifyContent: 'center',
-  },
-  wrapperImage: {
-    flex: 1,
-    width: '45vw',
-    height: 450,
   },
   separator: {
     marginBottom: Token.spacing.xxxxl,
@@ -144,5 +147,5 @@ const styles = StyleSheet.create({
   },
   profileHeader: {
     marginBottom: Token.spacing.m,
-  }
+  },
 });

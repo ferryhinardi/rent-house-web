@@ -60,10 +60,11 @@ function UserLoginHeader(props: Props) {
             </View>
           </Pressable>
         </Tooltip>
-      )
-      : (
-        <>
-          <Pressable style={tailwind('flex flex-row flex-1 items-center p-4')} onPress={onNavigateToAccount}>
+      ) : (
+        <View style={tailwind('flex flex-row flex-gap-4')}>
+          <Pressable
+            style={tailwind('flex flex-row flex-1 items-center p-4 border rounded-lg')}
+            onPress={onNavigateToAccount}>
             <View style={styles.button}>
               <Icon name="user" size={24} color={Token.colors.blue} />
             </View>
@@ -71,10 +72,12 @@ function UserLoginHeader(props: Props) {
               <Text ink="primary">{props.name}</Text>
             </View>
           </Pressable>
-          <Pressable style={tailwind('flex-row flex-1 items-center p-4')} onPress={onLogout}>
-            <Text ink="light">{t('logout')}</Text>
+          <Pressable style={tailwind('items-center p-4 border rounded-lg')} onPress={onLogout}>
+            <Text ink="primary" style={tailwind('text-center')}>
+              {t('logout')}
+            </Text>
           </Pressable>
-        </>
+        </View>
       )}
     </View>
   );
