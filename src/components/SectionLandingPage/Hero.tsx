@@ -6,7 +6,6 @@ import { useSprings, animated } from 'react-spring';
 import NoSSR from 'react-no-ssr';
 import { Element } from 'react-scroll';
 import { useTranslation } from 'react-i18next';
-import Cookie from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
@@ -22,11 +21,6 @@ import SignUpForm from 'components/SignUp';
 import useTailwind from 'hooks/useTailwind';
 
 const Modal = dynamic(import(/* webpackChunkName: "Modal" */ 'core/base/Modal'), { ssr: false });
-
-import { NextPageContext, NextApiRequest, NextApiResponse } from 'next';
-import { QueryClient } from 'react-query';
-import { dehydrate } from 'react-query/hydration';
-import { redirectIfUnauthenticated } from 'utils/auth';
 
 export type HeroState = {
   name: string;
@@ -51,7 +45,6 @@ function Hero() {
     return res;
   });
   const { data: userData } = useQuery<User>(QUERY_KEYS.CURRENT_USER);
-
   const totalData = data?.count || heros.length;
   const defaultValues = {
     states: Array(totalData)

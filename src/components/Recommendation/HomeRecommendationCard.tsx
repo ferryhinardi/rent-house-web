@@ -111,14 +111,6 @@ export default function HomeRecommendationCard({ name, description, amenities, g
 }
 
 const styles = StyleSheet.create({
-  containerCard: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: '48%',
-    overflow: 'hidden',
-    borderTopRightRadius: Token.border.radius.default,
-    borderRadius: Token.border.radius.default,
-  },
   title: { marginTop: Token.spacing.xl },
   description: { marginTop: Token.spacing.l },
   facilityContainer: {
