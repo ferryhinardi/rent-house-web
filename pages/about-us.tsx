@@ -1,11 +1,15 @@
 import { StyleSheet, Text, View } from 'react-native';
 import NoSSR from 'react-no-ssr';
+import Image from 'next/image';
 import { Token } from 'core';
 import assets from 'assets';
 import { Head, HeaderMenu } from 'components';
 import Footer from 'components/StaticPage/Footer';
+import useTailwind from 'hooks/useTailwind';
 
 export default function AboutUs() {
+  const { tailwind, md } = useTailwind();
+
   return (
     <NoSSR>
       <Head />
@@ -13,6 +17,11 @@ export default function AboutUs() {
         <HeaderMenu />
       </View>
       <View style={styles.container}>
+        {md && (
+          <View style={tailwind('fixed w-screen h-screen overflow-hidden z--1')}>
+            <Image src={assets.splashScreenImage.src} objectFit="cover" layout="fill" />
+          </View>
+        )}
         <View style={[styles.column, { backgroundColor: 'rgba(255, 255, 254, 0.74)' }]}>
           <View
             style={{
@@ -45,9 +54,11 @@ export default function AboutUs() {
             <Text style={styles.content}>Where everyone can find their tribe.</Text>
           </View>
         </View>
-        <View style={styles.column}>
-          <div className="splashParalax"></div>
-        </View>
+        {!md && (
+          <View style={styles.column}>
+            <div className="splashParalax"></div>
+          </View>
+        )}
       </View>
 
       <Footer />
