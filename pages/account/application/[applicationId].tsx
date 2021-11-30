@@ -1,11 +1,10 @@
 import React from 'react';
 import { NextPageContext } from 'next';
 import { useRouter } from 'next/router';
-import { View, StyleSheet } from 'react-native';
 import NoSSR from 'react-no-ssr';
 import { Head, HeaderMenu, HeaderNavigation, ApplicationDetailContent, Footer } from 'components';
 import { LineSharedPage } from 'components/LineBackground';
-import { fetcher, Token } from 'core';
+import { fetcher } from 'core';
 import { Button, ContainerDesktop } from 'core/base';
 import { QUERY_KEYS } from 'core/constants';
 import { useMutation, useQuery } from 'react-query';

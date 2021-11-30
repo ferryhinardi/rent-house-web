@@ -17,7 +17,7 @@ type Props = {
 };
 
 export default function HomeRecommendationHeaderSection(props: Props) {
-  const { tailwindResponsive, md } = useTailwind();
+  const { md } = useTailwind();
   const router = useRouter();
   const { homeID } = router.query;
   const { data } = useQuery(

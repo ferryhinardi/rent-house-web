@@ -84,13 +84,6 @@ const styles = StyleSheet.create({
   description: {
     marginTop: Token.spacing.xs,
   },
-  cardContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    gap: Token.spacing.xxl,
-    marginTop: Token.spacing.xxl,
-  },
   card: {
     flexGrow: 1,
     flexShrink: 1,
