@@ -120,8 +120,4 @@ const styles = StyleSheet.create({
     borderWidth: Token.border.width.thin,
     alignItems: 'flex-start',
   },
-  button: {
-    width: '50%',
-    marginTop: Token.spacing.xxl,
-  },
 });
