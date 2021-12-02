@@ -84,7 +84,6 @@ function Hero() {
   };
 
   const onSubmit = () => {
-    console.log('submit');
     if (stateIndex < totalData - 1) {
       setStateIndex((prev) => prev + 1);
     } else {
