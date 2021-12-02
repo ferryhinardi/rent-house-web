@@ -109,7 +109,7 @@ function Questionaire({
             onSlidingComplete={onRangeSlideComplete}
           />
 
-          {!preferencePage && (
+          {!showSubmitButton && !preferencePage && (
             <Button style={styles.submitButton} text={t('next')} onPress={onSubmit} textStyle={styles.buttonText} />
           )}
         </Container>
