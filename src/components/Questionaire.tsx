@@ -20,9 +20,20 @@ type Props = {
   choiceLabel?: string;
   preferencePage?: boolean;
   answer?: Answer;
+  showSubmitButton?: boolean;
 };
 
-function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceLabel, preferencePage, answer }: Props) {
+function Questionaire({
+  loading,
+  question,
+  methods,
+  index = 0,
+  onSubmit,
+  choiceLabel,
+  preferencePage,
+  answer,
+  showSubmitButton = false,
+}: Props) {
   const { t } = useTranslation();
   let QuestionContent;
 
@@ -97,6 +108,10 @@ function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceL
             trackStyle={{ height: 8, borderRadius: 50 }}
             onSlidingComplete={onRangeSlideComplete}
           />
+
+          {!preferencePage && (
+            <Button style={styles.submitButton} text={t('next')} onPress={onSubmit} textStyle={styles.buttonText} />
+          )}
         </Container>
       );
       break;
@@ -133,7 +148,7 @@ function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceL
                   : (question?.add_ons?.tags?.[idx] as string),
               questionID: question?.id,
             });
-            onSubmit && onSubmit();
+            !showSubmitButton && onSubmit && onSubmit();
           }}
         />
       ));
@@ -175,7 +190,7 @@ function Questionaire({ loading, question, methods, index = 0, onSubmit, choiceL
         </>
       )}
 
-      {question?.type === 'RANGE_NUMBER' && !preferencePage && (
+      {showSubmitButton && !preferencePage && (
         <Button
           style={styles.submitButton}
           text={t('submitQuestionButton')}

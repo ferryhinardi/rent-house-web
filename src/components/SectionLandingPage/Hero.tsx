@@ -124,6 +124,7 @@ function Hero() {
                         index={stateIndex}
                         onSubmit={onSubmit}
                         choiceLabel={t('choiceStatus')}
+                        showSubmitButton={idx === totalData - 1}
                       />
                     </View>
                   )}
@@ -131,7 +132,7 @@ function Hero() {
               </AnimatedView>
             );
           })}
-          {stateIndex === totalData - 1 && (
+          {stateIndex === totalData - 1 && isVisible == true && (
             <Modal
               animationType="fade"
               visible={isVisible}

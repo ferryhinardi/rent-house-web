@@ -24,6 +24,7 @@ const en = {
   signInFacebook: 'Sign in with Facebook',
   signInGoogle: 'Sign in with Google',
   submitQuestionButton: 'Find My Home',
+  next: 'Next',
   titleExploreHomes: 'Explore Our Homes',
   subtitleExploreHomes: `From a room for a night to a loft for as long as you like, there’s a Ryna for every occasion.`,
   moreButtonExploreHomes: 'Copy Placeholder',
