@@ -33,7 +33,7 @@ export default function ExploreHomes() {
   const fillWithDummyHouses = () => {
     const cityList = homeData?.map((h) => h.city.toLowerCase());
     const cityNotExistInAPI = allCityList.filter((item) => !cityList?.includes(item));
-    
+
     cityNotExistInAPI.map((city) => {
       var randomNumber = Math.floor(Math.random() * (9999 - 1234 + 1)) + 1234;
       const h: House = {
@@ -65,7 +65,7 @@ export default function ExploreHomes() {
 
   fillWithDummyHouses();
   const [firstHome, secondHome, otherHomes] = [homeData?.[0], homeData?.[1], homeData?.slice(2)];
-  console.log('homeData', homeData);
+
   return (
     <NoSSR>
       <ContainerDesktop style={styles.container}>

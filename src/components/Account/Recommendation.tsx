@@ -10,7 +10,7 @@ export default function Recommendation() {
   const { t } = useTranslation();
   return (
     <Element name="recommendation">
-      <View>
+      <React.Fragment>
         <View style={styles.titleWrapper}>
           <Text variant="header-3" ink="primary" style={styles.title}>
             {t('recommendationTitle')}
@@ -19,7 +19,7 @@ export default function Recommendation() {
         <Text variant="caption" style={styles.description}>
           {t('recommendationDescription')}
         </Text>
-      </View>
+      </React.Fragment>
 
       <HomeRecommendationColletion />
     </Element>

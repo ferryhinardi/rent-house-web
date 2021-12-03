@@ -1515,6 +1515,11 @@
 		"flexShrink": 1,
 		"flexBasis": "48%"
 	},
+	"flex-1/3": {
+		"flexGrow": 1,
+		"flexShrink": 1,
+		"flexBasis": "30%"
+	},
 	"flex-grow-0": {
 		"flexGrow": 0
 	},
@@ -3035,6 +3040,14 @@
 		"paddingLeft": 48,
 		"paddingRight": 48
 	},
+	"py-14": {
+		"paddingTop": 56,
+		"paddingBottom": 56
+	},
+	"px-14": {
+		"paddingLeft": 56,
+		"paddingRight": 56
+	},
 	"py-16": {
 		"paddingTop": 64,
 		"paddingBottom": 64
@@ -3375,6 +3388,18 @@
 	},
 	"left-0": {
 		"left": 0
+	},
+	"top-1/3": {
+		"top": "30%"
+	},
+	"right-1/3": {
+		"right": "30%"
+	},
+	"bottom-1/3": {
+		"bottom": "30%"
+	},
+	"left-1/3": {
+		"left": "30%"
 	},
 	"text-left": {
 		"textAlign": "left"

@@ -41,7 +41,8 @@ function SignUpForm(props: Props) {
     {
       onSuccess: (response: Login) => {
         login(response);
-        onSuccessLogin();
+        onSuccessLogin(false);
+        router.push(routePaths.registerSuccessfully);
       },
     }
   );
@@ -54,9 +55,6 @@ function SignUpForm(props: Props) {
         data: payload,
       }),
     {
-      onSuccess: () => {
-        router.push(routePaths.account);
-      },
       onError: () => {
         Router.reload();
       },
@@ -64,7 +62,8 @@ function SignUpForm(props: Props) {
   );
 
   const { control, handleSubmit } = useForm();
-  const onSuccessLogin = () => {
+  const onSuccessLogin = (withRedirect = true) => {
+    console.log('withRedirect', withRedirect);
     if (props.landingPageAnswers && props.landingPageAnswers?.length > 0) {
       var answers: UserAnswers = [];
       props.landingPageAnswers.map((item) => {
@@ -76,7 +75,7 @@ function SignUpForm(props: Props) {
       });
 
       mutateAnswer(answers);
-    } else {
+    } else if (withRedirect) {
       router.push(routePaths.account);
     }
   };
