@@ -9,7 +9,7 @@ import { Token } from 'core';
 import { Button, Text } from 'core/base';
 import useTailwind from 'hooks/useTailwind';
 
-const settings = ['profile', 'preference', 'application'];
+const settings = ['profile', 'preference'];
 
 export default function AccountSettings() {
   const { t } = useTranslation();
@@ -23,9 +23,6 @@ export default function AccountSettings() {
           </Text>
           {/* <Badge text="Need Action" variant="alert" /> */}
         </View>
-        <Text variant="caption" style={styles.description}>
-          {t('accountSettingsDescription')}
-        </Text>
         <View
           style={tailwindResponsive(
             'flex-row flex-wrap justify-between flex-gap-10 mt-10',
