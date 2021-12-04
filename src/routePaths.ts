@@ -1,5 +1,6 @@
 export const routePaths = {
   home: '/',
+  registerSuccessfully: '/register-successfully',
   account: '/account',
   accountProfile: '/account/profile',
   applicationDetail: '/account/application/[applicationId]',

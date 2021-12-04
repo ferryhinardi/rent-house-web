@@ -203,6 +203,10 @@ const en = {
 
   // partner:
   ourPartners: 'Our Partners',
+
+  // Welcoming Banner:
+  welcomingBannerTitle: 'Welcome to Ryna',
+  welcomingBannerDescription: `We're excited to help you find your new home!`,
 };
 
 export default en;
