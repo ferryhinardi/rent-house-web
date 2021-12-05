@@ -53,7 +53,7 @@ const en = {
   welcomeMessage: 'Hi, {{name}}!',
   welcomeDescription: 'Welcome to your profile',
   reuploadButton: 'Change Photo Profile',
-  accountSettingsTitle: 'Accounts Settings',
+  accountSettingsTitle: 'Profile',
   accountSettingsDescription: 'Complete your profile to get your house and roommate reccomendation.',
   profileDescription: 'Information about yourself.',
   preferenceDescription: 'Your house and roommate preferences.',
