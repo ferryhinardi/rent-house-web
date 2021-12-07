@@ -135,6 +135,8 @@ export type User = {
   role_id: number;
   birth_date?: string;
   phone_verified: boolean;
+  vaccine_status: number;
+  approximate_income: string;
 };
 
 export type UserDocument = {
@@ -170,6 +172,8 @@ export type PayloadUpdateUser = User & {
   guarantor_government_id?: FileList;
   guarantor_credit_report?: FileList;
   emergencyContacts: EmergencyContactType[];
+  vaccine_status: Option;
+  approximate_income: Option;
 };
 
 export type Option = { label: string; value: number };

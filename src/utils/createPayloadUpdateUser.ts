@@ -22,6 +22,8 @@ export default function createPayloadUpdateUser(payload: PayloadUpdateUser) {
   bodyFormDataUser.set('gender', payload.gender.value?.toString());
   bodyFormDataUser.set('birth_date', payload.birth_date);
 
+  bodyFormDataUser.set('vaccine_status', payload.vaccine_status.value?.toString());
+  bodyFormDataUser.set('approximate_income', payload.approximate_income.label);
   bodyFormDataUser.set('phone', payload.phone);
   bodyFormDataUser.set('proof_of_income_type', proofOfIncomeType?.toString());
   if (payload.facebook_url) bodyFormDataUser.set('facebook_url', payload.facebook_url);

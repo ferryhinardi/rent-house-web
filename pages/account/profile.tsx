@@ -20,7 +20,7 @@ import {
 import { LineSharedPage } from 'components/LineBackground';
 import { Token, fetcher, fetchServer } from 'core';
 import { ContainerDesktop, Button, ErrorMessage } from 'core/base';
-import { QUERY_KEYS } from 'core/constants';
+import { approximateIncomeOptions, genderOptions, QUERY_KEYS, vaccineStatusOptions } from 'core/constants';
 import { User, ResponseItem, EmergencyContactType, UserDocument, ErrorHandling, PayloadUpdateUser } from 'types';
 import createPayloadUpdateUser from 'utils/createPayloadUpdateUser';
 import { createDefaultEmergencyContact, createDefaultDocument } from 'utils/createDefaultForm';
@@ -40,6 +40,11 @@ export default function Profile({ user, documents, emergencyContacts }: Props) {
       ...user,
       ...createDefaultDocument(documents),
       emergencyContacts: createDefaultEmergencyContact(emergencyContacts.data),
+
+      // set default values for options field
+      gender: genderOptions.find((x) => x.value === user.gender),
+      approximate_income: approximateIncomeOptions.find((x) => x.label === user.approximate_income),
+      vaccine_status: vaccineStatusOptions.find((x) => x.value === user.vaccine_status),
     },
   });
   const { t } = useTranslation();
