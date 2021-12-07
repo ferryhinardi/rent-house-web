@@ -136,14 +136,16 @@ export default function ScheduleTourDetail(props: Props) {
               />
             ))}
           </Swiper>
-          <Text>
-            {props.house?.name}, {props.house?.city}
-          </Text>
-          <Link href={'/account/house-recommendation/' + props.house?.id.toString()} passHref>
-            <Text accessibilityRole="link" ink="primary" variant="small">
-              View listing
+          <View style={tailwindResponsive('flex-row flex-wrap flex-gap-5 ', { md: 'flex-col' }, { md })}>
+            <Text style={styles.formGroupHalfWidth}>
+              {props.house?.name}, {props.house?.city}
             </Text>
-          </Link>
+            <Link href={'/account/home-recommendation/' + props.house?.id.toString()} passHref>
+              <Text accessibilityRole="link" ink="primary">
+                View listing
+              </Text>
+            </Link>
+          </View>
         </View>
 
         <View style={styles.formContainer}>
