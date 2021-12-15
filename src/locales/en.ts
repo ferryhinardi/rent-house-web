@@ -92,6 +92,7 @@ const en = {
   account: 'Account',
   profile: 'Personal Info',
   preference: 'My Prefences',
+  tour:'Schedule a Tour',
   application: 'My Application',
   emptyApplicationPlaceholder:
     '<i>No applications yet. Please completed the your account settings to start a new rent request.</i>',
@@ -149,6 +150,12 @@ const en = {
   guarantorGovermentId: 'Guarantor Government ID',
   guarantorCreditReport: 'Guarantor Credit Report',
   guarantorPaystubs: 'Guarantor Paystubs',
+
+  scheduleTour: 'Schedule a Tour',
+  approximateIncome: 'Approximate Income',
+  creditScoreTitle: 'Credit Score',
+  vaccineStatusTitle: 'Vaccine Status',
+  scheduleTourDetailButton: 'Schedule Tour',
 
   // validate fields
   'email.required': 'This field is required',

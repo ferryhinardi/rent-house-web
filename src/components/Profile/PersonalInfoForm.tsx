@@ -227,7 +227,7 @@ export default function PersonalInfoForm() {
           </Text>
           <SelectInput
             {...genderField}
-            value={genderOptions.find((x) => x.value === genderField.value)}
+            value={genderField.value}
             instanceId="gender"
             variant="primary"
             placeholder={t('gender')}

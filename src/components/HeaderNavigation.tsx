@@ -11,12 +11,13 @@ type Props = {
   withBack?: boolean;
   title: string;
   subtitle?: string;
+  withBreadcrumb?: boolean;
 };
 
-export default function HeaderNavigation({ withBack = true, title, subtitle }: Props) {
+export default function HeaderNavigation({ withBreadcrumb = true, withBack = true, title, subtitle }: Props) {
   return (
     <View>
-      <Breadcrumb />
+      {withBreadcrumb && <Breadcrumb />}
       <View style={styles.header}>
         {withBack ? (
           <Pressable onPress={() => Router.back()}>

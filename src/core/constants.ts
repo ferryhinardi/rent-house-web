@@ -22,6 +22,21 @@ export const genderOptions = [
   { value: 2, label: 'Others' },
 ];
 
+export const vaccineStatusOptions = [
+  { value: 0, label: 'Unvaccinated' },
+  { value: 1, label: '1 Dose' },
+  { value: 2, label: '2 Dose' },
+  { value: 3, label: 'Booster' },
+];
+
+export const approximateIncomeOptions = [
+  { value: 0, label: '$20000 - $50000' },
+  { value: 1, label: '$50000 - $100000' },
+  { value: 2, label: '$100000 - $150000' },
+  { value: 3, label: '$150000 - $200000' },
+  { value: 4, label: 'Over $200000' },
+];
+
 export const proofIncomeOptions = [
   { value: 0, label: 'Paystub' },
   { value: 1, label: 'Guarantor' },

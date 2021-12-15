@@ -48,11 +48,17 @@ export default function ScheduleTourForm(props: Props) {
     }
   );
 
-  const onNavigateHomeDetail = () => {
+  const onClickSubmitApplication = () => {
     const apppl: ApplicationRequest = {
       house_id: props.house_id,
     };
     mutateApplication(apppl);
+  };
+
+  const onClickScheduleTour = () => {
+    router.push({
+      pathname: `/tour/${homeID}`,
+    });
   };
 
   const { data } = useQuery([QUERY_KEYS.HOME_ROOM, homeID], async () => {
@@ -85,11 +91,20 @@ export default function ScheduleTourForm(props: Props) {
           <InputBorder label="Availability" value="Ready" />
         </View>
         {props.allowApplicant && (
-          <Button
-            text={t('startYourApplication')}
-            style={tailwindResponsive('mt-10 self-start', { md: 'self-auto' }, { md })}
-            onPress={onNavigateHomeDetail}
-          />
+          <View style={styles.wrapper}>
+            {' '}
+            <Button
+              variant="secondary"
+              text={t('scheduleTourButton')}
+              style={tailwindResponsive('mt-10 self-start', { md: 'self-auto' }, { md })}
+              onPress={onClickScheduleTour}
+            />
+            <Button
+              text={t('startYourApplication')}
+              style={tailwindResponsive('mt-10 self-start', { md: 'self-auto' }, { md })}
+              onPress={onClickSubmitApplication}
+            />
+          </View>
         )}
       </View>
     </NoSSR>

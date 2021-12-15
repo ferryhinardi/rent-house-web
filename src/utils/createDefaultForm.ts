@@ -1,4 +1,4 @@
-import { EmergencyContactType, UserDocument } from 'types';
+import { EmergencyContactType, User, UserDocument } from 'types';
 import { getDocumentFile, DocumentMap } from 'utils/getUserDocument';
 
 export function createDefaultEmergencyContact(emergencyData: EmergencyContactType[]): EmergencyContactType[] {
