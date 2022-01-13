@@ -78,9 +78,6 @@ const styles = StyleSheet.create({
   title: {
     marginRight: Token.spacing.s,
   },
-  description: {
-    marginTop: Token.spacing.xs,
-  },
   card: {
     flexGrow: 1,
     flexShrink: 1,

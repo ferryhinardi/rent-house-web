@@ -4,7 +4,6 @@ import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
 import { Text } from 'core/base';
-import { Token } from 'core';
 
 import assets from 'assets';
 import useTailwind from 'hooks/useTailwind';
