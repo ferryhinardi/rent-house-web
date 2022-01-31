@@ -70,5 +70,6 @@ export async function getStaticProps(context: NextPageContext) {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: 10,
   };
 }
