@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import config from 'config';
 import curlirize from 'utils/axiosCurl';
-
+console.log('config.apiHost', config.apiHost);
 export const instance = axios.create({
   baseURL: config.apiHost,
 });
