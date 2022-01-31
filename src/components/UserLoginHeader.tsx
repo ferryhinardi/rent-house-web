@@ -1,16 +1,19 @@
 import React, { useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { View, StyleSheet } from 'react-native';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { useTranslation } from 'react-i18next';
 import { Token } from 'core';
-import { Text, Pressable, Tooltip } from 'core/base';
+import { Text, Pressable } from 'core/base';
 import { useClickOutside } from 'core/hooks';
 import { User } from 'types';
 import { logout } from 'utils/auth';
 import { routePaths } from 'routePaths';
 import useTailwind from 'hooks/useTailwind';
+
+const Tooltip = dynamic(import(/* webpackChunkName: "Tooltip" */ 'core/base/Tooltip'), { ssr: false });
 
 type Props = User;
 

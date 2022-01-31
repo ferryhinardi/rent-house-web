@@ -1,4 +1,5 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import NoSSR from 'react-no-ssr';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -14,10 +15,13 @@ import { menus, QUERY_KEYS } from 'core/constants';
 import { User } from 'types';
 import assets from 'assets';
 import { routePaths } from 'routePaths';
-import { SignInButton } from 'components/SignIn';
-import UserLoginHeader from 'components/UserLoginHeader';
-import { Text } from 'core/base';
+import { Text, LoadingIndicator } from 'core/base';
 import useTailwind from 'hooks/useTailwind';
+import { SignInButton } from 'components/SignIn';
+
+const UserLoginHeader = dynamic(import(/* webpackChunkName: "UserLoginHeader" */ 'components/UserLoginHeader'), {
+  ssr: false,
+});
 
 function Header() {
   const router = useRouter();
@@ -74,7 +78,12 @@ function Header() {
                   </View>
                   {/* Secondary Navbar items */}
                   <View style={tailwindResponsive('flex items-end space-x-3', { md: 'hidden' }, { md })}>
-                    {!isLoading && data?.name ? <UserLoginHeader {...data} /> : <SignInButton />}
+                    {React.createElement(() => {
+                      if (isLoading) return <LoadingIndicator color={Token.colors.rynaBlue} />;
+                      else if (data?.name) return <UserLoginHeader {...data} />;
+
+                      return <SignInButton />;
+                    })}
                   </View>
                   {/* Mobile menu button */}
                   <View style={tailwindResponsive('-mr-2 hidden', { md: 'flex' }, { md })}>
@@ -119,7 +128,12 @@ function Header() {
                 </View>
                 <View style={styles.separator} />
                 <View style={tailwind('flex flex-1 items-center pb-10')}>
-                  {!isLoading && data?.name ? <UserLoginHeader {...data} /> : <SignInButton />}
+                  {React.createElement(() => {
+                    if (isLoading) return <LoadingIndicator color={Token.colors.rynaBlue} />;
+                    else if (data?.name) return <UserLoginHeader {...data} />;
+
+                    return <SignInButton />;
+                  })}
                 </View>
               </Disclosure.Panel>
             </>
