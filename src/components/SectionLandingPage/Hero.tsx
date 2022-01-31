@@ -16,11 +16,11 @@ import { ResponseItem, Question, User } from 'types';
 import { routePaths } from 'routePaths';
 
 import { HeroBannerInitial, HeroBannerChooseDate, HeroBannerChooseBudget, HeroBannerDone } from 'components/HeroBanner';
-import Questionaire from 'components/Questionaire';
-import SignUpForm from 'components/SignUp';
 import useTailwind from 'hooks/useTailwind';
 
+const Questionaire = dynamic(import(/* webpackChunkName: "Questionaire" */ 'components/Questionaire'), { ssr: false });
 const Modal = dynamic(import(/* webpackChunkName: "Modal" */ 'core/base/Modal'), { ssr: false });
+const SignUpForm = dynamic(import(/* webpackChunkName: "SignUp" */ 'components/SignUp'), { ssr: false });
 
 export type HeroState = {
   name: string;

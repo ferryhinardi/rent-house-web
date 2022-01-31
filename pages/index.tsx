@@ -20,7 +20,6 @@ import {
 import { fetchServer } from 'core';
 import { ResponseItem, Question, House, Testimony } from 'types';
 import { QUERY_KEYS } from 'core/constants';
-import { redirectIfUnauthenticated } from 'utils/auth';
 
 export default function Home() {
   return (
@@ -46,9 +45,8 @@ export default function Home() {
   );
 }
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getStaticProps(context: NextPageContext) {
   const queryClient = new QueryClient();
-  await queryClient.fetchQuery(QUERY_KEYS.CURRENT_USER, () => redirectIfUnauthenticated(context));
   await queryClient.fetchQuery(QUERY_KEYS.QUESTION_LANDING_PAGE, () =>
     fetchServer<ResponseItem<Question>>(context.req as NextApiRequest, context.res as NextApiResponse, {
       url: '/question/all',
