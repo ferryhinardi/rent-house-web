@@ -6,6 +6,8 @@ on: # rebuild any PRs and main branch changes
       - develop
       - 'feature/*'
       - 'releases/*'
+env:
+  NEXT_PUBLIC_API_HOST: https://ryna-backend-staging-mvy9g.ondigitalocean.app
 jobs:
   # make sure build/ci work properly
   build:
