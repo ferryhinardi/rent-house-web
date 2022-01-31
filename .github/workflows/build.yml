@@ -20,11 +20,11 @@ jobs:
         with:
           node-version: '14.x'
 
-      # - name: Cache node_modules
-      #   uses: actions/cache@v1
-      #   with:
-      #     path: node_modules
-      #     key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }} # Cache key based on os + hashed yarn.lock contents
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }} # Cache key based on os + hashed yarn.lock contents
 
       - name: Yarn install, lint
         run: |
