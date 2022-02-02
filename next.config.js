@@ -37,7 +37,7 @@ module.exports = withSentryConfig(
     reactStrictMode: true,
     // Issue: https://github.com/vercel/next.js/issues/30601#issuecomment-961323914
     outputFileTracing: false,
-    assetPrefix: 'https://theryna.sgp1.cdn.digitaloceanspaces.com',
+    // assetPrefix: 'https://theryna.sgp1.cdn.digitaloceanspaces.com',
     // assetPrefix:
     //   process.env.NODE_ENV === 'production'
     //     ? 'https://cyclops.sfo3.cdn.digitaloceanspaces.com'
