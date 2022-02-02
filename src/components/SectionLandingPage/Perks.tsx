@@ -52,31 +52,34 @@ function Perks() {
       ) : (
         <View style={styles.containerPerks}>
           {md ? (
-            perks?.map((item) => (
-              <Card
-                activeOpacity={1}
-                noShadow
-                key={item.id}
-                orientation="portrait"
-                style={[styles.upperSectionCard, { maxWidth: '100%' }]}
-                imageProps={{
-                  src: `${config.imageHost}/${item.image}`,
-                  blurDataURL: `${config.imageHost}/${item.image}`,
-                  placeholder: 'blur',
-                  loading: 'lazy',
-                  width: '100%',
-                  height: 180,
-                  alt: 'perk image',
-                  onError: () => console.error('error render image'),
-                }}>
-                <Card.Body>
-                  <Card.Title variant="header-2">{item.title}</Card.Title>
-                  <Text variant="caption" style={{ marginTop: Token.spacing.m }}>
-                    {item.description}
-                  </Text>
-                </Card.Body>
-              </Card>
-            ))
+            perks?.map((item) => {
+              console.log('image source', `${config.imageHost}/${item.image}`);
+              return (
+                <Card
+                  activeOpacity={1}
+                  noShadow
+                  key={item.id}
+                  orientation="portrait"
+                  style={[styles.upperSectionCard, { maxWidth: '100%' }]}
+                  imageProps={{
+                    src: `${config.imageHost}/${item.image}`,
+                    blurDataURL: `${config.imageHost}/${item.image}`,
+                    placeholder: 'blur',
+                    loading: 'lazy',
+                    width: '100%',
+                    height: 180,
+                    alt: 'perk image',
+                    onError: () => console.error('error render image'),
+                  }}>
+                  <Card.Body>
+                    <Card.Title variant="header-2">{item.title}</Card.Title>
+                    <Text variant="caption" style={{ marginTop: Token.spacing.m }}>
+                      {item.description}
+                    </Text>
+                  </Card.Body>
+                </Card>
+              );
+            })
           ) : (
             <>
               <View style={styles.upperSection}>
