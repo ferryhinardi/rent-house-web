@@ -35,6 +35,8 @@ module.exports = withSentryConfig(
     // https://www.digitalocean.com/community/questions/next-js-static-site-requires-html-extension-in-url-for-dynamic-routes
     trailingSlash: true,
     reactStrictMode: true,
+    // Issue: https://github.com/vercel/next.js/issues/30601#issuecomment-961323914
+    outputFileTracing: false,
     assetPrefix:
       process.env.NODE_ENV === 'production'
         ? 'https://cyclops.sfo3.cdn.digitaloceanspaces.com'
