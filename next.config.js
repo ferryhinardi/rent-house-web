@@ -35,6 +35,10 @@ module.exports = withSentryConfig(
     // https://www.digitalocean.com/community/questions/next-js-static-site-requires-html-extension-in-url-for-dynamic-routes
     trailingSlash: true,
     reactStrictMode: true,
+    assetPrefix:
+      process.env.NODE_ENV === 'production'
+        ? 'https://cyclops.sfo3.cdn.digitaloceanspaces.com'
+        : 'https://theryna.sgp1.cdn.digitaloceanspaces.com',
     images: {
       domains: ['theryna.sgp1.cdn.digitaloceanspaces.com', 'cyclops.sfo3.cdn.digitaloceanspaces.com'],
     },
