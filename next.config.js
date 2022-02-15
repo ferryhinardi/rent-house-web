@@ -44,7 +44,6 @@ module.exports = withSentryConfig(
     //     : 'https://theryna.sgp1.cdn.digitaloceanspaces.com',
     images: {
       domains: ['theryna.sgp1.cdn.digitaloceanspaces.com', 'cyclops.sfo3.cdn.digitaloceanspaces.com'],
-      disableStaticImages: true,
     },
     swcMinify: true,
     webpack: (config, { dev, isServer, webpack }) => {
