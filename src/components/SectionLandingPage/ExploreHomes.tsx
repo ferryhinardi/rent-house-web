@@ -65,7 +65,7 @@ export default function ExploreHomes() {
 
   fillWithDummyHouses();
   const [firstHome, secondHome, otherHomes] = [homeData?.[0], homeData?.[1], homeData?.slice(2)];
-
+  console.log('homeData', `${config.imageHost}/${firstHome?.lead_media}`);
   return (
     <NoSSR>
       <ContainerDesktop style={styles.container}>
