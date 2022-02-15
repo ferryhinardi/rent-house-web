@@ -40,3 +40,4 @@ export { default as HomeDetailContent } from './HomeDetail/Content';
 export { default as HomeDetailAgreement } from './HomeDetail/Agreement';
 export { default as RoommateProfile } from './Roommates/RoommateProfile';
 export { default as BannerWelcome } from './StaticPage/BannerWelcome';
+export { default as ErrorPage } from './ErrorPage';
