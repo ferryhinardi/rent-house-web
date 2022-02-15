@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Image, { ImageProps } from 'next/image';
+import Image, { ImageProps, ImageLoaderProps } from 'next/image';
 import { View, TouchableOpacity, StyleSheet, ViewProps, ViewStyle } from 'react-native';
 import { colors, border, spacing } from './Token';
 import Text from './Text';
@@ -73,7 +73,7 @@ function Card({
         onPress={onPress}>
         {imageProps && (
           <View style={[styles.imageContainer, imageContainerStyle]}>
-            <Image {...imageProps} className="banner-card" objectFit="cover" alt="image card" />
+            <Image {...imageProps} loader={ImageLoader} className="banner-card" objectFit="cover" alt="image card" />
           </View>
         )}
         {children}
@@ -112,6 +112,17 @@ const styles = StyleSheet.create({
     display: 'flex',
   },
 });
+
+const ImageLoader = ({ src, width, quality }: ImageLoaderProps) => {
+  console.log(
+    'ImageLoader',
+    src,
+    width,
+    quality,
+    `https://theryna.sgp1.cdn.digitaloceanspaces.com/staging/media/image/${src}?w=${width}&q=${quality || 75}`
+  );
+  return `https://theryna.sgp1.cdn.digitaloceanspaces.com/staging/media/image/${src}`;
+};
 
 Card.Title = CardTitle;
 Card.Body = CardBody;
