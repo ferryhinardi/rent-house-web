@@ -1,41 +1,26 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
-import Image from 'next/image';
 import config from 'config';
 import { Token } from 'core';
-import { Text, Button, Modal } from 'core/base';
+import { Text, Button, Modal, Image } from 'core/base';
 import Swiper from '../Swiper';
 
 type Props = React.ComponentProps<typeof Button> & {
   images: string[];
 };
 
-export default function PreviewImageButtonModal({
-  images,
-  ...restProps
-}: Props) {
+export default function PreviewImageButtonModal({ images, ...restProps }: Props) {
   const [isVisible, onVisible] = useState(false);
   return (
     <>
-      <Button
-        {...restProps}
-        variant="outline"
-        onPress={() => onVisible(true)}
-        borderColor="transparent"
-      />
+      <Button {...restProps} variant="outline" onPress={() => onVisible(true)} borderColor="transparent" />
       <Modal
         animationType="fade"
         visible={isVisible}
         onRequestClose={() => onVisible(false)}
         onDismiss={() => onVisible(false)}
-        noPadding
-      >
-        <Button
-          IconStart="times"
-          variant="empty"
-          style={styles.close}
-          onPress={() => onVisible(false)}
-        />
+        noPadding>
+        <Button IconStart="times" variant="empty" style={styles.close} onPress={() => onVisible(false)} />
         <View style={styles.modalContainer}>
           <Text variant="header-2" ink="primary">
             {'View All Photos'}
@@ -102,8 +87,7 @@ export default function PreviewImageButtonModal({
                     }}
                   />
                 ),
-              }}
-            >
+              }}>
               {images.map((image) => (
                 <Image
                   key={image}

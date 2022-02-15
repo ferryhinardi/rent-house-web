@@ -1,9 +1,8 @@
 import React from 'react';
-import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useForm, useController } from 'react-hook-form';
-import { Text, Button, Input, CalendarInput, ErrorMessage } from 'core/base';
+import { Text, Button, Input, CalendarInput, ErrorMessage, Image } from 'core/base';
 import { Token } from 'core';
 import assets from 'assets';
 
@@ -14,14 +13,13 @@ type Props = {
 export default function FormApply({ onSubmit }: Props) {
   const { t } = useTranslation();
   const { control } = useForm();
-  const { field: fullNameField, fieldState: fullNameFieldState } =
-    useController({
-      name: 'fullName',
-      control,
-      rules: {
-        required: t('fullName.required') as string,
-      },
-    });
+  const { field: fullNameField, fieldState: fullNameFieldState } = useController({
+    name: 'fullName',
+    control,
+    rules: {
+      required: t('fullName.required') as string,
+    },
+  });
   const { field: dobField, fieldState: dobFieldState } = useController({
     name: 'dob',
     control,
@@ -29,22 +27,20 @@ export default function FormApply({ onSubmit }: Props) {
       required: t('dob.required') as string,
     },
   });
-  const { field: occupationField, fieldState: occupationFieldState } =
-    useController({
-      name: 'occupation',
-      control,
-      rules: {
-        required: t('occupation.required') as string,
-      },
-    });
-  const { field: movingDateField, fieldState: movingDateFieldState } =
-    useController({
-      name: 'movingDate',
-      control,
-      rules: {
-        required: t('movingDate.required') as string,
-      },
-    });
+  const { field: occupationField, fieldState: occupationFieldState } = useController({
+    name: 'occupation',
+    control,
+    rules: {
+      required: t('occupation.required') as string,
+    },
+  });
+  const { field: movingDateField, fieldState: movingDateFieldState } = useController({
+    name: 'movingDate',
+    control,
+    rules: {
+      required: t('movingDate.required') as string,
+    },
+  });
   const onContinue = () => {
     // TODO: this should be continue action
 
@@ -88,10 +84,7 @@ export default function FormApply({ onSubmit }: Props) {
             errorMessageId={dobFieldState.error?.message}
           />
           {Boolean(dobFieldState.error) && (
-            <ErrorMessage
-              text={dobFieldState.error?.message!}
-              errorMessageId={dobFieldState.error?.message}
-            />
+            <ErrorMessage text={dobFieldState.error?.message!} errorMessageId={dobFieldState.error?.message} />
           )}
         </View>
         <View style={styles.formGroup}>

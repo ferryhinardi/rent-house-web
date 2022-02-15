@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { View, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
@@ -8,7 +7,7 @@ import NoSSR from 'react-no-ssr';
 import config from 'config';
 import { Token, fetcher } from 'core';
 import { QUERY_KEYS } from 'core/constants';
-import { Text } from 'core/base';
+import { Text, Image } from 'core/base';
 import { EasyProcessPlaceholder } from 'components/Placeholder';
 import { Process, ResponseItem } from 'types';
 import useTailwind from 'hooks/useTailwind';

@@ -1,10 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import config from 'config';
 import { Token } from 'core';
-import { Card, Text, Button } from 'core/base';
+import { Card, Text, Button, Image } from 'core/base';
 import Swiper from '../Swiper';
 import FacilityIcon from './FacilityIcon';
 import { House } from 'types';

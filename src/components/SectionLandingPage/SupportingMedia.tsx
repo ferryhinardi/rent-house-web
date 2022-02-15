@@ -1,9 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 import NoSSR from 'react-no-ssr';
-import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
-import { Text } from 'core/base';
+import { Text, Image } from 'core/base';
 import assets from 'assets';
 import useTailwind from 'hooks/useTailwind';
 

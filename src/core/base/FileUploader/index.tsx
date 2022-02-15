@@ -1,8 +1,7 @@
 import React, { useRef, useState, useImperativeHandle } from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
-import Image from 'next/image';
 import { Token } from 'core';
-import { Button, Text } from 'core/base';
+import { Button, Text, Image } from 'core/base';
 import { ImageLoader } from 'core/utils/imageHelper';
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome';

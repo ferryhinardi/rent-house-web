@@ -81,7 +81,11 @@ function FollowUsList() {
   return (
     <View style={styles.followUsContainer}>
       <View style={styles.followUsWrapper}>
-        <a href={'https://www.facebook.com/therynaofficial/'} target="_blank" rel="noopener noreferrer">
+        <a
+          href={'https://www.facebook.com/therynaofficial/'}
+          title="facebook"
+          target="_blank"
+          rel="noopener noreferrer">
           <Text accessibilityRole="link">
             <Icon name="facebook-f" size={18} color={Token.colors.white} />
           </Text>
@@ -96,14 +100,18 @@ function FollowUsList() {
         <Icon name="twitter" size={18} color={Token.colors.white} />
       </Text> */}
       <View style={styles.followUsWrapper}>
-        <a href={'https://www.instagram.com/therynaofficial/'} target="_blank" rel="noopener noreferrer">
+        <a
+          href={'https://www.instagram.com/therynaofficial/'}
+          title="instagram"
+          target="_blank"
+          rel="noopener noreferrer">
           <Text accessibilityRole="link">
             <Icon name="instagram" size={18} color={Token.colors.white} />
           </Text>
         </a>
       </View>
       <View style={styles.followUsWrapper}>
-        <a href={'https://www.linkedin.com/company/ryna/'} target="_blank" rel="noopener noreferrer">
+        <a href={'https://www.linkedin.com/company/ryna/'} title="linkedin" target="_blank" rel="noopener noreferrer">
           <Text accessibilityRole="link">
             <Icon name="linkedin" size={18} color={Token.colors.white} />
           </Text>

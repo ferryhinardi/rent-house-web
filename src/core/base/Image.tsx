@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Image, { ImageProps } from 'next/image';
+import { ImageLoader } from 'core/utils/imageHelper';
 
 import assets from 'assets';
 
@@ -14,7 +15,7 @@ const ImageWithFallback = ({ fallback = assets.placehoderImage, ...props }: Imag
     setSrc(fallback);
   };
 
-  return <Image {...props} src={src} onError={onError} />;
+  return <Image {...props} src={src} loader={ImageLoader} onError={onError} />;
 };
 
 export default ImageWithFallback;
