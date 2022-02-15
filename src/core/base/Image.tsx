@@ -8,7 +8,7 @@ type ImageWithFallbackProps = {
 } & ImageProps;
 
 const ImageWithFallback = ({ fallback = assets.placehoderImage, ...props }: ImageWithFallbackProps) => {
-  const [src, setSrc] = useState<any>(props.src);
+  const [src, setSrc] = useState<ImageProps['src']>(props.src);
 
   const onError = () => {
     setSrc(fallback);
