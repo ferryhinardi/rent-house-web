@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
-import { Text, ContainerDesktop } from 'core/base';
+import { Text, Image, ContainerDesktop } from 'core/base';
 import { fetcher, Token } from 'core';
 import config from 'config';
 import { useRouter } from 'next/router';

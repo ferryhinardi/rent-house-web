@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 
 import { Token } from 'core';
 import { Card, Text, Button, Image } from 'core/base';
-import customImgLoader from 'core/utils/customImgLoader';
 import { routePaths } from 'routePaths';
 import config from 'config';
 import assets from 'assets';
 
 import { User } from 'types';
+import { ImageLoader } from 'core/utils/imageHelper';
 
 type RoommateCardProps = {
   roomate: User;
@@ -37,7 +37,7 @@ export default function RoommateCard({ roomate }: RoommateCardProps) {
           src={imgSource}
           blurDataURL={imgSource}
           className="image-galery"
-          loader={customImgLoader}
+          loader={ImageLoader}
           placeholder="blur"
           objectFit="cover"
           width={240}

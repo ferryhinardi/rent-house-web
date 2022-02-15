@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import Image, { ImageProps } from 'next/image';
 import { View, TouchableOpacity, StyleSheet, ViewProps, ViewStyle } from 'react-native';
+import { ImageLoader } from 'core/utils/imageHelper';
 import { colors, border, spacing } from './Token';
 import Text from './Text';
 
@@ -73,7 +74,7 @@ function Card({
         onPress={onPress}>
         {imageProps && (
           <View style={[styles.imageContainer, imageContainerStyle]}>
-            <Image {...imageProps} className="banner-card" objectFit="cover" alt="image card" />
+            <Image {...imageProps} loader={ImageLoader} className="banner-card" objectFit="cover" alt="image card" />
           </View>
         )}
         {children}
